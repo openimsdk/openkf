@@ -1,0 +1,59 @@
+# This is a comment.
+# Each line is a file pattern followed by one or more owners.
+
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+# @cubxxw and @kubbot will be requested for
+# review when someone opens a pull request.
+*       @cubxxw  @kubbot
+
+# Order is important; the last matching pattern takes the most
+# precedence. When someone opens a pull request that only
+# modifies JS files, only @js-owner and not the global
+# owner(s) will be requested for a review.
+*.js    @cubxxw #This is an inline comment.
+
+# You can also use email addresses if you prefer. They'll be
+# used to look up users just like we do for commit author
+# emails.
+*.go 3293172751nss@gmail.com
+
+# Teams can be specified as code owners as well. Teams should
+# be identified in the format @org/team-name. Teams must have
+# explicit write access to the repository. In this example,
+# the OpenIMSDK team in the github organization owns all .txt files.
+*.txt @cubxxw
+
+# In this example, @cubxxw owns any files in the build/
+# directory at the root of the repository and any of its
+# subdirectories.
+/build/* @cubxxw
+
+# The `docs/*` pattern will match files like
+# `docs/getting-started.md` but not further nested files like
+# `docs/build-app/troubleshooting.md`.
+docs/*  3293172751nss@gmail.com
+
+# In this example, @octocat owns any file in an apps directory
+# anywhere in your repository.
+api/ @cubxxw
+
+# In this example, @cubxxw owns any file in the `/docs`
+# directory in the root of your repository and any of its
+# subdirectories.
+/docs/ @cubxxw
+
+# In this example, any change inside the `/scripts` directory
+# will require approval from @cubxxw or @octocat.
+/scripts/ @cubxxw @kubbot
+
+# In this example, @octocat owns any file in a `/logs` directory such as
+# `/build/logs`, `/scripts/logs`, and `/deeply/nested/logs`. Any changes
+# in a `/logs` directory will require approval from @octocat.
+**/logs @cubxxw
+
+# In this example, @octocat owns any file in the `/apps`
+# directory in the root of your repository except for the `/apps/github`
+# subdirectory, as its owners are left empty.
+/apps/ @cubxxw
+/apps/github

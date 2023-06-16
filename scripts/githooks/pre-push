@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Copyright © 2023 OpenIMSDK & Xinwei Xiong(cubxxw). All rights reserved.
+#
+# Licensed under the MIT License (the "License");
+# you may not use this file except in compliance with the License.
+
+YELLOW="\e[93m"
+GREEN="\e[32m"
+RED="\e[31m"
+ENDCOLOR="\e[0m"
+
+printMessage() {
+   printf "${YELLOW}OpenIMSDK : $1${ENDCOLOR}\n"
+}
+
+printSuccess() {
+   printf "${GREEN}OpenIMSDK : $1${ENDCOLOR}\n"
+}
+
+printError() {
+   printf "${RED}OpenIMSDK : $1${ENDCOLOR}\n"
+}
+
+printMessage "Running local OpenIMSDK pre-push hook."
+
+if [[ `git status --porcelain` ]]; then
+  printError "This script needs to run against committed code only. Please commit or stash you changes."
+  exit 1
+fi
+
+#
+#printMessage "Running the Flutter analyzer"
+#flutter analyze
+#
+#if [ $? -ne 0 ]; then
+#  printError "Flutter analyzer error"
+#  exit 1
+#fi
+#
+#printMessage "Finished running the Flutter analyzer"
