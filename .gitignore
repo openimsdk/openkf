@@ -305,7 +305,7 @@ dist/
 flycheck_*.el
 
 # server auth directory
-/server/
+# /server/
 
 # projectiles files
 .projectile
@@ -331,6 +331,10 @@ flycheck_*.el
 
 # log
 *.log
+/server/logs
+
+# data
+/server/data
 
 # Output of backend and frontend
 /_output
