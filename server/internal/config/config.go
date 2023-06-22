@@ -6,7 +6,10 @@ package config
 
 var Config *config
 
-func ConfigInit() {
+func ConfigInit(configPath string) {
+	// init viper
+	initViper(configPath)
+
 	// init Configuration
 	Config = &config{
 		App: App{
@@ -58,43 +61,43 @@ type config struct {
 }
 
 type App struct {
-	Version string
-	Debug   bool
-	LogFile string
+	Version string `mapstructure:"version"`
+	Debug   bool   `mapstructure:"debug"`
+	LogFile string `mapstructure:"log_file"`
 }
 
 type JWT struct {
-	Secret     string
-	Issuer     string
-	ExpireDays int
+	Secret     string `mapstructure:"secret"`
+	Issuer     string `mapstructure:"issuer"`
+	ExpireDays int    `mapstructure:"expire_days"`
 }
 
 type Server struct {
-	Ip   string
-	Port int
+	Ip   string `mapstructure:"ip"`
+	Port int    `mapstructure:"port"`
 }
 
 type Mysql struct {
-	Ip       string
-	Port     int
-	Username string
-	Password string
-	Database string
+	Ip       string `mapstructure:"ip"`
+	Port     int    `mapstructure:"port"`
+	Username string `mapstructure:"username"`
+	Password string `mapstructure:"password"`
+	Database string `mapstructure:"database"`
 }
 
 type Redis struct {
-	Ip       string
-	Port     int
-	Password string
-	Database int
+	Ip       string `mapstructure:"ip"`
+	Port     int    `mapstructure:"port"`
+	Password string `mapstructure:"password"`
+	Database int    `mapstructure:"database"`
 }
 
 type Minio struct {
-	Ip              string
-	Port            int
-	AccessKeyId     string
-	SecretAccessKey string
-	Bucket          string
-	AppBucket       string
-	Location        string
+	Ip              string `mapstructure:"ip"`
+	Port            int    `mapstructure:"port"`
+	AccessKeyId     string `mapstructure:"access_key_id"`
+	SecretAccessKey string `mapstructure:"secret_access_key"`
+	Bucket          string `mapstructure:"bucket"`
+	AppBucket       string `mapstructure:"app_bucket"`
+	Location        string `mapstructure:"location"`
 }
