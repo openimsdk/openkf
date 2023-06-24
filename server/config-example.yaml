@@ -26,7 +26,7 @@ mysql:
 redis:
   ip: 127.0.0.1
   port: 6380
-  password:  
+  password: openkf
   database: 0
 
 minio:
