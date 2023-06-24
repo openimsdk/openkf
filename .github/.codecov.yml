@@ -1,9 +1,9 @@
 coverage:
   status:
     project:
-      default: false # disable the default status that measures entire project
-      pkg: # declare a new status context "pkg"
+      default: false
+      pkg:
         paths:
-          - pkg/* # only include coverage in "pkg/" folder
-        informational: true # Always pass check
-    patch: off # disable the commit only checks
+          - server/pkg/* 
+        informational: true
+    patch: off
