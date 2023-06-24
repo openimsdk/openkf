@@ -6,17 +6,17 @@ package config
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/spf13/viper"
 )
 
-func init() {
-	configPath := "./config.yaml"
+func initViper(configPath string) {
 	fmt.Printf("[OpenKF] Load config from %s ... ", configPath)
 	viper.SetConfigFile(configPath)
 
 	if err := viper.ReadInConfig(); err != nil {
-		panic(fmt.Errorf("fatal error config file: %s", err))
+		log.Panicf("fatal error config file: %s", err.Error())
 	}
 
 	fmt.Println("Load ok")

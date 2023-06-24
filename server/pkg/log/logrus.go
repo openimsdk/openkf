@@ -19,7 +19,7 @@ import (
 
 var _logger *logrus.Logger
 
-func init() {
+func InitLogger() {
 	_logger = loggerInit()
 }
 
@@ -27,7 +27,7 @@ func loggerInit() *logrus.Logger {
 	var logger = logrus.New()
 
 	// set log level
-	if config.GetString("app.debug") == "true" {
+	if config.Config.App.Debug {
 		logger.SetLevel(logrus.DebugLevel)
 	} else {
 		logger.SetLevel(logrus.InfoLevel)
@@ -75,7 +75,7 @@ func NewLfsHook(rotationTime time.Duration, maxRemainNum uint) logrus.Hook {
 
 func initRotateLogs(rotationTime time.Duration, maxRemainNum uint, level string) *rotatelogs.RotateLogs {
 	writer, err := rotatelogs.New(
-		config.GetString("app.log_file")+level+".%Y%m%d%H%M",
+		config.Config.App.LogFile+level+".%Y%m%d%H%M",
 		rotatelogs.WithRotationTime(rotationTime),
 		rotatelogs.WithRotationCount(maxRemainNum),
 	)

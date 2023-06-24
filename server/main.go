@@ -5,34 +5,26 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/router"
+	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/server"
 )
 
 func init() {
-	// init config
-	config.ConfigInit()
+	// arg
+	configPath := flag.String("c", "./config.yaml", "config file path")
+	flag.Parse()
 
-	// logo
-	_logo := `
-_______                        ______ ____________
-__  __ \________ _____ _______ ___  //_/___  ____/
-_  / / /___  __ \_  _ \__  __ \__  ,<   __  /_    
-/ /_/ / __  /_/ //  __/_  / / /_  /| |  _  __/    
-\____/  _  .___/ \___/ /_/ /_/ /_/ |_|  /_/       
-        /_/                                  
-Copyright © 2023 OpenIMSDK open source community. All rights reserved.
-Licensed under the MIT License (the "License");
-`
-	fmt.Printf("%s\n", _logo)
-	fmt.Printf("OpenKF version: %s\n", config.Config.App.Version)
-
-	// init database
+	// init
+	config.ConfigInit(*configPath)
+	utils.OpenKFBanner()
+	log.InitLogger()
 	db.InitMysqlDB()
 	db.InitRedisDB()
 }
