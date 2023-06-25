@@ -1,29 +1,29 @@
-# name: Check-Coverage
+name: Check-Coverage
 
 
-# on:
-#   workflow_dispatch:
-#   push:
-#     branches: [ "main" ]
-#     paths-ignore:
-#       - "docs/**"
-#       - "**/*.md"
-#       - "**/*.yaml"
-#       - "CONTRIBUTORS"
-#       - "CHANGELOG/**"
-#   pull_request:
-#     branches: [ "*" ]
-#     paths-ignore:
-#       - "docs/**"
-#       - "**/*.md"
-#       - "**/*.yaml"
-#       - "CONTRIBUTORS"
-#       - "CHANGELOG/**"
-# env:
-#   # Common versions
-#   GO_VERSION: "1.20"
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+      - "**/*.yaml"
+      - "CONTRIBUTORS"
+      - "CHANGELOG/**"
+  pull_request:
+    branches: [ "*" ]
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+      - "**/*.yaml"
+      - "CONTRIBUTORS"
+      - "CHANGELOG/**"
+env:
+  # Common versions
+  GO_VERSION: "1.20"
 
-# jobs:
+jobs:
 #   coverage:
 #     runs-on: ubuntu-20.04
 #     steps:
