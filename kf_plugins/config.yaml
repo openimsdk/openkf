@@ -1,0 +1,21 @@
+# Copyright © 2023 OpenIMSDK open source community. All rights reserved.
+# Licensed under the MIT License (the "License");
+# you may not use this file except in compliance with the License.
+
+app:
+  version: 1.0-dev
+  host: 0.0.0.0
+  port: 10011
+  debug: true
+  log_file: logs/
+  doc: data/
+
+inference:
+  device: cuda
+
+# These can be modified in api
+model:
+  history: 0
+  temperature: 0.01
+  top_k: 5
+  top_p: 0.9
