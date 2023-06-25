@@ -4,7 +4,7 @@
     </b>
 </h1>
 <h3 align="center" style="border-bottom: none">
-      ⭐️  OpenKF is online customer service system.  ⭐️ <br>
+      ⭐️  OpenKF(Open Knowledge Flow) is online customer service system.  ⭐️ <br>
 <h3>
 
 
