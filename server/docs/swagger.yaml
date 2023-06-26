@@ -1,4 +1,45 @@
+definitions:
+  param.SendToParams:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  response.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /api/v1/email/code:
+    post:
+      description: Use email to send verification code
+      parameters:
+      - description: Email address
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/param.SendToParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Send success
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: SendCode
+      tags:
+      - mail
 swagger: "2.0"

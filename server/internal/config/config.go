@@ -48,6 +48,13 @@ func ConfigInit(configPath string) {
 			AppBucket:       GetString("minio.app_bucket"),
 			Location:        GetString("minio.location"),
 		},
+		Email: Email{
+			Host:     GetString("email.host"),
+			Port:     GetInt("email.port"),
+			From:     GetString("email.from"),
+			Nickname: GetString("email.nickname"),
+			Password: GetString("email.password"),
+		},
 	}
 }
 
@@ -58,6 +65,7 @@ type config struct {
 	Mysql  Mysql
 	Redis  Redis
 	Minio  Minio
+	Email  Email
 }
 
 type App struct {
@@ -100,4 +108,12 @@ type Minio struct {
 	Bucket          string `mapstructure:"bucket"`
 	AppBucket       string `mapstructure:"app_bucket"`
 	Location        string `mapstructure:"location"`
+}
+
+type Email struct {
+	Host     string `mapstructure:"host"`
+	Port     int    `mapstructure:"port"`
+	From     string `mapstructure:"from"`
+	Nickname string `mapstructure:"nickname"`
+	Password string `mapstructure:"password"`
 }

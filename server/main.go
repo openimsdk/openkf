@@ -8,6 +8,7 @@ import (
 	"flag"
 	"fmt"
 
+	"github.com/OpenIMSDK/OpenKF/server/internal/client"
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/router"
@@ -27,6 +28,7 @@ func init() {
 	log.InitLogger()
 	db.InitMysqlDB()
 	db.InitRedisDB()
+	client.InitMinio()
 }
 
 //go:generate go env -w GO111MODULE=on

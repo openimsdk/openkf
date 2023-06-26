@@ -16,7 +16,7 @@ import (
 var r *redis.Client
 
 func InitRedisDB() {
-	r := redis.NewClient(&redis.Options{
+	r = redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%d", config.Config.Redis.Ip, config.Config.Redis.Port),
 		Password: config.Config.Redis.Password, // no password set
 		DB:       config.Config.Redis.Database, // use default DB

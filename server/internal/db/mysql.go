@@ -15,7 +15,7 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var db *gorm.DB
+var d *gorm.DB
 
 type Writer struct{}
 
@@ -88,17 +88,18 @@ func InitMysqlDB() {
 	db.Set("gorm:table_options", "CHARSET=utf8mb4")
 	db.Set("gorm:table_options", "collation=utf8_unicode_ci")
 
+	d = db
 	log.Info("Mysql", "connect ok", dsn)
 }
 
 // get mysql connection
 func GetMysqlDB() *gorm.DB {
-	return db
+	return d
 }
 
 func CloseMysqlDB() {
-	if db != nil {
-		sqlDB, err := db.DB()
+	if d != nil {
+		sqlDB, err := d.DB()
 		if err != nil {
 			log.Error("Mysql", err.Error(), " db.DB() failed ")
 		} else {

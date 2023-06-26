@@ -37,3 +37,10 @@ minio:
   bucket: openkf
   app_bucket: openkf
   location: us-east-1
+
+email:
+  host: # smtp address
+  port: 25
+  from: # email address
+  nickname: openkf
+  password: # smtp password
