@@ -64,7 +64,7 @@ BUILDFILE = "./main.go"
 BUILDAPP = "$(OUTPUT_DIR)/"
 
 # Define the directory you want to copyright
-CODE_DIRS := $(ROOT_DIR)/ #$(ROOT_DIR)/pkg $(ROOT_DIR)/core $(ROOT_DIR)/integrationtest $(ROOT_DIR)/lib $(ROOT_DIR)/mock $(ROOT_DIR)/db $(ROOT_DIR)/openapi
+CODE_DIRS := $(ROOT_DIR)/server $(ROOT_DIR)/scripts $(ROOT_DIR)/build $(ROOT_DIR)/web $(ROOT_DIR)/kf_plugins
 FINDS := find $(CODE_DIRS)
 
 ifndef V
@@ -127,6 +127,7 @@ ifneq ($(DLV),)
 endif
 GO_BUILD_FLAGS += -ldflags "$(GO_LDFLAGS)"
 
+# The use of make for Windows is not recommended
 ifeq ($(GOOS),windows)
 	GO_OUT_EXT := .exe
 endif
@@ -262,7 +263,7 @@ copyright-verify: tools.verify.addlicense copyright-add
 .PHONY: copyright-add
 copyright-add: tools.verify.addlicense
 	@echo "===========> Adding $(LICENSE_TEMPLATE) the boilerplate headers for all files"
-	@$(TOOLS_DIR)/addlicense -y $(shell date +"%Y") -v -c "OpenIMSDK open source community." -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
+	@$(TOOLS_DIR)/addlicense -y $(shell date +"%Y") -v -c "OpenIM open source community." -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
 	@echo "===========> End the copyright is added..."
 
 ## clean: Clean all builds.
