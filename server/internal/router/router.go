@@ -9,6 +9,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
+	"github.com/OpenIMSDK/OpenKF/server/internal/api"
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/middleware"
 	"github.com/gin-gonic/gin"
@@ -27,7 +28,13 @@ func InitRouter() *gin.Engine {
 	// swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	r.Group("/api/v1")
+	apiv1 := r.Group("/api/v1")
+	{
+		email := apiv1.Group("/email")
+		{
+			email.POST("/code", api.SendCode)
+		}
+	}
 
 	return r
 }

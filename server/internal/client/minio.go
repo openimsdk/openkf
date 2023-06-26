@@ -18,13 +18,12 @@ import (
 var _minioClient *minio.Client
 var _bucket string
 
-func init() {
-	endpoint := fmt.Sprintf("%s:%s", config.GetString("minio.ip"),
-		config.GetString("minio.port"))
-	accessKeyID := config.GetString("minio.access_key_id")
-	secretAccessKey := config.GetString("minio.secret_access_key")
-	location := config.GetString("minio.location")
-	_bucket = config.GetString("minio.bucket")
+func InitMinio() {
+	endpoint := fmt.Sprintf("%s:%d", config.Config.Minio.Ip, config.Config.Minio.Port)
+	accessKeyID := config.Config.Minio.AccessKeyId
+	secretAccessKey := config.Config.Minio.SecretAccessKey
+	location := config.Config.Minio.Location
+	_bucket = config.Config.Minio.Bucket
 
 	// Initialize _minioClient
 	_minioClient, err := minio.New(
