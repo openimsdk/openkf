@@ -12,19 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package common
+package main
 
-var Msg = map[int]string{
-	SUCCESS:        "success",
-	ERROR:          "error",
-	INVALID_PARAMS: "request params error",
-}
+import (
+	"fmt"
+	"os"
+)
 
-func GetMsg(code int) string {
-	msg, ok := Msg[code]
-	if ok {
-		return msg
+func main() {
+	path := "docs/"
+	if len(os.Args) == 2 {
+		path = os.Args[1]
+	} else if len(os.Args) > 2 {
+		_, _ = fmt.Fprintf(os.Stderr, "usage: %s [output directory]\n", os.Args[0])
+		os.Exit(1)
 	}
-
-	return Msg[ERROR]
+	// TODO
+	panic(path)
 }

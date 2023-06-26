@@ -64,7 +64,7 @@ BUILDFILE = "./main.go"
 BUILDAPP = "$(OUTPUT_DIR)/"
 
 # Define the directory you want to copyright
-CODE_DIRS := $(ROOT_DIR)/ #$(ROOT_DIR)/pkg $(ROOT_DIR)/core $(ROOT_DIR)/integrationtest $(ROOT_DIR)/lib $(ROOT_DIR)/mock $(ROOT_DIR)/db $(ROOT_DIR)/openapi
+CODE_DIRS := $(ROOT_DIR)/server $(ROOT_DIR)/scripts $(ROOT_DIR)/build $(ROOT_DIR)/web $(ROOT_DIR)/kf_plugins
 FINDS := find $(CODE_DIRS)
 
 ifndef V
@@ -103,8 +103,8 @@ XARGS := xargs -r
 
 # ==============================================================================
 # TODO: License selection
-LICENSE_TEMPLATE ?= $(ROOT_DIR)/scripts/LICENSE/license_templates.txt	# MIT License
-# LICENSE_TEMPLATE ?= $(ROOT_DIR)/scripts/LICENSE/LICENSE_TEMPLATES  # Apache License
+# LICENSE_TEMPLATE ?= $(ROOT_DIR)/scripts/LICENSE/license_templates.txt	# MIT License
+LICENSE_TEMPLATE ?= $(ROOT_DIR)/scripts/LICENSE/LICENSE_TEMPLATES  # Apache License
 
 # COMMA: Concatenate multiple strings to form a list of strings
 COMMA := ,
@@ -127,6 +127,7 @@ ifneq ($(DLV),)
 endif
 GO_BUILD_FLAGS += -ldflags "$(GO_LDFLAGS)"
 
+# The use of make for Windows is not recommended
 ifeq ($(GOOS),windows)
 	GO_OUT_EXT := .exe
 endif
@@ -140,7 +141,7 @@ ifeq ($(origin GOBIN), undefined)
 	GOBIN := $(GOPATH)/bin
 endif
 
-COMMANDS ?= $(filter-out %.md, $(wildcard ${ROOT_DIR}/cmd/*))
+COMMANDS ?= $(filter-out %.md, $(wildcard ${ROOT_DIR}/server/cmd/*))
 BINS ?= $(foreach cmd,${COMMANDS},$(notdir ${cmd}))
 
 ifeq (${COMMANDS},)
@@ -175,7 +176,7 @@ ifneq ($(shell $(GO) version | grep -q -E '\bgo($(GO_SUPPORTED_VERSIONS))\b' && 
 	$(error unsupported go version. Please make install one of the following supported version: '$(GO_SUPPORTED_VERSIONS)')
 endif
 
-## go.build： Build the binary file of the specified platform.
+## go.build: Build the binary file of the specified platform.
 .PHONY: go.build.%
 go.build.%:
 	$(eval COMMAND := $(word 2,$(subst ., ,$*)))
@@ -262,7 +263,7 @@ copyright-verify: tools.verify.addlicense copyright-add
 .PHONY: copyright-add
 copyright-add: tools.verify.addlicense
 	@echo "===========> Adding $(LICENSE_TEMPLATE) the boilerplate headers for all files"
-	@$(TOOLS_DIR)/addlicense -y $(shell date +"%Y") -v -c "OpenIMSDK open source community." -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
+	@$(TOOLS_DIR)/addlicense -y $(shell date +"%Y") -v -c "OpenIM open source community." -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
 	@echo "===========> End the copyright is added..."
 
 ## clean: Clean all builds.
