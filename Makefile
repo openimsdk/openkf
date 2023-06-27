@@ -327,9 +327,10 @@ install.conversion-gen:
 install.ginkgo:
 	@$(GO) install github.com/onsi/ginkgo/ginkgo@v1.16.2
 
+# git hook
 .PHONY: install.go-gitlint
 install.go-gitlint:
-	@$(GO) install github.com/marmotedu/go-gitlint/cmd/go-gitlint@latest
+	@$(GO) install github.com/llorllale/go-gitlint@latest
 
 .PHONY: install.go-junit-report
 install.go-junit-report:
