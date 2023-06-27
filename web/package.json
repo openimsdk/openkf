@@ -7,12 +7,7 @@
         "build": "vite build",
         "preview": "vite preview",
         "lint-staged": "lint-staged",
-        "precommit": "eslint src/**/*.js"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
+        "prepare": "husky install"
     },
     "lint-staged": {
         "src/**/*.{js,ts,vue}": [
@@ -36,7 +31,7 @@
         "@vitejs/plugin-vue": "^4.2.3",
         "eslint": "^8.43.0",
         "eslint-plugin-vue": "^9.15.1",
-        "husky": "^8.0.3",
+        "husky": "^8.0.0",
         "lint-staged": "^13.2.2",
         "prettier": "^2.8.8",
         "typescript": "^5.1.3",
