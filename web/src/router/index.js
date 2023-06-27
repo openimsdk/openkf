@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 // router options
-const routes = [
-]
+const routes = [];
 
 // create router
 const router = createRouter({
     history: createWebHistory(),
-    routes: routes
-})
+    routes: routes,
+});
 
 // router hook
 router.beforeEach((to, from, next) => {
@@ -38,7 +37,6 @@ router.afterEach((to, from) => {
     console.log('From:', from.path);
     console.log('To:', to.path);
 });
-  
-
+let abc = '123';
 // expose router
-export default router
+export default router;
