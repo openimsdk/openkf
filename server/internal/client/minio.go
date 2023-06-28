@@ -25,8 +25,10 @@ import (
 	"github.com/minio/minio-go/v7/pkg/credentials"
 )
 
-var _minioClient *minio.Client
-var _bucket string
+var (
+	_minioClient *minio.Client
+	_bucket      string
+)
 
 func InitMinio() {
 	endpoint := fmt.Sprintf("%s:%d", config.Config.Minio.Ip, config.Config.Minio.Port)

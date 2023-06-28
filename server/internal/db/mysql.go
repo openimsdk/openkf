@@ -102,7 +102,7 @@ func InitMysqlDB() {
 	log.Info("Mysql", "connect ok", dsn)
 }
 
-// get mysql connection
+// get mysql connection.
 func GetMysqlDB() *gorm.DB {
 	return d
 }
