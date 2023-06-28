@@ -37,5 +37,6 @@ router.afterEach((to, from) => {
     console.log('From:', from.path);
     console.log('To:', to.path);
 });
+
 // expose router
 export default router;
