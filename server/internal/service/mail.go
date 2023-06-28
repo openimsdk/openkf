@@ -7,8 +7,9 @@ package service
 import (
 	"time"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/client"
+	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
 func (svc *Service) SendCode(email string) (err error) {
@@ -28,4 +29,8 @@ func (svc *Service) SendCode(email string) (err error) {
 	err = client.SendEmail(email, "OpenKF Admin Register", "Your verification code is "+code)
 
 	return err
+}
+
+func (svc *Service) Test() {
+	log.Info("test...")
 }

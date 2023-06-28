@@ -22,6 +22,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/api"
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/middleware"
+	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,16 +34,17 @@ func InitRouter() *gin.Engine {
 	}
 
 	r := gin.Default()
-	r.Use(middleware.EnableCROS())
+	r.Use(urltrie.RunHook(), middleware.EnableCROS())
 
 	// swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	apiv1 := r.Group("/api/v1")
 	{
-		email := apiv1.Group("/email")
+		register := apiv1.Group("/register")
 		{
-			email.POST("/code", api.SendCode)
+			register.POST("/email/code", api.SendCode)
+			// register.POST("/github", api.GithubRegister)
 		}
 	}
 
