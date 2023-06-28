@@ -12,22 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package utils
+package main
 
 import (
-	"math/rand"
-	"time"
+	"flag"
+	"os"
+
+	"github.com/OpenIMSDK/OpenKF/server/cmd/genhooks/pkg"
 )
 
-// Generate a random code with length 6
-func GenerateCode() string {
-	dataset := "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()"
-	rand.Seed(time.Now().UnixNano())
+var (
+	hookName   string
+	urlPattern string
+	savePath   string
+)
 
-	code := make([]byte, 6)
-	for i := 0; i < 6; i++ {
-		code[i] = dataset[rand.Intn(len(dataset))]
+func init() {
+	flag.StringVar(&hookName, "name", "", "hook name")
+	flag.StringVar(&urlPattern, "pattern", "", "url pattern")
+	flag.StringVar(&savePath, "path", "../../internal/middleware/hooks", "save path")
+	flag.Parse()
+
+	if hookName == "" || savePath == "" {
+		flag.Usage()
+		os.Exit(1)
 	}
+}
 
-	return string(code)
+func main() {
+	pkg.NewHookGenerator(hookName, urlPattern, savePath).Generate().Format().Flush()
 }
