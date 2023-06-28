@@ -37,7 +37,5 @@ router.afterEach((to, from) => {
     console.log('From:', from.path);
     console.log('To:', to.path);
 });
-let abc = '123';
-let c = 'dasd';
 // expose router
 export default router;
