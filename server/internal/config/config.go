@@ -37,11 +37,14 @@ func ConfigInit(configPath string) {
 			Port: GetInt("server.port"),
 		},
 		Mysql: Mysql{
-			Ip:       GetString("mysql.ip"),
-			Port:     GetInt("mysql.port"),
-			Username: GetString("mysql.username"),
-			Password: GetString("mysql.password"),
-			Database: GetString("mysql.database"),
+			Ip:           GetString("mysql.ip"),
+			Port:         GetInt("mysql.port"),
+			Username:     GetString("mysql.username"),
+			Password:     GetString("mysql.password"),
+			Database:     GetString("mysql.database"),
+			MaxLifetime:  GetIntOrDefault("mysql.max_lifetime", 120),
+			MaxOpenConns: GetIntOrDefault("mysql.max_open_conns", 100),
+			MaxIdleConns: GetIntOrDefault("mysql.max_idle_conns", 20),
 		},
 		Redis: Redis{
 			Ip:       GetString("redis.ip"),
@@ -96,11 +99,14 @@ type Server struct {
 }
 
 type Mysql struct {
-	Ip       string `mapstructure:"ip"`
-	Port     int    `mapstructure:"port"`
-	Username string `mapstructure:"username"`
-	Password string `mapstructure:"password"`
-	Database string `mapstructure:"database"`
+	Ip           string `mapstructure:"ip"`
+	Port         int    `mapstructure:"port"`
+	Username     string `mapstructure:"username"`
+	Password     string `mapstructure:"password"`
+	Database     string `mapstructure:"database"`
+	MaxLifetime  int    `mapstructure:"max_lifetime"`
+	MaxOpenConns int    `mapstructure:"max_open_conns"`
+	MaxIdleConns int    `mapstructure:"max_idle_conns"`
 }
 
 type Redis struct {
