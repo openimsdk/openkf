@@ -32,6 +32,7 @@ router.beforeEach((to, from, next) => {
     console.log('To:', to.path);
     next();
 });
+
 router.afterEach((to, from) => {
     console.log('afterEach triggered');
     console.log('From:', from.path);
