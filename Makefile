@@ -197,10 +197,12 @@ build-multiarch: go.build.verify $(foreach p,$(PLATFORMS),$(addprefix go.build.,
 # ==============================================================================
 # Targets
 
+SERVER_DIR := server 
+
 ## tidy: tidy go.mod
 .PHONY: tidy
 tidy:
-	@$(GO) mod tidy
+	@cd $(SERVER_DIR) && $(GO) tidy 
 
 ## style: Code style -> fmt,vet,lint
 .PHONY: style
@@ -209,33 +211,33 @@ style: fmt vet lint
 ## fmt: Run go fmt against code.
 .PHONY: fmt
 fmt:
-	@$(GO) fmt ./...
+	@cd $(SERVER_DIR) && $(GO) fmt ./... 
 
 ## vet: Run go vet against code.
 .PHONY: vet
 vet:
-	@$(GO) vet ./...
+	@cd $(SERVER_DIR) && $(GO) vet ./... 
 
-## generate: Run go generate against code.
+## generate: Run go generate against code and docs. 
 .PHONY: generate
 generate:
-	@$(GO) generate ./...
+	@cd $(SERVER_DIR) && $(GO) generate ./... 
 
 ## lint: Run go lint against code.
 .PHONY: lint
-lint:
+lint: tools.verify.golangci-lint 
 	@echo "===========> Run golangci to lint source codes"
-	@golangci-lint run -c $(ROOT_DIR)/.golangci.yml $(ROOT_DIR)/...
+	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml $(ROOT_DIR)/$(SERVER_DIR)/... 
 
 ## test: Run unit test
 .PHONY: test
 test: 
-	@$(GO) test ./... 
+	@cd $(SERVER_DIR) && go test ./... 
 
 ## cover: Run unit test with coverage.
 .PHONY: cover
 cover: test
-	@$(GO) test -cover
+	@cd $(SERVER_DIR) && go test -cover 
 
 ## docker-build: Build docker image with the manager.
 .PHONY: docker-build
@@ -284,7 +286,7 @@ help: Makefile
 
 BUILD_TOOLS ?= go-gitlint golangci-lint goimports addlicense deepcopy-gen conversion-gen ginkgo go-junit-report 
 
-# tools.verify.%: Check if a tool is installed and install it
+## tools.verify.%: Check if a tool is installed and install it
 .PHONY: tools.verify.%
 tools.verify.%:
 	@echo "===========> Verifying $* is installed"
@@ -325,9 +327,10 @@ install.conversion-gen:
 install.ginkgo:
 	@$(GO) install github.com/onsi/ginkgo/ginkgo@v1.16.2
 
+# git hook
 .PHONY: install.go-gitlint
 install.go-gitlint:
-	@$(GO) install github.com/marmotedu/go-gitlint/cmd/go-gitlint@latest
+	@$(GO) install github.com/llorllale/go-gitlint@latest
 
 .PHONY: install.go-junit-report
 install.go-junit-report:
@@ -384,6 +387,19 @@ install.coscmd:
 .PHONY: install.delve
 install.delve:
 	@$(GO) install github.com/go-delve/delve/cmd/dlv@latest
+
+## install.swag: Install swag, used to generate swagger
+# go1.17+
+# go-swagger is more powerful than swag
+# http://localhost:8080/swagger/index.html
+.PHONY: install.swag
+install.swag:
+	@$(GO) install github.com/swaggo/swag/cmd/swag@latest
+
+## install.go-swagger: Install go-swagger, used to generate swagger
+.PHONY: install.go-swagger
+install.go-swagger:
+	@$(GO) install github.com/go-swagger/go-swagger/cmd/swagger@latest
 
 ## install.air: Install air, used to hot reload go program
 .PHONY: install.air

@@ -38,12 +38,15 @@ func NewResponse(code int, msg string, data interface{}, c *gin.Context) {
 func Success(c *gin.Context) {
 	NewResponse(common.SUCCESS, common.GetMsg(common.SUCCESS), nil, c)
 }
+
 func SuccessWithData(data interface{}, c *gin.Context) {
 	NewResponse(common.SUCCESS, common.GetMsg(common.SUCCESS), data, c)
 }
+
 func SuccessWithCode(code int, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), nil, c)
 }
+
 func SuccessWithAll(code int, data interface{}, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), data, c)
 }
@@ -51,12 +54,15 @@ func SuccessWithAll(code int, data interface{}, c *gin.Context) {
 func Fail(c *gin.Context) {
 	NewResponse(common.ERROR, common.GetMsg(common.ERROR), nil, c)
 }
+
 func FailWithData(data interface{}, c *gin.Context) {
 	NewResponse(common.ERROR, common.GetMsg(common.ERROR), data, c)
 }
+
 func FailWithCode(code int, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), nil, c)
 }
+
 func FailWithAll(code int, data interface{}, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), data, c)
 }

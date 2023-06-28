@@ -34,7 +34,7 @@ func InitLogger() {
 }
 
 func loggerInit() *logrus.Logger {
-	var logger = logrus.New()
+	logger := logrus.New()
 
 	// set log level
 	if config.Config.App.Debug {
@@ -80,6 +80,7 @@ func NewLfsHook(rotationTime time.Duration, maxRemainNum uint) logrus.Hook {
 		HideKeys:        false,
 		FieldsOrder:     []string{"PID", "FilePath", "OperationID"},
 	})
+
 	return lfsHook
 }
 
@@ -105,16 +106,19 @@ func Info(Operation string, args ...interface{}) {
 		"Operation": Operation,
 	}).Infoln(args...)
 }
+
 func Error(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Errorln(args...)
 }
+
 func Debug(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Debugln(args...)
 }
+
 func Panic(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
@@ -126,16 +130,19 @@ func Infof(Operation string, format string, args ...interface{}) {
 		"Operation": Operation,
 	}).Infof(format, args...)
 }
+
 func Errorf(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Errorf(format, args...)
 }
+
 func Debugf(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Debugf(format, args...)
 }
+
 func Panicf(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,

@@ -32,5 +32,6 @@ func InitServer(address string, r *gin.Engine) Server {
 	server.ReadHeaderTimeout = 20 * time.Second
 	server.WriteTimeout = 20 * time.Second
 	server.MaxHeaderBytes = 1 << 20
+
 	return server
 }

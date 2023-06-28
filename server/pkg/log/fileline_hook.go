@@ -22,8 +22,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type filelineHook struct {
-}
+type filelineHook struct{}
 
 func newFilelineHook() *filelineHook {
 	return &filelineHook{}
