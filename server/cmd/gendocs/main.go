@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Copyright © 2023 OpenIM open source community. All rights reserved.
+=======
+// Copyright © 2023 OpenIMSDK open source community. All rights reserved.
+>>>>>>> b521cc3 (feat: add script license)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +24,10 @@ import (
 )
 
 func main() {
+<<<<<<< HEAD
+=======
+	// use os.Args instead of "flags" because "flags" will mess up the man pages!
+>>>>>>> b521cc3 (feat: add script license)
 	path := "docs/"
 	if len(os.Args) == 2 {
 		path = os.Args[1]
