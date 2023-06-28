@@ -90,10 +90,11 @@ func InitMysqlDB() {
 	if err != nil {
 		log.Panic("Mysql", err.Error(), " db.DB() failed ")
 	}
-	// default is unlimited
-	sqlDB.SetConnMaxLifetime(time.Second * time.Duration(0))
-	sqlDB.SetMaxOpenConns(0)
-	sqlDB.SetMaxIdleConns(0)
+
+	// set connect result
+	sqlDB.SetConnMaxLifetime(time.Second * time.Duration(config.Config.Mysql.MaxLifetime))
+	sqlDB.SetMaxOpenConns(config.Config.Mysql.MaxOpenConns)
+	sqlDB.SetMaxIdleConns(config.Config.Mysql.MaxIdleConns)
 
 	db.Set("gorm:table_options", "CHARSET=utf8mb4")
 	db.Set("gorm:table_options", "collation=utf8_unicode_ci")

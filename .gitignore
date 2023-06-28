@@ -332,6 +332,7 @@ flycheck_*.el
 # log
 *.log
 /server/logs
+/server/cmd/dbmigration/logs
 
 # data
 /server/data

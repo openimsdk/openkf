@@ -7,7 +7,7 @@ package service
 import (
 	"context"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/db"
+	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 	"gorm.io/gorm"
