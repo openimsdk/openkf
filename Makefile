@@ -197,12 +197,12 @@ build-multiarch: go.build.verify $(foreach p,$(PLATFORMS),$(addprefix go.build.,
 # ==============================================================================
 # Targets
 
-SERVER_DIR := server
+SERVER_DIR := server 
 
 ## tidy: tidy go.mod
 .PHONY: tidy
 tidy:
-	@cd $(SERVER_DIR) && $(GO) tidy
+	@cd $(SERVER_DIR) && $(GO) tidy 
 
 ## style: Code style -> fmt,vet,lint
 .PHONY: style
@@ -211,33 +211,33 @@ style: fmt vet lint
 ## fmt: Run go fmt against code.
 .PHONY: fmt
 fmt:
-	@cd $(SERVER_DIR) && $(GO) fmt ./...
+	@cd $(SERVER_DIR) && $(GO) fmt ./... 
 
 ## vet: Run go vet against code.
 .PHONY: vet
 vet:
-	@cd $(SERVER_DIR) && $(GO) vet ./...
+	@cd $(SERVER_DIR) && $(GO) vet ./... 
 
-## generate: Run go generate against code and docs.
+## generate: Run go generate against code and docs. 
 .PHONY: generate
 generate:
-	@cd $(SERVER_DIR) && $(GO) generate ./...
+	@cd $(SERVER_DIR) && $(GO) generate ./... 
 
 ## lint: Run go lint against code.
 .PHONY: lint
-lint: tools.verify.golangci-lint
+lint: tools.verify.golangci-lint 
 	@echo "===========> Run golangci to lint source codes"
-	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml $(ROOT_DIR)/$(SERVER_DIR)/...
+	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml $(ROOT_DIR)/$(SERVER_DIR)/... 
 
 ## test: Run unit test
 .PHONY: test
 test: 
-	@cd $(SERVER_DIR) && go test ./...
+	@cd $(SERVER_DIR) && go test ./... 
 
 ## cover: Run unit test with coverage.
 .PHONY: cover
 cover: test
-	@cd $(SERVER_DIR) && go test -cover
+	@cd $(SERVER_DIR) && go test -cover 
 
 ## docker-build: Build docker image with the manager.
 .PHONY: docker-build
