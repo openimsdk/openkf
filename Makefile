@@ -389,11 +389,16 @@ install.delve:
 
 ## install.swag: Install swag, used to generate swagger
 # go1.17+
+# go-swagger is more powerful than swag
 # http://localhost:8080/swagger/index.html
 .PHONY: install.swag
 install.swag:
 	@$(GO) install github.com/swaggo/swag/cmd/swag@latest
 
+## install.go-swagger: Install go-swagger, used to generate swagger
+.PHONY: install.go-swagger
+install.go-swagger:
+	@$(GO) install github.com/go-swagger/go-swagger/cmd/swagger@latest
 
 ## install.air: Install air, used to hot reload go program
 .PHONY: install.air

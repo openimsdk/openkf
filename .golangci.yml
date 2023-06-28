@@ -43,6 +43,7 @@ run:
     - util
     - .*~
     - api/swagger/docs
+    - server/docs
 
   # default is true. Enables skipping of directories:
   #   vendor$, third_party$, testdata$, examples$, Godeps$, builtin$
