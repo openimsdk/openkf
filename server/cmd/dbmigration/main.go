@@ -16,41 +16,42 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"reflect"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
-	"github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks"
-	"github.com/OpenIMSDK/OpenKF/server/internal/router"
+	"github.com/OpenIMSDK/OpenKF/server/internal/models"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/server"
 )
 
 func init() {
 	// arg
-	configPath := flag.String("c", "./config.yaml", "config file path")
+	configPath := flag.String("c", "../../config.yaml", "config file path")
 	flag.Parse()
 
-	// init
 	config.ConfigInit(*configPath)
 	utils.OpenKFBanner()
 	log.InitLogger()
 	db.InitMysqlDB()
-	db.InitRedisDB()
-	client.InitMinio()
-	hooks.InitHooks()
 }
 
-//go:generate go env -w GO111MODULE=on
-//go:generate go env -w GOPROXY=https://goproxy.cn,direct
-//go:generate go mod tidy
-//go:generate go mod download
+// migrate table
 func main() {
-	serverAddress := fmt.Sprintf("%s:%d", config.Config.Server.Ip, config.Config.Server.Port)
+	// get db instance
+	db := db.GetMysqlDB()
 
-	r := router.InitRouter()
-	s := server.InitServer(serverAddress, r)
-	log.Error("server start error: %v", s.ListenAndServe().Error())
+	// tables
+	tables := []interface{}{
+		models.User{},
+	}
+
+	// migrate
+	for _, table := range tables {
+		err := db.AutoMigrate(&table)
+		if err != nil {
+			log.Panicf("OpenKF Table Migration", "Migrate table %v... failed", reflect.TypeOf(table))
+		}
+		log.Infof("OpenKF Table Migration", "Migrate table %v... ok", reflect.TypeOf(table))
+	}
 }

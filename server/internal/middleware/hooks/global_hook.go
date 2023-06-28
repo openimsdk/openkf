@@ -12,35 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package service
+package hooks
 
 import (
-	"time"
+	"fmt"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
-	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
+	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
+	"github.com/gin-gonic/gin"
 )
 
-func (svc *Service) SendCode(email string) (err error) {
-	// check the code is exist
-	cmd := svc.Cache.Get(svc.Ctx, "code:"+email)
-	var code string
-	if cmd.Err() != nil {
-		code = utils.GenerateCode()
-		// save code in 60s
-		status := svc.Cache.Set(svc.Ctx, "code:"+email, code, time.Second*60)
-		if status.Err() != nil {
-			return status.Err()
-		}
-	}
-
-	// generate code
-	err = client.SendEmail(email, "OpenKF Admin Register", "Your verification code is "+code)
-
-	return err
+func init() {
+	urltrie.RegisterHook(GlobalHook{})
+	fmt.Println("RegisterHook", "Register Hook[GlobalHook] success...")
 }
 
-func (svc *Service) Test() {
-	log.Info("test...")
+type GlobalHook struct {
+	urltrie.Hook
+}
+
+func (h GlobalHook) Pattern() string {
+	return "/*"
+}
+
+func (h GlobalHook) BeforeRun(c *gin.Context) {
+	log.Debugf("GlobalHook", "path: %v", c.Request.URL.Path)
+	c.Next()
+}
+
+func (h GlobalHook) AfterRun(c *gin.Context) {
+	c.Next()
 }

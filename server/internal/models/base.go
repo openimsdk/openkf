@@ -12,22 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package utils
+package models
 
-import (
-	"math/rand"
-	"time"
-)
+import "time"
 
-// Generate a random code with length 6
-func GenerateCode() string {
-	dataset := "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()"
-	rand.Seed(time.Now().UnixNano())
-
-	code := make([]byte, 6)
-	for i := 0; i < 6; i++ {
-		code[i] = dataset[rand.Intn(len(dataset))]
-	}
-
-	return string(code)
+type Model struct {
+	ID        uint       `gorm:"primary_key" json:"id"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `sql:"index" json:"deleted_at"`
 }

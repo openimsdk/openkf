@@ -32,6 +32,9 @@ mysql:
   username: root
   password: 123123
   database: openkf
+  max_lifetime: 120
+  max_open_conns: 100
+  max_idle_conns: 20
 
 redis:
   ip: 127.0.0.1
