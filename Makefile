@@ -202,7 +202,7 @@ SERVER_DIR := server
 ## tidy: tidy go.mod
 .PHONY: tidy
 tidy:
-	@cd $(SERVER_DIR) && $(GO) tidy 
+	@cd $(SERVER_DIR) && $(GO) mod tidy
 
 ## style: Code style -> fmt,vet,lint
 .PHONY: style
@@ -211,7 +211,7 @@ style: fmt vet lint
 ## fmt: Run go fmt against code.
 .PHONY: fmt
 fmt:
-	@cd $(SERVER_DIR) && $(GO) fmt ./... 
+	@cd $(SERVER_DIR) && $(GO) fmt ./...
 
 ## vet: Run go vet against code.
 .PHONY: vet
