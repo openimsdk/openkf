@@ -30,7 +30,7 @@ import (
 // @Produce application/json
 // @Param data body param.SendToParams true "Email address"
 // @Success 200 {object}  response.Response{msg=string} "Success"
-// @Router /api/v1/email/code [post]
+// @Router /api/v1/email/code [post].
 func SendCode(c *gin.Context) {
 	var params param.SendToParams
 	err := c.ShouldBindJSON(&params)

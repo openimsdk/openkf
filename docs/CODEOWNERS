@@ -20,33 +20,34 @@ assets/*    @AllianceTing @IRONICBo @cubxxw @MC-kanon
 deploy/*    @IRONICBo @cubxxw @kubbot @MC-kanon 
 
 # Server directory
-server/*    @AllianceTing @cubxxw @IRONICBo
+server/*    @AllianceTing @cubxxw @IRONICBo @liumingsongning
 
 # Web directory
-web/*    @AllianceTing @MC-kanon @IRONICBo
+web/*    @AllianceTing @MC-kanon @IRONICBo @liumingsongning
 
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
 # @cubxxw and @kubbot will be requested for
 # review when someone opens a pull request.
-*       @cubxxw @kubbot @AllianceTing @IRONICBo @MC-kanon
+*       @cubxxw @kubbot @AllianceTing @IRONICBo @MC-kanon @eurecalulu @hanzhixiao @liumingsongning
 
 # Order is important; the last matching pattern takes the most
 # precedence. When someone opens a pull request that only
 # modifies JS files, only @js-owner and not the global
 # owner(s) will be requested for a review.
-*.js    @cubxxw @kubbot @IRONICBo @MC-kanon @AllianceTing #This is an inline comment.
+*.js    @cubxxw @kubbot @IRONICBo @MC-kanon @AllianceTing @liumingsongning 
 
 # You can also use email addresses if you prefer. They'll be
 # used to look up users just like we do for commit author
 # emails.
-*.go 3293172751nss@gmail.com @IRONICBo @AllianceTing
+*.go 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @hanzhixiao @liumingsongning
+*.py 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu
 
 # Teams can be specified as code owners as well. Teams should
 # be identified in the format @org/team-name. Teams must have
 # explicit write access to the repository. In this example,
 # the OpenIMSDK team in the github organization owns all .txt files.
-*.txt @cubxxw @kubbot @AllianceTing @IRONICBo @MC-kanon
+*.txt @cubxxw @kubbot @AllianceTing @IRONICBo @MC-kanon @liumingsongning
 
 # In this example, @cubxxw owns any files in the build/
 # directory at the root of the repository and any of its
@@ -60,16 +61,16 @@ docs/*  3293172751nss@gmail.com @kubbot @IRONICBo
 
 # In this example, @octocat owns any file in an apps directory
 # anywhere in your repository.
-api/ @cubxxw @IRONICBo
+api/ @cubxxw @IRONICBo @MC-kanon @AllianceTing
 
 # In this example, @cubxxw owns any file in the `/docs`
 # directory in the root of your repository and any of its
 # subdirectories.
-/docs/ @cubxxw @kubbot @IRONICBo
+/docs/ @cubxxw @kubbot @IRONICBo @liumingsongning
 
 # In this example, any change inside the `/scripts` directory
 # will require approval from @cubxxw or @octocat.
-/scripts/ @cubxxw @kubbot
+/scripts/ @cubxxw @kubbot @MC-kanon
 scripts/* @cubxxw @kubbot @IRONICBo
 
 # In this example, @octocat owns any file in a `/logs` directory such as
