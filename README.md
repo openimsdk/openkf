@@ -115,8 +115,6 @@ Before you start, please make sure your changes are in demand. The best for that
 
 OpenIMSDK is licensed under the  Apache 2.0 license. See [LICENSE](https://github.com/OpenIMSDK/OpenKF/tree/main/LICENSE) for the full license text.
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOpenIMSDK%2FOpenIMSDK.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FOpenIMSDK%2FOpenKF?ref=badge_large)
-
 
 ## 🔮 Thanks to our contributors!
 
