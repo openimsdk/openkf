@@ -237,7 +237,7 @@ test:
 ## cover: Run unit test with coverage.
 .PHONY: cover
 cover: test
-	@cd $(SERVER_DIR) && go test -cover 
+	@cd $(SERVER_DIR) && go test -coverprofile=$(TMP_DIR)/coverage.out
 
 ## docker-build: Build docker image with the manager.
 .PHONY: docker-build
