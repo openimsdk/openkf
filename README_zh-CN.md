@@ -30,7 +30,7 @@
 
 ## 🧩 特性
 
-1. [OpenKF](https://https://github.com/OpenIMSDK/OpenKF) 是基于 [OpenIM](https://https://github.com/OpenIMSDK) 的开源客服系统。
+1. [OpenKF](https://github.com/OpenIMSDK/OpenKF) 是基于 [OpenIM](https://github.com/OpenIMSDK) 的开源客服系统。
 2. 支持 LLM（本地知识库）客服。
 3. 支持多渠道客服，并易于与第三方系统集成。
 4. 易于部署和二次开发。
