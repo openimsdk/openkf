@@ -64,7 +64,7 @@ BUILDFILE = "./main.go"
 BUILDAPP = "$(OUTPUT_DIR)/"
 
 # Define the directory you want to copyright
-CODE_DIRS := $(ROOT_DIR)/server $(ROOT_DIR)/scripts $(ROOT_DIR)/build $(ROOT_DIR)/web $(ROOT_DIR)/kf_plugins
+CODE_DIRS := $(ROOT_DIR)/.github $(ROOT_DIR)/server $(ROOT_DIR)/scripts $(ROOT_DIR)/build $(ROOT_DIR)/web $(ROOT_DIR)/kf_plugins
 FINDS := find $(CODE_DIRS)
 
 ifndef V
@@ -225,14 +225,14 @@ generate:
 
 ## lint: Run go lint against code.
 .PHONY: lint
-lint: tools.verify.golangci-lint 
+lint: tools.verify.golangci-lint
 	@echo "===========> Run golangci to lint source codes"
 	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml
 
 ## test: Run unit test
 .PHONY: test
 test: 
-	@cd $(SERVER_DIR) && go test ./... 
+	@cd $(SERVER_DIR) && go test ./...
 
 ## cover: Run unit test with coverage.
 .PHONY: cover
@@ -258,7 +258,7 @@ docker-buildx-push:
 .PHONY: copyright-verify
 copyright-verify: tools.verify.addlicense copyright-add
 	@echo "===========> Validate boilerplate headers for assign files starting in the $(ROOT_DIR) directory"
-	@$(TOOLS_DIR)/addlicense -v -check -ignore **/test/** -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
+	@$(TOOLS_DIR)/addlicense -v -check -ignore **/server/test/** -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
 	@echo "===========> End of boilerplate headers check..."
 
 ## copyright-add: Add the boilerplate headers for all files.
