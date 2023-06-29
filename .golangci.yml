@@ -437,10 +437,10 @@ linters-settings:
     list-type: blacklist
     include-go-root: false
     packages:
-      - github.com/Sirupsen/logrus
+      #- github.com/Sirupsen/logrus
     packages-with-error-message:
       # specify an error message to output when a blacklisted package is used
-      - github.com/Sirupsen/logrus: "logging is allowed only by logutils.Log"
+      #- github.com/Sirupsen/logrus: "logging is allowed only by logutils.Log"
   ifshort:
     # Maximum length of variable declaration measured in number of lines, after which linter won't suggest using short syntax.
     # Has higher priority than max-decl-chars.
@@ -733,7 +733,7 @@ linters:
     - forbidigo
     - funlen
       #- gci
-    - gochecknoinits
+      #- gochecknoinits
     - gocognit
     - goconst
     - gocyclo

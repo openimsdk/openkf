@@ -28,6 +28,7 @@ import (
 var _minioClient *minio.Client
 var _bucket string
 
+// InitMinio init minio client
 func InitMinio() {
 	endpoint := fmt.Sprintf("%s:%d", config.Config.Minio.Ip, config.Config.Minio.Port)
 	accessKeyID := config.Config.Minio.AccessKeyId
@@ -63,11 +64,13 @@ func InitMinio() {
 	}
 }
 
+// PutObject put object to minio
 func PutObject(objectName string, r io.Reader, objectSize int64) error {
 	_, err := _minioClient.PutObject(context.Background(), _bucket, objectName, r, objectSize, minio.PutObjectOptions{ContentType: "application/octet-stream"})
 	return err
 }
 
+// GetObject get object from minio
 func GetObject(objectName string) (io.Reader, error) {
 	object, err := _minioClient.GetObject(context.Background(), _bucket, objectName, minio.GetObjectOptions{})
 	return object, err

@@ -34,7 +34,7 @@ type Hook interface {
 	AfterRun(c *gin.Context)
 }
 
-const WILDCARD = "*"
+const _wildcard = "*"
 
 type node struct {
 	children map[string]*node
@@ -46,10 +46,12 @@ type node struct {
 	isEnd      bool
 }
 
+// Trie is a tree for url
 type Trie struct {
 	root *node
 }
 
+// NewTrie returns a new Trie
 func NewTrie() *Trie {
 	return &Trie{
 		root: &node{
@@ -58,7 +60,7 @@ func NewTrie() *Trie {
 	}
 }
 
-// Insert url with hooks
+// Insert insert url with hooks
 func (t *Trie) Insert(url string, hooks ...Hook) {
 	current := t.root
 
@@ -76,7 +78,7 @@ func (t *Trie) Insert(url string, hooks ...Hook) {
 				data:     part,
 			}
 			// match wildcard
-			if part == WILDCARD {
+			if part == _wildcard {
 				child.isWildcard = true
 			}
 
@@ -92,7 +94,7 @@ func (t *Trie) Insert(url string, hooks ...Hook) {
 	current.hooks = append(current.hooks, hooks...)
 }
 
-// Match url with hooks
+// Match match url with hooks
 func (t *Trie) Match(url string) ([]Hook, bool) {
 	current := t.root
 

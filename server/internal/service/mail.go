@@ -22,6 +22,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
+// SendCode send code to email
 func (svc *Service) SendCode(email string) (err error) {
 	// check the code is exist
 	cmd := svc.Cache.Get(svc.Ctx, "code:"+email)
@@ -41,6 +42,7 @@ func (svc *Service) SendCode(email string) (err error) {
 	return err
 }
 
+// Test test
 func (svc *Service) Test() {
 	log.Info("test...")
 }

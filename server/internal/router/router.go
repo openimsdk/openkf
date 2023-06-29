@@ -26,6 +26,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// InitRouter init router
 func InitRouter() *gin.Engine {
 	if config.GetString("app.debug") == "true" {
 		gin.SetMode(gin.DebugMode)

@@ -14,6 +14,7 @@
 
 package models
 
+// User user model
 type User struct {
 	Model
 	Username string `json:"username" gorm:"type:varchar(20);not null;unique"`
