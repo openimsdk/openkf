@@ -27,7 +27,7 @@ func init() {
 	fmt.Println("RegisterHook", "Register Hook[GlobalHook] success...")
 }
 
-// GlobalHook
+// GlobalHook implement urltrie.Hook
 type GlobalHook struct {
 	urltrie.Hook
 }

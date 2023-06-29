@@ -15,7 +15,7 @@
 package router
 
 import (
-	_ "github.com/OpenIMSDK/OpenKF/server/docs"
+	_ "github.com/OpenIMSDK/OpenKF/server/docs" //nolint:golint
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 

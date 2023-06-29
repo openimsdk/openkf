@@ -36,6 +36,7 @@ func SendCode(c *gin.Context) {
 	err := c.ShouldBindJSON(&params)
 	if err != nil {
 		response.FailWithCode(common.INVALID_PARAMS, c)
+
 		return
 	}
 
@@ -44,6 +45,7 @@ func SendCode(c *gin.Context) {
 	if err != nil {
 		log.Debug("SendCode error: ", err)
 		response.FailWithCode(common.ERROR, c)
+
 		return
 	}
 

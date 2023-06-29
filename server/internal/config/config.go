@@ -14,7 +14,7 @@
 
 package config
 
-// Global config instance
+// Config global config instance
 var Config *config
 
 // ConfigInit init config

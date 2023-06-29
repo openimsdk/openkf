@@ -227,7 +227,7 @@ generate:
 .PHONY: lint
 lint: tools.verify.golangci-lint 
 	@echo "===========> Run golangci to lint source codes"
-	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml $(ROOT_DIR)/$(SERVER_DIR)/... 
+	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml
 
 ## test: Run unit test
 .PHONY: test

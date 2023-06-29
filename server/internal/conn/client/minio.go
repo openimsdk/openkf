@@ -37,7 +37,7 @@ func InitMinio() {
 	_bucket = config.Config.Minio.Bucket
 
 	// Initialize _minioClient
-	_minioClient, err := minio.New(
+	minioClient, err := minio.New(
 		endpoint,
 		&minio.Options{
 			Creds:  credentials.NewStaticV4(accessKeyID, secretAccessKey, ""),
@@ -49,12 +49,12 @@ func InitMinio() {
 	}
 
 	// create bucket if not exists
-	exists, err := _minioClient.BucketExists(context.Background(), _bucket)
+	exists, err := minioClient.BucketExists(context.Background(), _bucket)
 	if err != nil {
 		log.Panicf("Minio", err.Error(), " Open Bucket failed ", endpoint)
 	}
 	if !exists {
-		if err = _minioClient.MakeBucket(
+		if err = minioClient.MakeBucket(
 			context.Background(),
 			_bucket,
 			minio.MakeBucketOptions{Region: location, ObjectLocking: true},
@@ -62,16 +62,20 @@ func InitMinio() {
 			log.Panicf("Minio", err.Error(), " Open failed ", endpoint)
 		}
 	}
+
+	_minioClient = minioClient
 }
 
 // PutObject put object to minio
 func PutObject(objectName string, r io.Reader, objectSize int64) error {
 	_, err := _minioClient.PutObject(context.Background(), _bucket, objectName, r, objectSize, minio.PutObjectOptions{ContentType: "application/octet-stream"})
+
 	return err
 }
 
 // GetObject get object from minio
 func GetObject(objectName string) (io.Reader, error) {
 	object, err := _minioClient.GetObject(context.Background(), _bucket, objectName, minio.GetObjectOptions{})
+
 	return object, err
 }

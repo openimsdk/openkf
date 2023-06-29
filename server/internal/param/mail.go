@@ -14,7 +14,7 @@
 
 package param
 
-// SendToParams register params for email
+// SendToParams register params for email.
 type SendToParams struct {
 	Email string `json:"email" binding:"required"`
 }

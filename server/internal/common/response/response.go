@@ -72,6 +72,7 @@ func FailWithCode(code int, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), nil, c)
 }
 
+// FailWithAll returns a fail response with code and data
 func FailWithAll(code int, data interface{}, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), data, c)
 }

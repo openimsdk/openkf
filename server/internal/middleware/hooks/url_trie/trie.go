@@ -112,36 +112,25 @@ func (t *Trie) Match(url string) ([]Hook, bool) {
 		}
 
 		if len(stack) == 0 {
-			if len(matchedValues) > 0 {
-				return matchedValues, true
-			} else {
-				return matchedValues, false
-			}
+			return matchedValues, len(matchedValues) > 0
 		}
 
 		// get current level length
 		levelLen := len(stack)
 		for i := 0; i < levelLen; i++ {
 			// pop
-			current = stack[0]
-			stack = stack[1:]
+			current, stack = stack[0], stack[1:]
 			if current.isEnd {
 				if current.isWildcard || current.data == part {
 					// Match the last node, append the values
 					matchedValues = append(matchedValues, current.hooks...)
 				}
+
 				continue
 			}
 
-			// find wildcard node
-			if current.isWildcard {
-				for _, child := range current.children {
-					stack = append(stack, child)
-				}
-			}
-
-			// find expect node
-			if current.data == part {
+			// find wildcard node or expect node
+			if current.isWildcard || current.data == part {
 				for _, child := range current.children {
 					stack = append(stack, child)
 				}
@@ -149,9 +138,5 @@ func (t *Trie) Match(url string) ([]Hook, bool) {
 		}
 	}
 
-	if len(matchedValues) > 0 {
-		return matchedValues, true
-	} else {
-		return matchedValues, false
-	}
+	return matchedValues, len(matchedValues) > 0
 }

@@ -57,6 +57,7 @@ func GetStringOrDefault(key string, defaultValue string) string {
 	if viper.IsSet(key) {
 		return viper.GetString(key)
 	}
+
 	return defaultValue
 }
 
@@ -65,6 +66,7 @@ func GetIntOrDefault(key string, defaultValue int) int {
 	if viper.IsSet(key) {
 		return viper.GetInt(key)
 	}
+
 	return defaultValue
 }
 
@@ -73,5 +75,6 @@ func GetBoolOrDefault(key string, defaultValue bool) bool {
 	if viper.IsSet(key) {
 		return viper.GetBool(key)
 	}
+
 	return defaultValue
 }

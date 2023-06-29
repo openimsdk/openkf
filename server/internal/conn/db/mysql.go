@@ -112,15 +112,17 @@ func GetMysqlDB() *gorm.DB {
 
 // CloseMysqlDB close mysql connection.
 func CloseMysqlDB() {
-	if d != nil {
-		sqlDB, err := d.DB()
+	if d == nil {
+		return
+	}
+
+	sqlDB, err := d.DB()
+	if err != nil {
+		log.Error("Mysql", err.Error(), " db.DB() failed ")
+	} else {
+		err = sqlDB.Close()
 		if err != nil {
-			log.Error("Mysql", err.Error(), " db.DB() failed ")
-		} else {
-			err = sqlDB.Close()
-			if err != nil {
-				log.Error("Mysql", err.Error(), " sqlDB.Close() failed ")
-			}
+			log.Error("Mysql", err.Error(), " sqlDB.Close() failed ")
 		}
 	}
 }

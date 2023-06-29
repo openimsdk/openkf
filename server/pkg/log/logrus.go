@@ -73,10 +73,10 @@ func loggerInit() *logrus.Logger {
 // NewLfsHook add fileline hook
 func NewLfsHook(rotationTime time.Duration, maxRemainNum uint) logrus.Hook {
 	lfsHook := lfshook.NewHook(lfshook.WriterMap{
-		logrus.DebugLevel: initRotateLogs(rotationTime, maxRemainNum, "all"),
-		logrus.InfoLevel:  initRotateLogs(rotationTime, maxRemainNum, "all"),
-		logrus.WarnLevel:  initRotateLogs(rotationTime, maxRemainNum, "all"),
-		logrus.ErrorLevel: initRotateLogs(rotationTime, maxRemainNum, "all"),
+		logrus.DebugLevel: initRotateLogs(rotationTime, maxRemainNum),
+		logrus.InfoLevel:  initRotateLogs(rotationTime, maxRemainNum),
+		logrus.WarnLevel:  initRotateLogs(rotationTime, maxRemainNum),
+		logrus.ErrorLevel: initRotateLogs(rotationTime, maxRemainNum),
 	}, &nested.Formatter{
 		TimestampFormat: "2006-01-02 15:04:05.000",
 		HideKeys:        false,
@@ -86,9 +86,9 @@ func NewLfsHook(rotationTime time.Duration, maxRemainNum uint) logrus.Hook {
 	return lfsHook
 }
 
-func initRotateLogs(rotationTime time.Duration, maxRemainNum uint, level string) *rotatelogs.RotateLogs {
+func initRotateLogs(rotationTime time.Duration, maxRemainNum uint) *rotatelogs.RotateLogs {
 	writer, err := rotatelogs.New(
-		config.Config.App.LogFile+level+".%Y%m%d%H%M",
+		config.Config.App.LogFile+".%Y%m%d%H%M",
 		rotatelogs.WithRotationTime(rotationTime),
 		rotatelogs.WithRotationCount(maxRemainNum),
 	)

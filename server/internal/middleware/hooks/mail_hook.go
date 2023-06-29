@@ -27,7 +27,7 @@ func init() {
 	fmt.Println("RegisterHook", "Register Hook[MailHook] success...")
 }
 
-// MailHook
+// MailHook implement urltrie.Hook
 type MailHook struct {
 	urltrie.Hook
 }
