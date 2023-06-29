@@ -12,25 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# GitHub recommends pinning actions to a commit SHA.
-# To get a newer version, you will need to update the SHA.
-# You can also reference a tag or branch, but the action may change without warning.
 
-name: Move assigned card
+# .github/workflows/gpt-translate.yml
+name: GPT Translate
+
 on:
-  issues:
-    types:
-      - assigned
-  pull_request:
-    types: 
-      - assigned
+  issue_comment:
+    types: [ created ]
 
 jobs:
-  move-assigned-card:
+  gpt_translate:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: alex-page/github-project-automation-plus@v0.8.3
+      - uses: actions/checkout@v3
+
+      - name: Run GPT Translate
+        if: |
+          contains(github.event.comment.body, '/gpt-translate') || 
+          contains(github.event.comment.body, '/gt')
+        uses: 3ru/gpt-translate@v1.0
         with:
-          project: OpenIM 2023 Sprint 🔥
-          column: In Progress
-          repo-token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          apikey: ${{ secrets.OPENAI_API4_KEY }}
+          token: "${{ secrets.BOT_GITHUB_TOKEN }}"
