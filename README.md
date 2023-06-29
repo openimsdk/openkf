@@ -30,41 +30,69 @@
 
 ## 🧩 Awesome features
 
-
+1. [OpenKF](https://https://github.com/OpenIMSDK/OpenKF) is an opensource customer service system based on [OpenIM](https://https://github.com/OpenIMSDK).
+2. Support LLM(Local Knowledgebase) customer service.
+3. Support multi-channel customer service, and easy to integrate with third-party systems.
+4. Easy to deploy and secondary development.
 
 ## 🛫 Quick start 
 
 > **Note**: You can get started quickly with OpenKF.
 
-1. Generate a [new repository](https://github.com/OpenIMSDK/OpenKF/generate) from the template.
-2. Clone the repository locally.
-3. Update files, read the README files in each directory.
-4. Write your code and tests. 
-
-<details>
-  <summary></summary>
+### 📦 Installation
 
 ```bash
-
+git clone https://https://github.com/OpenIMSDK/OpenKF
 ```
 
-</details>
+### 🚀 Run
 
-
-
-## 🕋 architecture diagram
-```mermaid
+```bash
 ```
+
+## 🕋 Architecture diagram
+
+![Architecture](assets/images/architecture.png)
 
 **MVC Architecture Design:**
-```mermaid
-```
+
+![MVC](assets/images/mvc.png)
 
 ## 🤖 File Directory Description
 
 Catalog standardization design structure:
 
 ```bash
+.
+├── assets
+│   └── images
+├── build
+├── deploy
+├── docs
+├── kf_plugins # Local knowledgebase with LLM
+│   ├── chat
+│   ├── config
+│   ├── data
+│   ├── logs
+│   ├── model
+│   └── utils
+├── scripts
+│   ├── githooks
+│   └── LICENSE
+├── server # OpenKF backend
+│   ├── cmd
+│   ├── data
+│   ├── docs
+│   ├── examples
+│   ├── internal
+│   ├── logs
+│   ├── pkg
+│   ├── test
+│   └── tools
+└── web # OpenKF frontend
+    ├── public
+    ├── scripts
+    └── src
 ```
 
 ## 🗓️ community meeting
@@ -86,6 +114,8 @@ Before you start, please make sure your changes are in demand. The best for that
 ## 🚨 License
 
 OpenIMSDK is licensed under the  Apache 2.0 license. See [LICENSE](https://github.com/OpenIMSDK/OpenKF/tree/main/LICENSE) for the full license text.
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOpenIMSDK%2FOpenIMSDK.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FOpenIMSDK%2FOpenKF?ref=badge_large)
 
 
 ## 🔮 Thanks to our contributors!
