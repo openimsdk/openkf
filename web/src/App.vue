@@ -14,11 +14,8 @@
  limitations under the License.
 -->
 
-<script>
-</script>
+<script></script>
 
-<template>
-</template>
+<template></template>
 
-<style scoped>
-</style>
+<style scoped></style>
