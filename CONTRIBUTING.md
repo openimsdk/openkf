@@ -22,7 +22,7 @@ This document provides guidelines and best practices to help you contribute effe
 
 We hope that anyone can join OpenKF , even if you are a student, writer, translator
 
-Please meet the minimum version of the Go language published in [go.mod](./go.mod). If you want to manage the Go language version, we provide tools to install [gvm](https://github.com/moovweb/gvm) in our [Makefile](./Makefile)
+Please meet the minimum version of the Go language published in [go.mod](./server/go.mod). If you want to manage the Go language version, we provide tools to install [gvm](https://github.com/moovweb/gvm) in our [Makefile](./Makefile)
 
 You'd better use Linux as the development environment, Linux with [Makefile](./Makefile) can help you quickly build and test OpenKF project.
 
@@ -36,7 +36,7 @@ The [Makefile](./Makefile) is for every developer, even if you don't know how to
 
 #### Code and doc contribution
 
-Every action to make project OpenKF better is encouraged. On GitHub, every improvement for OpenKF could be via a [PR](https://github.com/OpenKF/pulls) (short for pull request).
+Every action to make project OpenKF better is encouraged. On GitHub, every improvement for OpenKF could be via a [PR](https://github.com/OpenIMSDK/OpenKF/pulls) (short for pull request).
 
 + If you find a typo, try to fix it!
 + If you find a bug, try to fix it!
@@ -79,7 +79,7 @@ For any substantial design, there should be a well-crafted design document. This
 
 Anybody can access the shared Drive for reading. To get access to comment. Once you've done that, head to the [shared Drive](https://drive.google.com/) and behold all the docs.
 
-In addition to that, we'd love to invite you to [Join Our Slack]({slack}) where you can play with your imagination, tell us what you're working on, and get a quick response.
+In addition to that, we'd love to invite you to [Join Our Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg) where you can play with your imagination, tell us what you're working on, and get a quick response.
 
 When documenting a new design, we recommend a 2-step approach:
 
@@ -88,7 +88,7 @@ When documenting a new design, we recommend a 2-step approach:
 
 **In order to contribute a feature to OpenKF you'll need to go through the following steps:**
 
-+ Discuss your idea with the appropriate [working groups]({slack}) on the working group's Slack channel.
++ Discuss your idea with the appropriate [working groups](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg) on the working group's Slack channel.
 + Once there is general agreement that the feature is useful, create a GitHub issue to track the discussion. The issue should include information about the requirements and use cases that it is trying to address.
 + Include a discussion of the proposed design and technical details of the implementation in the issue.
 
@@ -208,7 +208,7 @@ To be honest, we regard every user of OpenKFas a very kind contributor. After ex
 
 Since we collaborate project OpenKF in a distributed way, we appreciate **WELL-WRITTEN**, **DETAILED**, **EXPLICIT** issue reports. To make the communication more efficient, we wish everyone could search if your issue is an existing one in the searching list. If you find it existing, please add your details in comments under the existing issue instead of opening a brand new one.
 
-To make the issue details as standard as possible, we setup an [ISSUE TEMPLATE](https://github.com/OpenIMSDK/OpenKF/tree/main/.github/ISSUE_TEMPLATE) for issue reporters. You can find three kinds of issue templates there: question, bug report and feature request. Please **BE SURE** to follow the instructions to fill fields in template.
+To make the issue details as standard as possible, we setup an [ISSUE TEMPLATE](https://github.com/OpenIMSDK/OpenKF/issues/new/choose) for issue reporters. You can find three kinds of issue templates there: question, bug report and feature request. Please **BE SURE** to follow the instructions to fill fields in template.
 
 **There are a lot of cases when you could open an issue:**
 
@@ -344,9 +344,6 @@ These two kind of tests: `lint` and `unit test`
 > You can use the [Makefile](./Makefile)  to run Lint with the command `make lint`.
 
 
-`unit test` runs all the test in code, and the code coverage should not less than 60 percent, record us in [codeclimate](https://codeclimate.com/github/OpenIMSDK/OpenKF) OpenKF the unit test coverage data.
-
-
 > **Note**
 >
 > We use the [Makefile](./Makefile) utility, `make tese` to run the unit tests, and the `make cover` utility to check the unit test coverage.
@@ -360,7 +357,7 @@ Try your best to keep every function has been tested, it keeps the function beha
 + [README.md](https://github.com/OpenIMSDK/OpenKF/blob/main/README.md): This file includes the basic information and instructions for getting started with OpenKF.
 + [CONTRIBUTING.md](https://github.com/OpenIMSDK/OpenKF/blob/main/CONTRIBUTING.md): This file contains guidelines for contributing to OpenKF's codebase, such as how to submit issues, pull requests, and code reviews.
 + [DEVELOPGUIDE.md](https://github.com/OpenIMSDK/OpenKF/blob/main/DEVELOPGUIDE.md): This file provides a more in-depth guide to developing OpenKF, including information on the project's architecture, coding conventions, and testing practices.
-+ [Official Documentation]({blog}): This is the official documentation for OpenKF, which includes comprehensive information on all of its features, configuration options, and troubleshooting tips.
++ [Official Documentation](https://doc.rentsoft.cn/): This is the official documentation for OpenKF, which includes comprehensive information on all of its features, configuration options, and troubleshooting tips.
 
 **Please obey the following rules to better format the docs, which would greatly improve the reading experience.**
 
@@ -388,7 +385,7 @@ We choose GitHub as the primary place for OpenKF to collaborate. So the latest u
 + help solve other user's problems;
 + help review other's [PR](https://github.com/OpenIMSDK/OpenKF/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc) design; 
 + discuss about OpenKF to make things clearer;
-+ advocate [OpenKF](google.com/search?q=OpenKF) technology beyond GitHub;
++ advocate [OpenKF](https://google.com/search?q=OpenKF) technology beyond GitHub;
 + write blogs on OpenKF and so on.
 
 In a word, **ANY HELP IS CONTRIBUTION.**

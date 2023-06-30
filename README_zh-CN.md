@@ -113,8 +113,6 @@ OpenIMSDK 的目标是建立一个顶级的开源社区。我们有一套标准�
 
 OpenIMSDK 在 Apache 2.0 许可证下发布。完整的许可证文本请参阅 [LICENSE](https://github.com/OpenIMSDK/OpenKF/tree/main/LICENSE)。
 
-[![FOSSA 状态](https://app.fossa.com/api/projects/git%2Bgithub.com%2FOpenIMSDK%2FOpenIMSDK.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FOpenIMSDK%2FOpenKF?ref=badge_large)
-
 ## 🔮 感谢我们的贡献者！
 
 <a href="https://github.com/OpenIMSDK/OpenKF/graphs/contributors">
