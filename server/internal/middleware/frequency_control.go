@@ -10,10 +10,10 @@ import (
 // define rate limit struct
 type frequencyControlByTokenBucket struct {
 	refreshRate float64    // 令牌的刷新速率
-	capacity    int64      // 桶的容量
-	tokens      float64    // 当前令牌数量
-	lastToken   time.Time  // 上一次放令牌的时间
-	mtx         sync.Mutex // 互斥锁
+	capacity    int64      // bucket's capacity
+	tokens      float64    // tokens' count
+	lastToken   time.Time  //latest time token stored
+	mtx         sync.Mutex // mutex
 }
 
 // allow frequency
