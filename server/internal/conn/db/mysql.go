@@ -27,12 +27,14 @@ import (
 
 var d *gorm.DB
 
-type Writer struct{}
+type writer struct{}
 
-func (w Writer) Printf(format string, args ...interface{}) {
+// Write implement log writer interface
+func (w writer) Printf(format string, args ...interface{}) {
 	fmt.Printf(format, args...)
 }
 
+// InitMysqlDB init mysql connection.
 func InitMysqlDB() {
 	// try to use default database [mysql]
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
@@ -71,7 +73,7 @@ func InitMysqlDB() {
 	)
 
 	logger := logger.New(
-		Writer{},
+		writer{},
 		logger.Config{
 			IgnoreRecordNotFoundError: true, // Ignore ErrRecordNotFound error for logger
 			Colorful:                  true, // Disable color
@@ -103,21 +105,24 @@ func InitMysqlDB() {
 	log.Info("Mysql", "connect ok", dsn)
 }
 
-// get mysql connection.
+// GetMysqlDB get mysql connection.
 func GetMysqlDB() *gorm.DB {
 	return d
 }
 
+// CloseMysqlDB close mysql connection.
 func CloseMysqlDB() {
-	if d != nil {
-		sqlDB, err := d.DB()
+	if d == nil {
+		return
+	}
+
+	sqlDB, err := d.DB()
+	if err != nil {
+		log.Error("Mysql", err.Error(), " db.DB() failed ")
+	} else {
+		err = sqlDB.Close()
 		if err != nil {
-			log.Error("Mysql", err.Error(), " db.DB() failed ")
-		} else {
-			err = sqlDB.Close()
-			if err != nil {
-				log.Error("Mysql", err.Error(), " sqlDB.Close() failed ")
-			}
+			log.Error("Mysql", err.Error(), " sqlDB.Close() failed ")
 		}
 	}
 }

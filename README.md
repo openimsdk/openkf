@@ -30,7 +30,7 @@
 
 ## 🧩 Awesome features
 
-1. [OpenKF](https://https://github.com/OpenIMSDK/OpenKF) is an opensource customer service system based on [OpenIM](https://https://github.com/OpenIMSDK).
+1. [OpenKF](https://github.com/OpenIMSDK/OpenKF) is an opensource customer service system based on [OpenIM](https://github.com/OpenIMSDK).
 2. Support LLM(Local Knowledgebase) customer service.
 3. Support multi-channel customer service, and easy to integrate with third-party systems.
 4. Easy to deploy and secondary development.

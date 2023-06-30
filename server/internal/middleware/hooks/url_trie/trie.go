@@ -34,7 +34,7 @@ type Hook interface {
 	AfterRun(c *gin.Context)
 }
 
-const WILDCARD = "*"
+const _wildcard = "*"
 
 type node struct {
 	children map[string]*node
@@ -46,10 +46,12 @@ type node struct {
 	isEnd      bool
 }
 
+// Trie is a tree for url
 type Trie struct {
 	root *node
 }
 
+// NewTrie returns a new Trie
 func NewTrie() *Trie {
 	return &Trie{
 		root: &node{
@@ -58,7 +60,7 @@ func NewTrie() *Trie {
 	}
 }
 
-// Insert url with hooks
+// Insert insert url with hooks
 func (t *Trie) Insert(url string, hooks ...Hook) {
 	current := t.root
 
@@ -76,7 +78,7 @@ func (t *Trie) Insert(url string, hooks ...Hook) {
 				data:     part,
 			}
 			// match wildcard
-			if part == WILDCARD {
+			if part == _wildcard {
 				child.isWildcard = true
 			}
 
@@ -92,7 +94,7 @@ func (t *Trie) Insert(url string, hooks ...Hook) {
 	current.hooks = append(current.hooks, hooks...)
 }
 
-// Match url with hooks
+// Match match url with hooks
 func (t *Trie) Match(url string) ([]Hook, bool) {
 	current := t.root
 
@@ -110,36 +112,25 @@ func (t *Trie) Match(url string) ([]Hook, bool) {
 		}
 
 		if len(stack) == 0 {
-			if len(matchedValues) > 0 {
-				return matchedValues, true
-			} else {
-				return matchedValues, false
-			}
+			return matchedValues, len(matchedValues) > 0
 		}
 
 		// get current level length
 		levelLen := len(stack)
 		for i := 0; i < levelLen; i++ {
 			// pop
-			current = stack[0]
-			stack = stack[1:]
+			current, stack = stack[0], stack[1:]
 			if current.isEnd {
 				if current.isWildcard || current.data == part {
 					// Match the last node, append the values
 					matchedValues = append(matchedValues, current.hooks...)
 				}
+
 				continue
 			}
 
-			// find wildcard node
-			if current.isWildcard {
-				for _, child := range current.children {
-					stack = append(stack, child)
-				}
-			}
-
-			// find expect node
-			if current.data == part {
+			// find wildcard node or expect node
+			if current.isWildcard || current.data == part {
 				for _, child := range current.children {
 					stack = append(stack, child)
 				}
@@ -147,9 +138,5 @@ func (t *Trie) Match(url string) ([]Hook, bool) {
 		}
 	}
 
-	if len(matchedValues) > 0 {
-		return matchedValues, true
-	} else {
-		return matchedValues, false
-	}
+	return matchedValues, len(matchedValues) > 0
 }

@@ -25,6 +25,7 @@ import (
 // todo: use email connection pool to reduce the cost of creating a connection
 // link: https://github.com/jordan-wright/email#a-pool-of-reusable-connections
 
+// SendEmail send email
 func SendEmail(to string, subject string, body string) error {
 	email := email.NewEmail()
 
@@ -45,6 +46,7 @@ func SendEmail(to string, subject string, body string) error {
 	return nil
 }
 
+// SendHtmlEmail send html email
 func SendHtmlEmail(to string, subject string, html string) error {
 	email := email.NewEmail()
 

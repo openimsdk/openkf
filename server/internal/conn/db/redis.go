@@ -25,6 +25,7 @@ import (
 
 var r *redis.Client
 
+// InitRedisDB init redis client
 func InitRedisDB() {
 	r = redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%d", config.Config.Redis.Ip, config.Config.Redis.Port),
@@ -39,10 +40,12 @@ func InitRedisDB() {
 	}
 }
 
+// GetRedis get redis client instance
 func GetRedis() *redis.Client {
 	return r
 }
 
+// CloseRedis close redis client instance
 func CloseRedis() {
 	if r != nil {
 		err := r.Close()

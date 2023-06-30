@@ -29,6 +29,7 @@ import (
 
 var _logger *logrus.Logger
 
+// InitLogger init logger
 func InitLogger() {
 	_logger = loggerInit()
 }
@@ -69,12 +70,13 @@ func loggerInit() *logrus.Logger {
 	return logger
 }
 
+// NewLfsHook add fileline hook
 func NewLfsHook(rotationTime time.Duration, maxRemainNum uint) logrus.Hook {
 	lfsHook := lfshook.NewHook(lfshook.WriterMap{
-		logrus.DebugLevel: initRotateLogs(rotationTime, maxRemainNum, "all"),
-		logrus.InfoLevel:  initRotateLogs(rotationTime, maxRemainNum, "all"),
-		logrus.WarnLevel:  initRotateLogs(rotationTime, maxRemainNum, "all"),
-		logrus.ErrorLevel: initRotateLogs(rotationTime, maxRemainNum, "all"),
+		logrus.DebugLevel: initRotateLogs(rotationTime, maxRemainNum),
+		logrus.InfoLevel:  initRotateLogs(rotationTime, maxRemainNum),
+		logrus.WarnLevel:  initRotateLogs(rotationTime, maxRemainNum),
+		logrus.ErrorLevel: initRotateLogs(rotationTime, maxRemainNum),
 	}, &nested.Formatter{
 		TimestampFormat: "2006-01-02 15:04:05.000",
 		HideKeys:        false,
@@ -84,9 +86,9 @@ func NewLfsHook(rotationTime time.Duration, maxRemainNum uint) logrus.Hook {
 	return lfsHook
 }
 
-func initRotateLogs(rotationTime time.Duration, maxRemainNum uint, level string) *rotatelogs.RotateLogs {
+func initRotateLogs(rotationTime time.Duration, maxRemainNum uint) *rotatelogs.RotateLogs {
 	writer, err := rotatelogs.New(
-		config.Config.App.LogFile+level+".%Y%m%d%H%M",
+		config.Config.App.LogFile+".%Y%m%d%H%M",
 		rotatelogs.WithRotationTime(rotationTime),
 		rotatelogs.WithRotationCount(maxRemainNum),
 	)
@@ -97,52 +99,61 @@ func initRotateLogs(rotationTime time.Duration, maxRemainNum uint, level string)
 	}
 }
 
+// GetLogger get logger instance
 func GetLogger() *logrus.Logger {
 	return _logger
 }
 
+// Info log info
 func Info(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Infoln(args...)
 }
 
+// Error log error
 func Error(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Errorln(args...)
 }
 
+// Debug log debug
 func Debug(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Debugln(args...)
 }
 
+// Panic log panic
 func Panic(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Panicln(args...)
 }
 
+// Infof log info with format
 func Infof(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Infof(format, args...)
 }
 
+// Errorf log error with format
 func Errorf(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Errorf(format, args...)
 }
 
+// Debugf log debug with format
 func Debugf(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Debugf(format, args...)
 }
 
+// Panicf log panic with format
 func Panicf(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,

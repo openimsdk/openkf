@@ -23,6 +23,7 @@ import (
 	"strings"
 )
 
+// HookGenerator is a generator for hooks
 type HookGenerator struct {
 	buf      *bytes.Buffer
 	config   *config
@@ -34,6 +35,7 @@ type config struct {
 	UrlPattern string
 }
 
+// NewHookGenerator returns a new HookGenerator
 func NewHookGenerator(hookName, urlPattern, savePath string) *HookGenerator {
 	return &HookGenerator{
 		buf: bytes.NewBuffer(nil),
@@ -45,6 +47,7 @@ func NewHookGenerator(hookName, urlPattern, savePath string) *HookGenerator {
 	}
 }
 
+// Generate init the hook
 func (g *HookGenerator) Generate() *HookGenerator {
 	if err := hookTemplate.Execute(g.buf, g.config); err != nil {
 		panic(err)
@@ -53,6 +56,7 @@ func (g *HookGenerator) Generate() *HookGenerator {
 	return g
 }
 
+// Format format the generated code
 func (g *HookGenerator) Format() *HookGenerator {
 	formatOut, err := format.Source(g.buf.Bytes())
 	if err != nil {
@@ -63,6 +67,7 @@ func (g *HookGenerator) Format() *HookGenerator {
 	return g
 }
 
+// Flush write the generated code to file
 func (g *HookGenerator) Flush() {
 	filename := fmt.Sprintf("gen_%s_hook.go", strings.ToLower(g.config.HookName))
 	if err := ioutil.WriteFile(

@@ -28,12 +28,12 @@ func init() {
 	hookTrie = NewTrie()
 }
 
-// Register url & hook to trie
+// RegisterHook register url & hook to trie
 func RegisterHook(hook Hook) {
 	hookTrie.Insert(hook.Pattern(), hook)
 }
 
-// Enable hook for interceptor
+// RunHook enable hook for interceptor
 func RunHook() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		raw := c.Request.URL.Path
@@ -48,6 +48,7 @@ func RunHook() gin.HandlerFunc {
 		hooks, ok := hookTrie.Match(path)
 		if !ok {
 			c.Next()
+
 			return
 		}
 

@@ -27,19 +27,23 @@ func init() {
 	fmt.Println("RegisterHook", "Register Hook[GlobalHook] success...")
 }
 
+// GlobalHook implement urltrie.Hook
 type GlobalHook struct {
 	urltrie.Hook
 }
 
+// Pattern return pattern
 func (h GlobalHook) Pattern() string {
 	return "/*"
 }
 
+// BeforeRun do something before controller run
 func (h GlobalHook) BeforeRun(c *gin.Context) {
 	log.Debugf("GlobalHook", "path: %v", c.Request.URL.Path)
 	c.Next()
 }
 
+// AfterRun do something after controller run
 func (h GlobalHook) AfterRun(c *gin.Context) {
 	c.Next()
 }

@@ -23,6 +23,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Service service
 type Service struct {
 	// Context
 	Ctx context.Context
@@ -32,6 +33,7 @@ type Service struct {
 	Cache *redis.Client
 }
 
+// NewService return new service with context
 func NewService() *Service {
 	return &Service{
 		Ctx:   context.Background(),
@@ -40,6 +42,7 @@ func NewService() *Service {
 	}
 }
 
+// NewServiceWithGin return new service with gin context
 func NewServiceWithGin(c *gin.Context) *Service {
 	return &Service{
 		Ctx:   c.Request.Context(),

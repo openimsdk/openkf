@@ -14,17 +14,19 @@
 
 package common
 
-var Msg = map[int]string{
+// msg is a mapping of message.
+var msg = map[int]string{
 	SUCCESS:        "success",
 	ERROR:          "error",
 	INVALID_PARAMS: "request params error",
 }
 
+// GetMsg get the message by code.
 func GetMsg(code int) string {
-	msg, ok := Msg[code]
+	m, ok := msg[code]
 	if ok {
-		return msg
+		return m
 	}
 
-	return Msg[ERROR]
+	return msg[ERROR]
 }

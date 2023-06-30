@@ -14,6 +14,7 @@
 
 package common
 
+// Code.
 const (
 	SUCCESS        = 200
 	ERROR          = 500

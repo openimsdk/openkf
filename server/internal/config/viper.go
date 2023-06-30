@@ -32,36 +32,49 @@ func initViper(configPath string) {
 	fmt.Println("Load ok")
 }
 
-// get config
+// GetInterface get interface config
 func GetInterface(key string) interface{} {
 	return viper.Get(key)
 }
+
+// GetString get string config
 func GetString(key string) string {
 	return viper.GetString(key)
 }
+
+// GetInt get int config
 func GetInt(key string) int {
 	return viper.GetInt(key)
 }
+
+// GetBool get bool config
 func GetBool(key string) bool {
 	return viper.GetBool(key)
 }
 
-// get config or use default
+// GetStringOrDefault get string config or use default
 func GetStringOrDefault(key string, defaultValue string) string {
 	if viper.IsSet(key) {
 		return viper.GetString(key)
 	}
+
 	return defaultValue
 }
+
+// GetIntOrDefault get int config or use default
 func GetIntOrDefault(key string, defaultValue int) int {
 	if viper.IsSet(key) {
 		return viper.GetInt(key)
 	}
+
 	return defaultValue
 }
+
+// GetBoolOrDefault get bool config or use default
 func GetBoolOrDefault(key string, defaultValue bool) bool {
 	if viper.IsSet(key) {
 		return viper.GetBool(key)
 	}
+
 	return defaultValue
 }

@@ -22,17 +22,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// EnableAuth enable auth middleware
 func EnableAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.GetHeader("Authorization")
 		if token == "" || strings.Fields(token)[0] != "Bearer" {
 			c.AbortWithStatus(http.StatusUnauthorized)
+
 			return
 		}
 
 		_, err := utils.ParseJwtToken(token)
 		if err != nil {
 			c.AbortWithStatus(http.StatusUnauthorized)
+
 			return
 		}
 

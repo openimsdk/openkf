@@ -227,7 +227,7 @@ generate:
 .PHONY: lint
 lint: tools.verify.golangci-lint
 	@echo "===========> Run golangci to lint source codes"
-	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml $(ROOT_DIR)/$(SERVER_DIR)/... 
+	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml
 
 ## test: Run unit test
 .PHONY: test
@@ -237,7 +237,7 @@ test:
 ## cover: Run unit test with coverage.
 .PHONY: cover
 cover: test
-	@cd $(SERVER_DIR) && go test -cover 
+	@cd $(SERVER_DIR) && go test -coverprofile=$(TMP_DIR)/coverage.out
 
 ## docker-build: Build docker image with the manager.
 .PHONY: docker-build

@@ -21,10 +21,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Server server interface
 type Server interface {
 	ListenAndServe() error
 }
 
+// InitServer init server
 func InitServer(address string, r *gin.Engine) Server {
 	server := endless.NewServer(address, r)
 

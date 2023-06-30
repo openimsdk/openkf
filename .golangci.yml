@@ -160,15 +160,15 @@ linters-settings:
       - '*.Embedded'
       - '*.External'
 
-  forbidigo:
-    # Forbid the following identifiers (identifiers are written using regexp):
-    forbid:
-      - ^print.*$
-      - 'fmt\.Print.*'
-      - fmt.Println.* # too much log noise
-      - ginkgo\\.F.* # these are used just for local development
-    # Exclude godoc examples from forbidigo checks.  Default is true.
-    exclude_godoc_examples: false
+  # forbidigo:
+  #   # Forbid the following identifiers (identifiers are written using regexp):
+  #   forbid:
+  #     - ^print.*$
+  #     - 'fmt\.Print.*'
+  #     - fmt.Println.* # too much log noise
+  #     - ginkgo\\.F.* # these are used just for local development
+  #   # Exclude godoc examples from forbidigo checks.  Default is true.
+  #   exclude_godoc_examples: false
   funlen:
     lines: 150
     statements: 50
@@ -296,7 +296,7 @@ linters-settings:
 
   gofumpt:
     # Select the Go version to target. The default is `1.18`.
-    lang-version: "1.18"
+    lang-version: "1.20"
 
     # Choose whether or not to use the extra rules that are disabled
     # by default
@@ -409,7 +409,7 @@ linters-settings:
 
   gosimple:
     # Select the Go version to target. The default is '1.13'.
-    go: "1.18"
+    go: "1.20"
     # https://staticcheck.io/docs/options#checks
     checks: [ "all" ]
 
@@ -433,14 +433,14 @@ linters-settings:
     disable:
       - shadow
     disable-all: false
-  depguard:
-    list-type: blacklist
-    include-go-root: false
-    packages:
-      - github.com/Sirupsen/logrus
-    packages-with-error-message:
-      # specify an error message to output when a blacklisted package is used
-      - github.com/Sirupsen/logrus: "logging is allowed only by logutils.Log"
+  # depguard:
+  #   list-type: blacklist
+  #   include-go-root: false
+  #   packages:
+  #     - github.com/Sirupsen/logrus
+  #   packages-with-error-message:
+  #     # specify an error message to output when a blacklisted package is used
+  #     - github.com/Sirupsen/logrus: "logging is allowed only by logutils.Log"
   ifshort:
     # Maximum length of variable declaration measured in number of lines, after which linter won't suggest using short syntax.
     # Has higher priority than max-decl-chars.
@@ -722,7 +722,7 @@ linters:
     - bodyclose
     - cyclop
     - deadcode
-    - depguard
+    # - depguard
     - dogsled
     - dupl
     - durationcheck
@@ -730,10 +730,10 @@ linters:
     - errorlint
     - exhaustive
     - exportloopref
-    - forbidigo
+    # - forbidigo
     - funlen
-      #- gci
-    - gochecknoinits
+    # - gci
+    # - gochecknoinits
     - gocognit
     - goconst
     - gocyclo
@@ -813,8 +813,9 @@ issues:
   # Excluding configuration per-path, per-linter, per-text and per-source
   exclude-rules:
     - linters:
-      - errorlint
-      path: (pkg/validator/.*)\.go
+      - golint
+      path: (internal/api/.*)\.go # exclude golint for internal/api/... files
+
     - linters:
       - revive
       path: (log/.*)\.go

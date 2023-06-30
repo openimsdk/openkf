@@ -40,5 +40,6 @@ func (hook *filelineHook) Fire(entry *logrus.Entry) error {
 		s = i[len(i)-3] + i[len(i)-2] + i[len(i)-1] + ":" + utils.IntToString(line)
 	}
 	entry.Data["FilePath"] = s
+
 	return nil
 }
