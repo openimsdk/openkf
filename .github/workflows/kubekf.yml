@@ -17,7 +17,6 @@ name: OpenKF CI
 on: 
   push:
   pull_request:
-    types: [opened, reopened]
 
 jobs:
   openkf:
