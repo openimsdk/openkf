@@ -22,9 +22,9 @@ on:
       - 'docs/**'
   push:
     branches: [ main ]
-    paths:
-      - '**.md'
-      - 'docs/**'
+#     paths:
+#       - '**.md'
+#       - 'docs/**'
 
 jobs:
   linkChecker:
