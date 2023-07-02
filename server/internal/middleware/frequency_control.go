@@ -32,6 +32,7 @@ func (tb *frequencyControlByTokenBucket) Allow() bool {
 		tb.lastToken = now
 		return true
 	}
+	
 	return false
 }
 
