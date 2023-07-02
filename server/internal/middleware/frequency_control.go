@@ -31,12 +31,10 @@ func (tb *frequencyControlByTokenBucket) Allow() bool {
 		tb.tokens--
 		tb.lastToken = now
 		return true
-	} else {
-		return false
-	}
+	} 
 }
 
-// registried a middle ware
+// LimitHandler registried a middle ware to use
 func LimitHandler(maxConn int, refreshRate float64) gin.HandlerFunc {
 	tb := &frequencyControlByTokenBucket{
 		capacity:    int64(maxConn),
@@ -48,6 +46,7 @@ func LimitHandler(maxConn int, refreshRate float64) gin.HandlerFunc {
 		if !tb.Allow() {
 			c.String(503, "Too many request")
 			c.Abort()
+			
 			return
 		}
 		c.Next()
