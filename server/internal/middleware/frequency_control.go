@@ -31,7 +31,8 @@ func (tb *frequencyControlByTokenBucket) Allow() bool {
 		tb.tokens--
 		tb.lastToken = now
 		return true
-	} 
+	}
+	return false
 }
 
 // LimitHandler registried a middle ware to use
