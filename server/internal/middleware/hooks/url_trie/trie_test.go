@@ -40,6 +40,7 @@ func TestUrlTrie(t *testing.T) {
 		testHook{priority: 1, url: "/api/v1/123"},
 		testHook{priority: 1, url: "/openkf/*"},
 		testHook{priority: 2, url: "/gin"},
+		testHook{priority: 3, url: "/gin/1"},
 	}
 	trie := NewTrie()
 	for _, h := range hooks {

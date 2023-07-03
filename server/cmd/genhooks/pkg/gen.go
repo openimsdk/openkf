@@ -33,15 +33,17 @@ type HookGenerator struct {
 type config struct {
 	HookName   string
 	UrlPattern string
+	Prority    int64
 }
 
 // NewHookGenerator returns a new HookGenerator
-func NewHookGenerator(hookName, urlPattern, savePath string) *HookGenerator {
+func NewHookGenerator(hookName, urlPattern, savePath string, prority int64) *HookGenerator {
 	return &HookGenerator{
 		buf: bytes.NewBuffer(nil),
 		config: &config{
 			HookName:   hookName,
 			UrlPattern: urlPattern,
+			Prority:    prority,
 		},
 		savePath: savePath,
 	}
