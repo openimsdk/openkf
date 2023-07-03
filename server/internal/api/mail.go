@@ -15,12 +15,13 @@
 package api
 
 import (
+	"github.com/gin-gonic/gin"
+
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
 	"github.com/OpenIMSDK/OpenKF/server/internal/param"
 	"github.com/OpenIMSDK/OpenKF/server/internal/service"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
-	"github.com/gin-gonic/gin"
 )
 
 // SendCode

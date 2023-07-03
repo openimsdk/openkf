@@ -17,13 +17,14 @@ package service
 import (
 	"context"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
 	"gorm.io/gorm"
+
+	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 )
 
-// Service service
+// Service service.
 type Service struct {
 	// Context
 	Ctx context.Context
@@ -33,7 +34,7 @@ type Service struct {
 	Cache *redis.Client
 }
 
-// NewService return new service with context
+// NewService return new service with context.
 func NewService() *Service {
 	return &Service{
 		Ctx:   context.Background(),
@@ -42,7 +43,7 @@ func NewService() *Service {
 	}
 }
 
-// NewServiceWithGin return new service with gin context
+// NewServiceWithGin return new service with gin context.
 func NewServiceWithGin(c *gin.Context) *Service {
 	return &Service{
 		Ctx:   c.Request.Context(),

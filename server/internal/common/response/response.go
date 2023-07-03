@@ -17,18 +17,19 @@ package response
 import (
 	"net/http"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/gin-gonic/gin"
+
+	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 )
 
-// Response is a common struct for response
+// Response is a common struct for response.
 type Response struct {
 	Code int         `json:"code"`
 	Msg  string      `json:"msg"`
 	Data interface{} `json:"data"`
 }
 
-// NewResponse returns a new Response
+// NewResponse returns a new Response.
 func NewResponse(code int, msg string, data interface{}, c *gin.Context) {
 	c.JSON(http.StatusOK, &Response{
 		Code: code,
@@ -37,42 +38,42 @@ func NewResponse(code int, msg string, data interface{}, c *gin.Context) {
 	})
 }
 
-// Success returns a success response
+// Success returns a success response.
 func Success(c *gin.Context) {
 	NewResponse(common.SUCCESS, common.GetMsg(common.SUCCESS), nil, c)
 }
 
-// SuccessWithData returns a success response with data
+// SuccessWithData returns a success response with data.
 func SuccessWithData(data interface{}, c *gin.Context) {
 	NewResponse(common.SUCCESS, common.GetMsg(common.SUCCESS), data, c)
 }
 
-// SuccessWithCode returns a success response with code
+// SuccessWithCode returns a success response with code.
 func SuccessWithCode(code int, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), nil, c)
 }
 
-// SuccessWithAll returns a success response with code and data
+// SuccessWithAll returns a success response with code and data.
 func SuccessWithAll(code int, data interface{}, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), data, c)
 }
 
-// Fail returns a fail response
+// Fail returns a fail response.
 func Fail(c *gin.Context) {
 	NewResponse(common.ERROR, common.GetMsg(common.ERROR), nil, c)
 }
 
-// FailWithData returns a fail response with data
+// FailWithData returns a fail response with data.
 func FailWithData(data interface{}, c *gin.Context) {
 	NewResponse(common.ERROR, common.GetMsg(common.ERROR), data, c)
 }
 
-// FailWithCode returns a fail response with code
+// FailWithCode returns a fail response with code.
 func FailWithCode(code int, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), nil, c)
 }
 
-// FailWithAll returns a fail response with code and data
+// FailWithAll returns a fail response with code and data.
 func FailWithAll(code int, data interface{}, c *gin.Context) {
 	NewResponse(code, common.GetMsg(code), data, c)
 }

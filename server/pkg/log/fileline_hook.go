@@ -18,8 +18,9 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 	"github.com/sirupsen/logrus"
+
+	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 )
 
 type filelineHook struct{}

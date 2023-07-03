@@ -18,14 +18,15 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/go-redis/redis/v8"
+
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
-	"github.com/go-redis/redis/v8"
 )
 
 var r *redis.Client
 
-// InitRedisDB init redis client
+// InitRedisDB init redis client.
 func InitRedisDB() {
 	r = redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%d", config.Config.Redis.Ip, config.Config.Redis.Port),
@@ -40,12 +41,12 @@ func InitRedisDB() {
 	}
 }
 
-// GetRedis get redis client instance
+// GetRedis get redis client instance.
 func GetRedis() *redis.Client {
 	return r
 }
 
-// CloseRedis close redis client instance
+// CloseRedis close redis client instance.
 func CloseRedis() {
 	if r != nil {
 		err := r.Close()

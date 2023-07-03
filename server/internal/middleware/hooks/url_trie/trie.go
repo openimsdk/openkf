@@ -20,7 +20,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Hook for interceptor
+// Hook for interceptor.
 type Hook interface {
 	// Register with url pattern
 	// Support * wildcard, you can use it like this:
@@ -46,12 +46,12 @@ type node struct {
 	isEnd      bool
 }
 
-// Trie is a tree for url
+// Trie is a tree for url.
 type Trie struct {
 	root *node
 }
 
-// NewTrie returns a new Trie
+// NewTrie returns a new Trie.
 func NewTrie() *Trie {
 	return &Trie{
 		root: &node{
@@ -60,7 +60,7 @@ func NewTrie() *Trie {
 	}
 }
 
-// Insert insert url with hooks
+// Insert insert url with hooks.
 func (t *Trie) Insert(url string, hooks ...Hook) {
 	current := t.root
 
@@ -94,7 +94,7 @@ func (t *Trie) Insert(url string, hooks ...Hook) {
 	current.hooks = append(current.hooks, hooks...)
 }
 
-// Match match url with hooks
+// Match match url with hooks.
 func (t *Trie) Match(url string) ([]Hook, bool) {
 	current := t.root
 

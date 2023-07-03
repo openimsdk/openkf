@@ -18,14 +18,15 @@ import (
 	"fmt"
 	"net/smtp"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/jordan-wright/email"
+
+	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 )
 
 // todo: use email connection pool to reduce the cost of creating a connection
 // link: https://github.com/jordan-wright/email#a-pool-of-reusable-connections
 
-// SendEmail send email
+// SendEmail send email.
 func SendEmail(to string, subject string, body string) error {
 	email := email.NewEmail()
 
@@ -46,7 +47,7 @@ func SendEmail(to string, subject string, body string) error {
 	return nil
 }
 
-// SendHtmlEmail send html email
+// SendHtmlEmail send html email.
 func SendHtmlEmail(to string, subject string, html string) error {
 	email := email.NewEmail()
 

@@ -17,23 +17,24 @@ package urltrie
 import (
 	"net/url"
 
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 	"github.com/gin-gonic/gin"
+
+	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
-// Mapping for store url pattern and hook
+// Mapping for store url pattern and hook.
 var hookTrie *Trie
 
 func init() {
 	hookTrie = NewTrie()
 }
 
-// RegisterHook register url & hook to trie
+// RegisterHook register url & hook to trie.
 func RegisterHook(hook Hook) {
 	hookTrie.Insert(hook.Pattern(), hook)
 }
 
-// RunHook enable hook for interceptor
+// RunHook enable hook for interceptor.
 func RunHook() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		raw := c.Request.URL.Path

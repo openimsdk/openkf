@@ -47,6 +47,19 @@ func InitRouter() *gin.Engine {
 			register.POST("/email/code", api.SendCode)
 			// register.POST("/github", api.GithubRegister)
 		}
+
+		// OpenIM callback api
+		command := apiv1.Group("/openim/callback")
+		{
+			command.POST("/", api.OpenIMCallback)
+			command.POST("/callbackBeforeSendSingleMsgCommand", api.BeforeSendSingleMsg)
+			command.POST("/callbackAfterSendSingleMsgCommand", api.AfterSendSingleMsg)
+			command.POST("/callbackMsgModifyCommand", api.MsgModify)
+			command.POST("/callbackUserOnlineCommand", api.UserOnline)
+			command.POST("/callbackUserOfflineCommand", api.UserOffline)
+			command.POST("/callbackOfflinePushCommand", api.OfflinePush)
+			command.POST("/callbackOnlinePushCommand", api.OnlinePush)
+		}
 	}
 
 	return r

@@ -17,9 +17,9 @@ package hooks
 import (
 	"fmt"
 
-	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 	"github.com/gin-gonic/gin"
+
+	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 )
 
 func init() {
@@ -27,23 +27,22 @@ func init() {
 	fmt.Println("RegisterHook", "Register Hook[GlobalHook] success...")
 }
 
-// GlobalHook implement urltrie.Hook
+// GlobalHook implement urltrie.Hook.
 type GlobalHook struct {
 	urltrie.Hook
 }
 
-// Pattern return pattern
+// Pattern return pattern.
 func (h GlobalHook) Pattern() string {
 	return "/*"
 }
 
-// BeforeRun do something before controller run
+// BeforeRun do something before controller run.
 func (h GlobalHook) BeforeRun(c *gin.Context) {
-	log.Debugf("GlobalHook", "path: %v", c.Request.URL.Path)
 	c.Next()
 }
 
-// AfterRun do something after controller run
+// AfterRun do something after controller run.
 func (h GlobalHook) AfterRun(c *gin.Context) {
 	c.Next()
 }

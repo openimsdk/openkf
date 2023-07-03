@@ -20,7 +20,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// EnableCROS enable cros
+// EnableCROS enable cros.
 func EnableCROS() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// c.Writer.Header().Set("Access-Control-Allow-Origin", "*")

@@ -14,10 +14,10 @@
 
 package config
 
-// Config global config instance
+// Config global config instance.
 var Config *config
 
-// ConfigInit init config
+// ConfigInit init config.
 func ConfigInit(configPath string) {
 	// init viper
 	initViper(configPath)
@@ -83,27 +83,27 @@ type config struct {
 	Email  Email
 }
 
-// App config
+// App config.
 type App struct {
 	Version string `mapstructure:"version"`
 	Debug   bool   `mapstructure:"debug"`
 	LogFile string `mapstructure:"log_file"`
 }
 
-// JWT config
+// JWT config.
 type JWT struct {
 	Secret     string `mapstructure:"secret"`
 	Issuer     string `mapstructure:"issuer"`
 	ExpireDays int    `mapstructure:"expire_days"`
 }
 
-// Server config
+// Server config.
 type Server struct {
 	Ip   string `mapstructure:"ip"`
 	Port int    `mapstructure:"port"`
 }
 
-// Mysql config
+// Mysql config.
 type Mysql struct {
 	Ip           string `mapstructure:"ip"`
 	Port         int    `mapstructure:"port"`
@@ -115,7 +115,7 @@ type Mysql struct {
 	MaxIdleConns int    `mapstructure:"max_idle_conns"`
 }
 
-// Redis config
+// Redis config.
 type Redis struct {
 	Ip       string `mapstructure:"ip"`
 	Port     int    `mapstructure:"port"`
@@ -123,7 +123,7 @@ type Redis struct {
 	Database int    `mapstructure:"database"`
 }
 
-// Minio config
+// Minio config.
 type Minio struct {
 	Ip              string `mapstructure:"ip"`
 	Port            int    `mapstructure:"port"`
@@ -134,7 +134,7 @@ type Minio struct {
 	Location        string `mapstructure:"location"`
 }
 
-// Email config
+// Email config.
 type Email struct {
 	Host     string `mapstructure:"host"`
 	Port     int    `mapstructure:"port"`
