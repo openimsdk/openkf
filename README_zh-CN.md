@@ -48,6 +48,13 @@ git clone https://https://github.com/OpenIMSDK/OpenKF
 ### 🚀 运行
 
 ```bash
+注意: 我们需要先启动后端
+cd server
+go run main.go
+
+打开另一个命令行 输入以下命令
+cd web
+npm run dev
 ```
 
 ## 🕋 架构图

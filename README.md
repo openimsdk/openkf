@@ -48,9 +48,12 @@ git clone https://https://github.com/OpenIMSDK/OpenKF
 ### 🚀 Run
 
 ```bash
+Note: we need to run the backend server first
+cd server
 go run main.go
-```
-```bash
+
+open another terminal run the following command
+cd web
 npm run dev
 ```
 
