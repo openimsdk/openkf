@@ -15,40 +15,62 @@
 package api
 
 import (
-	"github.com/gin-gonic/gin"
+	"fmt"
+	"net/http"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
 	"github.com/OpenIMSDK/OpenKF/server/internal/param"
-	"github.com/OpenIMSDK/OpenKF/server/internal/service"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
+	"github.com/gin-gonic/gin"
 )
 
-// SendCode
-// @Tags mail
-// @Summary SendCode
-// @Description Use email to send verification code
+// OpenIMCallback
+// @Tags openim
+// @Summary OpenIMCallback
+// @Description Support OpenIM callback
 // @Produce application/json
-// @Param data body param.SendToParams true "Email address"
 // @Success 200 {object}  response.Response{msg=string} "Success"
-// @Router /api/v1/email/code [post].
-func SendCode(c *gin.Context) {
-	var params param.SendToParams
-	err := c.ShouldBindJSON(&params)
+// @Router /api/v1/openim/callback [post].
+func OpenIMCallback(c *gin.Context) {
+	param := &param.OpenIMCallbackCommand{}
+	err := c.ShouldBindQuery(param)
 	if err != nil {
+		// todo
 		response.FailWithCode(common.INVALID_PARAMS, c)
 
 		return
 	}
 
-	svc := service.NewServiceWithGin(c)
-	err = svc.SendCode(params.Email)
-	if err != nil {
-		log.Debug("SendCode error: ", err)
-		response.FailWithCode(common.ERROR, c)
+	// redirect to the corresponding router
+	callbackURL := fmt.Sprintf("%s%s", c.Request.URL.Path, param.Command)
+	c.Request.URL.Path = callbackURL
+	c.Redirect(http.StatusTemporaryRedirect, callbackURL)
+}
 
-		return
-	}
+// BeforeSendSingleMsg
+func BeforeSendSingleMsg(c *gin.Context) {
+}
 
-	response.Success(c)
+// AfterSendSingleMsg
+func AfterSendSingleMsg(c *gin.Context) {
+}
+
+// MsgModify
+func MsgModify(c *gin.Context) {
+}
+
+// UserOnline
+func UserOnline(c *gin.Context) {
+}
+
+// UserOffline
+func UserOffline(c *gin.Context) {
+}
+
+// OfflinePush
+func OfflinePush(c *gin.Context) {
+}
+
+// OnlinePush
+func OnlinePush(c *gin.Context) {
 }

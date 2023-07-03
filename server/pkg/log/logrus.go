@@ -20,16 +20,17 @@ import (
 	"os"
 	"time"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	nested "github.com/antonfisher/nested-logrus-formatter"
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
+
+	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 )
 
 var _logger *logrus.Logger
 
-// InitLogger init logger
+// InitLogger init logger.
 func InitLogger() {
 	_logger = loggerInit()
 }
@@ -70,7 +71,7 @@ func loggerInit() *logrus.Logger {
 	return logger
 }
 
-// NewLfsHook add fileline hook
+// NewLfsHook add fileline hook.
 func NewLfsHook(rotationTime time.Duration, maxRemainNum uint) logrus.Hook {
 	lfsHook := lfshook.NewHook(lfshook.WriterMap{
 		logrus.DebugLevel: initRotateLogs(rotationTime, maxRemainNum),
@@ -99,61 +100,61 @@ func initRotateLogs(rotationTime time.Duration, maxRemainNum uint) *rotatelogs.R
 	}
 }
 
-// GetLogger get logger instance
+// GetLogger get logger instance.
 func GetLogger() *logrus.Logger {
 	return _logger
 }
 
-// Info log info
+// Info log info.
 func Info(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Infoln(args...)
 }
 
-// Error log error
+// Error log error.
 func Error(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Errorln(args...)
 }
 
-// Debug log debug
+// Debug log debug.
 func Debug(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Debugln(args...)
 }
 
-// Panic log panic
+// Panic log panic.
 func Panic(Operation string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Panicln(args...)
 }
 
-// Infof log info with format
+// Infof log info with format.
 func Infof(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Infof(format, args...)
 }
 
-// Errorf log error with format
+// Errorf log error with format.
 func Errorf(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Errorf(format, args...)
 }
 
-// Debugf log debug with format
+// Debugf log debug with format.
 func Debugf(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,
 	}).Debugf(format, args...)
 }
 
-// Panicf log panic with format
+// Panicf log panic with format.
 func Panicf(Operation string, format string, args ...interface{}) {
 	_logger.WithFields(logrus.Fields{
 		"Operation": Operation,

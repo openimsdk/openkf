@@ -17,9 +17,10 @@ package hooks
 import (
 	"fmt"
 
+	"github.com/gin-gonic/gin"
+
 	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
-	"github.com/gin-gonic/gin"
 )
 
 func init() {
@@ -27,23 +28,23 @@ func init() {
 	fmt.Println("RegisterHook", "Register Hook[MailHook] success...")
 }
 
-// MailHook implement urltrie.Hook
+// MailHook implement urltrie.Hook.
 type MailHook struct {
 	urltrie.Hook
 }
 
-// Pattern return pattern
+// Pattern return pattern.
 func (h MailHook) Pattern() string {
 	return "/api/v1/register/email/code"
 }
 
-// BeforeRun do something before controller run
+// BeforeRun do something before controller run.
 func (h MailHook) BeforeRun(c *gin.Context) {
 	log.Debugf("GlobalHook", "path: %v", c.Request.URL.Path)
 	c.Next()
 }
 
-// AfterRun do something after controller run
+// AfterRun do something after controller run.
 func (h MailHook) AfterRun(c *gin.Context) {
 	c.Next()
 }

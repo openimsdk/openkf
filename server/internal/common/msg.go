@@ -19,6 +19,10 @@ var msg = map[int]string{
 	SUCCESS:        "success",
 	ERROR:          "error",
 	INVALID_PARAMS: "request params error",
+
+	// OpenIM callback code
+	OPENIM_SERVER_ALLOW_ACTION: "OpenIM allow action",
+	OPENIM_SERVER_DENY_ACTION:  "OpenIM deny action",
 }
 
 // GetMsg get the message by code.

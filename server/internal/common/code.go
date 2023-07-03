@@ -19,4 +19,8 @@ const (
 	SUCCESS        = 200
 	ERROR          = 500
 	INVALID_PARAMS = 400
+
+	// OpenIM callback code.
+	OPENIM_SERVER_ALLOW_ACTION = 0
+	OPENIM_SERVER_DENY_ACTION  = 1
 )

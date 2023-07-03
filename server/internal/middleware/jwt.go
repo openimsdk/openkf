@@ -18,11 +18,12 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 	"github.com/gin-gonic/gin"
+
+	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 )
 
-// EnableAuth enable auth middleware
+// EnableAuth enable auth middleware.
 func EnableAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.GetHeader("Authorization")

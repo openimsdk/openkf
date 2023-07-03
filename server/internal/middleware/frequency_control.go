@@ -7,16 +7,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// define rate limit struct
+// define rate limit struct.
 type frequencyControlByTokenBucket struct {
-	refreshRate float64    // 令牌的刷新速率
-	capacity    int64      // bucket's capacity
-	tokens      float64    // tokens' count
-	lastToken   time.Time  //latest time token stored
+	refreshRate float64    // token refresh rate
+	capacity    int64      // bucket capacity
+	tokens      float64    // token count
+	lastToken   time.Time  // latest time token stored
 	mtx         sync.Mutex // mutex
 }
 
-// allow frequency
+// allow frequency.
 func (tb *frequencyControlByTokenBucket) Allow() bool {
 	tb.mtx.Lock()
 	defer tb.mtx.Unlock()
@@ -30,13 +30,14 @@ func (tb *frequencyControlByTokenBucket) Allow() bool {
 	if tb.tokens >= 1 {
 		tb.tokens--
 		tb.lastToken = now
+
 		return true
 	}
-	
+
 	return false
 }
 
-// LimitHandler registried a middle ware to use
+// LimitHandler registried a middle ware to use.
 func LimitHandler(maxConn int, refreshRate float64) gin.HandlerFunc {
 	tb := &frequencyControlByTokenBucket{
 		capacity:    int64(maxConn),
@@ -44,11 +45,12 @@ func LimitHandler(maxConn int, refreshRate float64) gin.HandlerFunc {
 		tokens:      0,
 		lastToken:   time.Now(),
 	}
+
 	return func(c *gin.Context) {
 		if !tb.Allow() {
 			c.String(503, "Too many request")
 			c.Abort()
-			
+
 			return
 		}
 		c.Next()

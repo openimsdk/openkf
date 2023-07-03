@@ -18,18 +18,19 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+
+	"github.com/OpenIMSDK/OpenKF/server/internal/config"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
 var d *gorm.DB
 
 type writer struct{}
 
-// Write implement log writer interface
+// Write implement log writer interface.
 func (w writer) Printf(format string, args ...interface{}) {
 	fmt.Printf(format, args...)
 }

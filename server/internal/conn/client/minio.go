@@ -19,16 +19,19 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
+
+	"github.com/OpenIMSDK/OpenKF/server/internal/config"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
-var _minioClient *minio.Client
-var _bucket string
+var (
+	_minioClient *minio.Client
+	_bucket      string
+)
 
-// InitMinio init minio client
+// InitMinio init minio client.
 func InitMinio() {
 	endpoint := fmt.Sprintf("%s:%d", config.Config.Minio.Ip, config.Config.Minio.Port)
 	accessKeyID := config.Config.Minio.AccessKeyId
@@ -66,14 +69,14 @@ func InitMinio() {
 	_minioClient = minioClient
 }
 
-// PutObject put object to minio
+// PutObject put object to minio.
 func PutObject(objectName string, r io.Reader, objectSize int64) error {
 	_, err := _minioClient.PutObject(context.Background(), _bucket, objectName, r, objectSize, minio.PutObjectOptions{ContentType: "application/octet-stream"})
 
 	return err
 }
 
-// GetObject get object from minio
+// GetObject get object from minio.
 func GetObject(objectName string) (io.Reader, error) {
 	object, err := _minioClient.GetObject(context.Background(), _bucket, objectName, minio.GetObjectOptions{})
 
