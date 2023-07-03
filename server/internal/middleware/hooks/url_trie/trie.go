@@ -152,5 +152,6 @@ func (t *Trie) Match(url string) ([]Hook, bool) {
 			}
 		}
 	}
+
 	return matchedValues, len(matchedValues) > 0
 }
