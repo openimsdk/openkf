@@ -21,7 +21,6 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
 	"github.com/OpenIMSDK/OpenKF/server/internal/param"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 	"github.com/gin-gonic/gin"
 )
 
@@ -48,47 +47,30 @@ func OpenIMCallback(c *gin.Context) {
 	c.Redirect(http.StatusTemporaryRedirect, callbackURL)
 }
 
-// BeforeSendSingleMsg 
+// BeforeSendSingleMsg
 func BeforeSendSingleMsg(c *gin.Context) {
-	data := map[string]interface{}{}
-	_ = c.ShouldBindJSON(&data)
-	log.Debugf("BeforeSendSingleMsg", "data: %v", data)
 }
 
 // AfterSendSingleMsg
 func AfterSendSingleMsg(c *gin.Context) {
-	data := map[string]interface{}{}
-	_ = c.ShouldBindJSON(&data)
-	log.Debug("AfterSendSingleMsg", "data: %v", data)
 }
 
 // MsgModify
 func MsgModify(c *gin.Context) {
-	data := map[string]interface{}{}
-	_ = c.ShouldBindJSON(&data)
-	log.Debug("MsgModify", "data: %v", data)
 }
 
 // UserOnline
 func UserOnline(c *gin.Context) {
-	log.Debug("UserOnline")
 }
 
 // UserOffline
 func UserOffline(c *gin.Context) {
-	data := map[string]interface{}{}
-	_ = c.ShouldBindJSON(&data)
-	log.Debug("UserOffline", "data: %v", data)
 }
 
 // OfflinePush
 func OfflinePush(c *gin.Context) {
-	data := map[string]interface{}{}
-	_ = c.ShouldBindJSON(&data)
-	log.Debug("OfflinePush", "data: %v", data)
 }
 
 // OnlinePush
 func OnlinePush(c *gin.Context) {
-	log.Debug("OnlinePush")
 }
