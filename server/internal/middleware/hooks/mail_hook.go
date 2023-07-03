@@ -44,6 +44,7 @@ func (h MailHook) BeforeRun(c *gin.Context) {
 	c.Next()
 }
 
+// Priority return priority.
 func (h MailHook) Priority() int64 {
 	return 0
 }

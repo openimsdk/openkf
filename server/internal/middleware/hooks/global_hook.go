@@ -37,6 +37,7 @@ func (h GlobalHook) Pattern() string {
 	return "/*"
 }
 
+// Priority return priority.
 func (h GlobalHook) Priority() int64 {
 	return 0
 }
