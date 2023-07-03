@@ -24,12 +24,14 @@ import (
 var (
 	hookName   string
 	urlPattern string
+	prority    int64
 	savePath   string
 )
 
 func init() {
 	flag.StringVar(&hookName, "name", "", "hook name")
 	flag.StringVar(&urlPattern, "pattern", "", "url pattern")
+	flag.Int64Var(&prority, "prority", 0, "hook prority")
 	flag.StringVar(&savePath, "path", "../../internal/middleware/hooks", "save path")
 	flag.Parse()
 
@@ -40,5 +42,5 @@ func init() {
 }
 
 func main() {
-	pkg.NewHookGenerator(hookName, urlPattern, savePath).Generate().Format().Flush()
+	pkg.NewHookGenerator(hookName, urlPattern, savePath, prority).Generate().Format().Flush()
 }

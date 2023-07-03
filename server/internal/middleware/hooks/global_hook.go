@@ -37,6 +37,11 @@ func (h GlobalHook) Pattern() string {
 	return "/*"
 }
 
+// Priority return priority.
+func (h GlobalHook) Priority() int64 {
+	return 0
+}
+
 // BeforeRun do something before controller run.
 func (h GlobalHook) BeforeRun(c *gin.Context) {
 	c.Next()

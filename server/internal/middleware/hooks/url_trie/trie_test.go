@@ -20,23 +20,34 @@ import (
 	"testing"
 )
 
+type testHook struct {
+	Hook
+	priority int64
+	url      string
+}
+
+func (h testHook) Priority() int64 {
+	return h.priority
+}
+
+func (h testHook) Pattern() string {
+	return h.url
+}
+
 func TestUrlTrie(t *testing.T) {
-	type Hook1 struct {
-		Hook
+	hooks := []Hook{
+		testHook{priority: 1, url: "/gin"},
+		testHook{priority: 1, url: "/api/v1/123"},
+		testHook{priority: 1, url: "/openkf/*"},
+		testHook{priority: 2, url: "/gin"},
+		testHook{priority: 3, url: "/gin/1"},
 	}
-	type Hook2 struct {
-		Hook
-	}
-	type Hook3 struct {
-		Hook
-	}
-
 	trie := NewTrie()
-	trie.Insert("/gin", Hook1{})
-	trie.Insert("/api/v1/123", Hook2{})
-	trie.Insert("/openkf/*", Hook3{})
+	for _, h := range hooks {
+		trie.Insert(h.Pattern(), h)
+	}
 
-	values, matched := trie.Match("/gin")
+	values, matched := trie.Match("/gin/1")
 	if matched {
 		fmt.Printf("Matched, values: %#v\n", reflect.ValueOf(values)) // Output: Matched, values: [1 2]
 	} else {
