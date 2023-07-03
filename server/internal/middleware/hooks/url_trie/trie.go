@@ -15,6 +15,7 @@
 package urltrie
 
 import (
+	"sort"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -27,12 +28,23 @@ type Hook interface {
 	// /api/v1/*, and the url like /api/v1/123 will be matched
 	Pattern() string
 
+	// Priority will set the priority of the hook
+	Priority() int64
+
 	// Hooks
 	// BeforeRun will be called before controller, you can do something here
 	BeforeRun(c *gin.Context)
 	// AfterRun will be called after controller, you can do something here
 	AfterRun(c *gin.Context)
 }
+
+type sortedHook []Hook
+
+func (sh sortedHook) Len() int { return len(sh) }
+
+func (sh sortedHook) Less(i, j int) bool { return sh[i].Priority() > sh[j].Priority() }
+
+func (sh sortedHook) Swap(i, j int) { sh[i], sh[j] = sh[j], sh[i] }
 
 const _wildcard = "*"
 
@@ -92,6 +104,9 @@ func (t *Trie) Insert(url string, hooks ...Hook) {
 	// Set hooks to last node
 	current.isEnd = true
 	current.hooks = append(current.hooks, hooks...)
+	sortedHooks := sortedHook(current.hooks)
+	sort.Sort(sortedHooks)
+	current.hooks = sortedHooks
 }
 
 // Match match url with hooks.
@@ -137,6 +152,5 @@ func (t *Trie) Match(url string) ([]Hook, bool) {
 			}
 		}
 	}
-
 	return matchedValues, len(matchedValues) > 0
 }

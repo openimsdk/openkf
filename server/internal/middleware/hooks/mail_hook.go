@@ -44,6 +44,10 @@ func (h MailHook) BeforeRun(c *gin.Context) {
 	c.Next()
 }
 
+func (h MailHook) Priority() int64 {
+	return 0
+}
+
 // AfterRun do something after controller run.
 func (h MailHook) AfterRun(c *gin.Context) {
 	c.Next()
