@@ -48,6 +48,10 @@ git clone https://https://github.com/OpenIMSDK/OpenKF
 ### 🚀 Run
 
 ```bash
+go run main.go
+```
+```bash
+npm run dev
 ```
 
 ## 🕋 Architecture diagram
