@@ -1,6 +1,6 @@
 module github.com/OpenIMSDK/OpenKF/server
 
-go 1.18
+go 1.19
 
 require (
 	github.com/Delta456/box-cli-maker/v2 v2.3.0
