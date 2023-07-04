@@ -5,10 +5,10 @@
 README.md    @cubxxw @kubbot @AllianceTing @IRONICBo @MC-kanon @AllianceTing @charles-chenzz @Cathay-Chen @plutoyty 
 
 # Contributing guidelines
-CONTRIBUTING.md    @kubbot @cubxxw @IRONICBo @AllianceTing @plutoyty 
+CONTRIBUTING.md    @kubbot @cubxxw @IRONICBo @AllianceTing @plutoyty @fodedoumbouya
 
 # License files
-LICENSE    @kubbot @cubxxw @IRONICBo
+LICENSE    @kubbot @cubxxw @IRONICBo @fodedoumbouya
 
 # Makefile
 Makefile    @kubbot @cubxxw @IRONICBo @Cathay-Chen
@@ -40,7 +40,7 @@ web/*    @AllianceTing @MC-kanon @IRONICBo @liumingsongning @plutoyty
 # You can also use email addresses if you prefer. They'll be
 # used to look up users just like we do for commit author
 # emails.
-*.go 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @hanzhixiao @liumingsongning @Cathay-Chen @charles-chenzz @plutoyty 
+*.go 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @hanzhixiao @liumingsongning @Cathay-Chen @charles-chenzz @plutoyty @fodedoumbouya
 *.py 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @liumingsongning @plutoyty
 
 # Teams can be specified as code owners as well. Teams should
