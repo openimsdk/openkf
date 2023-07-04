@@ -56,6 +56,11 @@ func (h {{.HookName}}) Pattern() string {
 	return "{{.UrlPattern}}"
 }
 
+// EDIT THIS TO YOUR OWN HOOK PRIORITY
+func (h GlobalHook) Priority() int64 {
+	return {{.Prority}}
+}
+
 // EDIT THIS TO YOUR OWN HOOK BEFORE RUN
 func (h {{.HookName}}) BeforeRun(c *gin.Context) {
 	c.Next()
