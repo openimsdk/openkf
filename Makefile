@@ -268,6 +268,17 @@ copyright-add: tools.verify.addlicense
 	@$(TOOLS_DIR)/addlicense -y $(shell date +"%Y") -v -c "OpenIM open source community." -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
 	@echo "===========> End the copyright is added..."
 
+## swagger: Generate swagger document.
+.PHONY: swagger
+swagger: tools.verify.swagger
+	@echo "===========> Generating swagger API docs"
+	@$(TOOLS_DIR)/swagger generate spec --scan-models -w $(ROOT_DIR)/cmd/gendocs -o $(ROOT_DIR)/server/docs/swagger.yaml
+
+## serve-swagger: Serve swagger spec and docs.
+.PHONY: swagger.serve
+serve-swagger: tools.verify.swagger
+	@$(TOOLS_DIR)/swagger serve -F=redoc --no-open --port 36666 $(ROOT_DIR)/server/docs/swagger.yaml
+
 ## clean: Clean all builds.
 .PHONY: clean
 clean:
@@ -335,6 +346,11 @@ install.go-gitlint:
 .PHONY: install.go-junit-report
 install.go-junit-report:
 	@$(GO) install github.com/jstemmer/go-junit-report@latest
+
+## install.gotests: Install gotests, used to generate go tests
+.PHONY: install.swagger
+install.swagger:
+	@$(GO) install github.com/go-swagger/go-swagger/cmd/swagger@latest
 
 # ==============================================================================
 # Tools that might be used include go gvm, cos
