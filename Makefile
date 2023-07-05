@@ -194,6 +194,16 @@ go.build.%:
 .PHONY: build-multiarch
 build-multiarch: go.build.verify $(foreach p,$(PLATFORMS),$(addprefix go.build., $(addprefix $(p)., $(BINS))))
 
+.PHONY: test.junit-report
+test.junit-report: tools.verify.go-junit-report
+	@touch $(TMP_DIR)/coverage.out
+	@echo "===========> Run unit test > $(TMP_DIR)/report.xml"
+# 	@$(GO) test -v -coverprofile=$(TMP_DIR)/coverage.out 2>&1 $(GO_BUILD_FLAGS) ./... | $(TOOLS_DIR)/go-junit-report -set-exit-code > $(TMP_DIR)/report.xml
+	@$(GO) test -v -coverprofile=$(TMP_DIR)/coverage.out 2>&1 ./... | $(TOOLS_DIR)/go-junit-report -set-exit-code > $(TMP_DIR)/report.xml
+	@sed -i '/mock_.*.go/d' $(TMP_DIR)/coverage.out
+	@echo "===========> Test coverage of Go code is reported to $(TMP_DIR)/coverage.html by generating HTML"
+	@$(GO) tool cover -html=$(TMP_DIR)/coverage.out -o $(TMP_DIR)/coverage.html
+
 # ==============================================================================
 # Targets
 
@@ -227,7 +237,7 @@ generate:
 .PHONY: lint
 lint: tools.verify.golangci-lint
 	@echo "===========> Run golangci to lint source codes"
-	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml
+	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml  $(ROOT_DIR)/server/... 
 
 ## test: Run unit test
 .PHONY: test
@@ -236,8 +246,9 @@ test:
 
 ## cover: Run unit test with coverage.
 .PHONY: cover
-cover: test
-	@cd $(SERVER_DIR) && go test -coverprofile=$(TMP_DIR)/coverage.out
+cover: test.junit-report
+	@$(GO) tool cover -func=$(TMP_DIR)/coverage.out | \
+		awk -v target=$(COVERAGE) -f $(ROOT_DIR)/scripts/coverage.awk
 
 ## docker-build: Build docker image with the manager.
 .PHONY: docker-build

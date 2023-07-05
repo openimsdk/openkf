@@ -18,10 +18,11 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
 	"github.com/OpenIMSDK/OpenKF/server/internal/param"
-	"github.com/gin-gonic/gin"
 )
 
 // OpenIMCallback
@@ -47,30 +48,30 @@ func OpenIMCallback(c *gin.Context) {
 	c.Redirect(http.StatusTemporaryRedirect, callbackURL)
 }
 
-// BeforeSendSingleMsg
+// BeforeSendSingleMsg.
 func BeforeSendSingleMsg(c *gin.Context) {
 }
 
-// AfterSendSingleMsg
+// AfterSendSingleMsg.
 func AfterSendSingleMsg(c *gin.Context) {
 }
 
-// MsgModify
+// MsgModify.
 func MsgModify(c *gin.Context) {
 }
 
-// UserOnline
+// UserOnline.
 func UserOnline(c *gin.Context) {
 }
 
-// UserOffline
+// UserOffline.
 func UserOffline(c *gin.Context) {
 }
 
-// OfflinePush
+// OfflinePush.
 func OfflinePush(c *gin.Context) {
 }
 
-// OnlinePush
+// OnlinePush.
 func OnlinePush(c *gin.Context) {
 }
