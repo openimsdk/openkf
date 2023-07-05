@@ -42,20 +42,64 @@
 ### 📦 Installation
 
 ```bash
-git clone https://https://github.com/OpenIMSDK/OpenKF
+git clone https://github.com/OpenIMSDK/OpenKF openkf && export openkf=$(pwd)/openkf && cd $openkf && make
 ```
 
 ### 🚀 Run
 
-```bash
-Note: we need to run the backend server first
-cd server
-go run main.go
+> **Note**: 
+> We need to run the backend server first
 
-open another terminal run the following command
+```bash
+make build
+```
+
+> open another terminal run the following command
+
+```bash
+# make dev
 cd web
 npm run dev
 ```
+
+### 📖 Contributors get up to speed
+
+Be good at using Makefile, it can ensure the quality of your project.
+
+```bash
+Usage: make <TARGETS> ...
+
+Targets:
+  all                          Build all the necessary targets. 🏗️
+  build                        Build binaries by default. 🛠️
+  go.build                     Build the binary file of the specified platform. 👨‍💻
+  build-multiarch              Build binaries for multiple platforms. 🌍
+  tidy                         tidy go.mod 📦
+  style                        Code style -> fmt,vet,lint 🎨
+  fmt                          Run go fmt against code. ✨
+  vet                          Run go vet against code. 🔍
+  generate                     Run go generate against code and docs. ✅
+  lint                         Run go lint against code. 🔎
+  test                         Run unit test ✔️
+  cover                        Run unit test with coverage. 🧪
+  docker-build                 Build docker image with the manager. 🐳
+  docker-push                  Push docker image with the manager. 🔝
+  docker-buildx-push           Push docker image with the manager using buildx. 🚢
+  copyright-verify             Validate boilerplate headers for assign files. 📄
+  copyright-add                Add the boilerplate headers for all files. 📝
+  swagger                      Generate swagger document. 📚
+  serve-swagger                Serve swagger spec and docs. 🌐
+  clean                        Clean all builds. 🧹
+  help                         Show this help info. ℹ️
+```
+
+> **Node**: 
+> It's highly recommended that you run `make all` before committing your code. 🚀
+
+```bash
+make all
+```
+
 
 ## 🕋 Architecture diagram
 
