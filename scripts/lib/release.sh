@@ -24,7 +24,7 @@
 
 # Tencent cos configuration
 readonly BUCKET="openim-1306374445"
-readonly REGION="ap-beijing"
+readonly REGION="ap-guangzhou"
 readonly COS_RELEASE_DIR="openim-release"
 
 # default cos command tool coscli or coscmd
@@ -137,12 +137,13 @@ function openim::release::package_src_tarball() {
       ! \( \
       \( -path "${OPENIM_ROOT}"/_\* -o \
       -path "${OPENIM_ROOT}"/.git\* -o \
+      -path "${OPENIM_ROOT}"/.github\* -o \
       -path "${OPENIM_ROOT}"/.gitignore\* -o \
-      -path "${OPENIM_ROOT}"/.gsemver.yaml\* -o \
+      -path "${OPENIM_ROOT}"/.gsemver.yml\* -o \
       -path "${OPENIM_ROOT}"/.config\* -o \
       -path "${OPENIM_ROOT}"/.chglog\* -o \
       -path "${OPENIM_ROOT}"/.gitlint -o \
-      -path "${OPENIM_ROOT}"/.golangci.yaml -o \
+      -path "${OPENIM_ROOT}"/.golangci.yml -o \
       -path "${OPENIM_ROOT}"/.goreleaser.yml -o \
       -path "${OPENIM_ROOT}"/.note.md -o \
       -path "${OPENIM_ROOT}"/.todo.md \
@@ -271,6 +272,14 @@ function openim::release::sha1() {
     sha1sum "$1" | awk '{ print $1 }'
   else
     shasum -a1 "$1" | awk '{ print $1 }'
+  fi
+}
+
+function openim::release::sha256() {
+  if which sha256sum >/dev/null 2>&1; then
+    sha256sum "$1" | awk '{ print $1 }'
+  else
+    shasum -a256 "$1" | awk '{ print $1 }'
   fi
 }
 
