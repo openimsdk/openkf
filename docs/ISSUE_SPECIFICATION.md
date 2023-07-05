@@ -1,9 +1,8 @@
 # issue specification
 
-- we use [lot issues] (https://github.com/openIMSDK/openKF/issues) before reporting bugs, Please make sure that has been
-  searching similar [question] (https://github.com/OpenIMSDK/OpenKF/issues), because they may have already answered or
-  is being repaired. New questions should be directed to [Question Assistant](https://openIMSDK/issue-helper?
-  repo=openKF) submitted. For bug reports, include code that can be used to reproduce the problem and how to reproduce
+- we use [lot issues](https://github.com/openIMSDK/openKF/issues) before reporting bugs, Please make sure that has been
+  searching similar [question](https://github.com/OpenIMSDK/OpenKF/issues), because they may have already answered or
+  is being repaired. New questions should be directed to [Question Assistant](https://openIMSDK/issue-helper?repo=openKF) submitted. For bug reports, include code that can be used to reproduce the problem and how to reproduce
   it. For new feature suggestions, indicate the changes you want and the expected behavior.
 
 ## **for commit**
