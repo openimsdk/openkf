@@ -18,7 +18,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	_ "github.com/OpenIMSDK/OpenKF/server/docs" 
+	_ "github.com/OpenIMSDK/OpenKF/server/docs"
 
 	"github.com/gin-gonic/gin"
 

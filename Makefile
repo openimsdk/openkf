@@ -239,6 +239,20 @@ lint: tools.verify.golangci-lint
 	@echo "===========> Run golangci to lint source codes"
 	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml  $(ROOT_DIR)/server/... 
 
+## format: Run unit test and format codes
+.PHONY: format
+format: tools.verify.golines tools.verify.goimports
+	@echo "===========> Formating codes"
+	@$(FIND) -type f -name '*.go' | $(XARGS) gofmt -s -w
+	@$(FIND) -type f -name '*.go' | $(XARGS) $(TOOLS_DIR)/goimports -w -local $(ROOT_PACKAGE)
+	@$(FIND) -type f -name '*.go' | $(XARGS) $(TOOLS_DIR)/golines -w --max-len=120 --reformat-tags --shorten-comments --ignore-generated .
+	@cd $(SERVER_DIR) && $(GO) mod edit -fmt
+
+## updates: Check for updates to go.mod dependencies
+.PHONY: updates
+updates: tools.verify.go-mod-outdated
+	@cd $(SERVER_DIR) && $(GO) list -u -m -json all | $(TOOLS_DIR)/go-mod-outdated -update -direct
+
 ## test: Run unit test
 .PHONY: test
 test: 
@@ -276,7 +290,7 @@ copyright-verify: tools.verify.addlicense copyright-add
 .PHONY: copyright-add
 copyright-add: tools.verify.addlicense
 	@echo "===========> Adding $(LICENSE_TEMPLATE) the boilerplate headers for all files"
-	@$(TOOLS_DIR)/addlicense -y $(shell date +"%Y") -v -c "OpenIM open source community." -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
+	@$(TOOLS_DIR)/addlicense -y $(shell date +"%Y") -v -c "OpenKF & OpenIM open source community." -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
 	@echo "===========> End the copyright is added..."
 
 ## swagger: Generate swagger document.
