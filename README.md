@@ -93,7 +93,7 @@ Targets:
   help                         Show this help info. ℹ️
 ```
 
-> **Node**: 
+> **Note**: 
 > It's highly recommended that you run `make all` before committing your code. 🚀
 
 ```bash
@@ -149,6 +149,8 @@ Catalog standardization design structure:
 ## 🗓️ community meeting
 
 We want anyone to get involved in our community, we offer gifts and rewards, and we welcome you to join us every Thursday night.
+
+Our conference is in the [OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg) 🎯 `openkf` pipeline, then you can search the openkf pipeline to join
 
 We take notes of each [biweekly meeting](https://github.com/orgs/OpenIMSDK/discussions/categories/meeting) in [GitHub discussions](https://github.com/OpenIMSDK/OpenKF/discussions/categories/meeting), and our minutes are written in [Google Docs](https://docs.google.com/document/d/1nx8MDpuG74NASx081JcCpxPgDITNTpIIos0DS6Vr9GU/edit?usp=sharing).
 
