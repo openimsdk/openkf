@@ -36,7 +36,7 @@ func init() {
 	db.InitMysqlDB()
 }
 
-// migrate table
+// migrate table.
 func main() {
 	// get db instance
 	db := db.GetMysqlDB()

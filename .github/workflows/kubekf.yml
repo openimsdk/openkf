@@ -48,10 +48,10 @@ jobs:
         run: |
           make generate
 
-    #   - name: Check syntax and styling of go sources
-    #     run: |
-    #       set -e
-    #       make lint
+      - name: Check syntax and styling of go sources
+        run: |
+          set -e
+          make lint
 
       - name: Run unit test and get test coverage
         run: |

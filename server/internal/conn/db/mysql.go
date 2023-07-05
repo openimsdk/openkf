@@ -58,7 +58,10 @@ func InitMysqlDB() {
 	}
 
 	// create database if not exists
-	sql := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s default charset utf8 COLLATE utf8_general_ci;", config.Config.Mysql.Database)
+	sql := fmt.Sprintf(
+		"CREATE DATABASE IF NOT EXISTS %s default charset utf8 COLLATE utf8_general_ci;",
+		config.Config.Mysql.Database,
+	)
 	err = db.Exec(sql).Error
 	if err != nil {
 		log.Panic("Mysql", err.Error(), " Exec failed ", sql)
