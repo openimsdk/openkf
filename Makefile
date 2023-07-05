@@ -158,7 +158,7 @@ EXCLUDE_TESTS=github.com/OpenIMSDK/OpenKF/test
 
 ## all: Build all the necessary targets.
 .PHONY: all
-all: copyright-verify build # tidy lint cover
+all: copyright-verify tidy lint cover build
 
 ## build: Build binaries by default.
 .PHONY: build
@@ -247,7 +247,7 @@ test:
 ## cover: Run unit test with coverage.
 .PHONY: cover
 cover: test.junit-report
-	@$(GO) tool cover -func=$(TMP_DIR)/coverage.out | \
+	@cd $(SERVER_DIR) && $(GO) tool cover -func=$(TMP_DIR)/coverage.out | \
 		awk -v target=$(COVERAGE) -f $(ROOT_DIR)/scripts/coverage.awk
 
 ## docker-build: Build docker image with the manager.
@@ -289,6 +289,25 @@ swagger: tools.verify.swagger
 .PHONY: swagger.serve
 serve-swagger: tools.verify.swagger
 	@$(TOOLS_DIR)/swagger serve -F=redoc --no-open --port 36666 $(ROOT_DIR)/server/docs/swagger.yaml
+
+## release: release the project
+.PHONY: release
+release: release.verify release.ensure-tag
+	@scripts/release.sh
+
+## release.verify: Check if a tool is installed and install it
+.PHONY: release.verify
+release.verify: tools.verify.git-chglog tools.verify.github-release tools.verify.coscmd tools.verify.coscli
+
+## release.tag: release the project
+.PHONY: release.tag
+release.tag: tools.verify.gsemver release.ensure-tag
+	@git push origin `git describe --tags --abbrev=0`
+
+## release.ensure-tag: ensure tag
+.PHONY: release.ensure-tag
+release.ensure-tag: tools.verify.gsemver
+	@scripts/ensure_tag.sh
 
 ## clean: Clean all builds.
 .PHONY: clean
