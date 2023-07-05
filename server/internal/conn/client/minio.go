@@ -71,7 +71,14 @@ func InitMinio() {
 
 // PutObject put object to minio.
 func PutObject(objectName string, r io.Reader, objectSize int64) error {
-	_, err := _minioClient.PutObject(context.Background(), _bucket, objectName, r, objectSize, minio.PutObjectOptions{ContentType: "application/octet-stream"})
+	_, err := _minioClient.PutObject(
+		context.Background(),
+		_bucket,
+		objectName,
+		r,
+		objectSize,
+		minio.PutObjectOptions{ContentType: "application/octet-stream"},
+	)
 
 	return err
 }

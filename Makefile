@@ -158,7 +158,7 @@ EXCLUDE_TESTS=github.com/OpenIMSDK/OpenKF/test
 
 ## all: Build all the necessary targets.
 .PHONY: all
-all: copyright-verify build # tidy lint cover
+all: copyright-verify tidy lint cover build
 
 ## build: Build binaries by default.
 .PHONY: build
@@ -194,6 +194,16 @@ go.build.%:
 .PHONY: build-multiarch
 build-multiarch: go.build.verify $(foreach p,$(PLATFORMS),$(addprefix go.build., $(addprefix $(p)., $(BINS))))
 
+.PHONY: test.junit-report
+test.junit-report: tools.verify.go-junit-report
+	@touch $(TMP_DIR)/coverage.out
+	@echo "===========> Run unit test > $(TMP_DIR)/report.xml"
+# 	@$(GO) test -v -coverprofile=$(TMP_DIR)/coverage.out 2>&1 $(GO_BUILD_FLAGS) ./... | $(TOOLS_DIR)/go-junit-report -set-exit-code > $(TMP_DIR)/report.xml
+	@$(GO) test -v -coverprofile=$(TMP_DIR)/coverage.out 2>&1 ./... | $(TOOLS_DIR)/go-junit-report -set-exit-code > $(TMP_DIR)/report.xml
+	@sed -i '/mock_.*.go/d' $(TMP_DIR)/coverage.out
+	@echo "===========> Test coverage of Go code is reported to $(TMP_DIR)/coverage.html by generating HTML"
+	@$(GO) tool cover -html=$(TMP_DIR)/coverage.out -o $(TMP_DIR)/coverage.html
+
 # ==============================================================================
 # Targets
 
@@ -227,7 +237,21 @@ generate:
 .PHONY: lint
 lint: tools.verify.golangci-lint
 	@echo "===========> Run golangci to lint source codes"
-	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml
+	@cd $(SERVER_DIR) && $(TOOLS_DIR)/golangci-lint run -c $(ROOT_DIR)/.golangci.yml  $(ROOT_DIR)/server/... 
+
+## format: Run unit test and format codes
+.PHONY: format
+format: tools.verify.golines tools.verify.goimports
+	@echo "===========> Formating codes"
+	@$(FIND) -type f -name '*.go' | $(XARGS) gofmt -s -w
+	@$(FIND) -type f -name '*.go' | $(XARGS) $(TOOLS_DIR)/goimports -w -local $(ROOT_PACKAGE)
+	@$(FIND) -type f -name '*.go' | $(XARGS) $(TOOLS_DIR)/golines -w --max-len=120 --reformat-tags --shorten-comments --ignore-generated .
+	@cd $(SERVER_DIR) && $(GO) mod edit -fmt
+
+## updates: Check for updates to go.mod dependencies
+.PHONY: updates
+updates: tools.verify.go-mod-outdated
+	@cd $(SERVER_DIR) && $(GO) list -u -m -json all | $(TOOLS_DIR)/go-mod-outdated -update -direct
 
 ## test: Run unit test
 .PHONY: test
@@ -236,8 +260,9 @@ test:
 
 ## cover: Run unit test with coverage.
 .PHONY: cover
-cover: test
-	@cd $(SERVER_DIR) && go test -coverprofile=$(TMP_DIR)/coverage.out
+cover: test.junit-report
+	@cd $(SERVER_DIR) && $(GO) tool cover -func=$(TMP_DIR)/coverage.out | \
+		awk -v target=$(COVERAGE) -f $(ROOT_DIR)/scripts/coverage.awk
 
 ## docker-build: Build docker image with the manager.
 .PHONY: docker-build
@@ -265,8 +290,38 @@ copyright-verify: tools.verify.addlicense copyright-add
 .PHONY: copyright-add
 copyright-add: tools.verify.addlicense
 	@echo "===========> Adding $(LICENSE_TEMPLATE) the boilerplate headers for all files"
-	@$(TOOLS_DIR)/addlicense -y $(shell date +"%Y") -v -c "OpenIM open source community." -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
+	@$(TOOLS_DIR)/addlicense -y $(shell date +"%Y") -v -c "OpenKF & OpenIM open source community." -f $(LICENSE_TEMPLATE) $(CODE_DIRS)
 	@echo "===========> End the copyright is added..."
+
+## swagger: Generate swagger document.
+.PHONY: swagger
+swagger: tools.verify.swagger
+	@echo "===========> Generating swagger API docs"
+	@$(TOOLS_DIR)/swagger generate spec --scan-models -w $(ROOT_DIR)/cmd/gendocs -o $(ROOT_DIR)/server/docs/swagger.yaml
+
+## serve-swagger: Serve swagger spec and docs.
+.PHONY: swagger.serve
+serve-swagger: tools.verify.swagger
+	@$(TOOLS_DIR)/swagger serve -F=redoc --no-open --port 36666 $(ROOT_DIR)/server/docs/swagger.yaml
+
+## release: release the project
+.PHONY: release
+release: release.verify release.ensure-tag
+	@scripts/release.sh
+
+## release.verify: Check if a tool is installed and install it
+.PHONY: release.verify
+release.verify: tools.verify.git-chglog tools.verify.github-release tools.verify.coscmd tools.verify.coscli
+
+## release.tag: release the project
+.PHONY: release.tag
+release.tag: tools.verify.gsemver release.ensure-tag
+	@git push origin `git describe --tags --abbrev=0`
+
+## release.ensure-tag: ensure tag
+.PHONY: release.ensure-tag
+release.ensure-tag: tools.verify.gsemver
+	@scripts/ensure_tag.sh
 
 ## clean: Clean all builds.
 .PHONY: clean
@@ -335,6 +390,11 @@ install.go-gitlint:
 .PHONY: install.go-junit-report
 install.go-junit-report:
 	@$(GO) install github.com/jstemmer/go-junit-report@latest
+
+## install.gotests: Install gotests, used to generate go tests
+.PHONY: install.swagger
+install.swagger:
+	@$(GO) install github.com/go-swagger/go-swagger/cmd/swagger@latest
 
 # ==============================================================================
 # Tools that might be used include go gvm, cos

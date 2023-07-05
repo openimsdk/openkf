@@ -42,20 +42,64 @@
 ### 📦 Installation
 
 ```bash
-git clone https://https://github.com/OpenIMSDK/OpenKF
+git clone https://github.com/OpenIMSDK/OpenKF openkf && export openkf=$(pwd)/openkf && cd $openkf && make
 ```
 
 ### 🚀 Run
 
-```bash
-Note: we need to run the backend server first
-cd server
-go run main.go
+> **Note**: 
+> We need to run the backend server first
 
-open another terminal run the following command
+```bash
+make build
+```
+
+> open another terminal run the following command
+
+```bash
+# make dev
 cd web
 npm run dev
 ```
+
+### 📖 Contributors get up to speed
+
+Be good at using Makefile, it can ensure the quality of your project.
+
+```bash
+Usage: make <TARGETS> ...
+
+Targets:
+  all                          Build all the necessary targets. 🏗️
+  build                        Build binaries by default. 🛠️
+  go.build                     Build the binary file of the specified platform. 👨‍💻
+  build-multiarch              Build binaries for multiple platforms. 🌍
+  tidy                         tidy go.mod 📦
+  style                        Code style -> fmt,vet,lint 🎨
+  fmt                          Run go fmt against code. ✨
+  vet                          Run go vet against code. 🔍
+  generate                     Run go generate against code and docs. ✅
+  lint                         Run go lint against code. 🔎
+  test                         Run unit test ✔️
+  cover                        Run unit test with coverage. 🧪
+  docker-build                 Build docker image with the manager. 🐳
+  docker-push                  Push docker image with the manager. 🔝
+  docker-buildx-push           Push docker image with the manager using buildx. 🚢
+  copyright-verify             Validate boilerplate headers for assign files. 📄
+  copyright-add                Add the boilerplate headers for all files. 📝
+  swagger                      Generate swagger document. 📚
+  serve-swagger                Serve swagger spec and docs. 🌐
+  clean                        Clean all builds. 🧹
+  help                         Show this help info. ℹ️
+```
+
+> **Note**: 
+> It's highly recommended that you run `make all` before committing your code. 🚀
+
+```bash
+make all
+```
+
 
 ## 🕋 Architecture diagram
 
@@ -105,6 +149,8 @@ Catalog standardization design structure:
 ## 🗓️ community meeting
 
 We want anyone to get involved in our community, we offer gifts and rewards, and we welcome you to join us every Thursday night.
+
+Our conference is in the [OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg) 🎯 `openkf` pipeline, then you can search the openkf pipeline to join
 
 We take notes of each [biweekly meeting](https://github.com/orgs/OpenIMSDK/discussions/categories/meeting) in [GitHub discussions](https://github.com/OpenIMSDK/OpenKF/discussions/categories/meeting), and our minutes are written in [Google Docs](https://docs.google.com/document/d/1nx8MDpuG74NASx081JcCpxPgDITNTpIIos0DS6Vr9GU/edit?usp=sharing).
 

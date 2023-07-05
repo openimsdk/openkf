@@ -1,4 +1,6 @@
-# Copyright © 2023 OpenIMSDK open source community. All rights reserved.
+#!/usr/bin/env bash
+
+# Copyright © 2023 OpenIM. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: 'issue translator'
-on:
-  issue_comment:
-    types: [created]
-  issues:
-    types: [opened]
+version="${VERSION}"
+if [ "${version}" == "" ];then
+  version=v`gsemver bump`
+fi
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: usthe/issues-translate-action@v2.7
-        with:
-          # it is not necessary to decide whether you need to modify the issue header content
-          IS_MODIFY_TITLE: true
-          BOT_GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
-          # Required, input your bot github token
+if [ -z "`git tag -l ${version}`" ];then
+  git tag -a -m "release version ${version}" ${version}
+fi
