@@ -6,9 +6,9 @@
   repo=openKF) submitted. For bug reports, include code that can be used to reproduce the problem and how to reproduce
   it. For new feature suggestions, indicate the changes you want and the expected behavior.
 
-## **for commiter**
+## **for commit**
 
-##### **working for pr/mr**
+##### **working for pr**
 
 - commiters should finish code unit test again and record test dirary and if nessary do somke test
 - commiters should check for code
@@ -22,7 +22,7 @@
 - Keep up with the status of the issue.
 - assign assign one or more who to solve it.
 
-## **for contributor**
+## **for contribute**
 
 ##### **raise issue**
 
