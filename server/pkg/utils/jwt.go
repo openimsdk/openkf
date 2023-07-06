@@ -17,8 +17,9 @@ package utils
 import (
 	"time"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/golang-jwt/jwt/v4"
+
+	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 )
 
 type JwtClaims struct {

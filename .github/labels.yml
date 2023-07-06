@@ -39,5 +39,13 @@ XXL:
   lines: 1000
   color: E50009
   comment: |
-    # Whoa! Easy there, Partner!
-    This PR is too big. Please break it up into smaller PRs.
+    ## 🤖 Whoa! Easy there, Partner!
+    This PR is too big. It's over 1000. Please break it up into smaller PRs.
+
+XXXL:
+  name: size/XXXL
+  lines: 5000
+  color: FF0000
+  comment: |
+    ## 🤖 Whoa! Easy there, Partner!
+    This PR is too big. It's over 5000. Please break it up into smaller PRs.

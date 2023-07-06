@@ -15,18 +15,20 @@
 package router
 
 import (
-	_ "github.com/OpenIMSDK/OpenKF/server/docs" //nolint:golint
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+
+	_ "github.com/OpenIMSDK/OpenKF/server/docs"
+
+	"github.com/gin-gonic/gin"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/api"
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/middleware"
 	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
-	"github.com/gin-gonic/gin"
 )
 
-// InitRouter init router
+// InitRouter init router.
 func InitRouter() *gin.Engine {
 	if config.GetString("app.debug") == "true" {
 		gin.SetMode(gin.DebugMode)
