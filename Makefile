@@ -58,7 +58,8 @@ ifeq (, $(shell git status --porcelain 2>/dev/null))
 endif
 GIT_COMMIT:=$(shell git rev-parse HEAD)
 
-IMG ?= ghcr.io/OpenIMSDK/OpenKF:latest
+# Image URL to use all building/pushing image targets
+IMG ?= openim/openkf:test
 
 BUILDFILE = "./main.go"
 BUILDAPP = "$(OUTPUT_DIR)/"
@@ -72,9 +73,7 @@ MAKEFLAGS += --no-print-directory
 endif
 
 # The OS must be linux when building docker images
-PLATFORMS ?= linux_amd64 linux_arm64
-# The OS can be linux/windows/darwin when building binaries
-# PLATFORMS ?= darwin_amd64 windows_amd64 linux_amd64 linux_arm64
+PLATFORMS ?= linux_s390x linux_mips64 linux_mips64le darwin_amd64 windows_amd64 linux_amd64 linux_arm64 linux_ppc64le
 
 # Set a specific PLATFORM
 ifeq ($(origin PLATFORM), undefined)
@@ -211,6 +210,12 @@ test.junit-report: tools.verify.go-junit-report
 
 SERVER_DIR := server 
 
+## run: Run the server.
+.PHONY: run
+run:
+	@echo "===========> Run the server"
+	@cd $(SERVER_DIR) && $(GO) run main.go
+
 ## tidy: tidy go.mod
 .PHONY: tidy
 tidy:
@@ -269,7 +274,7 @@ cover: test.junit-report
 ## docker-build: Build docker image with the manager.
 .PHONY: docker-build
 docker-build: test
-	docker build -t ${IMG} .
+	docker build --pull --no-cache . -t ${IMG}
 
 ## docker-push: Push docker image with the manager.
 .PHONY: docker-push
@@ -279,7 +284,7 @@ docker-push:
 ## docker-buildx-push: Push docker image with the manager using buildx.
 .PHONY: docker-buildx-push
 docker-buildx-push:
-	docker buildx build --platform linux/arm64,linux/amd64 -t ${IMG} . --push
+	docker buildx build -f --pull --no-cache --platform=$(PLATFORMS) --push . -t $(IMG)
 
 ## copyright-verify: Validate boilerplate headers for assign files.
 .PHONY: copyright-verify
