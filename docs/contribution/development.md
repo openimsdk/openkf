@@ -71,9 +71,9 @@ As described in the [Testing documentation](../../tests/TESTING.md), all the smo
 
 These topics already have been addressed on their respective documents:
 
-- [Git Workflow](./git-workflow.md)
-- [Building](../../BUILDING.md)
-- [Testing](../../tests/TESTING.md)
+- [Git Workflow](./git_workflow.md)
+- [CICD Actions OpenIM](./cicd-actions.md)
+- [code_conventions](./code_conventions.md)
 
 ## Dependency management
 
