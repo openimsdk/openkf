@@ -1,17 +1,9 @@
-<h1 align="center" style="border-bottom: none">
-    <b>
-        <a href="https://docker.nsddd.top">OpenKF</a><br>
-    </b>
-</h1>
+<p align="center">
+  <img src="assets/logo-gif/openkf-logo-white.gif" width="60%" height="30%"/>
+</p>
 <h3 align="center" style="border-bottom: none">
       ⭐️  OpenKF(Open Knowledge Flow) is an online intelligent customer service system. ⭐️ <br>
 <h3>
-
-
-<p align="center">
-  <img src="assets/logo-gif/openkf-log-white.gif" width="60%" height="30%"/>
-</p>
-
 <p align=center>
 <a href="https://goreportcard.com/report/github.com/OpenIMSDK/OpenKF"><img src="https://goreportcard.com/badge/github.com/OpenIMSDK/OpenKF" alt="A+"></a>
 <a href="https://github.com/OpenIMSDK/OpenKF/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+issue%22"><img src="https://img.shields.io/github/issues/OpenIMSDK/OpenKF/good%20first%20issue?logo=%22github%22" alt="good first"></a>
@@ -29,8 +21,8 @@
 </p>
 
 </p>
+<br>
 
----
 
 ## 🧩 Awesome features
 
