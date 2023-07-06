@@ -1,6 +1,6 @@
 # issue specification
 
-- we use [lot issues](https://github.com/openIMSDK/openKF/issues) before reporting bugs, Please make sure that has been
+  we use [lot issues](https://github.com/openIMSDK/openKF/issues) before reporting bugs, Please make sure that has been
   searching similar [question](https://github.com/OpenIMSDK/OpenKF/issues), because they may have already answered or
   is being repaired. New questions should be directed
   to [question assistant](https://github.com/OpenIMSDK/OpenKF/issues/new/choose) submitted. For bug reports, include
