@@ -9,7 +9,7 @@
 
 
 <p align="center">
-  <img src="assets/logo-gif/openkf-log.gif" width="60%" height="30%"/>
+  <img src="assets/logo-gif/openkf-log-white.gif" width="60%" height="30%"/>
 </p>
 
 <p align=center>
