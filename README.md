@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo-gif/openkf-log.gif" width="60%" height="60%"/>
+</p>
+
 <h1 align="center" style="border-bottom: none">
     <b>
         <a href="https://docker.nsddd.top">OpenKF</a><br>
@@ -167,6 +171,8 @@ Before you start, please make sure your changes are in demand. The best for that
 ## 🚨 License
 
 OpenIMSDK is licensed under the  Apache 2.0 license. See [LICENSE](https://github.com/OpenIMSDK/OpenKF/tree/main/LICENSE) for the full license text.
+
+The OpenKF logo, including its variations and animated versions, displayed in this repository [OpenKF](https://github.com/OpenIMSDK/openkf) under the [assets/logo](./assets/logo) and [assets/logo-gif](assets/logo-gif) directories, are protected by copyright laws.
 
 
 ## 🔮 Thanks to our contributors!
