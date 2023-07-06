@@ -162,7 +162,9 @@ all: copyright-verify tidy lint cover build
 
 ## build: Build binaries by default.
 .PHONY: build
-build: go.build.verify $(addprefix go.build., $(addprefix $(PLATFORM)., $(BINS)))
+build: # go.build.verify $(addprefix go.build., $(addprefix $(PLATFORM)., $(BINS)))
+	@echo "===========> Building binary $(BUILDAPP) *[Git Info]: $(VERSION)-$(GIT_COMMIT)"
+	@cd $(SERVER_DIR) && CGO_ENABLED=0 GOOS=$(OS) GOARCH=$(ARCH) $(GO) build $(GO_BUILD_FLAGS) -o $(BIN_DIR)/platforms/openkf $(ROOT_DIR)/server/main.go
 
 .PHONY: build.%
 build.%:

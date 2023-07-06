@@ -18,15 +18,25 @@
 
 # The server platform we are building on.
 readonly OPENIM_SUPPORTED_SERVER_PLATFORMS=(
-  linux/amd64
-  linux/arm64
+  linux_s390x
+  linux_mips64 
+  linux_mips64le
+  darwin_amd64
+  windows_amd64
+  linux_amd64
+  linux_arm64
 )
 
 # If we update this we should also update the set of platforms whose standard
 # library is precompiled for in build/build-image/cross/Dockerfile
 readonly OPENIM_SUPPORTED_CLIENT_PLATFORMS=(
-  linux/amd64
-  linux/arm64
+  linux_s390x
+  linux_mips64 
+  linux_mips64le
+  darwin_amd64
+  windows_amd64
+  linux_amd64
+  linux_arm64
 )
 
 # The set of server targets that we are only building for Linux
@@ -166,7 +176,8 @@ EOF
   local go_version
   IFS=" " read -ra go_version <<< "$(go version)"
   local minimum_go_version
-  minimum_go_version=go1.13.4
+  # TODO: Define minimum go version 1.18
+  minimum_go_version=go1.18.0
   if [[ "${minimum_go_version}" != $(echo -e "${minimum_go_version}\n${go_version[2]}" | sort -s -t. -k 1,1 -k 2,2n -k 3,3n | head -n1) && "${go_version[2]}" != "devel" ]]; then
     openim::log::usage_from_stdin <<EOF
 Detected go version: ${go_version[*]}.
