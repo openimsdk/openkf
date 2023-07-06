@@ -18,7 +18,7 @@ OpenKF project uses the [GitHub flow](https://docs.github.com/en/get-started/qui
 
 ### Branch naming conventions
 
-Every forked repository works independently, meaning that any contributor can create branches with the name they see fit. However, it is worth noting that OpenKF mirrors [OpenKF version skew policy](https://github.com/OpenKFSDK/Open-IM-Server/releases) by maintaining release branches for the most recent three minor releases. The only exception is that the main branch mirrors the latest OpenKF release (3.10) instead of using a `release-` prefixed one.
+Every forked repository works independently, meaning that any contributor can create branches with the name they see fit. However, it is worth noting that OpenKF mirrors [OpenKF version skew policy](https://github.com/OpenIMSDK/OpenKF/releases) by maintaining release branches for the most recent three minor releases. The only exception is that the main branch mirrors the latest OpenKF release (3.10) instead of using a `release-` prefixed one.
 
 ```text
 main          -------------------------------------------. (OpenKF 3.10)
@@ -39,7 +39,7 @@ There are everyday tasks related to git that every contributor needs to perform,
 
 Creating a OpenKF fork, cloning it, and setting its upstream remote can be summarized on:
 
-1. Visit <https://github.com/OpenKFSDK/Open-IM-Server>
+1. Visit <https://github.com/OpenIMSDK/OpenKF>
 2. Click the `Fork` button (top right) to establish a cloud-based fork
 3. Clone fork to local storage
 4. Add to your fork OpenKF remote as upstream
@@ -54,8 +54,8 @@ git clone https://github.com/$user/OpenKF.git
 
 ## Add OpenKF as upstream to your fork
 cd OpenKF 
-git remote add upstream https://github.com/OpenKFSDK/Open-IM-Server.git
-# or: git remote add upstream git@github.com:OpenKFSDK/Open-IM-Server.git
+git remote add upstream https://github.com/OpenIMSDK/OpenKF.git
+# or: git remote add upstream git@github.com:OpenIMSDK/OpenKF.git
 
 ## Ensure to never push to upstream directly
 git remote set-url --push upstream no_push
