@@ -3,8 +3,8 @@
 - [Code conventions](#code-conventions)
   - [POSIX shell](#posix-shell)
   - [Go](#go)
+  - [Python](#python)
   - [Directory and file conventions](#directory-and-file-conventions)
-  - [Testing conventions](#testing-conventions)
 
 ## POSIX shell
 
@@ -26,13 +26,16 @@
     - Unless there's a good reason, the `package foo` line should match the name of the directory in which the `.go` file exists.
     - Importers can use a different name if they need to disambiguate.
 
+## Python
+
+- [PEP 8](https://www.python.org/dev/peps/pep-0008/)
+- [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
+- [Google Python Style Guide (Chinese)](https://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/python_style_rules/)
+
+
 ## Directory and file conventions
 
 - Avoid general utility packages. Packages called "util" are suspect. Instead, derive a name that describes your desired function. For example, the utility functions dealing with waiting for operations are in the `wait` package and include functionality like `Poll`. The full name is `wait.Poll`.
 - All filenames should be lowercase.
 - All source files and directories should use underscores, not dashes.
   - Package directories should generally avoid using separators as much as possible. When package names are multiple words, they usually should be in nested subdirectories.
-
-## Testing conventions
-
-Please refer to [TESTING.md](../../tests/TESTING.md) document.

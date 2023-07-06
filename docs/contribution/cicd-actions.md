@@ -1,6 +1,6 @@
 # Continuous Integration and Automation
 
-Every change on the OpenIM repository, either made through a pull request or direct push, triggers the continuous integration pipelines defined within the same repository. Needless to say, all the OpenIM contributions can be merged until all the checks pass (AKA having green builds).
+Every change on the OpenKF repository, either made through a pull request or direct push, triggers the continuous integration pipelines defined within the same repository. Needless to say, all the OpenKF contributions can be merged until all the checks pass (AKA having green builds).
 
 - [Continuous Integration and Automation](#continuous-integration-and-automation)
   - [CI Platforms](#ci-platforms)
@@ -30,7 +30,7 @@ A contributor should verify their changes locally to speed up the pull request p
 
 **User Makefile:**
 ```bash
-root@PS2023EVRHNCXG:~/workspaces/openim/Open-IM-Server# make help 😊
+root@PS2023EVRHNCXG:~/workspaces/OpenKF/Open-IM-Server# make help 😊
 
 Usage: make <TARGETS> <OPTIONS> ...
 
@@ -71,7 +71,7 @@ DEBUG            Whether or not to generate debug symbols. Default is 0. ❓
 
 BINS             Binaries to build. Default is all binaries under cmd. 🛠️
 This option is available when using: make {build}(.multiarch) 🧰
-Example: make build BINS="openim_api openim_cms_api".
+Example: make build BINS="OpenKF_api OpenKF_cms_api".
 
 PLATFORMS        Platform to build for. Default is linux_arm64 and linux_amd64. 🌍
 This option is available when using: make {build}.multiarch 🌍
