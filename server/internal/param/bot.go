@@ -12,27 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package param
 
-import (
-	"flag"
-
-	"github.com/OpenIMSDK/OpenKF/server/cmd/gendao/pkg"
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
-)
-
-func main() {
-	savePath := flag.String("path", "../../internal/dal/dao", "save path")
-	flag.Parse()
-
-	models := []interface{}{
-		systemroles.SysUser{},
-		systemroles.SysCustomer{},
-		systemroles.SysCommunity{},
-		systemroles.SysBot{},
-	}
-
-	for _, model := range models {
-		pkg.NewDaoGenerator(model, *savePath).Generate().Flush()
-	}
+// RegisterBotParams register params for bot.
+type RegisterBotParams struct {
+	BotAddr     string `json:"bot_addr" binding:"required"`
+	BotPort     int    `json:"bot_port" binding:"required"`
+	BotToken    string `json:"bot_token" binding:"required"`
+	Nickname    string `json:"nickname" binding:"required"`
+	Avatar      string `json:"avatar" binding:"required"`
+	CommunityId uint   `json:"community_id" binding:"required"`
 }

@@ -12,11 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
+package service
 
-// User user model.
-type User struct {
-	Model
-	Username string `json:"username" gorm:"type:varchar(20);not null;unique"`
-	Password string `json:"password" gorm:"type:varchar(20);not null"`
+import (
+	"context"
+)
+
+// Service service.
+type Service struct {
+	ctx context.Context
+}
+
+// GetCtx get context.
+func (svc *Service) GetCtx() context.Context {
+	return svc.ctx
 }

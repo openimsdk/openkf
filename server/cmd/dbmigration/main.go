@@ -20,17 +20,23 @@ import (
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
-	"github.com/OpenIMSDK/OpenKF/server/internal/models"
+	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
+var (
+	configPath string
+	isDrop     bool
+)
+
 func init() {
 	// arg
-	configPath := flag.String("c", "../../config.yaml", "config file path")
+	flag.StringVar(&configPath, "c", "../../config.yaml", "config file path")
+	flag.BoolVar(&isDrop, "d", false, "drop table if exist")
 	flag.Parse()
 
-	config.ConfigInit(*configPath)
+	config.ConfigInit(configPath)
 	utils.OpenKFBanner()
 	log.InitLogger()
 	db.InitMysqlDB()
@@ -38,15 +44,28 @@ func init() {
 
 // migrate table.
 func main() {
-	// get db instance
+	// get db instance.
 	db := db.GetMysqlDB()
 
 	// tables
 	tables := []interface{}{
-		models.User{},
+		systemroles.SysUser{},
+		systemroles.SysCustomer{},
+		systemroles.SysCommunity{},
+		systemroles.SysBot{},
 	}
 
-	// migrate
+	// drop tables if exist.
+	if isDrop {
+		for _, table := range tables {
+			if db.Migrator().HasTable(&table) && db.Migrator().DropTable(&table) != nil {
+				log.Panicf("OpenKF Table Migration", "Drop table %v... failed", reflect.TypeOf(table))
+			}
+			log.Infof("OpenKF Table Migration", "Drop table %v... ok", reflect.TypeOf(table))
+		}
+	}
+
+	// migrate tables.
 	for _, table := range tables {
 		err := db.AutoMigrate(&table)
 		if err != nil {

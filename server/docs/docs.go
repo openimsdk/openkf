@@ -16,6 +16,49 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/community/create": {
+            "post": {
+                "description": "Create a new community",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "community"
+                ],
+                "summary": "CreateCommunity",
+                "parameters": [
+                    {
+                        "description": "Community",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/param.CommunityParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/email/code": {
             "post": {
                 "description": "Use email to send verification code",
@@ -39,7 +82,125 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "Send success",
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/openim/callback": {
+            "post": {
+                "description": "Support OpenIM callback",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "openim"
+                ],
+                "summary": "OpenIMCallback",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/register/admin": {
+            "post": {
+                "description": "Create a new admin",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "AdminRegister",
+                "parameters": [
+                    {
+                        "description": "RegisterAdminParams",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/param.RegisterAdminParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/register/staff": {
+            "post": {
+                "description": "Create a new staff",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "StaffRegister",
+                "parameters": [
+                    {
+                        "description": "RegisterStaffParams",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/param.RegisterStaffParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
                         "schema": {
                             "allOf": [
                                 {
@@ -61,6 +222,82 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "param.CommunityParams": {
+            "type": "object",
+            "required": [
+                "avatar",
+                "email",
+                "name"
+            ],
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "param.CreateUserParams": {
+            "type": "object",
+            "required": [
+                "avatar",
+                "email",
+                "nickname",
+                "password"
+            ],
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "param.RegisterAdminParams": {
+            "type": "object",
+            "required": [
+                "code",
+                "community_info",
+                "user_info"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "community_info": {
+                    "$ref": "#/definitions/param.CommunityParams"
+                },
+                "user_info": {
+                    "$ref": "#/definitions/param.CreateUserParams"
+                }
+            }
+        },
+        "param.RegisterStaffParams": {
+            "type": "object",
+            "required": [
+                "community_id",
+                "user_info"
+            ],
+            "properties": {
+                "community_id": {
+                    "type": "integer"
+                },
+                "user_info": {
+                    "$ref": "#/definitions/param.CreateUserParams"
+                }
+            }
+        },
         "param.SendToParams": {
             "type": "object",
             "required": [

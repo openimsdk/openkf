@@ -12,42 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package service
+package dao
 
 import (
 	"context"
 
-	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis/v8"
-	"gorm.io/gorm"
-
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
+	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
+	"github.com/OpenIMSDK/OpenKF/server/internal/dal/gen"
 )
 
-// Service service.
-type Service struct {
-	// Context
-	Ctx context.Context
-
-	// DB
-	Dao   *gorm.DB
-	Cache *redis.Client
+// Dao dao top level.
+type Dao struct {
+	ctx   context.Context
+	query *gen.Query
+	cache *cache.Cache
 }
 
-// NewService return new service with context.
-func NewService() *Service {
-	return &Service{
-		Ctx:   context.Background(),
-		Dao:   db.GetMysqlDB(),
-		Cache: db.GetRedis(),
-	}
+// GetQuery get query.
+func (d *Dao) GetQuery() *gen.Query {
+	return d.query
 }
 
-// NewServiceWithGin return new service with gin context.
-func NewServiceWithGin(c *gin.Context) *Service {
-	return &Service{
-		Ctx:   c.Request.Context(),
-		Dao:   db.GetMysqlDB(),
-		Cache: db.GetRedis(),
-	}
+// GetCtx get context.
+func (d *Dao) GetCtx() context.Context {
+	return d.ctx
+}
+
+// GetCache get cache.
+func (d *Dao) GetCache() *cache.Cache {
+	return d.cache
 }

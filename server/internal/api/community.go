@@ -24,16 +24,16 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
-// SendCode
-// @Tags mail
-// @Summary SendCode
-// @Description Use email to send verification code
+// CreateCommunity
+// @Tags community
+// @Summary CreateCommunity
+// @Description Create a new community
 // @Produce application/json
-// @Param data body param.SendToParams true "Email address"
+// @Param data body param.CommunityParams true "Community"
 // @Success 200 {object}  response.Response{msg=string} "Success"
-// @Router /api/v1/email/code [post].
-func SendCode(c *gin.Context) {
-	var params param.SendToParams
+// @Router /api/v1/community/create [post].
+func CreateCommunity(c *gin.Context) {
+	var params param.CommunityParams
 	err := c.ShouldBindJSON(&params)
 	if err != nil {
 		response.FailWithCode(common.INVALID_PARAMS, c)
@@ -41,10 +41,10 @@ func SendCode(c *gin.Context) {
 		return
 	}
 
-	svc := service.NewMailService(c)
-	err = svc.SendCode(params.Email)
+	svc := service.NewCommunityService(c)
+	_, _, err = svc.Create(params)
 	if err != nil {
-		log.Debug("SendCode error: ", err)
+		log.Debug("CreateCommunity error", err)
 		response.FailWithCode(common.ERROR, c)
 
 		return

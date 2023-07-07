@@ -12,27 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package param
 
-import (
-	"flag"
-
-	"github.com/OpenIMSDK/OpenKF/server/cmd/gendao/pkg"
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
-)
-
-func main() {
-	savePath := flag.String("path", "../../internal/dal/dao", "save path")
-	flag.Parse()
-
-	models := []interface{}{
-		systemroles.SysUser{},
-		systemroles.SysCustomer{},
-		systemroles.SysCommunity{},
-		systemroles.SysBot{},
-	}
-
-	for _, model := range models {
-		pkg.NewDaoGenerator(model, *savePath).Generate().Flush()
-	}
+// CommunityParams register params for community.
+type CommunityParams struct {
+	Name   string `json:"name" binding:"required"`
+	Email  string `json:"email" binding:"required"`
+	Avatar string `json:"avatar" binding:"required"`
 }

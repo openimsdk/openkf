@@ -12,27 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package utils
 
 import (
-	"flag"
-
-	"github.com/OpenIMSDK/OpenKF/server/cmd/gendao/pkg"
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
+	"crypto/hmac"
+	"crypto/md5"
+	"crypto/sha256"
+	"encoding/hex"
 )
 
-func main() {
-	savePath := flag.String("path", "../../internal/dal/dao", "save path")
-	flag.Parse()
+const (
+	_salt = "openkf"
+)
 
-	models := []interface{}{
-		systemroles.SysUser{},
-		systemroles.SysCustomer{},
-		systemroles.SysCommunity{},
-		systemroles.SysBot{},
-	}
+// EncryptPassword encrypt password.
+func EncryptPassword(password string) string {
+	// md5
+	m := md5.New()
+	m.Write([]byte(password + _salt))
+	mByte := m.Sum(nil)
 
-	for _, model := range models {
-		pkg.NewDaoGenerator(model, *savePath).Generate().Flush()
-	}
+	// hmac
+	h := hmac.New(sha256.New, []byte(_salt))
+	h.Write(mByte)
+	password = hex.EncodeToString(h.Sum(nil))
+
+	return password
 }
