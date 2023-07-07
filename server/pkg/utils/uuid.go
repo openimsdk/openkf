@@ -16,6 +16,7 @@ package utils
 
 import "github.com/gofrs/uuid"
 
+// GenUUID generate uuid.
 func GenUUID() uuid.UUID {
 	return uuid.Must(uuid.NewV4())
 }
