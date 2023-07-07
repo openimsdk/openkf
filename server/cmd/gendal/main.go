@@ -17,22 +17,35 @@ package main
 import (
 	"flag"
 
-	"github.com/OpenIMSDK/OpenKF/server/cmd/gendao/pkg"
+	"gorm.io/gen"
+
 	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
 )
 
 func main() {
-	savePath := flag.String("path", "../../internal/dal/dao", "save path")
+	outpath := flag.String("path", "../../internal/dal/gen", "output path for generated dal files")
 	flag.Parse()
 
-	models := []interface{}{
+	g := gen.NewGenerator(gen.Config{
+		OutPath:       *outpath,
+		Mode:          gen.WithDefaultQuery | gen.WithQueryInterface,
+		FieldNullable: true,
+	})
+
+	// Add tables here to generate
+	tables := []interface{}{
 		systemroles.SysUser{},
 		systemroles.SysCustomer{},
 		systemroles.SysCommunity{},
 		systemroles.SysBot{},
 	}
 
-	for _, model := range models {
-		pkg.NewDaoGenerator(model, *savePath).Generate().Flush()
-	}
+	// Generate basic dao
+	g.ApplyBasic(tables...)
+
+	// Generate query interface with dynamic query
+	// Ref: https://gorm.io/gen/
+	// g.ApplyInterface()
+
+	g.Execute()
 }

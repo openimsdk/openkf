@@ -12,27 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package systemroles
 
 import (
-	"flag"
-
-	"github.com/OpenIMSDK/OpenKF/server/cmd/gendao/pkg"
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
+	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
 )
 
-func main() {
-	savePath := flag.String("path", "../../internal/dal/dao", "save path")
-	flag.Parse()
+// SysUser system user model.
+type SysUser struct {
+	base.UserBase
 
-	models := []interface{}{
-		systemroles.SysUser{},
-		systemroles.SysCustomer{},
-		systemroles.SysCommunity{},
-		systemroles.SysBot{},
-	}
+	IsAdmin     bool         `json:"is_admin" gorm:"index;column:is_admin;type:tinyint(1);not null;default:0;comment:'Is admin'"`
+	Password    string       `json:"-" gorm:"type:varchar(64);not null;comment:Password"`
+	CommunityId uint         `json:"community_id" gorm:"column:community_id;type:int(11);not null;comment:'Community id'"`
+	Community   SysCommunity `json:"community" gorm:"foreignKey:CommunityId;"`
+}
 
-	for _, model := range models {
-		pkg.NewDaoGenerator(model, *savePath).Generate().Flush()
-	}
+// TableName table name.
+func (SysUser) TableName() string {
+	return "sys_user"
 }

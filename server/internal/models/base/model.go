@@ -12,14 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
+package base
 
-import "time"
+import (
+	"time"
+)
 
 // Model base model.
 type Model struct {
-	ID        uint       `gorm:"primary_key" json:"id"`
-	CreatedAt time.Time  `                   json:"created_at"`
-	UpdatedAt time.Time  `                   json:"updated_at"`
-	DeletedAt *time.Time `                   json:"deleted_at" sql:"index"`
+	Id        uint       `json:"id" gorm:"column:id;primary_key;auto_increment" `
+	CreatedAt *time.Time `json:"created_at" gorm:"column:created_at"`
+	UpdatedAt *time.Time `json:"updated_at" gorm:"column:updated_at"`
+	DeletedAt *time.Time `json:"deleted_at" sql:"index" gorm:"column:deleted_at"`
 }

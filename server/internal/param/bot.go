@@ -12,17 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package utils
+package param
 
-import "strconv"
-
-// IntToString convert int to string.
-func IntToString(i interface{}) string {
-	return strconv.FormatInt(int64(i.(int)), 10)
-}
-
-// StringToInt convert string to int.
-func StringToInt(i string) int {
-	j, _ := strconv.Atoi(i)
-	return j
+// RegisterBotParams register params for bot.
+type RegisterBotParams struct {
+	BotAddr     string `json:"bot_addr" binding:"required"`
+	BotPort     int    `json:"bot_port" binding:"required"`
+	BotToken    string `json:"bot_token" binding:"required"`
+	Nickname    string `json:"nickname" binding:"required"`
+	Avatar      string `json:"avatar" binding:"required"`
+	CommunityId uint   `json:"community_id" binding:"required"`
 }

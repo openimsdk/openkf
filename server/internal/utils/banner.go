@@ -38,7 +38,7 @@ APP Mode:
 - Log file: %s
 
 Github repo: https://github.com/OpenIMSDK/OpenKF. 
-Official website: https://https://www.openim.online/en
+Official website: https://www.openim.online/en
 OpenKF Slack: https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg (OpenKF clannels)
 🎉🎉 Welcome to your contribution :)
 

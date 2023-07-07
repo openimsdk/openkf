@@ -23,32 +23,33 @@ import (
 )
 
 type JwtClaims struct {
-	jwt.StandardClaims
+	UUID string `json:"uuid"`
+	jwt.RegisteredClaims
 }
 
-var _secret []byte
-var _issuer string
-var _expireDays int
+func GenerateJwtToken(uid string) (string, error) {
+	secret := []byte(config.Config.JWT.Secret)
+	issuer := config.Config.JWT.Issuer
+	expireDays := config.Config.JWT.ExpireDays
 
-func init() {
-	_secret = []byte(config.GetString("jwt.secret"))
-	_issuer = config.GetString("jwt.issuer")
-	_expireDays = config.GetInt("jwt.expire_days")
-}
-
-func GenerateJwtToken(claims *JwtClaims) (string, error) {
-	claims.Issuer = _issuer
-	claims.NotBefore = int64(time.Now().Unix())
-	claims.ExpiresAt = int64(time.Now().AddDate(0, 0, _expireDays).Unix())
+	claims := &JwtClaims{
+		uid,
+		jwt.RegisteredClaims{
+			Issuer:    issuer,
+			NotBefore: jwt.NewNumericDate(time.Now().Add(-1000)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().AddDate(0, 0, expireDays)),
+		},
+	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	return token.SignedString(_secret)
+	return token.SignedString(secret)
 }
 
 func ParseJwtToken(tokenString string) (*JwtClaims, error) {
+	secret := []byte(config.Config.JWT.Secret)
 	token, err := jwt.ParseWithClaims(tokenString, &JwtClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return _secret, nil
+		return secret, nil
 	})
 
 	if err != nil {

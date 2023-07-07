@@ -18,7 +18,8 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	// "github.com/OpenIMSDK/OpenKF/server/docs"
+	// swagger docs.
+	_ "github.com/OpenIMSDK/OpenKF/server/docs"
 
 	"github.com/gin-gonic/gin"
 
@@ -44,10 +45,20 @@ func InitRouter() *gin.Engine {
 
 	apiv1 := r.Group("/api/v1")
 	{
+		// User register api
 		register := apiv1.Group("/register")
 		{
+			// Register with email
 			register.POST("/email/code", api.SendCode)
+			register.POST("/admin", api.AdminRegister)
+			register.POST("/staff", api.StaffRegister)
+
 			// register.POST("/github", api.GithubRegister)
+		}
+
+		community := apiv1.Group("/community")
+		{
+			community.POST("/create", api.CreateCommunity)
 		}
 
 		// OpenIM callback api

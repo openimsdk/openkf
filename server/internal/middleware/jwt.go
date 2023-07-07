@@ -20,7 +20,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
+	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 )
 
 // EnableAuth enable auth middleware.

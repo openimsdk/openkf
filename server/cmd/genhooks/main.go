@@ -21,26 +21,17 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/cmd/genhooks/pkg"
 )
 
-var (
-	hookName   string
-	urlPattern string
-	priority   int64
-	savePath   string
-)
-
-func init() {
-	flag.StringVar(&hookName, "name", "", "hook name")
-	flag.StringVar(&urlPattern, "pattern", "", "url pattern")
-	flag.Int64Var(&priority, "priority", 0, "hook priority")
-	flag.StringVar(&savePath, "path", "../../internal/middleware/hooks", "save path")
+func main() {
+	hookName := flag.String("name", "", "hook name")
+	urlPattern := flag.String("pattern", "", "url pattern")
+	priority := flag.Int64("priority", 0, "hook priority")
+	savePath := flag.String("path", "../../internal/middleware/hooks", "save path")
 	flag.Parse()
 
-	if hookName == "" || savePath == "" {
+	if *hookName == "" || *savePath == "" {
 		flag.Usage()
 		os.Exit(1)
 	}
-}
 
-func main() {
-	pkg.NewHookGenerator(hookName, urlPattern, savePath, priority).Generate().Format().Flush()
+	pkg.NewHookGenerator(*hookName, *urlPattern, *savePath, *priority).Generate().Format().Flush()
 }

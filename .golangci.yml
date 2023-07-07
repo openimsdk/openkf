@@ -358,7 +358,8 @@ linters-settings:
     exclude-forbidden: false
   gomodguard:
     allowed:
-      modules:                                                        # List of allowed modules
+      modules:    
+        - gorm.io/gen                                                    # List of allowed modules
         - gorm.io/gorm
         - gorm.io/driver/mysql
         - k8s.io/klog

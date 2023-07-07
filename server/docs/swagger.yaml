@@ -1,18 +1,56 @@
-# Copyright © 2023 OpenIMSDK open source community. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 definitions:
+  param.CommunityParams:
+    properties:
+      avatar:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+    required:
+    - avatar
+    - email
+    - name
+    type: object
+  param.CreateUserParams:
+    properties:
+      avatar:
+        type: string
+      email:
+        type: string
+      nickname:
+        type: string
+      password:
+        type: string
+    required:
+    - avatar
+    - email
+    - nickname
+    - password
+    type: object
+  param.RegisterAdminParams:
+    properties:
+      code:
+        type: string
+      community_info:
+        $ref: '#/definitions/param.CommunityParams'
+      user_info:
+        $ref: '#/definitions/param.CreateUserParams'
+    required:
+    - code
+    - community_info
+    - user_info
+    type: object
+  param.RegisterStaffParams:
+    properties:
+      community_id:
+        type: integer
+      user_info:
+        $ref: '#/definitions/param.CreateUserParams'
+    required:
+    - community_id
+    - user_info
+    type: object
   param.SendToParams:
     properties:
       email:
@@ -31,6 +69,31 @@ definitions:
 info:
   contact: {}
 paths:
+  /api/v1/community/create:
+    post:
+      description: Create a new community
+      parameters:
+      - description: Community
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/param.CommunityParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: CreateCommunity
+      tags:
+      - community
   /api/v1/email/code:
     post:
       description: Use email to send verification code
@@ -45,7 +108,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: Send success
+          description: Success
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -56,4 +119,72 @@ paths:
       summary: SendCode
       tags:
       - mail
+  /api/v1/openim/callback:
+    post:
+      description: Support OpenIM callback
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: OpenIMCallback
+      tags:
+      - openim
+  /api/v1/register/admin:
+    post:
+      description: Create a new admin
+      parameters:
+      - description: RegisterAdminParams
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/param.RegisterAdminParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: AdminRegister
+      tags:
+      - user
+  /api/v1/register/staff:
+    post:
+      description: Create a new staff
+      parameters:
+      - description: RegisterStaffParams
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/param.RegisterStaffParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: StaffRegister
+      tags:
+      - user
 swagger: "2.0"
