@@ -14,8 +14,8 @@
  limitations under the License.
 -->
 
-<script></script>
+<template>
+    <router-view></router-view>
+</template>
 
-<template></template>
-
-<style scoped></style>
+<script setup lang="ts"></script>

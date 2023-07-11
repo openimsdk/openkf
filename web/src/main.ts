@@ -1,5 +1,5 @@
 /**
- * Copyright © 2023 OpenIMSDK open source community. All rights reserved.
+ * Copyright © 2023 OpenIM open source community. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-import { fileURLToPath, URL } from 'node:url';
+import { createApp } from 'vue';
+import App from './App.vue';
+import axios from 'axios';
+import router from './router';
 
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { getSDK } from '@/utils/open-im-sdk-wasm';
 
-// https://vitejs.dev/config/
-export default defineConfig({
-    plugins: [vue()],
-    resolve: {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url)),
-        },
-    },
-});
+const OpenIM = getSDK();
+console.log(OpenIM);
+
+const app = createApp(App);
+app.config.globalProperties.$https = axios; // use axios
+app.use(router).mount('#app'); // mount the router on the app

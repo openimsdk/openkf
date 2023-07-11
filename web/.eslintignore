@@ -1,0 +1,3 @@
+// .eslintignore 配置, 防止校验打包的产物
+dist
+node_modules
