@@ -19,23 +19,14 @@ CCEND=\033[0m
 # Docker buildx related settings for multi-arch images
 DOCKER_BUILDX ?= docker buildx
 
-.PHONY: all build build-preview help serve
-
 REPO_ROOT:=${CURDIR}/..
 # setup go for managing hugo
-PATH:=$(shell cd $(REPO_ROOT) && . hack/build/setup-go.sh && echo "$${PATH}")
 # go1.9+ can autodetect GOROOT, but if some other tool sets it ...
 GOROOT:=
 # enable modules
 GO111MODULE=on
 # disable CGO by default for static binaries
 CGO_ENABLED=0
-export PATH GOROOT GO111MODULE CGO_ENABLED
-# work around broken PATH export
-SPACE:=$(subst ,, )
-SHELL:=env PATH=$(subst $(SPACE),\$(SPACE),$(PATH)) $(SHELL)
-
-# from https://github.com/kubernetes/website/blob/master/Makefile
 DOCKER       = docker
 HUGO_VERSION = 0.60.0
 DOCKER_IMAGE = jojomi/hugo:$(HUGO_VERSION)
@@ -46,37 +37,40 @@ HUGO_BIN:=$(REPO_ROOT)/bin/hugo
 $(HUGO_BIN):
 	go build -o $(HUGO_BIN) github.com/gohugoio/hugo
 
+.PHONY: help
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+.PHONY: container-image
 module-check: ## Check if all of the required submodules are correctly initialized.
 	@git submodule status --recursive | awk '/^[+-]/ {err = 1; printf "\033[31mWARNING\033[0m Submodule not initialized: \033[34m%s\033[0m\n",$$2} END { if (err != 0) print "You need to run \033[32mmake module-init\033[0m to initialize missing modules first"; exit err }' 1>&2
 
+.PHONY: module-init
 module-init: ## Initialize required submodules.
 	@echo "Initializing submodules..." 1>&2
 	@git submodule update --init --recursive --depth 1
 
 all: build ## Build site with production settings and put deliverables in ./public
 
+.PHONY: build
 build: module-check ## Build site with non-production settings and put deliverables in ./public
 	$(HUGO_BIN) --cleanDestinationDir --minify --environment development
 
+.PHONY: build-preview
 build-preview: module-check ## Build site with drafts and future posts enabled
 	$(HUGO_BIN) --cleanDestinationDir --buildDrafts --buildFuture --environment preview
 
-deploy-preview: ## Deploy preview site via netlify
-	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
-
+.PHONY: functions-build
 functions-build: ## Build functions
 	$(NETLIFY_FUNC) build functions-src
 
+.PHONY: hugo
 hugo: $(HUGO_BIN) ## Build site with production settings and put deliverables in ./public
 	$(HUGO_BIN) --cleanDestinationDir --minify --environment production
 
+.PHONY: serve
 serve: hugo ## Serve site at http://localhost:1313/
 	$(HUGO_BIN) server --bind="0.0.0.0" \
 	--ignoreCache \
 	--buildFuture \
 	--disableFastRender
-
-.PHONY: build serve hugo module-check module-init

@@ -4,6 +4,9 @@ OpenKF's docs are built with [hugo](https://gohugo.io/), and can be browsed live
 
 To browse them locally, install hugo and run `make serve` from this directory.
 
+Read [tutorial](https://getdoks.org/docs/overview/introduction/), learning to use OpenKF document construction
+
+
 ## File Directory Description
 
 | Directory  | Description                                                  |
