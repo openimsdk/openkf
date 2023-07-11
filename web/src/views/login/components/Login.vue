@@ -19,7 +19,7 @@ const onSubmit = async (ctx: SubmitContext) => {
   if (ctx.validateResult === true) {
     try {
 
-      MessagePlugin.success('登陆成功');
+      MessagePlugin.success('Login success...');
       const redirect = route.query.redirect as string;
       const redirectUrl = redirect ? decodeURIComponent(redirect) : '/dashboard';
       router.push(redirectUrl);
