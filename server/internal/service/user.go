@@ -16,13 +16,18 @@ package service
 
 import (
 	"errors"
+	"fmt"
+	"net"
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
 	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
 	"github.com/OpenIMSDK/OpenKF/server/internal/param"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/user"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 )
 
@@ -80,6 +85,25 @@ func (svc *UserService) CreateAdmin(user param.RegisterAdminParams) (string, uin
 
 	u, _ := svc.SysUserDao.FindFirstByUUID(uuid)
 
+	// TODO: set pipline to tx.
+	param := &request.RegisterUserParams{
+		Secret: config.Config.OpenIM.Secret,
+		Users: []request.User{
+			{
+				UserID:   uuid.String(),
+				Nickname: adminParam.Nickname,
+				FaceURL:  "", // Use OpenKF avatar
+			},
+		},
+	}
+	ok, err := registerUserToOpenIM(param)
+	if err != nil || !ok {
+		// Assume that the user has been created/deleted successfully
+		_ = svc.SysUserDao.Delete(u)
+
+		return uuid.String(), u.Id, err
+	}
+
 	return uuid.String(), u.Id, nil
 }
 
@@ -108,5 +132,40 @@ func (svc *UserService) CreateStaff(user param.RegisterStaffParams) (string, uin
 
 	u, _ := svc.SysUserDao.FindFirstByUUID(uuid)
 
+	// TODO: set pipline to tx.
+	param := &request.RegisterUserParams{
+		Secret: config.Config.OpenIM.Secret,
+		Users: []request.User{
+			{
+				UserID:   uuid.String(),
+				Nickname: staffParam.Nickname,
+				FaceURL:  "", // Use OpenKF avatar
+			},
+		},
+	}
+	ok, err := registerUserToOpenIM(param)
+	if err != nil || !ok {
+		// Assume that the user has been created/deleted successfully
+		_ = svc.SysUserDao.Delete(u)
+
+		return uuid.String(), u.Id, err
+	}
+
 	return uuid.String(), u.Id, nil
+}
+
+// registerUserToOpenIM register user to openim.
+func registerUserToOpenIM(param *request.RegisterUserParams) (bool, error) {
+	// Default not use tls/ssl
+	host := fmt.Sprintf("http://%s", net.JoinHostPort(config.Config.OpenIM.Ip, fmt.Sprintf("%d", config.Config.OpenIM.ApiPort)))
+	resp, err := user.RegisterUser(param, host)
+	if err != nil {
+		return false, err
+	}
+
+	if resp.ErrCode != 0 {
+		return false, errors.New(resp.ErrMsg)
+	}
+
+	return true, nil
 }

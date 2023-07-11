@@ -70,6 +70,11 @@ func ConfigInit(configPath string) {
 			Nickname: GetString("email.nickname"),
 			Password: GetString("email.password"),
 		},
+		OpenIM: OpenIM{
+			Secret:  GetStringOrDefault("openim.secret", "openkf"),
+			Ip:      GetStringOrDefault("openim.ip", "127.0.0.1"),
+			ApiPort: GetIntOrDefault("openim.api_port", 10002),
+		},
 	}
 }
 
@@ -81,6 +86,7 @@ type config struct {
 	Redis  Redis
 	Minio  Minio
 	Email  Email
+	OpenIM OpenIM
 }
 
 // App config.
@@ -141,4 +147,11 @@ type Email struct {
 	From     string `mapstructure:"from"`
 	Nickname string `mapstructure:"nickname"`
 	Password string `mapstructure:"password"`
+}
+
+// OpenIM config.
+type OpenIM struct {
+	Secret  string `mapstructure:"secret"`
+	Ip      string `mapstructure:"ip"`
+	ApiPort int    `mapstructure:"api_port"`
 }
