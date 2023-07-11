@@ -423,6 +423,11 @@ install.kubeconform:
 install.gsemver:
 	@$(GO) install github.com/arnaud-deprez/gsemver@latest
 
+## install.hugo: Install hugo, used to generate website
+.PHONY: install.hugo
+install.hugo:
+	@$(GO) install github.com/gohugoio/hugo@latest
+
 ## install.git-chglog: Install git-chglog, used to generate changelog
 .PHONY: install.git-chglog
 install.git-chglog:

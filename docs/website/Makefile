@@ -1,3 +1,26 @@
+HUGO_VERSION      = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
+NODE_BIN          = node_modules/.bin
+NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
+
+# The CONTAINER_ENGINE variable is used for specifying the container engine. By default 'docker' is used
+# but this can be overridden when calling make, e.g.
+# CONTAINER_ENGINE=podman make container-image
+CONTAINER_ENGINE ?= docker
+IMAGE_REGISTRY ?= gcr.io/k8s-staging-sig-docs
+IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile | cut -c 1-12)
+CONTAINER_IMAGE   = $(IMAGE_REGISTRY)/k8s-website-hugo:v$(HUGO_VERSION)-$(IMAGE_VERSION)
+# Mount read-only to allow use with tools like Podman in SELinux mode
+# Container targets don't need to write into /src
+CONTAINER_RUN     = "$(CONTAINER_ENGINE)" run --rm --interactive --tty --volume "$(CURDIR):/src:ro,Z"
+
+CCRED=\033[0;31m
+CCEND=\033[0m
+
+# Docker buildx related settings for multi-arch images
+DOCKER_BUILDX ?= docker buildx
+
+.PHONY: all build build-preview help serve
+
 REPO_ROOT:=${CURDIR}/..
 # setup go for managing hugo
 PATH:=$(shell cd $(REPO_ROOT) && . hack/build/setup-go.sh && echo "$${PATH}")
@@ -23,15 +46,37 @@ HUGO_BIN:=$(REPO_ROOT)/bin/hugo
 $(HUGO_BIN):
 	go build -o $(HUGO_BIN) github.com/gohugoio/hugo
 
-hugo: $(HUGO_BIN)
+help: ## Show this help.
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {sub("\\\\n",sprintf("\n%22c"," "), $$2);printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-serve: hugo
+module-check: ## Check if all of the required submodules are correctly initialized.
+	@git submodule status --recursive | awk '/^[+-]/ {err = 1; printf "\033[31mWARNING\033[0m Submodule not initialized: \033[34m%s\033[0m\n",$$2} END { if (err != 0) print "You need to run \033[32mmake module-init\033[0m to initialize missing modules first"; exit err }' 1>&2
+
+module-init: ## Initialize required submodules.
+	@echo "Initializing submodules..." 1>&2
+	@git submodule update --init --recursive --depth 1
+
+all: build ## Build site with production settings and put deliverables in ./public
+
+build: module-check ## Build site with non-production settings and put deliverables in ./public
+	$(HUGO_BIN) --cleanDestinationDir --minify --environment development
+
+build-preview: module-check ## Build site with drafts and future posts enabled
+	$(HUGO_BIN) --cleanDestinationDir --buildDrafts --buildFuture --environment preview
+
+deploy-preview: ## Deploy preview site via netlify
+	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+
+functions-build: ## Build functions
+	$(NETLIFY_FUNC) build functions-src
+
+hugo: $(HUGO_BIN) ## Build site with production settings and put deliverables in ./public
+	$(HUGO_BIN) --cleanDestinationDir --minify --environment production
+
+serve: hugo ## Serve site at http://localhost:1313/
 	$(HUGO_BIN) server --bind="0.0.0.0" \
 	--ignoreCache \
 	--buildFuture \
 	--disableFastRender
 
-build: hugo
-	$(HUGO_BIN)
-
-.PHONY: build serve hugo
+.PHONY: build serve hugo module-check module-init
