@@ -18,11 +18,11 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // router options
 const routes = [
-    { 
-        path: '/login', 
-        name: 'Login', 
-        component: () => import('@/views/login/index.vue')
-    }
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/views/login/LoginIndex.vue'),
+    },
 ];
 
 // create router

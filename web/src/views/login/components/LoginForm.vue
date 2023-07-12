@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { FormRule, SubmitContext } from 'tdesign-vue-next';
 import { MessagePlugin } from 'tdesign-vue-next';
+import { accountLogin } from '@/api/index/login';
+import { AccountLoginParam } from '@/api/request/userModel';
 import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 
@@ -16,18 +18,31 @@ const router = useRouter();
 const route = useRoute();
 
 const onSubmit = async (ctx: SubmitContext) => {
-  if (ctx.validateResult === true) {
-    try {
-
-      MessagePlugin.success('Login success...');
-      const redirect = route.query.redirect as string;
-      const redirectUrl = redirect ? decodeURIComponent(redirect) : '/dashboard';
-      router.push(redirectUrl);
-    } catch (e) {
-      console.log(e);
-      MessagePlugin.error(e.message);
+    if (ctx.validateResult === true) {
+        try {
+            let data: AccountLoginParam = {
+                email: formData.value.email,
+                password: formData.value.password,
+            };
+            accountLogin(data)
+                .then(res => {
+                    console.log(res);
+                    MessagePlugin.success('Login success...');
+                    const redirect = route.query.redirect as string;
+                    const redirectUrl = redirect
+                        ? decodeURIComponent(redirect)
+                        : '/dashboard';
+                    router.push(redirectUrl);
+                })
+                .catch(err => {
+                    console.log(err);
+                    MessagePlugin.error('Login failed...', err.message);
+                });
+        } catch (e) {
+            console.log(e);
+            MessagePlugin.error(e ?? 'Login failed...');
+        }
     }
-  }
 };
 </script>
 
@@ -40,7 +55,12 @@ const onSubmit = async (ctx: SubmitContext) => {
         :class="'item-container'"
     >
         <t-form-item name="admin_email">
-            <t-input v-model="formData.email" size="large" clearable placeholder="Please input your email" >
+            <t-input
+                v-model="formData.email"
+                size="large"
+                clearable
+                placeholder="Please input your email"
+            >
                 <template #prefix-icon>
                     <t-icon name="mail" />
                 </template>
@@ -53,7 +73,8 @@ const onSubmit = async (ctx: SubmitContext) => {
                 size="large"
                 :type="showPsw ? 'text' : 'password'"
                 clearable
-                placeholder="Please input your password" >
+                placeholder="Please input your password"
+            >
                 <template #prefix-icon>
                     <t-icon name="lock-on" />
                 </template>
@@ -89,11 +110,12 @@ const onSubmit = async (ctx: SubmitContext) => {
 
             <t-col :span="6">
                 <t-form-item>
-                    <t-button block size="large" type="submit"> Login </t-button>
+                    <t-button block size="large" type="submit">
+                        Login
+                    </t-button>
                 </t-form-item>
             </t-col>
         </t-row>
-
     </t-form>
 </template>
 

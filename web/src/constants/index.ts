@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package param
-
-// CommunityParams register params for community.
-type CommunityParams struct {
-	Name   string `json:"name" binding:"required"`
-	Email  string `json:"email" binding:"required"`
-	Avatar string `json:"avatar" binding:"required"`
+// Define content type
+export enum ContentTypeEnum {
+    Json = 'application/json;charset=UTF-8',
+    FormURLEncoded = 'application/x-www-form-urlencoded;charset=UTF-8',
+    FormData = 'multipart/form-data;charset=UTF-8',
 }

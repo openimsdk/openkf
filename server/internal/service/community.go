@@ -21,7 +21,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
-	"github.com/OpenIMSDK/OpenKF/server/internal/param"
+	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 )
 
@@ -43,13 +43,13 @@ func NewCommunityService(c *gin.Context) *CommunityService {
 }
 
 // Create create community.
-func (svc *CommunityService) Create(community param.CommunityParams) (string, uint, error) {
+func (svc *CommunityService) Create(community *requestparams.CommunityParams) (string, uint, error) {
 	uuid := utils.GenUUID()
 	data := &systemroles.SysCommunity{
 		UUID:   uuid,
 		Name:   community.Name,
 		Email:  community.Email,
-		Avatar: community.Avatar,
+		Avatar: *community.Avatar,
 	}
 
 	err := db.GetMysqlDB().Create(data).Error
