@@ -17,10 +17,20 @@ const navToDoc = () => {
             <span class="title">OpenKF</span>
         </div>
         <div class="operations-container">
-            <t-button theme="default" shape="square" variant="text" @click="navToGitHub">
+            <t-button
+                theme="default"
+                shape="square"
+                variant="text"
+                @click="navToGitHub"
+            >
                 <t-icon name="logo-github-filled" class="icon" />
             </t-button>
-            <t-button theme="default" shape="square" variant="text" @click="navToDoc">
+            <t-button
+                theme="default"
+                shape="square"
+                variant="text"
+                @click="navToDoc"
+            >
                 <t-icon name="help-circle-filled" class="icon" />
             </t-button>
             <!-- Add theme tabs -->
@@ -54,14 +64,12 @@ const navToDoc = () => {
             color: var(--td-text-color-primary);
             margin-top: var(--td-comp-margin-xs);
             margin-left: var(--td-comp-margin-s);
-    
+
             &.margin-no {
                 margin-top: 0;
             }
         }
     }
-
-    
 
     .operations-container {
         display: flex;
@@ -69,6 +77,6 @@ const navToDoc = () => {
         .t-button {
             margin-left: var(--td-comp-margin-l);
         }
-  }
+    }
 }
 </style>

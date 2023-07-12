@@ -22,7 +22,7 @@ import (
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
-	"github.com/OpenIMSDK/OpenKF/server/internal/param"
+	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
 )
 
 // OpenIMCallback
@@ -33,7 +33,7 @@ import (
 // @Success 200 {object}  response.Response{msg=string} "Success"
 // @Router /api/v1/openim/callback [post].
 func OpenIMCallback(c *gin.Context) {
-	param := &param.OpenIMCallbackCommand{}
+	param := &requestparams.OpenIMCallbackCommand{}
 	err := c.ShouldBindQuery(param)
 	if err != nil {
 		// todo

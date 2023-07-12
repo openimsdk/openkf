@@ -12,10 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package param
+import { CreateCommunityParam } from '../request/communityModel';
+import { request } from '@/utils/request';
 
-// RegisterCustomerParamsInWeb register params for user in web.
-type RegisterCustomerParamsInWeb struct{}
+const API = {
+    CreateCommunity: '/community/create',
+};
 
-// RegisterCustomerParamsInSlack register params for user in slack.
-type RegisterCustomerParamsInSlack struct{}
+// Create community
+export function createCommunity(data: CreateCommunityParam) {
+    return request.post<CreateCommunityParam>({
+        url: API.CreateCommunity,
+        data,
+    });
+}

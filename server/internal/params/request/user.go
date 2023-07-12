@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package param
+package requestparams
 
 // CreateUserParams register params for user.
 type CreateUserParams struct {
-	Email    string `json:"email" binding:"required"`
-	Nickname string `json:"nickname" binding:"required"`
-	Avatar   string `json:"avatar" binding:"required"`
-	Password string `json:"password" binding:"required"`
+	Email    string  `json:"email" binding:"required"`
+	Nickname string  `json:"nickname" binding:"required"`
+	Avatar   *string `json:"avatar" binding:"required"` // Avatar is optional.
+	Password string  `json:"password" binding:"required"`
 }
 
 // RegisterAdminParams register params for admin.
@@ -33,4 +33,10 @@ type RegisterAdminParams struct {
 type RegisterStaffParams struct {
 	UserInfo    CreateUserParams `json:"user_info" binding:"required"`
 	CommunityId uint             `json:"community_id" binding:"required"`
+}
+
+// LoginParamsWithAccount login params.
+type LoginParamsWithAccount struct {
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"password" binding:"required"`
 }

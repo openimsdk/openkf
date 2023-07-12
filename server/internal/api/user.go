@@ -19,7 +19,7 @@ import (
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
-	"github.com/OpenIMSDK/OpenKF/server/internal/param"
+	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
 	"github.com/OpenIMSDK/OpenKF/server/internal/service"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
@@ -33,7 +33,7 @@ import (
 // @Success 200 {object}  response.Response{msg=string} "Success"
 // @Router /api/v1/register/admin [post].
 func AdminRegister(c *gin.Context) {
-	var params param.RegisterAdminParams
+	var params requestparams.RegisterAdminParams
 	err := c.ShouldBindJSON(&params)
 	if err != nil {
 		response.FailWithCode(common.INVALID_PARAMS, c)
@@ -42,7 +42,7 @@ func AdminRegister(c *gin.Context) {
 	}
 
 	svc := service.NewUserService(c)
-	_, _, err = svc.CreateAdmin(params)
+	_, _, err = svc.CreateAdmin(&params)
 	if err != nil {
 		log.Debug("AdminRegister error", err)
 		response.FailWithCode(common.ERROR, c)
@@ -62,7 +62,7 @@ func AdminRegister(c *gin.Context) {
 // @Success 200 {object}  response.Response{msg=string} "Success"
 // @Router /api/v1/register/staff [post].
 func StaffRegister(c *gin.Context) {
-	var params param.RegisterStaffParams
+	var params requestparams.RegisterStaffParams
 	err := c.ShouldBindJSON(&params)
 	if err != nil {
 		response.FailWithCode(common.INVALID_PARAMS, c)
@@ -71,7 +71,7 @@ func StaffRegister(c *gin.Context) {
 	}
 
 	svc := service.NewUserService(c)
-	_, _, err = svc.CreateStaff(params)
+	_, _, err = svc.CreateStaff(&params)
 	if err != nil {
 		log.Debug("AdminRegister error", err)
 		response.FailWithCode(common.ERROR, c)
@@ -80,4 +80,33 @@ func StaffRegister(c *gin.Context) {
 	}
 
 	response.Success(c)
+}
+
+// AccountLogin
+// @Tags user
+// @Summary AccountLogin
+// @Description login with account
+// @Produce application/json
+// @Param data body param.AccountLogin true "AccountLogin"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/login/account [post].
+func AccountLogin(c *gin.Context) {
+	var params requestparams.LoginParamsWithAccount
+	err := c.ShouldBindJSON(&params)
+	if err != nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	svc := service.NewUserService(c)
+	u, err := svc.LoginWithAccount(&params)
+	if err != nil {
+		log.Debug("AdminRegister error", err)
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	response.SuccessWithData(u, c)
 }

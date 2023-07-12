@@ -25,7 +25,9 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
 	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
-	"github.com/OpenIMSDK/OpenKF/server/internal/param"
+	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
+	responseparams "github.com/OpenIMSDK/OpenKF/server/internal/params/response"
+	internal_utils "github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/user"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
@@ -49,7 +51,7 @@ func NewUserService(c *gin.Context) *UserService {
 }
 
 // CreateAdmin create admin user.
-func (svc *UserService) CreateAdmin(user param.RegisterAdminParams) (string, uint, error) {
+func (svc *UserService) CreateAdmin(user *requestparams.RegisterAdminParams) (string, uint, error) {
 	// Check code
 	mService := NewMailService((svc.ctx).(*gin.Context))
 	if isExist := mService.CheckCode(user.UserInfo.Email, user.Code); !isExist {
@@ -59,7 +61,7 @@ func (svc *UserService) CreateAdmin(user param.RegisterAdminParams) (string, uin
 	// Create community
 	communityParam := user.CommunityInfo
 	cService := NewCommunityService((svc.ctx).(*gin.Context))
-	_, cid, err := cService.Create(communityParam)
+	_, cid, err := cService.Create(&communityParam)
 	if err != nil {
 		return "", 0, err
 	}
@@ -72,7 +74,7 @@ func (svc *UserService) CreateAdmin(user param.RegisterAdminParams) (string, uin
 			UUID:     uuid,
 			Email:    adminParam.Email,
 			Nickname: adminParam.Nickname,
-			Avatar:   adminParam.Avatar,
+			Avatar:   *adminParam.Avatar,
 			IsEnable: true,
 		},
 		IsAdmin:     true,
@@ -108,7 +110,7 @@ func (svc *UserService) CreateAdmin(user param.RegisterAdminParams) (string, uin
 }
 
 // CreateStaff create staff user.
-func (svc *UserService) CreateStaff(user param.RegisterStaffParams) (string, uint, error) {
+func (svc *UserService) CreateStaff(user *requestparams.RegisterStaffParams) (string, uint, error) {
 	// Create staff
 	uuid := utils.GenUUID()
 	staffParam := user.UserInfo
@@ -117,7 +119,7 @@ func (svc *UserService) CreateStaff(user param.RegisterStaffParams) (string, uin
 			UUID:     uuid,
 			Email:    staffParam.Email,
 			Nickname: staffParam.Nickname,
-			Avatar:   staffParam.Avatar,
+			Avatar:   *staffParam.Avatar,
 			IsEnable: true,
 		},
 		IsAdmin:     false,
@@ -168,4 +170,30 @@ func registerUserToOpenIM(param *request.RegisterUserParams) (bool, error) {
 	}
 
 	return true, nil
+}
+
+// LoginWithAccount login with account.
+func (svc *UserService) LoginWithAccount(param *requestparams.LoginParamsWithAccount) (*responseparams.UserTokenResponse, error) {
+	resp := &responseparams.UserTokenResponse{}
+
+	// Check user
+	u, err := svc.SysUserDao.FindFirstByEmail(param.Email)
+	if err != nil {
+		return resp, err
+	}
+
+	// Check password
+	if !utils.ComparePassword(param.Password, u.Password) {
+		return resp, errors.New("password is not correct")
+	}
+
+	token, err := internal_utils.GenerateJwtToken(u.UUID.String(), u.CommunityId)
+	if err != nil {
+		return resp, err
+	}
+
+	resp.Token = token
+	// TODO: Set Online in OpenIM or do this in js-sdk
+
+	return resp, nil
 }

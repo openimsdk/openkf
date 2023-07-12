@@ -12,9 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package param
+package requestparams
 
-// SendToParams register params for email.
-type SendToParams struct {
-	Email string `json:"email" binding:"required"`
+// CommunityParams register params for community.
+type CommunityParams struct {
+	Name   string  `json:"name" binding:"required"`
+	Email  string  `json:"email" binding:"required"`
+	Avatar *string `json:"avatar" binding:"required"` // Avatar is optional.
 }

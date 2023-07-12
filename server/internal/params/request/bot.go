@@ -12,35 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package utils
+package requestparams
 
-import (
-	"crypto/hmac"
-	"crypto/md5"
-	"crypto/sha256"
-	"encoding/hex"
-)
-
-const (
-	_salt = "openkf"
-)
-
-// EncryptPassword encrypt password.
-func EncryptPassword(password string) string {
-	// md5
-	m := md5.New()
-	m.Write([]byte(password + _salt))
-	mByte := m.Sum(nil)
-
-	// hmac
-	h := hmac.New(sha256.New, []byte(_salt))
-	h.Write(mByte)
-	password = hex.EncodeToString(h.Sum(nil))
-
-	return password
-}
-
-// ComparePassword compare password.
-func ComparePassword(password, encryptedPassword string) bool {
-	return EncryptPassword(password) == encryptedPassword
+// RegisterBotParams register params for bot.
+type RegisterBotParams struct {
+	BotAddr     string `json:"bot_addr" binding:"required"`
+	BotPort     int    `json:"bot_port" binding:"required"`
+	BotToken    string `json:"bot_token" binding:"required"`
+	Nickname    string `json:"nickname" binding:"required"`
+	Avatar      string `json:"avatar" binding:"required"`
+	CommunityId uint   `json:"community_id" binding:"required"`
 }
