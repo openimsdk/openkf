@@ -1,0 +1,126 @@
+// TODO: Add style change.
+.light {
+    &.login-wrapper {
+        background-color: white;
+    }
+}
+
+.dark {
+    &.login-wrapper {
+        background-color: var(--td-bg-color-page);
+    }
+}
+
+.title-container {
+    .title {
+        font: var(--td-font-headline-large);
+        color: var(--td-text-color-primary);
+        margin-top: var(--td-comp-margin-xs);
+
+        &.margin-no {
+            margin-top: 0;
+        }
+    }
+
+    .sub-title {
+        margin-top: var(--td-comp-margin-xxl);
+
+        .tip {
+            display: inline-block;
+            margin-right: var(--td-comp-margin-s);
+            font: var(--td-font-body-medium);
+            cursor: pointer;
+        }
+    }
+}
+
+.login-wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    background-position: 100%;
+    position: relative;
+    background-image: linear-gradient(to right, white 0%, white 10%, transparent 80%, transparent 100%), url('');
+}
+
+.login-container {
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    min-height: 500px;
+    padding: var(--td-pop-padding-xxl);
+    border-radius: var(--td-radius-default);
+}
+
+.item-container {
+    width: 400px;
+    margin-top: var(--td-comp-margin-xxxxl);
+
+
+    .check-container-login {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &.remember-pwd {
+            margin-bottom: var(--td-comp-margin-l);
+            justify-content: space-between;
+        }
+
+        span {
+            color: var(--td-brand-color);
+
+            &:hover {
+            cursor: pointer;
+            }
+        }
+    }
+    
+    .check-container {
+        // display: flex;
+        align-items: center;
+
+        span {
+            color: var(--td-brand-color);
+
+            &:hover {
+            cursor: pointer;
+            }
+        }
+    }
+
+    .verification-code {
+        // display: flex;
+        align-items: center;
+
+        :deep(.t-form__controls) {
+            width: 100%;
+
+            button {
+                height: var(--td-size-12);
+                flex-shrink: 0;
+                margin-left: var(--td-comp-margin-l);
+            }
+        }
+    }
+}
+
+.check-container {
+    font: var(--td-font-body-medium);
+    color: var(--td-text-color-secondary);
+}
+
+.copyright {
+    font: var(--td-font-body-medium);
+    position: absolute;
+    left: 5%;
+    bottom: 64px;
+    color: var(--td-text-color-secondary);
+}
+
+@media screen and (max-height: 700px) {
+    .copyright {
+    display: none;
+    }
+}

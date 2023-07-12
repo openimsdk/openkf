@@ -18,6 +18,9 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import axios from 'axios';
 import router from './router';
+import TDesign from 'tdesign-vue-next';
+import 'tdesign-vue-next/es/style/index.css';
+import './style/index.less';
 
 import { getSDK } from '@/utils/open-im-sdk-wasm';
 
@@ -26,4 +29,4 @@ console.log(OpenIM);
 
 const app = createApp(App);
 app.config.globalProperties.$https = axios; // use axios
-app.use(router).mount('#app'); // mount the router on the app
+app.use(router).use(TDesign).mount('#app'); // mount the router on the app
