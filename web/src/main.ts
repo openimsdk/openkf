@@ -14,27 +14,19 @@
  * limitations under the License.
  */
 
-import { ElLoading } from 'element-plus';
+import { createApp } from 'vue';
+import App from './App.vue';
+import axios from 'axios';
+import router from './router';
+import TDesign from 'tdesign-vue-next';
+import 'tdesign-vue-next/es/style/index.css';
+import './style/index.less';
 
-// global loading
-let loadingCount = 0;
-let loadingInstance = null;
+import { getSDK } from '@/utils/open-im-sdk-wasm';
 
-export const startLoading = () => {
-    loadingCount++;
-    loadingInstance = ElLoading.service({
-        lock: true,
-        text: 'Loading...',
-        background: 'rgba(0, 0, 0, 0.7)',
-    });
-    setTimeout(() => {
-        loadingInstance.close();
-    }, 3000);
-};
+const OpenIM = getSDK();
+console.log(OpenIM);
 
-export const stopLoading = () => {
-    loadingCount--;
-    if (loadingCount === 0) {
-        loadingInstance.close();
-    }
-};
+const app = createApp(App);
+app.config.globalProperties.$https = axios; // use axios
+app.use(router).use(TDesign).mount('#app'); // mount the router on the app

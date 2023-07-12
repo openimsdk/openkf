@@ -343,8 +343,9 @@ flycheck_*.el
 
 # Misc
 .DS_Store
-*.env
-.env.*
+# Add env to web
+# *.env
+# .env.*
 dist
 
 # files used by the developer

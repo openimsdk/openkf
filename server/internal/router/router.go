@@ -56,6 +56,17 @@ func InitRouter() *gin.Engine {
 			// register.POST("/github", api.GithubRegister)
 		}
 
+		// User login api
+		login := apiv1.Group("/login")
+		{
+			login.POST("/account", api.AccountLogin)
+			// user.POST("/email", api.GithubRegister)
+			// user.POST("/github", api.GithubRegister)
+			// user.POST("/wechat", api.GithubRegister)
+		}
+
+		// admin := apiv1.Group("/admin")
+		// user := apiv1.Group("/user")
 		community := apiv1.Group("/community")
 		{
 			community.POST("/create", api.CreateCommunity)

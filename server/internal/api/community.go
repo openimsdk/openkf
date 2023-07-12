@@ -19,7 +19,7 @@ import (
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
-	"github.com/OpenIMSDK/OpenKF/server/internal/param"
+	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
 	"github.com/OpenIMSDK/OpenKF/server/internal/service"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
@@ -33,7 +33,7 @@ import (
 // @Success 200 {object}  response.Response{msg=string} "Success"
 // @Router /api/v1/community/create [post].
 func CreateCommunity(c *gin.Context) {
-	var params param.CommunityParams
+	var params requestparams.CommunityParams
 	err := c.ShouldBindJSON(&params)
 	if err != nil {
 		response.FailWithCode(common.INVALID_PARAMS, c)
@@ -42,7 +42,7 @@ func CreateCommunity(c *gin.Context) {
 	}
 
 	svc := service.NewCommunityService(c)
-	_, _, err = svc.Create(params)
+	_, _, err = svc.Create(&params)
 	if err != nil {
 		log.Debug("CreateCommunity error", err)
 		response.FailWithCode(common.ERROR, c)

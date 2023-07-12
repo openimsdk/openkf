@@ -23,7 +23,11 @@
     </head>
     <body>
         <div id="app"></div>
-        <script src="./wasm_exec.js"></script>
-        <script type="module" src="/src/main.js"></script>
+        <script src="/wasm_exec.js"></script>
+        <script type="module" src="/src/main.ts"></script>
     </body>
+
+    <script>
+        window.global = window;
+    </script>
 </html>

@@ -12,14 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package param
+package requestparams
 
-// RegisterBotParams register params for bot.
-type RegisterBotParams struct {
-	BotAddr     string `json:"bot_addr" binding:"required"`
-	BotPort     int    `json:"bot_port" binding:"required"`
-	BotToken    string `json:"bot_token" binding:"required"`
-	Nickname    string `json:"nickname" binding:"required"`
-	Avatar      string `json:"avatar" binding:"required"`
-	CommunityId uint   `json:"community_id" binding:"required"`
-}
+// RegisterCustomerParamsInWeb register params for user in web.
+type RegisterCustomerParamsInWeb struct{}
+
+// RegisterCustomerParamsInSlack register params for user in slack.
+type RegisterCustomerParamsInSlack struct{}
