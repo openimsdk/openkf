@@ -78,11 +78,11 @@ bashCopy Codemake all
 
 ## 🕋 架构图
 
-![架构](https://chat.jinshutuan.com/assets/images/architecture.png)
+![架构](./assets/images/architecture.png)
 
 **MVC 架构设计:**
 
-![MVC](https://chat.jinshutuan.com/assets/images/mvc.png)
+![MVC](./assets/images/mvc.png)
 
 ## 🤖 文件目录说明
 
@@ -141,7 +141,7 @@ OpenIMSDK 的目标是打造一个顶级的开源社区。我们有一套标准�
 
 OpenIMSDK 使用 Apache 2.0 许可证。完整的许可证文本请参见 [LICENSE](https://github.com/OpenIMSDK/OpenKF/tree/main/LICENSE)。
 
-此存储库中显示的 OpenKF 标志（包括其变体和动画版本），存储在 [OpenKF](https://github.com/OpenIMSDK/openkf) 的 [assets/logo](https://chat.jinshutuan.com/assets/logo) 和 [assets/logo-gif](https://chat.jinshutuan.com/assets/logo-gif) 目录下，受版权法保护。
+此存储库中显示的 OpenKF 标志（包括其变体和动画版本），存储在 [OpenKF](https://github.com/OpenIMSDK/openkf) 的 [assets/logo](./assets/logo) 和 [assets/logo-gif](./assets/logo-gif) 目录下，受版权法保护。
 
 ## 🔮 感谢我们的贡献者！
 
