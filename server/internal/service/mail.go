@@ -19,6 +19,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
@@ -55,7 +56,7 @@ func (svc *MailService) SendCode(email string) (err error) {
 	}
 
 	// Generate code.
-	// err = client.SendEmail(email, "OpenKF Admin Register", "Your verification code is "+code)
+	err = client.SendEmail(email, "OpenKF Admin Register", "Your verification code is "+code)
 
 	return err
 }

@@ -14,6 +14,7 @@
 
 package responseparams
 
+// UserTokenResponse user token response.
 type UserTokenResponse struct {
 	Token string `json:"token"`
 }
