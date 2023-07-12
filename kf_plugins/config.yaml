@@ -13,7 +13,7 @@
 # limitations under the License.
 
 app:
-  version: 1.0-dev
+  version: 0.1.0-dev
   host: 0.0.0.0
   port: 10011
   debug: true
