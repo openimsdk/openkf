@@ -241,6 +241,7 @@ generate:
 	@cd $(SERVER_DIR) && $(GO) generate ./... 
 
 ## lint: Run go lint against code.
+# go1.19+ 
 .PHONY: lint
 lint: tools.verify.golangci-lint
 	@echo "===========> Run golangci to lint source codes"
@@ -422,6 +423,11 @@ install.kubeconform:
 install.gsemver:
 	@$(GO) install github.com/arnaud-deprez/gsemver@latest
 
+## install.hugo: Install hugo, used to generate website
+.PHONY: install.hugo
+install.hugo:
+	@$(GO) install github.com/gohugoio/hugo@latest
+
 ## install.git-chglog: Install git-chglog, used to generate changelog
 .PHONY: install.git-chglog
 install.git-chglog:
@@ -432,9 +438,14 @@ install.git-chglog:
 install.github-release:
 	@$(GO) install github.com/github-release/github-release@latest
 
+## install.goreleaser: Install goreleaser, used to release go program
+.PHONY: install.goreleaser
+install.goreleaser:
+	@$(GO) install github.com/goreleaser/goreleaser@latest
+
 ## install.coscli: Install coscli, used to upload files to cos
 # example: ./coscli  cp/sync -r /root/workspaces/OpenIMSDK/OpenKF/ cos://OpenIMSDK-1306374445/code/ -e cos.ap-hongkong.myqcloud.com
-# https://cloud.tencent.com/document/product/436/71763
+# https://cloud.tencent.com/document/product/436/71763 
 # OpenIMSDK/*
 # - code/
 # - docs/

@@ -1,0 +1,6 @@
+# https://github.com/BetaHuhn/repo-file-sync-action
+# Synchronization for the.github repository
+openkf/openkf:
+  - source: ./
+    dest: ./
+    replace: true

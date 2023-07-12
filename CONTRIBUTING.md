@@ -8,13 +8,24 @@ This document provides guidelines and best practices to help you contribute effe
 
 ## 📇Topics
 
-- [What we expect of you](#What-we-expect-of-you)
-- [Code of Conduct](#Code-of-Conduct)
-- [Getting Started](#Getting-Started)
-- [Style and Specification](#Style-and-Specification)
-- [Engage to help anything](#Engage-to-help-anything)
-- [Release version](#Release-version)
-- [Contact Us](#Contact-Us)
+- [Contributing to OpenKF](#contributing-to-openkf)
+  - [📇Topics](#topics)
+  - [What we expect of you](#what-we-expect-of-you)
+  - [Code of Conduct](#code-of-conduct)
+      - [Code and doc contribution](#code-and-doc-contribution)
+      - [Where should I start?](#where-should-i-start)
+      - [Design documents](#design-documents)
+  - [Getting Started](#getting-started)
+  - [Style and Specification](#style-and-specification)
+      - [Reporting security issues](#reporting-security-issues)
+      - [Reporting general issues](#reporting-general-issues)
+      - [Commit Rules](#commit-rules)
+      - [PR Description](#pr-description)
+      - [CI actions](#ci-actions)
+      - [Docs Contribution](#docs-contribution)
+  - [Engage to help anything](#engage-to-help-anything)
+  - [Release version](#release-version)
+  - [Contact Us](#contact-us)
 
 
 
@@ -356,7 +367,6 @@ Try your best to keep every function has been tested, it keeps the function beha
 
 + [README.md](https://github.com/OpenIMSDK/OpenKF/blob/main/README.md): This file includes the basic information and instructions for getting started with OpenKF.
 + [CONTRIBUTING.md](https://github.com/OpenIMSDK/OpenKF/blob/main/CONTRIBUTING.md): This file contains guidelines for contributing to OpenKF's codebase, such as how to submit issues, pull requests, and code reviews.
-+ [DEVELOPGUIDE.md](https://github.com/OpenIMSDK/OpenKF/blob/main/DEVELOPGUIDE.md): This file provides a more in-depth guide to developing OpenKF, including information on the project's architecture, coding conventions, and testing practices.
 + [Official Documentation](https://doc.rentsoft.cn/): This is the official documentation for OpenKF, which includes comprehensive information on all of its features, configuration options, and troubleshooting tips.
 
 **Please obey the following rules to better format the docs, which would greatly improve the reading experience.**
