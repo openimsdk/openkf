@@ -40,7 +40,7 @@ web/*  @openimsdk/openim  @AllianceTing @MC-kanon @IRONICBo @liumingsongning @pl
 # You can also use email addresses if you prefer. They'll be
 # used to look up users just like we do for commit author
 # emails.
-*.go @openimsdk/openim 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @hanzhixiao @liumingsongning @Cathay-Chen @charles-chenzz @plutoyty @fodedoumbouya
+*.go @openimsdk/openim 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @hanzhixiao @liumingsongning @Cathay-Chen @charles-chenzz @plutoyty @fodedoumbouya @a67793581
 *.py 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @liumingsongning @plutoyty
 
 # Teams can be specified as code owners as well. Teams should
