@@ -5,14 +5,26 @@ import RegisterForm from './components/RegisterForm.vue';
 import { ref } from 'vue';
 
 const type = ref('login');
+const isDark = ref(false);
+
 const switchType = (val: string) => {
     type.value = val;
 };
+const changeMode = (value: boolean) => {
+    console.log(value);
+    isDark.value = value
+    if (isDark.value) {
+        document.documentElement.setAttribute('theme-mode', 'dark');
+    } else {
+        document.documentElement.setAttribute('theme-mode', 'light');
+    }
+}
+
 </script>
 
 <template>
-    <div class="login-wrapper">
-        <login-header />
+    <div :class="[isDark ? 'dark' : 'light', 'login-wrapper']">
+        <login-header @change-mode="changeMode"/>
 
         <div class="login-container">
             <div class="title-container">
