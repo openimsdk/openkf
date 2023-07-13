@@ -19,8 +19,8 @@
 
 ### 📦 安装
 
-```
-bashCopy Codegit clone https://github.com/OpenIMSDK/OpenKF openkf && export openkf=$(pwd)/openkf && cd $openkf && make
+```bashCopy Code
+git clone https://github.com/OpenIMSDK/OpenKF openkf && export openkf=$(pwd)/openkf && cd $openkf && make
 ```
 
 ### 🚀 运行
@@ -28,13 +28,13 @@ bashCopy Codegit clone https://github.com/OpenIMSDK/OpenKF openkf && export open
 > **注意**：首先需要运行后端服务器
 
 ```
-bashCopy Codemake build
+make build
 ```
 
 > 打开另一个终端窗口，运行以下命令:
 
 ```
-bashCopy Code# make dev
+make dev
 cd web
 npm run dev
 ```
@@ -44,7 +44,7 @@ npm run dev
 熟练使用 Makefile 可以确保项目的质量。
 
 ```
-bashCopy Code用法: make <TARGETS> ...
+用法: make <TARGETS> ...
 
 目标:
   all                          构建所有必要的目标。🏗️
@@ -73,7 +73,7 @@ bashCopy Code用法: make <TARGETS> ...
 > **注意**：强烈建议在提交代码之前运行 `make all`。🚀
 
 ```
-bashCopy Codemake all
+make all
 ```
 
 ## 🕋 架构图
@@ -89,7 +89,7 @@ bashCopy Codemake all
 目录结构规范化设计:
 
 ```
-bashCopy Code.
+.
 ├── assets
 │   └── images
 ├── build
