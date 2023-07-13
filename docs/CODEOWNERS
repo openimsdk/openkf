@@ -40,8 +40,8 @@ web/*  @OpenIMSDK/openim  @AllianceTing @MC-kanon @IRONICBo @liumingsongning @pl
 # You can also use email addresses if you prefer. They'll be
 # used to look up users just like we do for commit author
 # emails.
-*.go @OpenIMSDK/openim 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @hanzhixiao @liumingsongning @Cathay-Chen @charles-chenzz @plutoyty @fodedoumbouya @a67793581
-*.py 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @liumingsongning @plutoyty
+*.go @OpenIMSDK/openim 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @hanzhixiao @liumingsongning @Cathay-Chen @charles-chenzz @plutoyty @fodedoumbouya @a67793581 @tobehardest
+*.py 3293172751nss@gmail.com @IRONICBo @AllianceTing @eurecalulu @liumingsongning @plutoyty @tobehardest
 
 # Teams can be specified as code owners as well. Teams should
 # be identified in the format @org/team-name. Teams must have
@@ -70,7 +70,7 @@ api/ @cubxxw @IRONICBo @MC-kanon @AllianceTing @hanzhixiao @charles-chenzz
 
 # In this example, any change inside the `/scripts` directory
 # will require approval from @cubxxw or @octocat.
-/scripts/ @cubxxw @kubbot @MC-kanon @charles-chenzz @plutoyty
+/scripts/ @cubxxw @kubbot @MC-kanon @charles-chenzz @plutoyty @tobehardest
 scripts/* @cubxxw @kubbot @IRONICBo @charles-chenzz
 
 # In this example, @octocat owns any file in a `/logs` directory such as
