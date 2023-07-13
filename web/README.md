@@ -10,6 +10,16 @@ Run `bash scripts/setup.sh` to install OpenIM SDK for vite.
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
+Modify `.env` config.
+
+# https://doc.rentsoft.cn/sdks/Enum/LogLevel
+- LogLevel
+    - Debug	5
+    - Info	4
+    - Warn	3
+    - Error	2
+    - Fatal	1
+
 ## Project Setup
 
 ```sh

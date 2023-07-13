@@ -29,4 +29,5 @@ FILE_PATH="src/utils/open-im-sdk-wasm/api/index.js"
 sed -i "s/\/\/ import IMWorker from '.\/worker?worker';/import IMWorker from '.\/worker?worker';/g" "$FILE_PATH"
 # sed -i 's/worker = new Worker(new URL('\''\.\/worker\.js'\'', import.meta.url));/\/\/ worker = new Worker(new URL('\''\.\/worker\.js'\'', import.meta.url));/g' "$FILE_PATH"
 sed -i "s/\/\/ worker = new IMWorker();/worker = new IMWorker();/g" "$FILE_PATH"
+sed -i "s/worker = new Worker(new URL/\/\/ worker = new Worker(new URL/g" "$FILE_PATH" # Update: close webpack5 support
 echo "[2] Open openim support finished..."

@@ -12,6 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Define OpenIM login config
+export const OpenIMLoginConfig = {
+    PlatformID: 5, // 5: web
+    APIAddress: import.meta.env.VITE_OPENIM_API_ADDRESS,
+    WSAddress: import.meta.env.VITE_OPENIM_WS_ADDRESS,
+    LogLevel: import.meta.env.VITE_OPENIM_LOG_LEVEL,
+};
+
 // Define content type
 export enum ContentTypeEnum {
     Json = 'application/json;charset=UTF-8',

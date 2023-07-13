@@ -17,6 +17,7 @@ import {
     RegisterAdminParam,
     RegisterStaffParam,
 } from '../request/userModel';
+import { UserLoginResponse } from '../response/userModel';
 import { request } from '@/utils/request';
 
 const API = {
@@ -38,7 +39,7 @@ export function sendEmailCode(email: string) {
 
 // Register admin
 export function registerAdmin(data: RegisterAdminParam) {
-    return request.post<RegisterAdminParam>({
+    return request.post<any>({
         url: API.RegisterAdmin,
         data,
     });
@@ -46,7 +47,7 @@ export function registerAdmin(data: RegisterAdminParam) {
 
 // Register admin
 export function registerStaff(data: RegisterStaffParam) {
-    return request.post<RegisterStaffParam>({
+    return request.post<any>({
         url: API.RegisterStaff,
         data,
     });
@@ -54,7 +55,7 @@ export function registerStaff(data: RegisterStaffParam) {
 
 // User login
 export function accountLogin(data: AccountLoginParam) {
-    return request.post<AccountLoginParam>({
+    return request.post<UserLoginResponse>({
         url: API.AccountLogin,
         data,
     });

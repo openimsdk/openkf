@@ -28,7 +28,7 @@ type JwtClaims struct {
 	jwt.RegisteredClaims
 }
 
-func GenerateJwtToken(uid string, community_id uint) (string, error) {
+func GenerateJwtToken(uid string, community_id uint) (string, uint, error) {
 	secret := []byte(config.Config.JWT.Secret)
 	issuer := config.Config.JWT.Issuer
 	expireDays := config.Config.JWT.ExpireDays
@@ -44,8 +44,10 @@ func GenerateJwtToken(uid string, community_id uint) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token_string, err := token.SignedString(secret)
+	expire_time_seconds := uint(time.Now().AddDate(0, 0, expireDays).Unix())
 
-	return token.SignedString(secret)
+	return token_string, expire_time_seconds, err
 }
 
 func ParseJwtToken(tokenString string) (*JwtClaims, error) {

@@ -29,6 +29,8 @@ import (
 	responseparams "github.com/OpenIMSDK/OpenKF/server/internal/params/response"
 	internal_utils "github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/response"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/auth"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/user"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 )
@@ -187,13 +189,51 @@ func (svc *UserService) LoginWithAccount(param *requestparams.LoginParamsWithAcc
 		return resp, errors.New("password is not correct")
 	}
 
-	token, err := internal_utils.GenerateJwtToken(u.UUID.String(), u.CommunityId)
+	// Generate KF token
+	kfToken, kfExpireTimeSeconds, err := internal_utils.GenerateJwtToken(u.UUID.String(), u.CommunityId)
 	if err != nil {
 		return resp, err
 	}
 
-	resp.Token = token
+	// Get IM token
+	imParam := &request.UserTokenParams{
+		Secret:     config.Config.OpenIM.Secret,
+		UserID:     u.UUID.String(),
+		PlatformID: uint(config.Config.OpenIM.PlatformID),
+	}
+	imResp, err := getUserIMToken(imParam)
+	if err != nil {
+		return resp, err
+	}
+
+	// Fill response data
+	resp.UUID = u.UUID.String()
+	resp.KFToken = &responseparams.TokenResponse{
+		Token:             kfToken,
+		ExpireTimeSeconds: kfExpireTimeSeconds,
+	}
+	resp.IMToken = &responseparams.TokenResponse{
+		Token:             imResp.Token,
+		ExpireTimeSeconds: imResp.ExpireTimeSeconds,
+	}
+
 	// TODO: Set Online in OpenIM or do this in js-sdk
 
 	return resp, nil
+}
+
+// getUserIMToken get user im token.
+func getUserIMToken(param *request.UserTokenParams) (*response.TokenData, error) {
+	// Default not use tls/ssl
+	host := fmt.Sprintf("http://%s", net.JoinHostPort(config.Config.OpenIM.Ip, fmt.Sprintf("%d", config.Config.OpenIM.ApiPort)))
+	resp, err := auth.GetUserToken(param, host)
+	if err != nil {
+		return &response.TokenData{}, err
+	}
+
+	if resp.ErrCode != 0 {
+		return &response.TokenData{}, errors.New(resp.ErrMsg)
+	}
+
+	return &resp.Data, nil
 }
