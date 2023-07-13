@@ -4,6 +4,9 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { accountLogin } from '@/api/index/login';
 import { AccountLoginParam } from '@/api/request/userModel';
 import { useRoute, useRouter } from 'vue-router';
+import { OpenIM } from '@/api/openim';
+import { OpenIMLoginConfig } from '@/constants';
+import { IMLoginParam } from '@/api/request/openimModel';
 import { ref } from 'vue';
 
 const USER_INITIAL_DATA = {
@@ -20,19 +23,34 @@ const route = useRoute();
 const onSubmit = async (ctx: SubmitContext) => {
     if (ctx.validateResult === true) {
         try {
+            // Login to OpenKF
             let data: AccountLoginParam = {
                 email: formData.value.email,
                 password: formData.value.password,
             };
             accountLogin(data)
                 .then(res => {
-                    console.log(res);
-                    MessagePlugin.success('Login success...');
-                    const redirect = route.query.redirect as string;
-                    const redirectUrl = redirect
-                        ? decodeURIComponent(redirect)
-                        : '/dashboard';
-                    router.push(redirectUrl);
+                    // Login to OpenIM
+                    const config: IMLoginParam = {
+                        userID: res.uuid,
+                        token: res.im_token.token,
+                        platformID: OpenIMLoginConfig.PlatformID,
+                        apiAddress: OpenIMLoginConfig.APIAddress,
+                        wsAddress: OpenIMLoginConfig.WSAddress,
+                    };
+                    // operationID is auto generated in login method.
+                    OpenIM.login(config)
+                        .then(res => {
+                            MessagePlugin.success('Login success...');
+                            const redirect = route.query.redirect as string;
+                            const redirectUrl = redirect
+                                ? decodeURIComponent(redirect)
+                                : '/dashboard';
+                            router.push(redirectUrl);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
                 })
                 .catch(err => {
                     console.log(err);

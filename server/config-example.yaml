@@ -62,3 +62,4 @@ openim:
   secret: openkf
   ip: 127.0.0.1
   api_port: 10002
+  platform_id: 5 # web

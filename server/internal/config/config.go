@@ -71,9 +71,10 @@ func ConfigInit(configPath string) {
 			Password: GetString("email.password"),
 		},
 		OpenIM: OpenIM{
-			Secret:  GetStringOrDefault("openim.secret", "openkf"),
-			Ip:      GetStringOrDefault("openim.ip", "127.0.0.1"),
-			ApiPort: GetIntOrDefault("openim.api_port", 10002),
+			Secret:     GetStringOrDefault("openim.secret", "openkf"),
+			Ip:         GetStringOrDefault("openim.ip", "127.0.0.1"),
+			ApiPort:    GetIntOrDefault("openim.api_port", 10002),
+			PlatformID: GetIntOrDefault("openim.platform_id", 5),
 		},
 	}
 }
@@ -151,7 +152,8 @@ type Email struct {
 
 // OpenIM config.
 type OpenIM struct {
-	Secret  string `mapstructure:"secret"`
-	Ip      string `mapstructure:"ip"`
-	ApiPort int    `mapstructure:"api_port"`
+	Secret     string `mapstructure:"secret"`
+	Ip         string `mapstructure:"ip"`
+	ApiPort    int    `mapstructure:"api_port"`
+	PlatformID int    `mapstructure:"platform_id"`
 }

@@ -14,7 +14,15 @@
 
 package responseparams
 
+// TokenResponse im token response.
+type TokenResponse struct {
+	Token             string `json:"token"`
+	ExpireTimeSeconds uint   `json:"expire_time_seconds"`
+}
+
 // UserTokenResponse user token response.
 type UserTokenResponse struct {
-	Token string `json:"token"`
+	UUID    string         `json:"uuid"`
+	KFToken *TokenResponse `json:"kf_token"`
+	IMToken *TokenResponse `json:"im_token"`
 }
