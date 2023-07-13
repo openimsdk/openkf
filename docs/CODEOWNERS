@@ -2,16 +2,16 @@
 # Each line is a file pattern followed by one or more owners.
 
 # README files
-README.md  @openimsdk/openim @cubxxw @kubbot @AllianceTing @IRONICBo @MC-kanon @AllianceTing @charles-chenzz @Cathay-Chen @plutoyty 
+README.md  @OpenIMSDK/teams/openim @cubxxw @kubbot @AllianceTing @IRONICBo @MC-kanon @AllianceTing @charles-chenzz @Cathay-Chen @plutoyty 
 
 # Contributing guidelines
-CONTRIBUTING.md   @openimsdk/openim @kubbot @cubxxw @IRONICBo @AllianceTing @plutoyty @fodedoumbouya
+CONTRIBUTING.md   @OpenIMSDK/teams-openim @openimsdk/openim @kubbot @cubxxw @IRONICBo @AllianceTing @plutoyty @fodedoumbouya
 
 # License files
-LICENSE    @kubbot @cubxxw @IRONICBo @fodedoumbouya
+LICENSE   @OpenIMSDK/team-openim @kubbot @cubxxw @IRONICBo @fodedoumbouya
 
 # Makefile
-Makefile    @kubbot @cubxxw @IRONICBo @Cathay-Chen
+Makefile  @OpenIMSDK/openim  @kubbot @cubxxw @IRONICBo @Cathay-Chen
 
 # Assets directory
 assets/*    @AllianceTing @IRONICBo @cubxxw @MC-kanon 
