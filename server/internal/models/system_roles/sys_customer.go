@@ -22,9 +22,9 @@ import (
 type SysCustomer struct {
 	base.UserBase
 
-	Device     string `gorm:"column:device;type:varchar(255);not null;default:'';comment:'Customer device'" json:"device"`
-	IPAddress  string `gorm:"column:ip_address;type:varchar(255);not null;default:'';comment:'Customer IP address'" json:"ip_address"`
-	Source     string `gorm:"column:source;type:varchar(255);not null;default:'';comment:'Visitor source'" json:"source"`
+	Device     string `gorm:"column:device;type:varchar(255);not null;default:'';comment:'Customer device'"              json:"device"`
+	IPAddress  string `gorm:"column:ip_address;type:varchar(255);not null;default:'';comment:'Customer IP address'"      json:"ip_address"`
+	Source     string `gorm:"column:source;type:varchar(255);not null;default:'';comment:'Visitor source'"               json:"source"`
 	SourceType int    `gorm:"column:source_type;type:int(11);not null;default:0;comment:'Visitor type, 0:web, 1: slack'" json:"source_type"`
 }
 

@@ -27,8 +27,8 @@ type SysBot struct {
 	BotToken    string       `gorm:"column:bot_token;type:varchar(255);not null;comment:'AI bot token'"`
 	Nickname    string       `gorm:"column:nickname;type:varchar(255);not null;comment:'AI bot nickname'"`
 	Avatar      string       `gorm:"column:avatar;type:varchar(255);not null;comment:'AI bot avatar'"`
-	CommunityId uint         `json:"community_id" gorm:"index;column:community_id;type:int(11);not null;comment:'Community id'"`
-	Community   SysCommunity `json:"community" gorm:"foreignKey:CommunityId;"`
+	CommunityId uint         `gorm:"index;column:community_id;type:int(11);not null;comment:'Community id'" json:"community_id"`
+	Community   SysCommunity `gorm:"foreignKey:CommunityId;"                                                json:"community"`
 }
 
 // TableName table name.

@@ -22,10 +22,10 @@ import (
 type SysUser struct {
 	base.UserBase
 
-	IsAdmin     bool         `json:"is_admin" gorm:"index;column:is_admin;type:tinyint(1);not null;default:0;comment:'Is admin'"`
-	Password    string       `json:"-" gorm:"type:varchar(64);not null;comment:Password"`
+	IsAdmin     bool         `json:"is_admin"     gorm:"index;column:is_admin;type:tinyint(1);not null;default:0;comment:'Is admin'"`
+	Password    string       `json:"-"            gorm:"type:varchar(64);not null;comment:Password"`
 	CommunityId uint         `json:"community_id" gorm:"column:community_id;type:int(11);not null;comment:'Community id'"`
-	Community   SysCommunity `json:"community" gorm:"foreignKey:CommunityId;"`
+	Community   SysCommunity `json:"community"    gorm:"foreignKey:CommunityId;"`
 }
 
 // TableName table name.
