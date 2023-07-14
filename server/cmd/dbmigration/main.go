@@ -16,7 +16,6 @@ package main
 
 import (
 	"flag"
-	"reflect"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
@@ -42,7 +41,7 @@ func init() {
 	db.InitMysqlDB()
 }
 
-// migrate table.
+// migrate tables.
 func main() {
 	// get db instance.
 	db := db.GetMysqlDB()
@@ -57,20 +56,19 @@ func main() {
 
 	// drop tables if exist.
 	if isDrop {
-		for _, table := range tables {
-			if db.Migrator().HasTable(&table) && db.Migrator().DropTable(&table) != nil {
-				log.Panicf("OpenKF Table Migration", "Drop table %v... failed", reflect.TypeOf(table))
+		for i := 0; i < len(tables); i++ {
+			if db.Migrator().HasTable(&tables[i]) && db.Migrator().DropTable(&tables[i]) != nil {
+				log.Panicf("OpenKF Table Migration", "Drop table %T... failed", tables[i])
 			}
-			log.Infof("OpenKF Table Migration", "Drop table %v... ok", reflect.TypeOf(table))
-		}
+			log.Infof("OpenKF Table Migration", "Drop table %T... ok", tables[i])
+		}	
 	}
 
 	// migrate tables.
-	for _, table := range tables {
-		err := db.AutoMigrate(&table)
-		if err != nil {
-			log.Panicf("OpenKF Table Migration", "Migrate table %v... failed", reflect.TypeOf(table))
+	for i := 0; i < len(tables); i++ {
+		if db.AutoMigrate(&tables[i]) != nil {
+			log.Panicf("OpenKF Table Migration", "Migrate table %T... failed", tables[i])
 		}
-		log.Infof("OpenKF Table Migration", "Migrate table %v... ok", reflect.TypeOf(table))
+		log.Infof("OpenKF Table Migration", "Migrate table %T... ok", tables[i])
 	}
 }
