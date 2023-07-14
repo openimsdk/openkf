@@ -34,6 +34,10 @@
 3. Support multi-channel customer service, and easy to integrate with third-party systems.
 4. Easy to deploy and secondary development.
 
+## 📺 System Preview
+
+![Login Page](assets/images/login_page.png)
+
 ## 🛫 Quick start 
 
 > **Note**: You can get started quickly with OpenKF.
