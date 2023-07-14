@@ -16,7 +16,7 @@ package requestparams
 
 // CommunityParams register params for community.
 type CommunityParams struct {
-	Name   string  `json:"name" binding:"required"`
-	Email  string  `json:"email" binding:"required"`
+	Name   string  `json:"name"   binding:"required"`
+	Email  string  `json:"email"  binding:"required"`
 	Avatar *string `json:"avatar" binding:"required"` // Avatar is optional.
 }

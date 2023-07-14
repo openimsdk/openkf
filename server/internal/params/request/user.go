@@ -16,27 +16,27 @@ package requestparams
 
 // CreateUserParams register params for user.
 type CreateUserParams struct {
-	Email    string  `json:"email" binding:"required"`
+	Email    string  `json:"email"    binding:"required"`
 	Nickname string  `json:"nickname" binding:"required"`
-	Avatar   *string `json:"avatar" binding:"required"` // Avatar is optional.
+	Avatar   *string `json:"avatar"   binding:"required"` // Avatar is optional.
 	Password string  `json:"password" binding:"required"`
 }
 
 // RegisterAdminParams register params for admin.
 type RegisterAdminParams struct {
-	UserInfo      CreateUserParams `json:"user_info" binding:"required"`
+	UserInfo      CreateUserParams `json:"user_info"      binding:"required"`
 	CommunityInfo CommunityParams  `json:"community_info" binding:"required"`
-	Code          string           `json:"code" binding:"required"`
+	Code          string           `json:"code"           binding:"required"`
 }
 
 // RegisterStaffParams register params for staff.
 type RegisterStaffParams struct {
-	UserInfo    CreateUserParams `json:"user_info" binding:"required"`
+	UserInfo    CreateUserParams `json:"user_info"    binding:"required"`
 	CommunityId uint             `json:"community_id" binding:"required"`
 }
 
 // LoginParamsWithAccount login params.
 type LoginParamsWithAccount struct {
-	Email    string `json:"email" binding:"required"`
+	Email    string `json:"email"    binding:"required"`
 	Password string `json:"password" binding:"required"`
 }

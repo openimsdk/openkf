@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { CloseIcon, CheckIcon } from 'tdesign-icons-vue-next';
+import { ref } from 'vue';
 import OpenKFLogo from '@/assets/openkf-logo.svg?component';
 
 const navToGitHub = () => {
@@ -13,13 +12,12 @@ const navToDoc = () => {
 
 const darkMode = ref(false);
 const emit = defineEmits<{
-    (e: 'changeMode', value: boolean): void
+    (e: 'changeMode', value: boolean): void;
 }>();
 
 const changeModeAction = () => {
-  emit('changeMode', darkMode.value);
+    emit('changeMode', darkMode.value);
 };
-
 </script>
 
 <template>
@@ -46,7 +44,11 @@ const changeModeAction = () => {
                 <t-icon name="help-circle-filled" class="icon" />
             </t-button>
             <!-- Add theme tabs -->
-            <t-switch v-model="darkMode" size="small" @change="changeModeAction"></t-switch>
+            <t-switch
+                v-model="darkMode"
+                size="small"
+                @change="changeModeAction"
+            ></t-switch>
         </div>
     </header>
 </template>
@@ -87,7 +89,8 @@ const changeModeAction = () => {
     .operations-container {
         display: flex;
         align-items: center;
-        .t-button, .t-switch {
+        .t-button,
+        .t-switch {
             margin-left: var(--td-comp-margin-l);
         }
     }
