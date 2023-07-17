@@ -11,7 +11,6 @@ const switchType = (val: string) => {
     type.value = val;
 };
 const changeMode = (value: boolean) => {
-    console.log(value);
     isDark.value = value;
     if (isDark.value) {
         document.documentElement.setAttribute('theme-mode', 'dark');
