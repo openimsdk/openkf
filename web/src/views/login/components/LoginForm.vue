@@ -7,26 +7,51 @@ import { useRoute, useRouter } from 'vue-router';
 import { OpenIM } from '@/api/openim';
 import { OpenIMLoginConfig } from '@/constants';
 import { IMLoginParam } from '@/api/request/openimModel';
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
+import { localCache } from '@/utils/common/cache';
 
-const USER_INITIAL_DATA = {
-    email: '',
-    password: '',
-};
-
-const formData = ref({ ...USER_INITIAL_DATA });
+const formData = reactive({ email: '', password: '' });
 const showPsw = ref(false);
-
+const form = ref(null);
+const isRem = ref(false);
+const rules: FormRule = {
+    email: [
+        {
+            required: true,
+            email: true,
+            message: 'Please enter the correct e-mail',
+            type: 'warning',
+            trigger: 'blur',
+        },
+    ],
+    password: [
+        {
+            required: true,
+            message: 'Please enter the correct password',
+            type: 'warning',
+            trigger: 'blur',
+        },
+        {
+            validator: val =>
+                /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,18}$/.test(val),
+            message:
+                'Password must be 8-18 characters long and include at least one letter and one number',
+            type: 'warning',
+            trigger: 'blur',
+        },
+    ],
+};
 const router = useRouter();
 const route = useRoute();
 
 const onSubmit = async (ctx: SubmitContext) => {
+    console.log(ctx);
     if (ctx.validateResult === true) {
         try {
             // Login to OpenKF
             let data: AccountLoginParam = {
-                email: formData.value.email,
-                password: formData.value.password,
+                email: formData.email,
+                password: formData.password,
             };
             accountLogin(data)
                 .then(res => {
@@ -42,6 +67,12 @@ const onSubmit = async (ctx: SubmitContext) => {
                     OpenIM.login(config)
                         .then(res => {
                             MessagePlugin.success('Login success...');
+                            // TODO: redirect home page if token exists
+                            if (isRem.value) {
+                                localCache.setCache('token', config.token);
+                            } else {
+                                localCache.removeCache('token');
+                            }
                             const redirect = route.query.redirect as string;
                             const redirectUrl = redirect
                                 ? decodeURIComponent(redirect)
@@ -54,11 +85,13 @@ const onSubmit = async (ctx: SubmitContext) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    MessagePlugin.error('Login failed...', err.message);
+                    MessagePlugin.error('Login failed...');
                 });
         } catch (e) {
             console.log(e);
-            MessagePlugin.error(e ?? 'Login failed...');
+            MessagePlugin.error(
+                'Please enter the correct email and password...',
+            );
         }
     }
 };
@@ -68,11 +101,13 @@ const onSubmit = async (ctx: SubmitContext) => {
     <t-form
         ref="form"
         labelAlign="top"
+        :rules="rules"
         :data="formData"
         @submit="onSubmit"
         :class="'item-container'"
+        :requiredMark="false"
     >
-        <t-form-item name="admin_email">
+        <t-form-item name="email">
             <t-input
                 v-model="formData.email"
                 size="large"
@@ -85,7 +120,7 @@ const onSubmit = async (ctx: SubmitContext) => {
             </t-input>
         </t-form-item>
 
-        <t-form-item name="admin_password">
+        <t-form-item name="password">
             <t-input
                 v-model="formData.password"
                 size="large"
@@ -101,7 +136,7 @@ const onSubmit = async (ctx: SubmitContext) => {
 
         <div class="check-container-login remember-pwd">
             <!-- TODO: Add to localstorage -->
-            <t-checkbox>Remember me</t-checkbox>
+            <t-checkbox v-model="isRem">Remember me</t-checkbox>
             <!-- TODO: Redirect to find my password page -->
             <span class="tip">Find my password</span>
         </div>
