@@ -24,6 +24,58 @@ const formData = ref({
     community: COMMUNITY_INITIAL_DATA,
     admin: ADMIN_INITIAL_DATA,
 });
+const rules: FormRule = {
+    community_email: [
+        {
+            required: true,
+            email: true,
+            message: 'Please enter the correct e-mail',
+            type: 'warning',
+            trigger: 'blur',
+        },
+    ],
+    community_name: [
+        {
+            required: true,
+            message: 'Please enter the correct community_name',
+            type: 'warning',
+            trigger: 'blur',
+        },
+    ],
+    admin_email: [
+        {
+            required: true,
+            email: true,
+            message: 'Please enter the correct e-mail',
+            type: 'warning',
+            trigger: 'blur',
+        },
+    ],
+    admin_nickname: [
+        {
+            required: true,
+            message: 'Please enter the correct admin_nickname',
+            type: 'warning',
+            trigger: 'blur',
+        },
+    ],
+    admin_password: [
+        {
+            required: true,
+            message: 'Please enter the correct password',
+            type: 'warning',
+            trigger: 'blur',
+        },
+        {
+            validator: val =>
+                /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,18}$/.test(val),
+            message:
+                'Password must be 8-18 characters long and include at least one letter and one number',
+            type: 'warning',
+            trigger: 'blur',
+        },
+    ],
+};
 const showPsw = ref(false);
 const showCommunity = ref(true);
 const [countDown, handleCounter] = Counter();
@@ -96,6 +148,8 @@ const onSubmit = (ctx: SubmitContext) => {
         :data="formData"
         @submit="onSubmit"
         :class="'item-container'"
+        :rules="rules"
+        :requiredMark="false"
     >
         <t-form-item name="community_email" v-show="showCommunity">
             <t-input
