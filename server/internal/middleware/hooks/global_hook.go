@@ -22,8 +22,10 @@ import (
 	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 )
 
+var _ urltrie.Hook = (*GlobalHook)(nil)
+
 func init() {
-	urltrie.RegisterHook(GlobalHook{})
+	urltrie.RegisterHook(&GlobalHook{})
 	fmt.Println("RegisterHook", "Register Hook[GlobalHook] success...")
 }
 
@@ -32,22 +34,22 @@ type GlobalHook struct {
 	urltrie.Hook
 }
 
-// Pattern return pattern.
-func (h GlobalHook) Pattern() string {
-	return "/*"
+// Patterns return pattern.
+func (h *GlobalHook) Patterns() []string {
+	return []string{
+		"/*",
+	}
 }
 
 // Priority return priority.
-func (h GlobalHook) Priority() int64 {
+func (h *GlobalHook) Priority() int64 {
 	return 0
 }
 
 // BeforeRun do something before controller run.
-func (h GlobalHook) BeforeRun(c *gin.Context) {
-	c.Next()
+func (h *GlobalHook) BeforeRun(c *gin.Context) {
 }
 
 // AfterRun do something after controller run.
-func (h GlobalHook) AfterRun(c *gin.Context) {
-	c.Next()
+func (h *GlobalHook) AfterRun(c *gin.Context) {
 }

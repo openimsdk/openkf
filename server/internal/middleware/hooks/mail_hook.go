@@ -23,8 +23,10 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
+var _ urltrie.Hook = (*MailHook)(nil)
+
 func init() {
-	urltrie.RegisterHook(MailHook{})
+	urltrie.RegisterHook(&MailHook{})
 	fmt.Println("RegisterHook", "Register Hook[MailHook] success...")
 }
 
@@ -33,23 +35,23 @@ type MailHook struct {
 	urltrie.Hook
 }
 
-// Pattern return pattern.
-func (h MailHook) Pattern() string {
-	return "/api/v1/register/email/code"
-}
-
-// BeforeRun do something before controller run.
-func (h MailHook) BeforeRun(c *gin.Context) {
-	log.Debugf("GlobalHook", "path: %v", c.Request.URL.Path)
-	c.Next()
+// Patterns return pattern.
+func (h *MailHook) Patterns() []string {
+	return []string{
+		"/api/v1/register/email/code",
+	}
 }
 
 // Priority return priority.
-func (h MailHook) Priority() int64 {
+func (h *MailHook) Priority() int64 {
 	return 0
 }
 
+// BeforeRun do something before controller run.
+func (h *MailHook) BeforeRun(c *gin.Context) {
+	log.Debugf("GlobalHook", "path: %v", c.Request.URL.Path)
+}
+
 // AfterRun do something after controller run.
-func (h MailHook) AfterRun(c *gin.Context) {
-	c.Next()
+func (h *MailHook) AfterRun(c *gin.Context) {
 }

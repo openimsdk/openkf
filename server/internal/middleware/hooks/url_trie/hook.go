@@ -31,7 +31,7 @@ func init() {
 
 // RegisterHook register url & hook to trie.
 func RegisterHook(hook Hook) {
-	hookTrie.Insert(hook.Pattern(), hook)
+	hookTrie.InsertBatch(hook.Patterns(), hook)
 }
 
 // RunHook enable hook for interceptor.
@@ -39,7 +39,7 @@ func RunHook() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		raw := c.Request.URL.Path
 
-		// get path from url
+		// Get path from url
 		p, err := url.Parse(raw)
 		if err != nil {
 			log.Errorf("Hook", "parse url error: %v", err)
@@ -53,10 +53,16 @@ func RunHook() gin.HandlerFunc {
 			return
 		}
 
-		// run hooks
+		// Run all before hooks
 		for _, hook := range hooks {
 			hook.BeforeRun(c)
-			c.Next()
+		}
+
+		// Run controllers
+		c.Next()
+
+		// Run all after hooks
+		for _, hook := range hooks {
 			hook.AfterRun(c)
 		}
 	}

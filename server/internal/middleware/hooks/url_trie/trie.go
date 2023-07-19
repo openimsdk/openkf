@@ -26,7 +26,9 @@ type Hook interface {
 	// Register with url pattern
 	// Support * wildcard, you can use it like this:
 	// /api/v1/*, and the url like /api/v1/123 will be matched
-	Pattern() string
+	//
+	// Now we support multi urls.
+	Patterns() []string
 
 	// Priority will set the priority of the hook
 	Priority() int64
@@ -72,8 +74,15 @@ func NewTrie() *Trie {
 	}
 }
 
+// InsertBatch insert urls with hooks.
+func (t *Trie) InsertBatch(urls []string, hooks ...Hook) {
+	for _, url := range urls {
+		t.insert(url, hooks...)
+	}
+}
+
 // Insert insert url with hooks.
-func (t *Trie) Insert(url string, hooks ...Hook) {
+func (t *Trie) insert(url string, hooks ...Hook) {
 	current := t.root
 
 	// split url with '/'
