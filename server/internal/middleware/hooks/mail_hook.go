@@ -35,7 +35,7 @@ type MailHook struct {
 	urltrie.Hook
 }
 
-// Pattern return pattern.
+// Patterns return pattern.
 func (h *MailHook) Patterns() []string {
 	return []string{
 		"/api/v1/register/email/code",

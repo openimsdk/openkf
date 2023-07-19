@@ -18,8 +18,9 @@ import (
 	"fmt"
 	"net/http"
 
-	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 	"github.com/gin-gonic/gin"
+
+	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 )
 
 var _ urltrie.Hook = (*CROS)(nil)
@@ -29,23 +30,24 @@ func init() {
 	fmt.Println("RegisterHook", "Register Hook[CROS] success...")
 }
 
+// CROS implement urltrie.Hook.
 type CROS struct {
 	urltrie.Hook
 }
 
-// EDIT THIS TO YOUR OWN HOOK PATTERN
+// Patterns EDIT THIS TO YOUR OWN HOOK PATTERN.
 func (h *CROS) Patterns() []string {
 	return []string{
 		"/*",
 	}
 }
 
-// EDIT THIS TO YOUR OWN HOOK PRIORITY
+// Priority EDIT THIS TO YOUR OWN HOOK PRIORITY.
 func (h *CROS) Priority() int64 {
 	return 0
 }
 
-// EDIT THIS TO YOUR OWN HOOK BEFORE RUN, DO NOT NEED USE Next() FUNCTION
+// BeforeRun EDIT THIS TO YOUR OWN HOOK BEFORE RUN, DO NOT NEED USE Next() FUNCTION.
 func (h *CROS) BeforeRun(c *gin.Context) {
 	// c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 	c.Writer.Header().Set("Access-Control-Allow-Origin", c.GetHeader("origin"))
@@ -60,6 +62,6 @@ func (h *CROS) BeforeRun(c *gin.Context) {
 	}
 }
 
-// EDIT THIS TO YOUR OWN HOOK AFTER RUN, DO NOT NEED USE Next() FUNCTION
+// AfterRun EDIT THIS TO YOUR OWN HOOK AFTER RUN, DO NOT NEED USE Next() FUNCTION.
 func (h *CROS) AfterRun(c *gin.Context) {
 }

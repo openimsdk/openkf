@@ -19,9 +19,10 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/gin-gonic/gin"
+
 	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
-	"github.com/gin-gonic/gin"
 )
 
 var _ urltrie.Hook = (*JWT)(nil)
@@ -31,11 +32,12 @@ func init() {
 	fmt.Println("RegisterHook", "Register Hook[JWT] success...")
 }
 
+// JWT implement urltrie.Hook.
 type JWT struct {
 	urltrie.Hook
 }
 
-// EDIT THIS TO YOUR OWN HOOK PATTERN
+// Patterns EDIT THIS TO YOUR OWN HOOK PATTERN.
 func (h *JWT) Patterns() []string {
 	return []string{
 		"/api/v1/user/*",
@@ -43,12 +45,12 @@ func (h *JWT) Patterns() []string {
 	}
 }
 
-// EDIT THIS TO YOUR OWN HOOK PRIORITY
+// Priority EDIT THIS TO YOUR OWN HOOK PRIORITY.
 func (h *JWT) Priority() int64 {
 	return 0
 }
 
-// EDIT THIS TO YOUR OWN HOOK BEFORE RUN, DO NOT NEED USE Next() FUNCTION
+// BeforeRun EDIT THIS TO YOUR OWN HOOK BEFORE RUN, DO NOT NEED USE Next() FUNCTION.
 func (h *JWT) BeforeRun(c *gin.Context) {
 	token := c.GetHeader("Authorization")
 	if token == "" || strings.Fields(token)[0] != "Bearer" {
@@ -68,6 +70,6 @@ func (h *JWT) BeforeRun(c *gin.Context) {
 	c.Set("claims", claims)
 }
 
-// EDIT THIS TO YOUR OWN HOOK AFTER RUN, DO NOT NEED USE Next() FUNCTION
+// AfterRun EDIT THIS TO YOUR OWN HOOK AFTER RUN, DO NOT NEED USE Next() FUNCTION.
 func (h *JWT) AfterRun(c *gin.Context) {
 }

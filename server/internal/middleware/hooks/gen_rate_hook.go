@@ -19,8 +19,9 @@ import (
 	"sync"
 	"time"
 
-	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 	"github.com/gin-gonic/gin"
+
+	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 )
 
 var _ urltrie.Hook = (*RATE)(nil)
@@ -30,27 +31,28 @@ func init() {
 	fmt.Println("RegisterHook", "Register Hook[RATE] success...")
 }
 
+// RATE implement urltrie.Hook.
 type RATE struct {
 	urltrie.Hook
 }
 
-// EDIT THIS TO YOUR OWN HOOK PATTERN
+// Patterns EDIT THIS TO YOUR OWN HOOK PATTERN.
 func (h *RATE) Patterns() []string {
 	return []string{
 		"",
 	}
 }
 
-// EDIT THIS TO YOUR OWN HOOK PRIORITY
+// Priority EDIT THIS TO YOUR OWN HOOK PRIORITY.
 func (h *RATE) Priority() int64 {
 	return 0
 }
 
-// EDIT THIS TO YOUR OWN HOOK BEFORE RUN, DO NOT NEED USE Next() FUNCTION
+// BeforeRun EDIT THIS TO YOUR OWN HOOK BEFORE RUN, DO NOT NEED USE Next() FUNCTION.
 func (h *RATE) BeforeRun(c *gin.Context) {
 }
 
-// EDIT THIS TO YOUR OWN HOOK AFTER RUN, DO NOT NEED USE Next() FUNCTION
+// AfterRun EDIT THIS TO YOUR OWN HOOK AFTER RUN, DO NOT NEED USE Next() FUNCTION.
 func (h *RATE) AfterRun(c *gin.Context) {
 }
 

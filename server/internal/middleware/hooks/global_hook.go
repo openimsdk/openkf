@@ -34,7 +34,7 @@ type GlobalHook struct {
 	urltrie.Hook
 }
 
-// Pattern return pattern.
+// Patterns return pattern.
 func (h *GlobalHook) Patterns() []string {
 	return []string{
 		"/*",

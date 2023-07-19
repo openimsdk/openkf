@@ -51,22 +51,22 @@ type {{.HookName}} struct {
 	urltrie.Hook
 }
 
-// EDIT THIS TO YOUR OWN HOOK PATTERN
-func (h {{.HookName}}) Pattern() string {
+// Patterns EDIT THIS TO YOUR OWN HOOK PATTERN
+func (h {{.HookName}}) Patterns() string {
 	return "{{.UrlPattern}}"
 }
 
-// EDIT THIS TO YOUR OWN HOOK PRIORITY
+// Priority EDIT THIS TO YOUR OWN HOOK PRIORITY
 func (h GlobalHook) Priority() int64 {
 	return {{.Prority}}
 }
 
-// EDIT THIS TO YOUR OWN HOOK BEFORE RUN
+// BeforeRun EDIT THIS TO YOUR OWN HOOK BEFORE RUN
 func (h {{.HookName}}) BeforeRun(c *gin.Context) {
 	c.Next()
 }
 
-// EDIT THIS TO YOUR OWN HOOK AFTER RUN
+// AfterRun EDIT THIS TO YOUR OWN HOOK AFTER RUN
 func (h {{.HookName}}) AfterRun(c *gin.Context) {
 	c.Next()
 }
