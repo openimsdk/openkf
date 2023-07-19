@@ -19,9 +19,46 @@ import { createRouter, createWebHistory } from 'vue-router';
 // router options
 const routes = [
     {
+        path: '/',
+        redirect: '/home/dashboard',
+    },
+    {
         path: '/login',
         name: 'Login',
         component: () => import('@/views/login/index.vue'),
+    },
+    {
+        path: '/home',
+        name: 'Home',
+        redirect: '/home/dashboard',
+        component: () => import('@/views/layouts/index.vue'),
+        children: [
+            {
+                path: 'setting',
+                name: 'Setting',
+                component: () => import('@/views/setting/index.vue'),
+            },
+            {
+                path: 'platform',
+                name: 'Platform',
+                component: () => import('@/views/platform/index.vue'),
+            },
+            {
+                path: 'session',
+                name: 'Session',
+                component: () => import('@/views/session/index.vue'),
+            },
+            {
+                path: 'dashboard',
+                name: 'Dashboard',
+                component: () => import('@/views/dashboard/index.vue'),
+            },
+            {
+                path: 'health',
+                name: 'Health',
+                component: () => import('@/views/health/index.vue'),
+            },
+        ],
     },
 ];
 

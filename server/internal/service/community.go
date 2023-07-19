@@ -22,6 +22,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
 	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
+	responseparams "github.com/OpenIMSDK/OpenKF/server/internal/params/response"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 )
 
@@ -64,10 +65,43 @@ func (svc *CommunityService) Create(community *requestparams.CommunityParams) (s
 	return c.UUID.String(), c.Id, nil
 }
 
-// GetCommunityInfoByUUID get community info by uuid.
-func (svc *CommunityService) GetCommunityInfoByUUID(uid string, offset int, limit int) ([]*systemroles.SysCommunity, int64, error) {
-	_uuid := uuid.Must(uuid.FromString(uid))
-	c, count, err := svc.SysCommunityDao.FindByUUIDPage(_uuid, offset, limit)
+// GetCommunityInfoById get community info by id.
+func (svc *CommunityService) GetCommunityInfoById(id uint) (*responseparams.CommunityInfoResponse, error) {
+	resp := &responseparams.CommunityInfoResponse{}
 
-	return c, count, err
+	c, err := svc.SysCommunityDao.FindFirstById(id)
+	if err != nil {
+		return resp, err
+	}
+
+	resp.UUID = c.UUID.String()
+	resp.Email = c.Email
+	resp.Avatar = c.Avatar
+	resp.Name = c.Name
+	resp.Description = c.Description
+
+	return resp, err
+}
+
+// GetCommunityInfoByUUID get community info by uuid.
+func (svc *CommunityService) GetCommunityInfoByUUID(uid string) (*responseparams.CommunityInfoResponse, error) {
+	resp := &responseparams.CommunityInfoResponse{}
+
+	_uuid, err := uuid.FromString(uid)
+	if err != nil {
+		return resp, err
+	}
+
+	c, err := svc.SysCommunityDao.FindFirstByUUID(_uuid)
+	if err != nil {
+		return resp, err
+	}
+
+	resp.UUID = c.UUID.String()
+	resp.Email = c.Email
+	resp.Avatar = c.Avatar
+	resp.Name = c.Name
+	resp.Description = c.Description
+
+	return resp, err
 }

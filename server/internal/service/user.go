@@ -20,6 +20,7 @@ import (
 	"net"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gofrs/uuid"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
@@ -189,8 +190,15 @@ func (svc *UserService) LoginWithAccount(param *requestparams.LoginParamsWithAcc
 		return resp, errors.New("password is not correct")
 	}
 
+	// Get community id
+	cService := NewCommunityService((svc.ctx).(*gin.Context))
+	c, err := cService.GetCommunityInfoById(u.CommunityId)
+	if err != nil {
+		return resp, err
+	}
+
 	// Generate KF token
-	kfToken, kfExpireTimeSeconds, err := internal_utils.GenerateJwtToken(u.UUID.String(), u.CommunityId)
+	kfToken, kfExpireTimeSeconds, err := internal_utils.GenerateJwtToken(u.UUID.String(), c.UUID)
 	if err != nil {
 		return resp, err
 	}
@@ -236,4 +244,28 @@ func getUserIMToken(param *request.UserTokenParams) (*response.TokenData, error)
 	}
 
 	return &resp.Data, nil
+}
+
+// GetUserInfo get user info.
+func (svc *UserService) GetUserInfoByUUID(uid string) (*responseparams.UserInfoResponse, error) {
+	resp := &responseparams.UserInfoResponse{}
+
+	_uuid, err := uuid.FromString(uid)
+	if err != nil {
+		return resp, err
+	}
+
+	u, err := svc.SysUserDao.FindFirstByUUID(_uuid)
+	if err != nil {
+		return resp, err
+	}
+
+	resp.UUID = u.UUID.String()
+	resp.Email = u.Email
+	resp.Nickname = u.Nickname
+	resp.Avatar = u.Avatar
+	resp.IsAdmin = u.IsAdmin
+	resp.IsEnable = u.IsEnable
+
+	return resp, nil
 }

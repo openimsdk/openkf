@@ -19,10 +19,14 @@ var msg = map[int]string{
 	SUCCESS:        "success",
 	ERROR:          "error",
 	INVALID_PARAMS: "request params error",
+	UNAUTHORIZED:   "unauthorized",
 
 	// OpenIM callback code
 	OPENIM_SERVER_ALLOW_ACTION: "OpenIM allow action",
 	OPENIM_SERVER_DENY_ACTION:  "OpenIM deny action",
+
+	// KF service status
+	KF_RECORD_NOT_FOUND: "kf: record not found",
 }
 
 // GetMsg get the message by code.

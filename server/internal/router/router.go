@@ -25,7 +25,6 @@ import (
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/api"
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
-	"github.com/OpenIMSDK/OpenKF/server/internal/middleware"
 	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 )
 
@@ -38,7 +37,8 @@ func InitRouter() *gin.Engine {
 	}
 
 	r := gin.Default()
-	r.Use(urltrie.RunHook(), middleware.EnableCROS())
+	// Enable Hooks
+	r.Use(urltrie.RunHook())
 
 	// swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -66,9 +66,16 @@ func InitRouter() *gin.Engine {
 		}
 
 		// admin := apiv1.Group("/admin")
-		// user := apiv1.Group("/user")
+		user := apiv1.Group("/user")
+		{
+			user.GET("/me", api.GetMyInfo)
+			user.POST("/info", api.GetUserInfo)
+		}
+
 		community := apiv1.Group("/community")
 		{
+			community.GET("/me", api.GetMyCommunityInfo)
+			community.POST("/info", api.GetCommunityInfo)
 			community.POST("/create", api.CreateCommunity)
 		}
 

@@ -12,19 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package common
+package responseparams
 
-// Code.
-const (
-	SUCCESS        = 200
-	ERROR          = 500
-	INVALID_PARAMS = 400
-	UNAUTHORIZED   = 401
-
-	// OpenIM callback code.
-	OPENIM_SERVER_ALLOW_ACTION = 0
-	OPENIM_SERVER_DENY_ACTION  = 1
-
-	// KF service status.
-	KF_RECORD_NOT_FOUND = 10001
-)
+// CommunityInfoResponse community info response.
+type CommunityInfoResponse struct {
+	UUID        string `json:"uuid"`
+	Name        string `json:"name"`
+	Email       string `json:"email"`
+	Avatar      string `json:"avatar"`
+	Description string `json:"description"`
+}

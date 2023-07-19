@@ -40,3 +40,8 @@ type LoginParamsWithAccount struct {
 	Email    string `json:"email"    binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
+
+// GetUserInfoParams user info params.
+type GetUserInfoParams struct {
+	UUID string `json:"uuid"        binding:"required"`
+}

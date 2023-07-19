@@ -12,35 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package middleware
+import { GetUserInfoParam } from '../request/userModel';
+import { GetUserInfoResponse } from '../response/userModel';
+import { request } from '@/utils/request';
 
-import (
-	"net/http"
-	"strings"
+const API = {
+    UserMe: '/user/me',
+};
 
-	"github.com/gin-gonic/gin"
+// Get my info
+export function getMyInfo() {
+    return request.get<GetUserInfoResponse>({
+        url: API.UserMe,
+    });
+}
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
-)
-
-// EnableAuth enable auth middleware.
-func EnableAuth() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		token := c.GetHeader("Authorization")
-		if token == "" || strings.Fields(token)[0] != "Bearer" {
-			c.AbortWithStatus(http.StatusUnauthorized)
-
-			return
-		}
-
-		_, err := utils.ParseJwtToken(token)
-		if err != nil {
-			c.AbortWithStatus(http.StatusUnauthorized)
-
-			return
-		}
-
-		// todo: add info to claims
-		c.Next()
-	}
+// Get User Info
+export function getUserInfo(data: GetUserInfoParam) {
+    return request.get<GetUserInfoResponse>({
+        url: API.UserMe,
+        params: data,
+    });
 }

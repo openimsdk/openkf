@@ -26,3 +26,14 @@ type UserTokenResponse struct {
 	KFToken *TokenResponse `json:"kf_token"`
 	IMToken *TokenResponse `json:"im_token"`
 }
+
+// UserInfoResponse user info response.
+type UserInfoResponse struct {
+	UUID        string `json:"uuid"`
+	Email       string `json:"email"`
+	Nickname    string `json:"nickname"`
+	Avatar      string `json:"avatar"`
+	Description string `json:"description"`
+	IsEnable    bool   `json:"is_enable"`
+	IsAdmin     bool   `json:"is_admin"`
+}
