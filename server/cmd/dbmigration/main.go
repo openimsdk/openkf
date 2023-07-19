@@ -61,7 +61,7 @@ func main() {
 				log.Panicf("OpenKF Table Migration", "Drop table %T... failed", tables[i])
 			}
 			log.Infof("OpenKF Table Migration", "Drop table %T... ok", tables[i])
-		}	
+		}
 	}
 
 	// migrate tables.
