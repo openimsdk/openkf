@@ -49,15 +49,15 @@ func (h *CORS) Priority() int64 {
 
 // BeforeRun EDIT THIS TO YOUR OWN HOOK BEFORE RUN, DO NOT NEED USE Next() FUNCTION.
 func (h *CORS) BeforeRun(c *gin.Context) {
-	// c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-	c.Writer.Header().Set("Access-Control-Allow-Origin", c.GetHeader("origin"))
-	c.Writer.Header().Set("Access-Control-Max-Age", "70000")
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE, PATCH")
-	c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length,token")
-	c.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Headers,token")
-	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+	method := c.Request.Method
+	origin := c.GetHeader("Origin")
+	c.Header("Access-Control-Allow-Origin", origin)
+	c.Header("Access-Control-Allow-Headers", "Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Token,X-User-Id")
+	c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS,DELETE,PUT")
+	c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type, New-Token, New-Expires-At")
+	c.Header("Access-Control-Allow-Credentials", "true")
 
-	if c.Request.Method == "OPTIONS" {
+	if method == "OPTIONS" {
 		c.AbortWithStatus(http.StatusNoContent)
 	}
 }
