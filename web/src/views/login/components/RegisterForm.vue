@@ -25,7 +25,7 @@ const formData = ref({
     admin: ADMIN_INITIAL_DATA,
 });
 const rules: FormRule = {
-    community_email: [
+    email: [
         {
             required: true,
             email: true,
@@ -34,32 +34,23 @@ const rules: FormRule = {
             trigger: 'blur',
         },
     ],
-    community_name: [
+    name: [
         {
             required: true,
-            message: 'Please enter the correct community_name',
+            message: 'Please enter the correct name',
             type: 'warning',
             trigger: 'blur',
         },
     ],
-    admin_email: [
+    nickname: [
         {
             required: true,
-            email: true,
-            message: 'Please enter the correct e-mail',
+            message: 'Please enter the correct nickname',
             type: 'warning',
             trigger: 'blur',
         },
     ],
-    admin_nickname: [
-        {
-            required: true,
-            message: 'Please enter the correct admin_nickname',
-            type: 'warning',
-            trigger: 'blur',
-        },
-    ],
-    admin_password: [
+    password: [
         {
             required: true,
             message: 'Please enter the correct password',
@@ -151,7 +142,7 @@ const onSubmit = (ctx: SubmitContext) => {
         :rules="rules"
         :requiredMark="false"
     >
-        <t-form-item name="community_email" v-show="showCommunity">
+        <t-form-item name="community.email" v-show="showCommunity">
             <t-input
                 v-model="formData.community.email"
                 size="large"
@@ -164,7 +155,7 @@ const onSubmit = (ctx: SubmitContext) => {
             </t-input>
         </t-form-item>
 
-        <t-form-item name="community_name" v-show="showCommunity">
+        <t-form-item name="community.name" v-show="showCommunity">
             <t-input
                 v-model="formData.community.name"
                 size="large"
@@ -177,7 +168,7 @@ const onSubmit = (ctx: SubmitContext) => {
             </t-input>
         </t-form-item>
 
-        <t-form-item name="admin_email" v-show="!showCommunity">
+        <t-form-item name="admin.email" v-show="!showCommunity">
             <t-input
                 v-model="formData.admin.email"
                 size="large"
@@ -190,7 +181,7 @@ const onSubmit = (ctx: SubmitContext) => {
             </t-input>
         </t-form-item>
 
-        <t-form-item name="admin_nickname" v-show="!showCommunity">
+        <t-form-item name="admin.nickname" v-show="!showCommunity">
             <t-input
                 v-model="formData.admin.nickname"
                 size="large"
@@ -203,7 +194,7 @@ const onSubmit = (ctx: SubmitContext) => {
             </t-input>
         </t-form-item>
 
-        <t-form-item name="admin_password" v-show="!showCommunity">
+        <t-form-item name="admin.password" v-show="!showCommunity">
             <t-input
                 v-model="formData.admin.password"
                 size="large"
