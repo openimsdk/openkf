@@ -23,32 +23,32 @@ import (
 	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 )
 
-var _ urltrie.Hook = (*CROS)(nil)
+var _ urltrie.Hook = (*CORS)(nil)
 
 func init() {
-	urltrie.RegisterHook(&CROS{})
-	fmt.Println("RegisterHook", "Register Hook[CROS] success...")
+	urltrie.RegisterHook(&CORS{})
+	fmt.Println("RegisterHook", "Register Hook[CORS] success...")
 }
 
-// CROS implement urltrie.Hook.
-type CROS struct {
+// CORS implement urltrie.Hook.
+type CORS struct {
 	urltrie.Hook
 }
 
 // Patterns EDIT THIS TO YOUR OWN HOOK PATTERN.
-func (h *CROS) Patterns() []string {
+func (h *CORS) Patterns() []string {
 	return []string{
 		"/*",
 	}
 }
 
 // Priority EDIT THIS TO YOUR OWN HOOK PRIORITY.
-func (h *CROS) Priority() int64 {
+func (h *CORS) Priority() int64 {
 	return 0
 }
 
 // BeforeRun EDIT THIS TO YOUR OWN HOOK BEFORE RUN, DO NOT NEED USE Next() FUNCTION.
-func (h *CROS) BeforeRun(c *gin.Context) {
+func (h *CORS) BeforeRun(c *gin.Context) {
 	// c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 	c.Writer.Header().Set("Access-Control-Allow-Origin", c.GetHeader("origin"))
 	c.Writer.Header().Set("Access-Control-Max-Age", "70000")
@@ -63,5 +63,5 @@ func (h *CROS) BeforeRun(c *gin.Context) {
 }
 
 // AfterRun EDIT THIS TO YOUR OWN HOOK AFTER RUN, DO NOT NEED USE Next() FUNCTION.
-func (h *CROS) AfterRun(c *gin.Context) {
+func (h *CORS) AfterRun(c *gin.Context) {
 }
