@@ -8,3 +8,13 @@ export interface UserLoginResponse {
     kf_token: TokenResponse;
     im_token: TokenResponse;
 }
+
+export interface GetUserInfoResponse {
+    uuid: string;
+    email: string;
+    nickname: string;
+    avatar: string;
+    description: string;
+    is_enabled: boolean;
+    is_admin: boolean;
+}

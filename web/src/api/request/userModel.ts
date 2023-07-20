@@ -22,3 +22,7 @@ export interface AccountLoginParam {
     email: string;
     password: string;
 }
+
+export interface GetUserInfoParam {
+    uuid: string;
+}

@@ -20,3 +20,8 @@ type CommunityParams struct {
 	Email  string  `json:"email"  binding:"required"`
 	Avatar *string `json:"avatar" binding:"required"` // Avatar is optional.
 }
+
+// GetCommunityInfoParams community info params.
+type GetCommunityInfoParams struct {
+	UUID string `json:"uuid"        binding:"required"`
+}

@@ -47,6 +47,13 @@ func init() {
 //go:generate go env -w GOPROXY=https://goproxy.cn,direct
 //go:generate go mod tidy
 //go:generate go mod download
+
+// @title OpenKF Server
+// @version v0.2.0
+// @description OpenKF Server API Docs.
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization.
 func main() {
 	serverAddress := fmt.Sprintf("%s:%d", config.Config.Server.Ip, config.Config.Server.Port)
 
