@@ -246,7 +246,7 @@ func getUserIMToken(param *request.UserTokenParams) (*response.TokenData, error)
 	return &resp.Data, nil
 }
 
-// GetUserInfo get user info.
+// GetUserInfoByUUID get user info by uuid.
 func (svc *UserService) GetUserInfoByUUID(uid string) (*responseparams.UserInfoResponse, error) {
 	resp := &responseparams.UserInfoResponse{}
 

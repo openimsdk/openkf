@@ -49,15 +49,13 @@ func (h *CORS) Priority() int64 {
 
 // BeforeRun EDIT THIS TO YOUR OWN HOOK BEFORE RUN, DO NOT NEED USE Next() FUNCTION.
 func (h *CORS) BeforeRun(c *gin.Context) {
-	method := c.Request.Method
-	origin := c.GetHeader("Origin")
-	c.Header("Access-Control-Allow-Origin", origin)
+	c.Header("Access-Control-Allow-Origin", c.GetHeader("Origin"))
 	c.Header("Access-Control-Allow-Headers", "Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Token,X-User-Id")
 	c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS,DELETE,PUT")
 	c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type, New-Token, New-Expires-At")
 	c.Header("Access-Control-Allow-Credentials", "true")
 
-	if method == "OPTIONS" {
+	if c.Request.Method == "OPTIONS" {
 		c.AbortWithStatus(http.StatusNoContent)
 	}
 }
