@@ -7,6 +7,7 @@ import { ContentTypeEnum } from '@/constants';
 import { VAxios } from './axios';
 import type { AxiosTransform, CreateAxiosOptions } from './transform';
 import { formatRequestDate, joinTimestamp, setObjToUrlParams } from './utils';
+import { useUserStore } from '@/store';
 
 // Default API url
 const host = import.meta.env.VITE_API_URL;
@@ -114,19 +115,20 @@ const transform: AxiosTransform = {
     },
 
     requestInterceptors: (config, options) => {
-        // TODO: Append request token
+        const userStore = useUserStore();
+        const kf_token = userStore.kf_token.token;
 
-        // const { token } = xxx;
-        // if (
-        //     token &&
-        //     (config as Recordable)?.requestOptions?.withToken !== false
-        // ) {
-        //     // jwt token
-        //     (config as Recordable).headers.Authorization =
-        //         options.authenticationScheme
-        //             ? `${options.authenticationScheme} ${token}`
-        //             : token;
-        // }
+        if (
+            kf_token &&
+            (config as Recordable)?.requestOptions?.withToken !== false
+        ) {
+            // Append Bearer token
+            (config as Recordable).headers.Authorization =
+                options.authenticationScheme
+                    ? `${options.authenticationScheme} ${kf_token}`
+                    : kf_token;
+        }
+
         return config;
     },
 
@@ -163,8 +165,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     return new VAxios(
         merge(
             <CreateAxiosOptions>{
-                authenticationScheme: '',
-                // authenticationScheme: 'Bearer',
+                // authenticationScheme: '',
+                authenticationScheme: 'Bearer', // Use Bearer type token
                 timeout: 10 * 1000,
                 withCredentials: true,
                 headers: { 'Content-Type': ContentTypeEnum.Json },

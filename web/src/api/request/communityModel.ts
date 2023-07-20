@@ -5,3 +5,7 @@ export interface CommunityInfo {
 }
 
 export type CreateCommunityParam = CommunityInfo;
+
+export interface GetCommunityInfoParam {
+    uuid: string;
+}

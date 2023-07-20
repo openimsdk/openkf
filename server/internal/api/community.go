@@ -21,6 +21,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
 	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
 	"github.com/OpenIMSDK/OpenKF/server/internal/service"
+	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
@@ -51,4 +52,59 @@ func CreateCommunity(c *gin.Context) {
 	}
 
 	response.Success(c)
+}
+
+// GetCommunityInfo
+// @Tags community
+// @Summary GetCommunityInfo
+// @Description get community info
+// @Produce application/json
+// @Param data body param.GetCommunityInfoParams true "GetCommunityInfoParams"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/community/info [post].
+func GetCommunityInfo(c *gin.Context) {
+	param := requestparams.GetCommunityInfoParams{}
+	err := c.ShouldBindJSON(&param)
+	if err != nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	svc := service.NewCommunityService(c)
+	resp, err := svc.GetCommunityInfoByUUID(param.UUID)
+	if err != nil {
+		response.FailWithCode(common.KF_RECORD_NOT_FOUND, c)
+
+		return
+	}
+
+	response.SuccessWithData(resp, c)
+}
+
+// GetMyCommunityInfo
+// @Tags community
+// @Summary GetMyCommunityInfo
+// @Description get my community info
+// @Produce application/json
+// @Param data body param.AccountLogin true "AccountLogin"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/community/me [get].
+func GetMyCommunityInfo(c *gin.Context) {
+	uuid, err := utils.GetCommunityUUID(c)
+	if err != nil {
+		response.FailWithCode(common.UNAUTHORIZED, c)
+
+		return
+	}
+
+	svc := service.NewCommunityService(c)
+	resp, err := svc.GetCommunityInfoByUUID(uuid)
+	if err != nil {
+		response.FailWithCode(common.KF_RECORD_NOT_FOUND, c)
+
+		return
+	}
+
+	response.SuccessWithData(resp, c)
 }

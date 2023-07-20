@@ -12,24 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package common
+import { GetUserInfoParam } from '../request/userModel';
+import { GetUserInfoResponse } from '../response/userModel';
+import { request } from '@/utils/request';
 
-// HTTP response code.
-const (
-	SUCCESS        = 200
-	ERROR          = 500
-	INVALID_PARAMS = 400
-	UNAUTHORIZED   = 401
+const API = {
+    UserMe: '/user/me',
+};
 
-	// OpenIM callback code.
-	OPENIM_SERVER_ALLOW_ACTION = 0
-	OPENIM_SERVER_DENY_ACTION  = 1
+// Get my info
+export function getMyInfo() {
+    return request.get<GetUserInfoResponse>({
+        url: API.UserMe,
+    });
+}
 
-	// KF service status.
-	KF_RECORD_NOT_FOUND = 10001
-)
-
-// KF internal error code.
-const (
-	I_INVALID_PARAM = 20000 + iota
-)
+// Get User Info
+export function getUserInfo(data: GetUserInfoParam) {
+    return request.get<GetUserInfoResponse>({
+        url: API.UserMe,
+        params: data,
+    });
+}

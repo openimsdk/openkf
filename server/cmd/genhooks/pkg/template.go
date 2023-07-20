@@ -38,12 +38,16 @@ var hookTemplate = checkTemplate(`
 package hooks
 
 import (
+	"fmt"
+
 	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
 	"github.com/gin-gonic/gin"
 )
 
+var _ urltrie.Hook = (*{{.HookName}})(nil)
+
 func init() {
-	urltrie.RegisterHook({{.HookName}}{})
+	urltrie.RegisterHook(&{{.HookName}}{})
 	fmt.Println("RegisterHook", "Register Hook[{{.HookName}}] success...")
 }
 

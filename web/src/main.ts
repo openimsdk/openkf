@@ -19,6 +19,7 @@ import App from './App.vue';
 import axios from 'axios';
 import router from './router';
 import TDesign from 'tdesign-vue-next';
+import { store } from './store';
 import 'tdesign-vue-next/es/style/index.css';
 import './style/index.less';
 
@@ -29,4 +30,4 @@ console.log(OpenIM);
 
 const app = createApp(App);
 app.config.globalProperties.$https = axios; // use axios
-app.use(router).use(TDesign).mount('#app'); // mount the router on the app
+app.use(router).use(TDesign).use(store).mount('#app'); // mount the router on the app

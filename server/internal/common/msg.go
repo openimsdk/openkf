@@ -14,15 +14,26 @@
 
 package common
 
+import "github.com/pkg/errors"
+
 // msg is a mapping of message.
 var msg = map[int]string{
 	SUCCESS:        "success",
 	ERROR:          "error",
 	INVALID_PARAMS: "request params error",
+	UNAUTHORIZED:   "unauthorized",
 
 	// OpenIM callback code
 	OPENIM_SERVER_ALLOW_ACTION: "OpenIM allow action",
 	OPENIM_SERVER_DENY_ACTION:  "OpenIM deny action",
+
+	// KF service status
+	KF_RECORD_NOT_FOUND: "kf: record not found",
+}
+
+// internalMsg is a mapping of internal service message.
+var internalMsg = map[int]string{
+	I_INVALID_PARAM: "invalid param",
 }
 
 // GetMsg get the message by code.
@@ -33,4 +44,9 @@ func GetMsg(code int) string {
 	}
 
 	return msg[ERROR]
+}
+
+// NewError return a new error.
+func NewError(code int) error {
+	return errors.Errorf("%d: %s", code, internalMsg[code])
 }

@@ -38,7 +38,7 @@ func TestUrlTrie(t *testing.T) {
 	// test case
 	testData := []struct {
 		priority int64
-		url      []string
+		urls     []string
 	}{
 		{1, []string{"/gin"}},
 		{1, []string{"/api/v1/123"}},
@@ -51,8 +51,8 @@ func TestUrlTrie(t *testing.T) {
 
 	// range test data
 	for _, data := range testData {
-		trie.InsertBatch(data.url, &testHook{
-			urls:     data.url,
+		trie.InsertBatch(data.urls, &testHook{
+			urls:     data.urls,
 			priority: data.priority,
 		})
 	}

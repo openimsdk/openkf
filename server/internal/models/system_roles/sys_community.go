@@ -24,10 +24,11 @@ import (
 type SysCommunity struct {
 	base.Model
 
-	UUID   uuid.UUID `gorm:"index;column:uuid;column:uuid;not null;unique;comment:'community uuid'"`
-	Name   string    `gorm:"column:name;type:varchar(64);not null;comment:'community name'"`
-	Email  string    `gorm:"column:email;type:varchar(64);not null;comment:'community email'"`
-	Avatar string    `gorm:"column:avatar;type:varchar(255);not null;comment:'community avatar'"`
+	UUID        uuid.UUID `gorm:"index;column:uuid;column:uuid;not null;unique;comment:'community uuid'"`
+	Name        string    `gorm:"column:name;type:varchar(64);not null;comment:'community name'"`
+	Email       string    `gorm:"column:email;type:varchar(64);not null;comment:'community email'"`
+	Avatar      string    `gorm:"column:avatar;type:varchar(255);not null;comment:'community avatar'"`
+	Description string    `gorm:"column:description;type:varchar(255);not null;comment:'community description'"`
 }
 
 // TableName table name.

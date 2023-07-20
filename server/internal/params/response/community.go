@@ -14,26 +14,11 @@
 
 package responseparams
 
-// TokenResponse im token response.
-type TokenResponse struct {
-	Token             string `json:"token"`
-	ExpireTimeSeconds uint   `json:"expire_time_seconds"`
-}
-
-// UserTokenResponse user token response.
-type UserTokenResponse struct {
-	UUID    string         `json:"uuid"`
-	KFToken *TokenResponse `json:"kf_token"`
-	IMToken *TokenResponse `json:"im_token"`
-}
-
-// UserInfoResponse user info response.
-type UserInfoResponse struct {
+// CommunityInfoResponse community info response.
+type CommunityInfoResponse struct {
 	UUID        string `json:"uuid"`
+	Name        string `json:"name"`
 	Email       string `json:"email"`
-	Nickname    string `json:"nickname"`
 	Avatar      string `json:"avatar"`
 	Description string `json:"description"`
-	IsEnable    bool   `json:"is_enable"`
-	IsAdmin     bool   `json:"is_admin"`
 }
