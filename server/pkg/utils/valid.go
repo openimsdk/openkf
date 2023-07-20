@@ -12,24 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package common
+package utils
 
-// HTTP response code.
-const (
-	SUCCESS        = 200
-	ERROR          = 500
-	INVALID_PARAMS = 400
-	UNAUTHORIZED   = 401
+import "regexp"
 
-	// OpenIM callback code.
-	OPENIM_SERVER_ALLOW_ACTION = 0
-	OPENIM_SERVER_DENY_ACTION  = 1
+// IsValidEmail check if the email is valid.
+func IsValidEmail(email string) bool {
+	// Regular expression for basic email validation
+	// This regex pattern is a simplified version and may not cover all edge cases.
+	// You can use more comprehensive patterns depending on your specific needs.
+	emailRegex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
 
-	// KF service status.
-	KF_RECORD_NOT_FOUND = 10001
-)
-
-// KF internal error code.
-const (
-	I_INVALID_PARAM = 20000 + iota
-)
+	return regexp.MustCompile(emailRegex).MatchString(email)
+}

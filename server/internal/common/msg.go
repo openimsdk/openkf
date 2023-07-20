@@ -14,6 +14,8 @@
 
 package common
 
+import "github.com/pkg/errors"
+
 // msg is a mapping of message.
 var msg = map[int]string{
 	SUCCESS:        "success",
@@ -29,6 +31,11 @@ var msg = map[int]string{
 	KF_RECORD_NOT_FOUND: "kf: record not found",
 }
 
+// internalMsg is a mapping of internal service message.
+var internalMsg = map[int]string{
+	I_INVALID_PARAM: "invalid param",
+}
+
 // GetMsg get the message by code.
 func GetMsg(code int) string {
 	m, ok := msg[code]
@@ -37,4 +44,9 @@ func GetMsg(code int) string {
 	}
 
 	return msg[ERROR]
+}
+
+// NewError return a new error.
+func NewError(code int) error {
+	return errors.Errorf("%d: %s", code, internalMsg[code])
 }

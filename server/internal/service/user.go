@@ -22,6 +22,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gofrs/uuid"
 
+	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
@@ -249,6 +250,10 @@ func getUserIMToken(param *request.UserTokenParams) (*response.TokenData, error)
 // GetUserInfoByUUID get user info by uuid.
 func (svc *UserService) GetUserInfoByUUID(uid string) (*responseparams.UserInfoResponse, error) {
 	resp := &responseparams.UserInfoResponse{}
+
+	if uid == "" {
+		return resp, common.NewError(common.I_INVALID_PARAM)
+	}
 
 	_uuid, err := uuid.FromString(uid)
 	if err != nil {

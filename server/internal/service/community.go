@@ -18,6 +18,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gofrs/uuid"
 
+	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
@@ -69,6 +70,10 @@ func (svc *CommunityService) Create(community *requestparams.CommunityParams) (s
 func (svc *CommunityService) GetCommunityInfoById(id uint) (*responseparams.CommunityInfoResponse, error) {
 	resp := &responseparams.CommunityInfoResponse{}
 
+	if id <= 0 {
+		return resp, common.NewError(common.I_INVALID_PARAM)
+	}
+
 	c, err := svc.SysCommunityDao.FindFirstById(id)
 	if err != nil {
 		return resp, err
@@ -86,6 +91,10 @@ func (svc *CommunityService) GetCommunityInfoById(id uint) (*responseparams.Comm
 // GetCommunityInfoByUUID get community info by uuid.
 func (svc *CommunityService) GetCommunityInfoByUUID(uid string) (*responseparams.CommunityInfoResponse, error) {
 	resp := &responseparams.CommunityInfoResponse{}
+
+	if uid == "" {
+		return resp, common.NewError(common.I_INVALID_PARAM)
+	}
 
 	_uuid, err := uuid.FromString(uid)
 	if err != nil {
