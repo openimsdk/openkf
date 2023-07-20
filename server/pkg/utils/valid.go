@@ -12,35 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package middleware
+package utils
 
-import (
-	"net/http"
-	"strings"
+import "regexp"
 
-	"github.com/gin-gonic/gin"
+// IsValidEmail check if the email is valid.
+func IsValidEmail(email string) bool {
+	// Regular expression for basic email validation
+	// This regex pattern is a simplified version and may not cover all edge cases.
+	// You can use more comprehensive patterns depending on your specific needs.
+	emailRegex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
-)
-
-// EnableAuth enable auth middleware.
-func EnableAuth() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		token := c.GetHeader("Authorization")
-		if token == "" || strings.Fields(token)[0] != "Bearer" {
-			c.AbortWithStatus(http.StatusUnauthorized)
-
-			return
-		}
-
-		_, err := utils.ParseJwtToken(token)
-		if err != nil {
-			c.AbortWithStatus(http.StatusUnauthorized)
-
-			return
-		}
-
-		// todo: add info to claims
-		c.Next()
-	}
+	return regexp.MustCompile(emailRegex).MatchString(email)
 }

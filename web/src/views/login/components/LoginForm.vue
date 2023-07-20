@@ -8,13 +8,13 @@ import { OpenIM } from '@/api/openim';
 import { OpenIMLoginConfig } from '@/constants';
 import { IMLoginParam } from '@/api/request/openimModel';
 import { ref, reactive } from 'vue';
-import { localCache } from '@/utils/common/cache';
+import { useUserStore } from '@/store';
 
 const formData = reactive({ email: '', password: '' });
 const showPsw = ref(false);
 const form = ref(null);
 const isRem = ref(false);
-const rules: FormRule = {
+const rules: Record<string, FormRule[]> = {
     email: [
         {
             required: true,
@@ -63,20 +63,30 @@ const onSubmit = async (ctx: SubmitContext) => {
                         apiAddress: OpenIMLoginConfig.APIAddress,
                         wsAddress: OpenIMLoginConfig.WSAddress,
                     };
+
+                    let temp_data = res;
                     // operationID is auto generated in login method.
                     OpenIM.login(config)
                         .then(res => {
                             MessagePlugin.success('Login success...');
-                            // TODO: redirect home page if token exists
+
+                            // Store data
+                            const userStore = useUserStore();
+                            userStore.StoreToken(temp_data);
+                            userStore.StoreInfo();
+
+                            console.log(userStore);
+
                             if (isRem.value) {
-                                localCache.setCache('token', config.token);
+                                // localCache.setCache('token', config.token);
                             } else {
-                                localCache.removeCache('token');
+                                // localCache.removeCache('token');
                             }
+
                             const redirect = route.query.redirect as string;
                             const redirectUrl = redirect
                                 ? decodeURIComponent(redirect)
-                                : '/dashboard';
+                                : '/home/dashboard';
                             router.push(redirectUrl);
                         })
                         .catch(err => {

@@ -21,6 +21,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
 	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
 	"github.com/OpenIMSDK/OpenKF/server/internal/service"
+	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
@@ -109,4 +110,58 @@ func AccountLogin(c *gin.Context) {
 	}
 
 	response.SuccessWithData(u, c)
+}
+
+// GetUserInfo
+// @Tags user
+// @Summary GetUserInfo
+// @Description get user info
+// @Security  ApiKeyAuth
+// Param data body param.GetUserInfoParams true "GetUserInfoParams"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/user/info [post].
+func GetUserInfo(c *gin.Context) {
+	param := requestparams.GetUserInfoParams{}
+	err := c.ShouldBindJSON(&param)
+	if err != nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	svc := service.NewUserService(c)
+	resp, err := svc.GetUserInfoByUUID(param.UUID)
+	if err != nil {
+		response.FailWithCode(common.KF_RECORD_NOT_FOUND, c)
+
+		return
+	}
+
+	response.SuccessWithData(resp, c)
+}
+
+// GetMyInfo
+// @Tags user
+// @Summary GetMyInfo
+// @Description get my user info
+// @Security  ApiKeyAuth
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/user/me [get].
+func GetMyInfo(c *gin.Context) {
+	uuid, err := utils.GetUserUUID(c)
+	if err != nil {
+		response.FailWithCode(common.UNAUTHORIZED, c)
+
+		return
+	}
+
+	svc := service.NewUserService(c)
+	resp, err := svc.GetUserInfoByUUID(uuid)
+	if err != nil {
+		response.FailWithCode(common.KF_RECORD_NOT_FOUND, c)
+
+		return
+	}
+
+	response.SuccessWithData(resp, c)
 }

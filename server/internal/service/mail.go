@@ -19,9 +19,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/OpenIMSDK/OpenKF/server/internal/common"
+	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
+	pkgutils "github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 )
 
 // MailService mail service.
@@ -43,6 +46,10 @@ func NewMailService(c *gin.Context) *MailService {
 
 // SendCode send code to email.
 func (svc *MailService) SendCode(email string) (err error) {
+	if !pkgutils.IsValidEmail(email) {
+		return common.NewError(common.I_INVALID_PARAM)
+	}
+
 	// Check the code is exist.
 	code, err := svc.cache.Get(svc.ctx, "code:"+email)
 	// Refresh code.
@@ -55,13 +62,17 @@ func (svc *MailService) SendCode(email string) (err error) {
 	}
 
 	// Generate code.
-	// err = client.SendEmail(email, "OpenKF Admin Register", "Your verification code is "+code)
+	err = client.SendEmail(email, "OpenKF Admin Register", "Your verification code is "+code)
 
 	return err
 }
 
 // CheckCode check code.
 func (svc *MailService) CheckCode(email, code string) bool {
+	if !pkgutils.IsValidEmail(email) {
+		return false
+	}
+
 	// Check the code is exist.
 	c, err := svc.cache.Get(svc.ctx, "code:"+email)
 	if err != nil {

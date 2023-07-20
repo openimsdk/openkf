@@ -12,24 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package common
+package utils
 
-// HTTP response code.
-const (
-	SUCCESS        = 200
-	ERROR          = 500
-	INVALID_PARAMS = 400
-	UNAUTHORIZED   = 401
-
-	// OpenIM callback code.
-	OPENIM_SERVER_ALLOW_ACTION = 0
-	OPENIM_SERVER_DENY_ACTION  = 1
-
-	// KF service status.
-	KF_RECORD_NOT_FOUND = 10001
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/pkg/errors"
 )
 
-// KF internal error code.
-const (
-	I_INVALID_PARAM = 20000 + iota
-)
+// GetUserID get user uuid from context.
+func GetUserUUID(c *gin.Context) (string, error) {
+	if claims, ok := c.Get("claims"); ok {
+		if c := claims.(*JwtClaims); c != nil {
+			return c.UserUUID, nil
+		}
+	}
+
+	return "", errors.Errorf("get user uuid failed")
+}
+
+// GetCommunityUUID get community uuid from context.
+func GetCommunityUUID(c *gin.Context) (string, error) {
+	if claims, ok := c.Get("claims"); ok {
+		if c := claims.(*JwtClaims); c != nil {
+			return c.CommunityUUID, nil
+		}
+	}
+
+	return "", errors.Errorf("get community uuid failed")
+}

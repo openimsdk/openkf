@@ -24,7 +24,7 @@ const formData = ref({
     community: COMMUNITY_INITIAL_DATA,
     admin: ADMIN_INITIAL_DATA,
 });
-const rules: FormRule = {
+const rules: Record<string, FormRule[]> = {
     email: [
         {
             required: true,

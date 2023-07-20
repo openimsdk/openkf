@@ -23,19 +23,19 @@ import (
 )
 
 type JwtClaims struct {
-	UUID        string `json:"uuid"`
-	CommunityId uint   `json:"community_id"`
+	UserUUID      string `json:"user_uuid"`
+	CommunityUUID string `json:"community_uuid"`
 	jwt.RegisteredClaims
 }
 
-func GenerateJwtToken(uid string, community_id uint) (string, uint, error) {
+func GenerateJwtToken(user_uuid string, community_uuid string) (string, uint, error) {
 	secret := []byte(config.Config.JWT.Secret)
 	issuer := config.Config.JWT.Issuer
 	expireDays := config.Config.JWT.ExpireDays
 
 	claims := &JwtClaims{
-		uid,
-		community_id,
+		user_uuid,
+		community_uuid,
 		jwt.RegisteredClaims{
 			Issuer:    issuer,
 			NotBefore: jwt.NewNumericDate(time.Now().Add(-1000)),
