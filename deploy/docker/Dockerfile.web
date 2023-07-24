@@ -18,9 +18,9 @@ FROM node:18 AS builder
 WORKDIR /openkf-web
 
 COPY /web .
-RUN npm install
-RUN chmod +x scripts/setup.sh && ./scripts/setup.sh
-RUN npm run build
+RUN npm install \
+    && chmod +x scripts/setup.sh && ./scripts/setup.sh \
+    && npm run build
 
 # Production stage
 FROM nginx:stable-alpine
