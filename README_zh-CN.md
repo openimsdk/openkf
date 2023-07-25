@@ -153,3 +153,5 @@ bashCopy code.
 我们欢迎任何人参与我们的社区，我们提供礼物和奖励，我们欢迎你每个周四晚上加入我们。
 
 我们的会议在 [OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg) 🎯 `openkf` 管道中，然后你可以搜索 openkf 管道加入
+
+我们在 [GitHub 讨论](https://github.com/OpenIMSDK/OpenKF/discussions/categories
