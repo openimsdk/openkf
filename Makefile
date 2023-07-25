@@ -178,7 +178,7 @@ build: # go.build.verify $(addprefix go.build., $(addprefix $(PLATFORM)., $(BINS
 build.%:
 	@echo "$(shell go version)"
 	@echo "===========> Building binary $(BUILDAPP) *[Git Info]: $(VERSION)-$(GIT_COMMIT)"
-	@export CGO_ENABLED=0 && GOOS=linux go build -o $(BUILDAPP)/$*/ -ldflags '-s -w' $*/example/$(BUILDFILE)
+	@cd $(SERVER_DIR) && export CGO_ENABLED=0 && GOOS=linux go build -o $(BUILDAPP)/$*/ -ldflags '-s -w' $*/example/$(BUILDFILE)
 
 .PHONY: go.build.verify
 go.build.verify:
@@ -193,6 +193,7 @@ go.build.%:
 	$(eval PLATFORM := $(word 1,$(subst ., ,$*)))
 	$(eval OS := $(word 1,$(subst _, ,$(PLATFORM))))
 	$(eval ARCH := $(word 2,$(subst _, ,$(PLATFORM))))
+	@cd $(SERVER_DIR)
 	@echo "=====> COMMAND=$(COMMAND)"
 	@echo "=====> PLATFORM=$(PLATFORM)"
 	@echo "=====> BIN_DIR=$(BIN_DIR)"
@@ -207,6 +208,7 @@ build-multiarch: go.build.verify $(foreach p,$(PLATFORMS),$(addprefix go.build.,
 .PHONY: test.junit-report
 test.junit-report: tools.verify.go-junit-report
 	@touch $(TMP_DIR)/coverage.out
+	@cd $(SERVER_DIR)
 	@echo "===========> Run unit test > $(TMP_DIR)/report.xml"
 # 	@$(GO) test -v -coverprofile=$(TMP_DIR)/coverage.out 2>&1 $(GO_BUILD_FLAGS) ./... | $(TOOLS_DIR)/go-junit-report -set-exit-code > $(TMP_DIR)/report.xml
 	@$(GO) test -v -coverprofile=$(TMP_DIR)/coverage.out 2>&1 ./... | $(TOOLS_DIR)/go-junit-report -set-exit-code > $(TMP_DIR)/report.xml
@@ -217,7 +219,7 @@ test.junit-report: tools.verify.go-junit-report
 # ==============================================================================
 # Targets
 
-SERVER_DIR := server 
+SERVER_DIR := server
 
 ## run: Run the server.
 .PHONY: run

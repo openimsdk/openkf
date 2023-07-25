@@ -1,0 +1,3 @@
+# name: OpenIM e2e Test
+# test/e2e/...
+# go rod : https://github.com/go-rod/rod
