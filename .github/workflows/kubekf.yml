@@ -79,9 +79,18 @@ jobs:
         run: |
           make cover
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: go
+
       - name: Build source code for host platform
         run: |
-          make build # skip build for now
+          sudo make build
+          echo "Build source code for host platform successfully" 
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
 
       - name: Collect Test Coverage File
         uses: actions/upload-artifact@v1.0.0
