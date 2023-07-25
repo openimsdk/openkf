@@ -1,4 +1,20 @@
+# OpenKF Deploy
 
+Using the OpenKF deploy tools, you can deploy OpenKF to docker clusters.
+
+## Build images
+
+### Build images for web
+
+Build and run web image
+
+```bash
+# pwd = /deploy/docker
+docker build -f Dockerfile.web -t openkf-web ../../.
+
+# optional: run web image
+docker run -d -p 8080:80 openkf-web
+```
 
 ### Build images for server
 
@@ -15,7 +31,9 @@ REPOSITORY                                            TAG                 IMAGE 
 openkf-server                                         latest              f1676becc5ce   About a minute ago   60.5MB
 ...
 ```
-### Run images
+## Run images
+
+### Use docker-compose to run backend without OpenIMServer
 
 ```bash
 docker-compose -f docker-compose/docker-compose-dev.yaml up -d
