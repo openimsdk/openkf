@@ -168,7 +168,7 @@ OpenIMSDK 的目标是构建一个顶级的开源社区。我们有一套标准�
 
 OpenKF 根据 Apache 2.0 许可证授权。请查看[LICENSE](https://github.com/OpenIMSDK/OpenKF/tree/main/LICENSE)获取完整的许可证文本。
 
-此存储库中显示的 OpenKF 标志，包括其变体和动态版本，在 [OpenKF](https://github.com/OpenIMSDK/openkf)下的 [assets/logo](https://chat.openai.com/assets/logo) 和 [assets/logo-gif](https://chat.openai.com/assets/logo-gif) 目录下，受版权法保护。
+此存储库中显示的 OpenKF 标志，包括其变体和动态版本，在 [OpenKF](https://github.com/OpenIMSDK/openkf)下的 [assets/logo](./assets/logo/) 和 [assets/logo-gif](./assets/logo-gif/) 目录下，受版权法保护。
 
 ## 🔮 感谢我们的贡献者！
 
