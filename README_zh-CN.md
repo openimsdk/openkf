@@ -148,10 +148,28 @@ bashCopy code.
     └── src
 ```
 
-## 🗓️ 社区会议
+##  🗓️ 社区会议
 
-我们欢迎任何人参与我们的社区，我们提供礼物和奖励，我们欢迎你每个周四晚上加入我们。
+我们欢迎任何人参与我们的社区，我们提供礼品和奖励，每周四晚上欢迎你加入我们。
 
-我们的会议在 [OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg) 🎯 `openkf` 管道中，然后你可以搜索 openkf 管道加入
+我们的会议在[OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg)🎯 `openkf` 管道，然后你可以搜索 openkf 管道加入。
 
-我们在 [GitHub 讨论](https://github.com/OpenIMSDK/OpenKF/discussions/categories
+我们在 [GitHub 讨论](https://github.com/OpenIMSDK/OpenKF/discussions/categories/meeting)中记录每次[双周会议](https://github.com/orgs/OpenIMSDK/discussions/categories/meeting)的内容，会议记录我们使用 [Google Docs](https://docs.google.com/document/d/1nx8MDpuG74NASx081JcCpxPgDITNTpIIos0DS6Vr9GU/edit?usp=sharing)编写。
+
+## 🤼‍ 贡献与开发
+
+OpenIMSDK 的目标是构建一个顶级的开源社区。我们有一套标准，在[社区仓库](https://github.com/OpenIMSDK/community)中。
+
+如果你想为 OpenKF 仓库做出贡献，请阅读我们的[贡献者文档](https://github.com/OpenIMSDK/OpenKF/blob/main/CONTRIBUTING.md)。
+
+开始前，请确保你的更改是需要的。最好的方式是创建一个[新的讨论](https://github.com/OpenIMSDK/OpenKF/discussions/new/choose)或者[Slack 交流](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg)，或者如果你发现了问题，先[报告它](https://github.com/OpenIMSDK/OpenKF/issues/new/choose)。
+
+## 🚨 许可证
+
+OpenKF 根据 Apache 2.0 许可证授权。请查看[LICENSE](https://github.com/OpenIMSDK/OpenKF/tree/main/LICENSE)获取完整的许可证文本。
+
+此存储库中显示的 OpenKF 标志，包括其变体和动态版本，在 [OpenKF](https://github.com/OpenIMSDK/openkf)下的 [assets/logo](https://chat.openai.com/assets/logo) 和 [assets/logo-gif](https://chat.openai.com/assets/logo-gif) 目录下，受版权法保护。
+
+## 🔮 感谢我们的贡献者！
+
+<a href="https://github.com/OpenIMSDK/OpenKF/graphs/contributors">   <img src="https://contrib.rocks/image?repo=OpenIMSDK/OpenKF" /> </a>
