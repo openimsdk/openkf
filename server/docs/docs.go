@@ -16,6 +16,288 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/v1/admin/bot/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create a new bot",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "bot"
+                ],
+                "summary": "CreateBot",
+                "parameters": [
+                    {
+                        "description": "CreateBotParams",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requestparams.CreateBotParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/bot/delete": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "delete bot",
+                "tags": [
+                    "bot"
+                ],
+                "summary": "DeleteBot",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/bot/list": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get community bot info",
+                "tags": [
+                    "bot"
+                ],
+                "summary": "ListBot",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/bot/update": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "update bot info",
+                "tags": [
+                    "bot"
+                ],
+                "summary": "UpdateBot",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/staff/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create a new staff",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "CreateStaff",
+                "parameters": [
+                    {
+                        "description": "RegisterStaffParams",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requestparams.RegisterStaffParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/staff/delete": {
+            "post": {
+                "description": "Delete a new staff",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "DeleteStaff",
+                "parameters": [
+                    {
+                        "description": "DeleteUserParams",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requestparams.DeleteUserParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/common/file/upload": {
+            "post": {
+                "description": "upload a file",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "common"
+                ],
+                "summary": "UploadFile",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "file",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/community/create": {
             "post": {
                 "description": "Create a new community",
@@ -33,10 +315,127 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/param.CommunityParams"
+                            "$ref": "#/definitions/requestparams.CommunityParams"
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/community/info": {
+            "post": {
+                "description": "get community info",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "community"
+                ],
+                "summary": "GetCommunityInfo",
+                "parameters": [
+                    {
+                        "description": "GetCommunityInfoParams",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requestparams.GetCommunityInfoParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/community/me": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get my community info",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "community"
+                ],
+                "summary": "GetMyCommunityInfo",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/community/update": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get my community info",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "community"
+                ],
+                "summary": "GetMyCommunityInfo",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -76,7 +475,50 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/param.SendToParams"
+                            "$ref": "#/definitions/requestparams.SendToParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/login/account": {
+            "post": {
+                "description": "login with account",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "AccountLogin",
+                "parameters": [
+                    {
+                        "description": "LoginParamsWithAccount",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requestparams.LoginParamsWithAccount"
                         }
                     }
                 ],
@@ -151,7 +593,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/param.RegisterAdminParams"
+                            "$ref": "#/definitions/requestparams.RegisterAdminParams"
                         }
                     }
                 ],
@@ -177,27 +619,154 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/register/staff": {
+        "/api/v1/user/info": {
             "post": {
-                "description": "Create a new staff",
-                "produces": [
-                    "application/json"
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
                 ],
+                "description": "get user info",
                 "tags": [
                     "user"
                 ],
-                "summary": "StaffRegister",
-                "parameters": [
-                    {
-                        "description": "RegisterStaffParams",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
+                "summary": "GetUserInfo",
+                "responses": {
+                    "200": {
+                        "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/param.RegisterStaffParams"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
+                }
+            }
+        },
+        "/api/v1/user/me": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
                 ],
+                "description": "get my user info",
+                "tags": [
+                    "user"
+                ],
+                "summary": "GetMyInfo",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/update": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "update user info",
+                "tags": [
+                    "user"
+                ],
+                "summary": "UpdateInfo",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/update-password": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "update user password",
+                "tags": [
+                    "user"
+                ],
+                "summary": "UpdatePassword",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/userlist": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get community user info",
+                "tags": [
+                    "user"
+                ],
+                "summary": "GetCommunityUserList",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -222,7 +791,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "param.CommunityParams": {
+        "requestparams.CommunityParams": {
             "type": "object",
             "required": [
                 "avatar",
@@ -231,6 +800,11 @@ const docTemplate = `{
             ],
             "properties": {
                 "avatar": {
+                    "description": "Avatar is optional.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Description is optional.",
                     "type": "string"
                 },
                 "email": {
@@ -241,7 +815,38 @@ const docTemplate = `{
                 }
             }
         },
-        "param.CreateUserParams": {
+        "requestparams.CreateBotParams": {
+            "type": "object",
+            "required": [
+                "avatar",
+                "bot_addr",
+                "bot_port",
+                "bot_token",
+                "description",
+                "nickname"
+            ],
+            "properties": {
+                "avatar": {
+                    "type": "string"
+                },
+                "bot_addr": {
+                    "type": "string"
+                },
+                "bot_port": {
+                    "type": "integer"
+                },
+                "bot_token": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "nickname": {
+                    "type": "string"
+                }
+            }
+        },
+        "requestparams.CreateUserParams": {
             "type": "object",
             "required": [
                 "avatar",
@@ -251,6 +856,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "avatar": {
+                    "description": "Avatar is optional.",
                     "type": "string"
                 },
                 "email": {
@@ -264,7 +870,44 @@ const docTemplate = `{
                 }
             }
         },
-        "param.RegisterAdminParams": {
+        "requestparams.DeleteUserParams": {
+            "type": "object",
+            "required": [
+                "uuid"
+            ],
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "requestparams.GetCommunityInfoParams": {
+            "type": "object",
+            "required": [
+                "uuid"
+            ],
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "requestparams.LoginParamsWithAccount": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "requestparams.RegisterAdminParams": {
             "type": "object",
             "required": [
                 "code",
@@ -276,29 +919,25 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "community_info": {
-                    "$ref": "#/definitions/param.CommunityParams"
+                    "$ref": "#/definitions/requestparams.CommunityParams"
                 },
                 "user_info": {
-                    "$ref": "#/definitions/param.CreateUserParams"
+                    "$ref": "#/definitions/requestparams.CreateUserParams"
                 }
             }
         },
-        "param.RegisterStaffParams": {
+        "requestparams.RegisterStaffParams": {
             "type": "object",
             "required": [
-                "community_id",
                 "user_info"
             ],
             "properties": {
-                "community_id": {
-                    "type": "integer"
-                },
                 "user_info": {
-                    "$ref": "#/definitions/param.CreateUserParams"
+                    "$ref": "#/definitions/requestparams.CreateUserParams"
                 }
             }
         },
-        "param.SendToParams": {
+        "requestparams.SendToParams": {
             "type": "object",
             "required": [
                 "email"
@@ -321,17 +960,24 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
+	Version:          "v0.2.0",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "OpenKF Server",
+	Description:      "OpenKF Server API Docs.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

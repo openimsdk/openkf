@@ -22,6 +22,7 @@ var msg = map[int]string{
 	ERROR:          "error",
 	INVALID_PARAMS: "request params error",
 	UNAUTHORIZED:   "unauthorized",
+	FORBIDDEN:      "forbidden",
 
 	// OpenIM callback code
 	OPENIM_SERVER_ALLOW_ACTION: "OpenIM allow action",
@@ -29,6 +30,8 @@ var msg = map[int]string{
 
 	// KF service status
 	KF_RECORD_NOT_FOUND: "kf: record not found",
+	KF_FILE_SIZE_LIMIT:  "kf: file size limit",
+	KF_INTERNAL_ERROR:   "kf: internal error",
 }
 
 // internalMsg is a mapping of internal service message.

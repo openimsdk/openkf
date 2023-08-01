@@ -31,11 +31,13 @@ func newSysBot(db *gorm.DB, opts ...gen.DOOption) sysBot {
 	_sysBot.CreatedAt = field.NewTime(tableName, "created_at")
 	_sysBot.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysBot.DeletedAt = field.NewTime(tableName, "deleted_at")
+	_sysBot.UUID = field.NewField(tableName, "uuid")
 	_sysBot.BotAddr = field.NewString(tableName, "bot_addr")
 	_sysBot.BotPort = field.NewInt(tableName, "bot_port")
 	_sysBot.BotToken = field.NewString(tableName, "bot_token")
 	_sysBot.Nickname = field.NewString(tableName, "nickname")
 	_sysBot.Avatar = field.NewString(tableName, "avatar")
+	_sysBot.Description = field.NewString(tableName, "description")
 	_sysBot.CommunityId = field.NewUint(tableName, "community_id")
 	_sysBot.Community = sysBotBelongsToCommunity{
 		db: db.Session(&gorm.Session{}),
@@ -56,11 +58,13 @@ type sysBot struct {
 	CreatedAt   field.Time
 	UpdatedAt   field.Time
 	DeletedAt   field.Time
+	UUID        field.Field
 	BotAddr     field.String
 	BotPort     field.Int
 	BotToken    field.String
 	Nickname    field.String
 	Avatar      field.String
+	Description field.String
 	CommunityId field.Uint
 	Community   sysBotBelongsToCommunity
 
@@ -83,11 +87,13 @@ func (s *sysBot) updateTableName(table string) *sysBot {
 	s.CreatedAt = field.NewTime(table, "created_at")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.DeletedAt = field.NewTime(table, "deleted_at")
+	s.UUID = field.NewField(table, "uuid")
 	s.BotAddr = field.NewString(table, "bot_addr")
 	s.BotPort = field.NewInt(table, "bot_port")
 	s.BotToken = field.NewString(table, "bot_token")
 	s.Nickname = field.NewString(table, "nickname")
 	s.Avatar = field.NewString(table, "avatar")
+	s.Description = field.NewString(table, "description")
 	s.CommunityId = field.NewUint(table, "community_id")
 
 	s.fillFieldMap()
@@ -111,16 +117,18 @@ func (s *sysBot) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysBot) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 11)
+	s.fieldMap = make(map[string]field.Expr, 13)
 	s.fieldMap["id"] = s.Id
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["updated_at"] = s.UpdatedAt
 	s.fieldMap["deleted_at"] = s.DeletedAt
+	s.fieldMap["uuid"] = s.UUID
 	s.fieldMap["bot_addr"] = s.BotAddr
 	s.fieldMap["bot_port"] = s.BotPort
 	s.fieldMap["bot_token"] = s.BotToken
 	s.fieldMap["nickname"] = s.Nickname
 	s.fieldMap["avatar"] = s.Avatar
+	s.fieldMap["description"] = s.Description
 	s.fieldMap["community_id"] = s.CommunityId
 
 }

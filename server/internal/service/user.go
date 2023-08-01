@@ -41,7 +41,8 @@ import (
 type UserService struct {
 	Service
 
-	SysUserDao *dao.SysUserDao
+	SysUserDao      *dao.SysUserDao
+	SysCommunityDao *dao.SysCommunityDao
 }
 
 // NewUserService return new service with gin context.
@@ -50,7 +51,8 @@ func NewUserService(c *gin.Context) *UserService {
 		Service: Service{
 			ctx: c,
 		},
-		SysUserDao: dao.NewSysUserDao(),
+		SysUserDao:      dao.NewSysUserDao(),
+		SysCommunityDao: dao.NewSysCommunityDao(),
 	}
 }
 
@@ -114,13 +116,24 @@ func (svc *UserService) CreateAdmin(user *requestparams.RegisterAdminParams) (st
 }
 
 // CreateStaff create staff user.
-func (svc *UserService) CreateStaff(user *requestparams.RegisterStaffParams) (string, uint, error) {
+func (svc *UserService) CreateStaff(cid string, user *requestparams.RegisterStaffParams) (string, uint, error) {
 	// Create staff
-	uuid := utils.GenUUID()
+	uid := utils.GenUUID()
+
+	// Get community id
+	_uuid, err := uuid.FromString(cid)
+	if err != nil {
+		return "", 0, err
+	}
+	communityInfo, err := svc.SysCommunityDao.FindFirstByUUID(_uuid)
+	if err != nil {
+		return "", 0, err
+	}
+
 	staffParam := user.UserInfo
 	staff := &systemroles.SysUser{
 		UserBase: base.UserBase{
-			UUID:     uuid,
+			UUID:     uid,
 			Email:    staffParam.Email,
 			Nickname: staffParam.Nickname,
 			Avatar:   *staffParam.Avatar,
@@ -128,22 +141,22 @@ func (svc *UserService) CreateStaff(user *requestparams.RegisterStaffParams) (st
 		},
 		IsAdmin:     false,
 		Password:    utils.EncryptPassword(staffParam.Password),
-		CommunityId: user.CommunityId,
+		CommunityId: communityInfo.Id,
 	}
-	if err := svc.SysUserDao.Create(staff); err != nil {
-		return uuid.String(), 0, err
+	if err = svc.SysUserDao.Create(staff); err != nil {
+		return uid.String(), 0, err
 	}
 
 	// TODO: Send email to staff
 
-	u, _ := svc.SysUserDao.FindFirstByUUID(uuid)
+	u, _ := svc.SysUserDao.FindFirstByUUID(uid)
 
 	// TODO: set pipline to tx.
 	param := &request.RegisterUserParams{
 		Secret: config.Config.OpenIM.Secret,
 		Users: []request.User{
 			{
-				UserID:   uuid.String(),
+				UserID:   uid.String(),
 				Nickname: staffParam.Nickname,
 				FaceURL:  "", // Use OpenKF avatar
 			},
@@ -154,10 +167,10 @@ func (svc *UserService) CreateStaff(user *requestparams.RegisterStaffParams) (st
 		// Assume that the user has been created/deleted successfully
 		_ = svc.SysUserDao.Delete(u)
 
-		return uuid.String(), u.Id, err
+		return uid.String(), u.Id, err
 	}
 
-	return uuid.String(), u.Id, nil
+	return uid.String(), u.Id, nil
 }
 
 // registerUserToOpenIM register user to openim.
@@ -174,6 +187,30 @@ func registerUserToOpenIM(param *request.RegisterUserParams) (bool, error) {
 	}
 
 	return true, nil
+}
+
+// DeleteStaff delete staff user.
+func (svc *UserService) DeleteStaff(uid string) error {
+	if uid == "" {
+		return common.NewError(common.I_INVALID_PARAM)
+	}
+
+	_uuid, err := uuid.FromString(uid)
+	if err != nil {
+		return err
+	}
+
+	u, err := svc.SysUserDao.FindFirstByUUID(_uuid)
+	if err != nil {
+		return err
+	}
+
+	err = svc.SysUserDao.Delete(u)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // LoginWithAccount login with account.
@@ -269,8 +306,127 @@ func (svc *UserService) GetUserInfoByUUID(uid string) (*responseparams.UserInfoR
 	resp.Email = u.Email
 	resp.Nickname = u.Nickname
 	resp.Avatar = u.Avatar
+	resp.Description = u.Description
 	resp.IsAdmin = u.IsAdmin
 	resp.IsEnable = u.IsEnable
+
+	return resp, nil
+}
+
+// UpdateUserInfo update user info.
+func (svc *UserService) UpdateUserInfo(uid string, params *requestparams.UpdateUserInfoParams) (*responseparams.UserInfoResponse, error) {
+	resp := &responseparams.UserInfoResponse{}
+
+	if uid == "" {
+		return resp, common.NewError(common.I_INVALID_PARAM)
+	}
+
+	_uuid, err := uuid.FromString(uid)
+	if err != nil {
+		return resp, err
+	}
+
+	u, err := svc.SysUserDao.FindFirstByUUID(_uuid)
+	if err != nil {
+		return resp, err
+	}
+
+	// Update user info
+	if params.Nickname != nil {
+		u.Nickname = *params.Nickname
+	}
+	if params.Description != nil {
+		u.Description = *params.Description
+	}
+	if params.Avatar != nil {
+		u.Avatar = *params.Avatar
+	}
+	if params.Email != nil {
+		u.Email = *params.Email
+	}
+
+	// Update user info
+	if err = svc.SysUserDao.Update(u); err != nil {
+		return resp, err
+	}
+
+	// Get new info
+	u, _ = svc.SysUserDao.FindFirstByUUID(_uuid)
+	resp.UUID = u.UUID.String()
+	resp.Email = u.Email
+	resp.Nickname = u.Nickname
+	resp.Avatar = u.Avatar
+	resp.Description = u.Description
+	resp.IsAdmin = u.IsAdmin
+	resp.IsEnable = u.IsEnable
+
+	return resp, nil
+}
+
+// UpdateUserPassword update user password.
+func (svc *UserService) UpdateUserPassword(uid string, params *requestparams.UpdateUserPasswordParams) error {
+	if uid == "" {
+		return common.NewError(common.I_INVALID_PARAM)
+	}
+
+	_uuid, err := uuid.FromString(uid)
+	if err != nil {
+		return err
+	}
+
+	u, err := svc.SysUserDao.FindFirstByUUID(_uuid)
+	if err != nil {
+		return err
+	}
+
+	// Update user info
+	if params.Password != "" && params.RepeatPassword != "" &&
+		params.Password == params.RepeatPassword {
+		u.Password = utils.EncryptPassword(params.Password)
+	}
+
+	// Update user info
+	if err = svc.SysUserDao.Update(u); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// GetCommunityUserList get community user list.
+func (svc *UserService) GetCommunityUserList(cid string, params *requestparams.ListPageParams) (*responseparams.ListPageResponse, error) {
+	resp := &responseparams.ListPageResponse{}
+	userInfos := make([]*responseparams.UserInfoResponse, 0)
+
+	csvc := NewCommunityService((svc.ctx).(*gin.Context))
+	info, err := csvc.GetCommunityInfoByUUIDV2(cid)
+	if err != nil {
+		return resp, err
+	}
+
+	// Get user list
+	users, total, err := svc.SysUserDao.FindByCommunityIdPage(info.Id, (params.Page-1)*params.PageSize, params.PageSize)
+	if err != nil {
+		return resp, err
+	}
+
+	// Fill response data
+	for _, u := range users {
+		userInfos = append(userInfos, &responseparams.UserInfoResponse{
+			UUID:        u.UUID.String(),
+			Email:       u.Email,
+			Nickname:    u.Nickname,
+			Avatar:      u.Avatar,
+			Description: u.Description,
+			IsAdmin:     u.IsAdmin,
+			IsEnable:    u.IsEnable,
+		})
+	}
+
+	resp.List = userInfos
+	resp.Page = params.Page
+	resp.PageSize = params.PageSize
+	resp.Total = int(total)
 
 	return resp, nil
 }

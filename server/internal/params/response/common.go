@@ -12,27 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package common
+package responseparams
 
-// HTTP response code.
-const (
-	SUCCESS        = 200
-	ERROR          = 500
-	INVALID_PARAMS = 400
-	UNAUTHORIZED   = 401
-	FORBIDDEN      = 403
+// ListPageResponse xxx list page response.
+type ListPageResponse struct {
+	Page     int         `json:"page"`
+	PageSize int         `json:"page_size"`
+	Total    int         `json:"total"`
+	List     interface{} `json:"list"`
+}
 
-	// OpenIM callback code.
-	OPENIM_SERVER_ALLOW_ACTION = 0
-	OPENIM_SERVER_DENY_ACTION  = 1
-
-	// KF service status.
-	KF_RECORD_NOT_FOUND = 10001
-	KF_FILE_SIZE_LIMIT  = 10002
-	KF_INTERNAL_ERROR   = 10003
-)
-
-// KF internal error code.
-const (
-	I_INVALID_PARAM = 20000 + iota
-)
+// FilePathResponse file path response.
+type FilePathResponse struct {
+	Path string `json:"path"`
+}

@@ -21,34 +21,31 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
 	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
 	"github.com/OpenIMSDK/OpenKF/server/internal/service"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
-// SendCode
-// @Tags mail
-// @Summary SendCode
-// @Description Use email to send verification code
+// UploadFile
+// @Tags common
+// @Summary UploadFile
+// @Description upload a file
 // @Produce application/json
-// @Param data body requestparams.SendToParams true "Email address"
+// @Param file formData file true "file"
 // @Success 200 {object}  response.Response{msg=string} "Success"
-// @Router /api/v1/email/code [post].
-func SendCode(c *gin.Context) {
-	var params requestparams.SendToParams
-	err := c.ShouldBindJSON(&params)
+// @Router /api/v1/common/file/upload [post].
+func UploadFile(c *gin.Context) {
+	file, err := c.FormFile(requestparams.FILE_REQUEST_PARAMS)
 	if err != nil {
-		response.FailWithCode(common.INVALID_PARAMS, c)
+		response.FailWithAll(common.INVALID_PARAMS, err.Error(), c)
 
 		return
 	}
 
-	svc := service.NewMailService(c)
-	err = svc.SendCode(params.Email)
+	svc := service.NewCommonService(c)
+	url, err := svc.UploadFile(file)
 	if err != nil {
-		log.Debug("SendCode error: ", err)
-		response.FailWithCode(common.ERROR, c)
+		response.FailWithAll(common.KF_INTERNAL_ERROR, err.Error(), c)
 
 		return
 	}
 
-	response.Success(c)
+	response.SuccessWithData(url, c)
 }

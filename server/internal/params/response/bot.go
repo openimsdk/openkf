@@ -12,27 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package common
+package responseparams
 
-// HTTP response code.
-const (
-	SUCCESS        = 200
-	ERROR          = 500
-	INVALID_PARAMS = 400
-	UNAUTHORIZED   = 401
-	FORBIDDEN      = 403
-
-	// OpenIM callback code.
-	OPENIM_SERVER_ALLOW_ACTION = 0
-	OPENIM_SERVER_DENY_ACTION  = 1
-
-	// KF service status.
-	KF_RECORD_NOT_FOUND = 10001
-	KF_FILE_SIZE_LIMIT  = 10002
-	KF_INTERNAL_ERROR   = 10003
-)
-
-// KF internal error code.
-const (
-	I_INVALID_PARAM = 20000 + iota
-)
+// BotInfoResponse bot info response.
+type BotInfoResponse struct {
+	UUID        string `json:"uuid"`
+	BotAddr     string `json:"bot_addr"`
+	BotPort     int    `json:"bot_port"`
+	BotToken    string `json:"bot_token"`
+	Nickname    string `json:"nickname"`
+	Avatar      string `json:"avatar"`
+	Description string `json:"description"`
+}

@@ -35,6 +35,7 @@ func newSysCustomer(db *gorm.DB, opts ...gen.DOOption) sysCustomer {
 	_sysCustomer.Email = field.NewString(tableName, "email")
 	_sysCustomer.Nickname = field.NewString(tableName, "nickname")
 	_sysCustomer.Avatar = field.NewString(tableName, "avatar")
+	_sysCustomer.Description = field.NewString(tableName, "description")
 	_sysCustomer.IsEnable = field.NewBool(tableName, "is_enable")
 	_sysCustomer.Device = field.NewString(tableName, "device")
 	_sysCustomer.IPAddress = field.NewString(tableName, "ip_address")
@@ -49,20 +50,21 @@ func newSysCustomer(db *gorm.DB, opts ...gen.DOOption) sysCustomer {
 type sysCustomer struct {
 	sysCustomerDo sysCustomerDo
 
-	ALL        field.Asterisk
-	Id         field.Uint
-	CreatedAt  field.Time
-	UpdatedAt  field.Time
-	DeletedAt  field.Time
-	UUID       field.Field
-	Email      field.String
-	Nickname   field.String
-	Avatar     field.String
-	IsEnable   field.Bool
-	Device     field.String
-	IPAddress  field.String
-	Source     field.String
-	SourceType field.Int
+	ALL         field.Asterisk
+	Id          field.Uint
+	CreatedAt   field.Time
+	UpdatedAt   field.Time
+	DeletedAt   field.Time
+	UUID        field.Field
+	Email       field.String
+	Nickname    field.String
+	Avatar      field.String
+	Description field.String
+	IsEnable    field.Bool
+	Device      field.String
+	IPAddress   field.String
+	Source      field.String
+	SourceType  field.Int
 
 	fieldMap map[string]field.Expr
 }
@@ -87,6 +89,7 @@ func (s *sysCustomer) updateTableName(table string) *sysCustomer {
 	s.Email = field.NewString(table, "email")
 	s.Nickname = field.NewString(table, "nickname")
 	s.Avatar = field.NewString(table, "avatar")
+	s.Description = field.NewString(table, "description")
 	s.IsEnable = field.NewBool(table, "is_enable")
 	s.Device = field.NewString(table, "device")
 	s.IPAddress = field.NewString(table, "ip_address")
@@ -116,7 +119,7 @@ func (s *sysCustomer) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysCustomer) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 13)
+	s.fieldMap = make(map[string]field.Expr, 14)
 	s.fieldMap["id"] = s.Id
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["updated_at"] = s.UpdatedAt
@@ -125,6 +128,7 @@ func (s *sysCustomer) fillFieldMap() {
 	s.fieldMap["email"] = s.Email
 	s.fieldMap["nickname"] = s.Nickname
 	s.fieldMap["avatar"] = s.Avatar
+	s.fieldMap["description"] = s.Description
 	s.fieldMap["is_enable"] = s.IsEnable
 	s.fieldMap["device"] = s.Device
 	s.fieldMap["ip_address"] = s.IPAddress

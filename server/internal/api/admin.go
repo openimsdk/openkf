@@ -21,19 +21,56 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
 	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
 	"github.com/OpenIMSDK/OpenKF/server/internal/service"
+	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
-// SendCode
-// @Tags mail
-// @Summary SendCode
-// @Description Use email to send verification code
+// CreateStaff
+// @Tags user
+// @Summary CreateStaff
+// @Description Create a new staff
 // @Produce application/json
-// @Param data body requestparams.SendToParams true "Email address"
+// @Security  ApiKeyAuth
+// @Param data body requestparams.RegisterStaffParams true "RegisterStaffParams"
 // @Success 200 {object}  response.Response{msg=string} "Success"
-// @Router /api/v1/email/code [post].
-func SendCode(c *gin.Context) {
-	var params requestparams.SendToParams
+// @Router /api/v1/admin/staff/create [post].
+func CreateStaff(c *gin.Context) {
+	uuid, err := utils.GetCommunityUUID(c)
+	if err != nil {
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	var params requestparams.RegisterStaffParams
+	err = c.ShouldBindJSON(&params)
+	if err != nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	svc := service.NewUserService(c)
+	_, _, err = svc.CreateStaff(uuid, &params)
+	if err != nil {
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	response.Success(c)
+}
+
+// DeleteStaff
+// @Tags user
+// @Summary DeleteStaff
+// @Description Delete a new staff
+// @Produce application/json
+// @Param data body requestparams.DeleteUserParams true "DeleteUserParams"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/admin/staff/delete [post].
+func DeleteStaff(c *gin.Context) {
+	var params requestparams.DeleteUserParams
 	err := c.ShouldBindJSON(&params)
 	if err != nil {
 		response.FailWithCode(common.INVALID_PARAMS, c)
@@ -41,10 +78,10 @@ func SendCode(c *gin.Context) {
 		return
 	}
 
-	svc := service.NewMailService(c)
-	err = svc.SendCode(params.Email)
+	svc := service.NewUserService(c)
+	err = svc.DeleteStaff(params.UUID)
 	if err != nil {
-		log.Debug("SendCode error: ", err)
+		log.Debug("DeleteStaff error", err)
 		response.FailWithCode(common.ERROR, c)
 
 		return

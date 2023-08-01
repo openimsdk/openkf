@@ -19,7 +19,6 @@ import (
 	"github.com/gofrs/uuid"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
 	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
@@ -48,14 +47,15 @@ func NewCommunityService(c *gin.Context) *CommunityService {
 func (svc *CommunityService) Create(community *requestparams.CommunityParams) (string, uint, error) {
 	uuid := utils.GenUUID()
 	data := &systemroles.SysCommunity{
-		UUID:   uuid,
-		Name:   community.Name,
-		Email:  community.Email,
-		Avatar: *community.Avatar,
+		UUID:        uuid,
+		Name:        community.Name,
+		Email:       community.Email,
+		Description: *community.Description,
+		Avatar:      *community.Avatar,
 	}
 
-	err := db.GetMysqlDB().Create(data).Error
-	// err := svc.SysCommunityDao.Create(data)
+	// err := db.GetMysqlDB().Create(data).Error
+	err := svc.SysCommunityDao.Create(data)
 	if err != nil {
 		return uuid.String(), 0, err
 	}
@@ -112,5 +112,70 @@ func (svc *CommunityService) GetCommunityInfoByUUID(uid string) (*responseparams
 	resp.Name = c.Name
 	resp.Description = c.Description
 
-	return resp, err
+	return resp, nil
+}
+
+// GetCommunityInfoByUUIDV2 get community info by uuid and return SysCommunity.
+func (svc *CommunityService) GetCommunityInfoByUUIDV2(uid string) (*systemroles.SysCommunity, error) {
+	if uid == "" {
+		return nil, common.NewError(common.I_INVALID_PARAM)
+	}
+
+	_uuid, err := uuid.FromString(uid)
+	if err != nil {
+		return nil, err
+	}
+
+	c, err := svc.SysCommunityDao.FindFirstByUUID(_uuid)
+	if err != nil {
+		return nil, err
+	}
+
+	return c, nil
+}
+
+// UpdateCommunity update community info.
+func (svc *CommunityService) UpdateCommunity(uid string, community *requestparams.UpdateCommunityInfoParams) (*responseparams.CommunityInfoResponse, error) {
+	resp := &responseparams.CommunityInfoResponse{}
+
+	if uid == "" {
+		return resp, common.NewError(common.I_INVALID_PARAM)
+	}
+
+	_uuid, err := uuid.FromString(uid)
+	if err != nil {
+		return resp, err
+	}
+
+	info, err := svc.SysCommunityDao.FindFirstByUUID(_uuid)
+	if err != nil {
+		return resp, err
+	}
+
+	if community.Name != nil {
+		info.Name = *community.Name
+	}
+	if community.Email != nil {
+		info.Email = *community.Email
+	}
+	if community.Description != nil {
+		info.Description = *community.Description
+	}
+	if community.Avatar != nil {
+		info.Avatar = *community.Avatar
+	}
+
+	// Update community info
+	err = svc.SysCommunityDao.Update(info)
+	if err != nil {
+		return resp, err
+	}
+
+	resp.UUID = info.UUID.String()
+	resp.Email = info.Email
+	resp.Avatar = info.Avatar
+	resp.Name = info.Name
+	resp.Description = info.Description
+
+	return resp, nil
 }

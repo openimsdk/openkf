@@ -31,8 +31,8 @@ type RegisterAdminParams struct {
 
 // RegisterStaffParams register params for staff.
 type RegisterStaffParams struct {
-	UserInfo    CreateUserParams `json:"user_info"    binding:"required"`
-	CommunityId uint             `json:"community_id" binding:"required"`
+	UserInfo CreateUserParams `json:"user_info"    binding:"required"`
+	// CommunityId uint             `json:"community_id" binding:"required"` // Get community id from token.
 }
 
 // LoginParamsWithAccount login params.
@@ -44,4 +44,24 @@ type LoginParamsWithAccount struct {
 // GetUserInfoParams user info params.
 type GetUserInfoParams struct {
 	UUID string `json:"uuid"        binding:"required"`
+}
+
+// UpdateUserInfoParams update user info params.
+type UpdateUserInfoParams struct {
+	// Email can not be updated is this period.
+	Email       *string `json:"email"`       // Email is optional.
+	Nickname    *string `json:"nickname"`    // Nickname is optional.
+	Description *string `json:"description"` // Description is optional.
+	Avatar      *string `json:"avatar"`      // Avatar is optional.
+}
+
+// UpdateUserPasswordParams update user password params.
+type UpdateUserPasswordParams struct {
+	Password       string `json:"password" binding:"required"`
+	RepeatPassword string `json:"repeat_password" binding:"required"`
+}
+
+// DeleteUserParams delete user params.
+type DeleteUserParams struct {
+	UUID string `json:"uuid" binding:"required"`
 }

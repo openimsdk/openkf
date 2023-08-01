@@ -30,7 +30,7 @@ import (
 // @Summary AdminRegister
 // @Description Create a new admin
 // @Produce application/json
-// @Param data body param.RegisterAdminParams true "RegisterAdminParams"
+// @Param data body requestparams.RegisterAdminParams true "RegisterAdminParams"
 // @Success 200 {object}  response.Response{msg=string} "Success"
 // @Router /api/v1/register/admin [post].
 func AdminRegister(c *gin.Context) {
@@ -54,41 +54,12 @@ func AdminRegister(c *gin.Context) {
 	response.Success(c)
 }
 
-// StaffRegister
-// @Tags user
-// @Summary StaffRegister
-// @Description Create a new staff
-// @Produce application/json
-// @Param data body param.RegisterStaffParams true "RegisterStaffParams"
-// @Success 200 {object}  response.Response{msg=string} "Success"
-// @Router /api/v1/register/staff [post].
-func StaffRegister(c *gin.Context) {
-	var params requestparams.RegisterStaffParams
-	err := c.ShouldBindJSON(&params)
-	if err != nil {
-		response.FailWithCode(common.INVALID_PARAMS, c)
-
-		return
-	}
-
-	svc := service.NewUserService(c)
-	_, _, err = svc.CreateStaff(&params)
-	if err != nil {
-		log.Debug("AdminRegister error", err)
-		response.FailWithCode(common.ERROR, c)
-
-		return
-	}
-
-	response.Success(c)
-}
-
 // AccountLogin
 // @Tags user
 // @Summary AccountLogin
 // @Description login with account
 // @Produce application/json
-// @Param data body param.AccountLogin true "AccountLogin"
+// @Param data body requestparams.LoginParamsWithAccount true "LoginParamsWithAccount"
 // @Success 200 {object}  response.Response{msg=string} "Success"
 // @Router /api/v1/login/account [post].
 func AccountLogin(c *gin.Context) {
@@ -164,4 +135,109 @@ func GetMyInfo(c *gin.Context) {
 	}
 
 	response.SuccessWithData(resp, c)
+}
+
+// GetCommunityUserList
+// @Tags user
+// @Summary GetCommunityUserList
+// @Description get community user info
+// @Security  ApiKeyAuth
+// Param data body param.ListPageParams true "ListPageParams"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/user/userlist [post].
+func GetCommunityUserList(c *gin.Context) {
+	uuid, err := utils.GetCommunityUUID(c)
+	if err != nil {
+		response.FailWithCode(common.UNAUTHORIZED, c)
+
+		return
+	}
+
+	svc := service.NewUserService(c)
+	var params requestparams.ListPageParams
+	err = c.ShouldBindJSON(&params)
+	if err != nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	resp, err := svc.GetCommunityUserList(uuid, &params)
+	if err != nil {
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	response.SuccessWithData(resp, c)
+}
+
+// UpdatePassword
+// @Tags user
+// @Summary UpdatePassword
+// @Description update user password
+// @Security  ApiKeyAuth
+// Param data body param.UpdateUserPasswordParams true "UpdateUserPasswordParams"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/user/update-password [post].
+func UpdatePassword(c *gin.Context) {
+	uuid, err := utils.GetUserUUID(c)
+	if err != nil {
+		response.FailWithCode(common.UNAUTHORIZED, c)
+
+		return
+	}
+
+	var params requestparams.UpdateUserPasswordParams
+	err = c.ShouldBindJSON(&params)
+	if err != nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	svc := service.NewUserService(c)
+	err = svc.UpdateUserPassword(uuid, &params)
+	if err != nil {
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	response.Success(c)
+}
+
+// UpdateInfo
+// @Tags user
+// @Summary UpdateInfo
+// @Description update user info
+// @Security  ApiKeyAuth
+// Param data body param.UpdateUserInfoParams true "UpdateUserInfoParams"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/user/update [post].
+func UpdateInfo(c *gin.Context) {
+	uuid, err := utils.GetUserUUID(c)
+	if err != nil {
+		response.FailWithCode(common.UNAUTHORIZED, c)
+
+		return
+	}
+
+	var params requestparams.UpdateUserInfoParams
+	err = c.ShouldBindJSON(&params)
+	if err != nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	svc := service.NewUserService(c)
+	info, err := svc.UpdateUserInfo(uuid, &params)
+	if err != nil {
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	response.SuccessWithData(info, c)
 }
