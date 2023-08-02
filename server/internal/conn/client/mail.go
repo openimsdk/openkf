@@ -21,10 +21,31 @@ import (
 	"github.com/jordan-wright/email"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
 // todo: use email connection pool to reduce the cost of creating a connection
 // link: https://github.com/jordan-wright/email#a-pool-of-reusable-connections
+var (
+// _mailPool *email.Pool
+)
+
+// InitMail init mail.
+func InitMail() {
+	// Unused now
+	// _mailPool, _ = email.NewPool(
+	// 	fmt.Sprintf("%s:%d", config.Config.Email.Host, config.Config.Email.Port),
+	// 	config.Config.Email.PoolSize, // Max number of connections to open
+	// 	smtp.PlainAuth(
+	// 		"", config.Config.Email.From, config.Config.Email.Password, config.Config.Email.Host,
+	// 	),
+	// )
+
+	// Send test email
+	if err := SendEmail(config.Config.Email.From, "OpenKF Init Email", "OpenKF Email Init Test..."); err != nil {
+		log.Panicf("Email", "Init Email failed:%s", err.Error())
+	}
+}
 
 // SendEmail send email.
 func SendEmail(to string, subject string, body string) error {

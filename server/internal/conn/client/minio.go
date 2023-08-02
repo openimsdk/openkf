@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"time"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
@@ -67,6 +68,8 @@ func InitMinio() {
 	}
 
 	_minioClient = minioClient
+
+	log.Info("MinIO", "connect ok", endpoint)
 }
 
 // PutObject put object to minio.
@@ -88,4 +91,20 @@ func GetObject(objectName string) (io.Reader, error) {
 	object, err := _minioClient.GetObject(context.Background(), _bucket, objectName, minio.GetObjectOptions{})
 
 	return object, err
+}
+
+// GetObjectUrlForADay get object url from minio. Time is one day.
+func GetObjectUrlForADay(objectName string) (string, error) {
+	// set 0 to get object
+	presignedURL, err := _minioClient.PresignedGetObject(context.Background(), _bucket, objectName, time.Hour*24, nil)
+	if err != nil {
+		return "", err
+	}
+
+	return presignedURL.String(), nil
+}
+
+// GetObejctURL get object url with objectName from minio.
+func GetObejctURL(objectName string) string {
+	return fmt.Sprintf("%s/%s/%s", _minioClient.EndpointURL(), _bucket, objectName)
 }

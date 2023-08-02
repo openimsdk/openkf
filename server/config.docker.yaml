@@ -20,6 +20,7 @@ app:
 server:
   ip: 0.0.0.0
   port: 10010
+  max_file_size: 10
 
 jwt:
   secret: openkf
@@ -57,6 +58,7 @@ email:
   from: # email address
   nickname: openkf
   password: # smtp password
+  pool_size: 4
 
 openim:
   secret: openkf

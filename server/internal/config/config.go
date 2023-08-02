@@ -35,8 +35,9 @@ func ConfigInit(configPath string) {
 			ExpireDays: GetInt("jwt.expire_days"),
 		},
 		Server: Server{
-			Ip:   GetString("server.ip"),
-			Port: GetInt("server.port"),
+			Ip:          GetString("server.ip"),
+			Port:        GetInt("server.port"),
+			MaxFileSize: GetIntOrDefault("server.max_file_size", 10),
 		},
 		Mysql: Mysql{
 			Ip:           GetString("mysql.ip"),
@@ -69,6 +70,7 @@ func ConfigInit(configPath string) {
 			From:     GetString("email.from"),
 			Nickname: GetString("email.nickname"),
 			Password: GetString("email.password"),
+			PoolSize: GetIntOrDefault("email.pool_size", 4),
 		},
 		OpenIM: OpenIM{
 			Secret:     GetStringOrDefault("openim.secret", "openkf"),
@@ -106,8 +108,9 @@ type JWT struct {
 
 // Server config.
 type Server struct {
-	Ip   string `mapstructure:"ip"`
-	Port int    `mapstructure:"port"`
+	Ip          string `mapstructure:"ip"`
+	Port        int    `mapstructure:"port"`
+	MaxFileSize int    `mapstructure:"max_file_size"`
 }
 
 // Mysql config.
@@ -148,6 +151,7 @@ type Email struct {
 	From     string `mapstructure:"from"`
 	Nickname string `mapstructure:"nickname"`
 	Password string `mapstructure:"password"`
+	PoolSize int    `mapstructure:"pool_size"`
 }
 
 // OpenIM config.

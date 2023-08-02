@@ -30,7 +30,7 @@ import (
 // @Summary CreateCommunity
 // @Description Create a new community
 // @Produce application/json
-// @Param data body param.CommunityParams true "Community"
+// @Param data body requestparams.CommunityParams true "Community"
 // @Success 200 {object}  response.Response{msg=string} "Success"
 // @Router /api/v1/community/create [post].
 func CreateCommunity(c *gin.Context) {
@@ -59,7 +59,7 @@ func CreateCommunity(c *gin.Context) {
 // @Summary GetCommunityInfo
 // @Description get community info
 // @Produce application/json
-// @Param data body param.GetCommunityInfoParams true "GetCommunityInfoParams"
+// @Param data body requestparams.GetCommunityInfoParams true "GetCommunityInfoParams"
 // @Success 200 {object}  response.Response{msg=string} "Success"
 // @Router /api/v1/community/info [post].
 func GetCommunityInfo(c *gin.Context) {
@@ -87,7 +87,7 @@ func GetCommunityInfo(c *gin.Context) {
 // @Summary GetMyCommunityInfo
 // @Description get my community info
 // @Produce application/json
-// @Param data body param.AccountLogin true "AccountLogin"
+// @Security  ApiKeyAuth
 // @Success 200 {object}  response.Response{msg=string} "Success"
 // @Router /api/v1/community/me [get].
 func GetMyCommunityInfo(c *gin.Context) {
@@ -107,4 +107,39 @@ func GetMyCommunityInfo(c *gin.Context) {
 	}
 
 	response.SuccessWithData(resp, c)
+}
+
+// GetMyCommunityInfo
+// @Tags community
+// @Summary GetMyCommunityInfo
+// @Description get my community info
+// @Produce application/json
+// @Security  ApiKeyAuth
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/community/update [post].
+func UpdateCommunity(c *gin.Context) {
+	uuid, err := utils.GetCommunityUUID(c)
+	if err != nil {
+		response.FailWithCode(common.UNAUTHORIZED, c)
+
+		return
+	}
+
+	var params requestparams.UpdateCommunityInfoParams
+	err = c.ShouldBindJSON(&params)
+	if err != nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	svc := service.NewCommunityService(c)
+	info, err := svc.UpdateCommunity(uuid, &params)
+	if err != nil {
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	response.SuccessWithData(info, c)
 }

@@ -16,6 +16,9 @@ package dao
 
 import (
 	"context"
+	"time"
+
+	"github.com/gofrs/uuid"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
@@ -69,6 +72,70 @@ func (d *SysBotDao) FindByIdPage(id uint, offset int, limit int) ([]*systemroles
 	m := d.query.SysBot
 
 	result, count, err := m.WithContext(d.ctx).Where(m.Id.Eq(id)).FindByPage(offset, limit)
+
+	return result, count, err
+}
+
+// FindFirstByCreatedAt get first matched result by createdat.
+func (d *SysBotDao) FindFirstByCreatedAt(createdat time.Time) (*systemroles.SysBot, error) {
+	m := d.query.SysBot
+
+	return m.WithContext(d.ctx).Where(m.CreatedAt.Eq(createdat)).First()
+}
+
+// FindByCreatedAtPage get page by CreatedAt.
+func (d *SysBotDao) FindByCreatedAtPage(createdat time.Time, offset int, limit int) ([]*systemroles.SysBot, int64, error) {
+	m := d.query.SysBot
+
+	result, count, err := m.WithContext(d.ctx).Where(m.CreatedAt.Eq(createdat)).FindByPage(offset, limit)
+
+	return result, count, err
+}
+
+// FindFirstByUpdatedAt get first matched result by updatedat.
+func (d *SysBotDao) FindFirstByUpdatedAt(updatedat time.Time) (*systemroles.SysBot, error) {
+	m := d.query.SysBot
+
+	return m.WithContext(d.ctx).Where(m.UpdatedAt.Eq(updatedat)).First()
+}
+
+// FindByUpdatedAtPage get page by UpdatedAt.
+func (d *SysBotDao) FindByUpdatedAtPage(updatedat time.Time, offset int, limit int) ([]*systemroles.SysBot, int64, error) {
+	m := d.query.SysBot
+
+	result, count, err := m.WithContext(d.ctx).Where(m.UpdatedAt.Eq(updatedat)).FindByPage(offset, limit)
+
+	return result, count, err
+}
+
+// FindFirstByDeletedAt get first matched result by deletedat.
+func (d *SysBotDao) FindFirstByDeletedAt(deletedat time.Time) (*systemroles.SysBot, error) {
+	m := d.query.SysBot
+
+	return m.WithContext(d.ctx).Where(m.DeletedAt.Eq(deletedat)).First()
+}
+
+// FindByDeletedAtPage get page by DeletedAt.
+func (d *SysBotDao) FindByDeletedAtPage(deletedat time.Time, offset int, limit int) ([]*systemroles.SysBot, int64, error) {
+	m := d.query.SysBot
+
+	result, count, err := m.WithContext(d.ctx).Where(m.DeletedAt.Eq(deletedat)).FindByPage(offset, limit)
+
+	return result, count, err
+}
+
+// FindFirstByUUID get first matched result by uuid.
+func (d *SysBotDao) FindFirstByUUID(uuid uuid.UUID) (*systemroles.SysBot, error) {
+	m := d.query.SysBot
+
+	return m.WithContext(d.ctx).Where(m.UUID.Eq(uuid)).First()
+}
+
+// FindByUUIDPage get page by UUID.
+func (d *SysBotDao) FindByUUIDPage(uuid uuid.UUID, offset int, limit int) ([]*systemroles.SysBot, int64, error) {
+	m := d.query.SysBot
+
+	result, count, err := m.WithContext(d.ctx).Where(m.UUID.Eq(uuid)).FindByPage(offset, limit)
 
 	return result, count, err
 }
@@ -149,6 +216,22 @@ func (d *SysBotDao) FindByAvatarPage(avatar string, offset int, limit int) ([]*s
 	m := d.query.SysBot
 
 	result, count, err := m.WithContext(d.ctx).Where(m.Avatar.Eq(avatar)).FindByPage(offset, limit)
+
+	return result, count, err
+}
+
+// FindFirstByDescription get first matched result by description.
+func (d *SysBotDao) FindFirstByDescription(description string) (*systemroles.SysBot, error) {
+	m := d.query.SysBot
+
+	return m.WithContext(d.ctx).Where(m.Description.Eq(description)).First()
+}
+
+// FindByDescriptionPage get page by Description.
+func (d *SysBotDao) FindByDescriptionPage(description string, offset int, limit int) ([]*systemroles.SysBot, int64, error) {
+	m := d.query.SysBot
+
+	result, count, err := m.WithContext(d.ctx).Where(m.Description.Eq(description)).FindByPage(offset, limit)
 
 	return result, count, err
 }

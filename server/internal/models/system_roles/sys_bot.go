@@ -15,6 +15,8 @@
 package systemroles
 
 import (
+	"github.com/gofrs/uuid"
+
 	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
 )
 
@@ -22,11 +24,13 @@ import (
 type SysBot struct {
 	base.Model
 
+	UUID        uuid.UUID    `json:"uuid"     gorm:"index;type:varchar(36);not null;comment:UUID"`
 	BotAddr     string       `gorm:"column:bot_addr;type:varchar(255);not null;comment:'AI bot address'"`
 	BotPort     int          `gorm:"column:bot_port;type:int(11);not null;comment:'AI bot port'"`
 	BotToken    string       `gorm:"column:bot_token;type:varchar(255);not null;comment:'AI bot token'"`
 	Nickname    string       `gorm:"column:nickname;type:varchar(255);not null;comment:'AI bot nickname'"`
 	Avatar      string       `gorm:"column:avatar;type:varchar(255);not null;comment:'AI bot avatar'"`
+	Description string       `json:"description" gorm:"type:varchar(255);not null;comment:Description"`
 	CommunityId uint         `gorm:"index;column:community_id;type:int(11);not null;comment:'Community id'" json:"community_id"`
 	Community   SysCommunity `gorm:"foreignKey:CommunityId;"                                                json:"community"`
 }

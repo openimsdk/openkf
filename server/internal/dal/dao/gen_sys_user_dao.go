@@ -16,6 +16,7 @@ package dao
 
 import (
 	"context"
+	"time"
 
 	"github.com/gofrs/uuid"
 
@@ -71,6 +72,54 @@ func (d *SysUserDao) FindByIdPage(id uint, offset int, limit int) ([]*systemrole
 	m := d.query.SysUser
 
 	result, count, err := m.WithContext(d.ctx).Where(m.Id.Eq(id)).FindByPage(offset, limit)
+
+	return result, count, err
+}
+
+// FindFirstByCreatedAt get first matched result by createdat.
+func (d *SysUserDao) FindFirstByCreatedAt(createdat time.Time) (*systemroles.SysUser, error) {
+	m := d.query.SysUser
+
+	return m.WithContext(d.ctx).Where(m.CreatedAt.Eq(createdat)).First()
+}
+
+// FindByCreatedAtPage get page by CreatedAt.
+func (d *SysUserDao) FindByCreatedAtPage(createdat time.Time, offset int, limit int) ([]*systemroles.SysUser, int64, error) {
+	m := d.query.SysUser
+
+	result, count, err := m.WithContext(d.ctx).Where(m.CreatedAt.Eq(createdat)).FindByPage(offset, limit)
+
+	return result, count, err
+}
+
+// FindFirstByUpdatedAt get first matched result by updatedat.
+func (d *SysUserDao) FindFirstByUpdatedAt(updatedat time.Time) (*systemroles.SysUser, error) {
+	m := d.query.SysUser
+
+	return m.WithContext(d.ctx).Where(m.UpdatedAt.Eq(updatedat)).First()
+}
+
+// FindByUpdatedAtPage get page by UpdatedAt.
+func (d *SysUserDao) FindByUpdatedAtPage(updatedat time.Time, offset int, limit int) ([]*systemroles.SysUser, int64, error) {
+	m := d.query.SysUser
+
+	result, count, err := m.WithContext(d.ctx).Where(m.UpdatedAt.Eq(updatedat)).FindByPage(offset, limit)
+
+	return result, count, err
+}
+
+// FindFirstByDeletedAt get first matched result by deletedat.
+func (d *SysUserDao) FindFirstByDeletedAt(deletedat time.Time) (*systemroles.SysUser, error) {
+	m := d.query.SysUser
+
+	return m.WithContext(d.ctx).Where(m.DeletedAt.Eq(deletedat)).First()
+}
+
+// FindByDeletedAtPage get page by DeletedAt.
+func (d *SysUserDao) FindByDeletedAtPage(deletedat time.Time, offset int, limit int) ([]*systemroles.SysUser, int64, error) {
+	m := d.query.SysUser
+
+	result, count, err := m.WithContext(d.ctx).Where(m.DeletedAt.Eq(deletedat)).FindByPage(offset, limit)
 
 	return result, count, err
 }
@@ -135,6 +184,22 @@ func (d *SysUserDao) FindByAvatarPage(avatar string, offset int, limit int) ([]*
 	m := d.query.SysUser
 
 	result, count, err := m.WithContext(d.ctx).Where(m.Avatar.Eq(avatar)).FindByPage(offset, limit)
+
+	return result, count, err
+}
+
+// FindFirstByDescription get first matched result by description.
+func (d *SysUserDao) FindFirstByDescription(description string) (*systemroles.SysUser, error) {
+	m := d.query.SysUser
+
+	return m.WithContext(d.ctx).Where(m.Description.Eq(description)).First()
+}
+
+// FindByDescriptionPage get page by Description.
+func (d *SysUserDao) FindByDescriptionPage(description string, offset int, limit int) ([]*systemroles.SysUser, int64, error) {
+	m := d.query.SysUser
+
+	result, count, err := m.WithContext(d.ctx).Where(m.Description.Eq(description)).FindByPage(offset, limit)
 
 	return result, count, err
 }

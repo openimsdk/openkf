@@ -16,12 +16,21 @@ package requestparams
 
 // CommunityParams register params for community.
 type CommunityParams struct {
-	Name   string  `json:"name"   binding:"required"`
-	Email  string  `json:"email"  binding:"required"`
-	Avatar *string `json:"avatar" binding:"required"` // Avatar is optional.
+	Name        string  `json:"name"   binding:"required"`
+	Email       string  `json:"email"  binding:"required"`
+	Description *string `json:"description"`               // Description is optional.
+	Avatar      *string `json:"avatar" binding:"required"` // Avatar is optional.
 }
 
 // GetCommunityInfoParams community info params.
 type GetCommunityInfoParams struct {
 	UUID string `json:"uuid"        binding:"required"`
+}
+
+// UpdateCommunityInfoParams update community info params.
+type UpdateCommunityInfoParams struct {
+	Name        *string `json:"name"`        // Name is optional.
+	Description *string `json:"description"` // Description is optional.
+	Avatar      *string `json:"avatar"`      // Avatar is optional.
+	Email       *string `json:"email"`       // Email is optional.
 }

@@ -60,6 +60,19 @@ func getFieldsRecursively(value reflect.Type) []field {
 	for i := 0; i < value.NumField(); i++ {
 		v := value.Field(i)
 
+		// Deal with *time.Time
+		// Ref: func (field Time) Eq(value time.Time) Expr {} in gorm-gen
+		if v.Type.Kind() == reflect.Ptr && v.Type.Elem().String() == "time.Time" {
+			f := field{
+				FieldName:     v.Name,
+				NormFieldName: strings.ToLower(v.Name),
+				FieldType:     "time.Time",
+			}
+			fields = append(fields, f)
+
+			continue
+		}
+
 		// Get the tag value
 		if v.Tag != "" && v.Type.Kind() != reflect.Struct &&
 			v.Type.Kind() != reflect.Bool {

@@ -7,11 +7,10 @@ package gen
 import (
 	"context"
 
+	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
-
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
 
 	"gorm.io/gen"
 	"gorm.io/gen/field"
@@ -35,6 +34,7 @@ func newSysCommunity(db *gorm.DB, opts ...gen.DOOption) sysCommunity {
 	_sysCommunity.Name = field.NewString(tableName, "name")
 	_sysCommunity.Email = field.NewString(tableName, "email")
 	_sysCommunity.Avatar = field.NewString(tableName, "avatar")
+	_sysCommunity.Description = field.NewString(tableName, "description")
 
 	_sysCommunity.fillFieldMap()
 
@@ -44,15 +44,16 @@ func newSysCommunity(db *gorm.DB, opts ...gen.DOOption) sysCommunity {
 type sysCommunity struct {
 	sysCommunityDo sysCommunityDo
 
-	ALL       field.Asterisk
-	Id        field.Uint
-	CreatedAt field.Time
-	UpdatedAt field.Time
-	DeletedAt field.Time
-	UUID      field.Field
-	Name      field.String
-	Email     field.String
-	Avatar    field.String
+	ALL         field.Asterisk
+	Id          field.Uint
+	CreatedAt   field.Time
+	UpdatedAt   field.Time
+	DeletedAt   field.Time
+	UUID        field.Field
+	Name        field.String
+	Email       field.String
+	Avatar      field.String
+	Description field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -77,6 +78,7 @@ func (s *sysCommunity) updateTableName(table string) *sysCommunity {
 	s.Name = field.NewString(table, "name")
 	s.Email = field.NewString(table, "email")
 	s.Avatar = field.NewString(table, "avatar")
+	s.Description = field.NewString(table, "description")
 
 	s.fillFieldMap()
 
@@ -101,7 +103,7 @@ func (s *sysCommunity) GetFieldByName(fieldName string) (field.OrderExpr, bool) 
 }
 
 func (s *sysCommunity) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 8)
+	s.fieldMap = make(map[string]field.Expr, 9)
 	s.fieldMap["id"] = s.Id
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["updated_at"] = s.UpdatedAt
@@ -110,6 +112,7 @@ func (s *sysCommunity) fillFieldMap() {
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["email"] = s.Email
 	s.fieldMap["avatar"] = s.Avatar
+	s.fieldMap["description"] = s.Description
 }
 
 func (s sysCommunity) clone(db *gorm.DB) sysCommunity {

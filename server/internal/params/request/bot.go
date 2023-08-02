@@ -14,12 +14,28 @@
 
 package requestparams
 
-// RegisterBotParams register params for bot.
-type RegisterBotParams struct {
+// CreateBotParams register params for bot.
+type CreateBotParams struct {
 	BotAddr     string `json:"bot_addr"     binding:"required"`
 	BotPort     int    `json:"bot_port"     binding:"required"`
 	BotToken    string `json:"bot_token"    binding:"required"`
 	Nickname    string `json:"nickname"     binding:"required"`
 	Avatar      string `json:"avatar"       binding:"required"`
-	CommunityId uint   `json:"community_id" binding:"required"`
+	Description string `json:"description"  binding:"required"`
+}
+
+// DeleteBotParams delete bot params.
+type DeleteBotParams struct {
+	UUID string `json:"uuid" binding:"required"`
+}
+
+// UpdateBotParams update bot params.
+type UpdateBotParams struct {
+	UUID        string  `json:"uuid"        binding:"required"`
+	BotAddr     *string `json:"bot_addr"`    // BotAddr is optional.
+	BotPort     *int    `json:"bot_port"`    // BotPort is optional.
+	BotToken    *string `json:"bot_token"`   // BotToken is optional.
+	Nickname    *string `json:"nickname"`    // Nickname is optional.
+	Avatar      *string `json:"avatar"`      // Avatar is optional.
+	Description *string `json:"description"` // Description is optional.
 }
