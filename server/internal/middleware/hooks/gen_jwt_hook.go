@@ -43,6 +43,7 @@ func (h *JWT) Patterns() []string {
 		"/api/v1/user/*",
 		"/api/v1/community/*",
 		"/api/v1/admin/*",
+		"/api/v1/platform/*",
 	}
 }
 

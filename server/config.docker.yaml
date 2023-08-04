@@ -65,3 +65,12 @@ openim:
   ip: 127.0.0.1
   api_port: 10002
   platform_id: 5 # web
+
+slack:
+  bot_token: 
+  app_token: 
+  app_id: # need to give string, like '1821.42'
+  client_id: 
+  client_secret: 
+  signing_secret:
+  verification_token: 

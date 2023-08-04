@@ -78,6 +78,15 @@ func ConfigInit(configPath string) {
 			ApiPort:    GetIntOrDefault("openim.api_port", 10002),
 			PlatformID: GetIntOrDefault("openim.platform_id", 5),
 		},
+		Slack: Slack{
+			BotToken:          GetString("slack.bot_token"),
+			AppToken:          GetString("slack.app_token"),
+			AppID:             GetString("slack.app_id"),
+			ClientID:          GetString("slack.client_id"),
+			ClientSecret:      GetString("slack.client_secret"),
+			SigningSecret:     GetString("slack.signing_secret"),
+			VerificationToken: GetString("slack.verification_token"),
+		},
 	}
 }
 
@@ -90,6 +99,7 @@ type config struct {
 	Minio  Minio
 	Email  Email
 	OpenIM OpenIM
+	Slack  Slack
 }
 
 // App config.
@@ -160,4 +170,15 @@ type OpenIM struct {
 	Ip         string `mapstructure:"ip"`
 	ApiPort    int    `mapstructure:"api_port"`
 	PlatformID int    `mapstructure:"platform_id"`
+}
+
+// Slack Bot config.
+type Slack struct {
+	BotToken          string `mapstructure:"bot_token"`
+	AppToken          string `mapstructure:"app_token"`
+	AppID             string `mapstructure:"app_id"`
+	ClientID          string `mapstructure:"client_id"`
+	ClientSecret      string `mapstructure:"client_secret"`
+	SigningSecret     string `mapstructure:"signing_secret"`
+	VerificationToken string `mapstructure:"verification_token"`
 }

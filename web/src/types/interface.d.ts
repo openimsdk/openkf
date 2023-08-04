@@ -22,3 +22,12 @@ export interface MenuRoute {
     name: string;
     icon: string;
 }
+
+export interface Platform {
+    order: number;
+    avatar: string;
+    name: string;
+    description: string;
+    is_enable: boolean;
+    tags: string[];
+}
