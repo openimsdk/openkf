@@ -36,7 +36,13 @@
 
 ## 📺 System Preview
 
+- Login 
+
 ![Login Page](assets/images/login_page.png)
+
+- Config
+
+![Config Page](assets/images/config_page.png)
 
 ## 🛫 Quick start 
 

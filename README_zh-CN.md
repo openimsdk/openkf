@@ -36,7 +36,13 @@
 
 ## 📺 系统预览
 
-![登录页面](./assets/images/login_page.png)
+- 登录注册
+
+![登录注册](assets/images/login_page.png)
+
+- 系统配置
+
+![系统配置](assets/images/config_page.png)
 
 ## 🛫 快速开始 
 
