@@ -36,4 +36,5 @@ type UserInfoResponse struct {
 	Description string `json:"description"`
 	IsEnable    bool   `json:"is_enable"`
 	IsAdmin     bool   `json:"is_admin"`
+	CreatedAt   string `json:"created_at"`
 }

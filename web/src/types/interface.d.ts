@@ -17,4 +17,8 @@ export interface CommunityInfo {
     description: string;
 }
 
-// export interface MenuRoute {}
+export interface MenuRoute {
+    path: string;
+    name: string;
+    icon: string;
+}

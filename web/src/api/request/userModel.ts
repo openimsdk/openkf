@@ -26,3 +26,23 @@ export interface AccountLoginParam {
 export interface GetUserInfoParam {
     uuid: string;
 }
+
+export interface CreateUserParam {
+    user_info: UserInfo;
+}
+
+export interface UpdateUserEnableStatusParam {
+    uuid: string;
+    is_enable: boolean;
+}
+
+export interface DeleteUserParam {
+    uuid: string;
+}
+
+export interface UpdateUserInfoParam {
+    avatar: string;
+    email: string;
+    nickname: string;
+    description: string;
+}

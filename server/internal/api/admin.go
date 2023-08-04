@@ -89,3 +89,32 @@ func DeleteStaff(c *gin.Context) {
 
 	response.Success(c)
 }
+
+// UpdateStaff
+// @Tags user
+// @Summary UpdateStaff
+// @Description Update staff info
+// @Produce application/json
+// @Param data body requestparams.UpdateUserInfoParams true "UpdateUserInfoParams"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/admin/staff/update [post].
+func UpdateStaff(c *gin.Context) {
+	var params requestparams.UpdateUserInfoParams
+	err := c.ShouldBindJSON(&params)
+	if err != nil || params.UUID == nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	svc := service.NewUserService(c)
+	_, err = svc.UpdateUserInfo(*params.UUID, &params)
+	if err != nil {
+		log.Debug("UpdateStaff error", err)
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	response.Success(c)
+}
