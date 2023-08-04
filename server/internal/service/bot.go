@@ -68,8 +68,8 @@ func (svc *BotService) CreateBot(cid string, params *requestparams.CreateBotPara
 		BotPort:     params.BotPort,
 		BotToken:    params.BotToken,
 		Nickname:    params.Nickname,
-		Avatar:      params.Avatar,
-		Description: params.Description,
+		Avatar:      *params.Avatar,
+		Description: *params.Description,
 		CommunityId: communityInfo.Id,
 	}
 	if err = svc.SysBotDao.Create(bot); err != nil {

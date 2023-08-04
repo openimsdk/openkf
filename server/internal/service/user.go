@@ -309,6 +309,7 @@ func (svc *UserService) GetUserInfoByUUID(uid string) (*responseparams.UserInfoR
 	resp.Description = u.Description
 	resp.IsAdmin = u.IsAdmin
 	resp.IsEnable = u.IsEnable
+	resp.CreatedAt = u.CreatedAt.Format("2006-01-02 15:04:05")
 
 	return resp, nil
 }
@@ -345,6 +346,14 @@ func (svc *UserService) UpdateUserInfo(uid string, params *requestparams.UpdateU
 		u.Email = *params.Email
 	}
 
+	// TODO: Check if the user is admin
+	if params.IsEnable != nil {
+		u.IsEnable = *params.IsEnable
+	}
+	if params.IsAdmin != nil {
+		u.IsAdmin = *params.IsAdmin
+	}
+
 	// Update user info
 	if err = svc.SysUserDao.Update(u); err != nil {
 		return resp, err
@@ -359,6 +368,7 @@ func (svc *UserService) UpdateUserInfo(uid string, params *requestparams.UpdateU
 	resp.Description = u.Description
 	resp.IsAdmin = u.IsAdmin
 	resp.IsEnable = u.IsEnable
+	resp.CreatedAt = u.CreatedAt.Format("2006-01-02 15:04:05")
 
 	return resp, nil
 }
@@ -420,6 +430,7 @@ func (svc *UserService) GetCommunityUserList(cid string, params *requestparams.L
 			Description: u.Description,
 			IsAdmin:     u.IsAdmin,
 			IsEnable:    u.IsEnable,
+			CreatedAt:   u.CreatedAt.Format("2006-01-02 15:04:05"),
 		})
 	}
 

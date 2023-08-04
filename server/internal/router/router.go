@@ -77,6 +77,7 @@ func InitRouter() *gin.Engine {
 			{
 				staff.POST("/create", api.CreateStaff) // Register a new staff
 				staff.POST("/delete", api.DeleteStaff) // Delete a staff
+				staff.POST("/update", api.UpdateStaff) // Update staff info
 			}
 			bot := admin.Group("/bot")
 			{

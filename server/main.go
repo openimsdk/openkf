@@ -40,7 +40,7 @@ func init() {
 	db.InitMysqlDB()
 	db.InitRedisDB()
 	client.InitMinio()
-	client.InitMail()
+	// client.InitMail()
 	hooks.InitHooks()
 }
 

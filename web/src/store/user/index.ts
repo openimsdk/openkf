@@ -14,8 +14,9 @@ const InitUserInfo: GetUserInfoResponse = {
     nickname: '',
     avatar: '',
     description: '',
-    is_enabled: false,
+    is_enable: false,
     is_admin: false,
+    created_at: '',
 };
 
 const InitCommunityInfo: GetCommunityInfoResponse = {
@@ -27,7 +28,7 @@ const InitCommunityInfo: GetCommunityInfoResponse = {
 };
 
 const InitToken: TokenResponse = {
-    token: '',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3V1aWQiOiI5NmUwNGQ5Mi1mZTkwLTRmMGEtYWU4MC1hZTg4YWRmNWY2ZGIiLCJjb21tdW5pdHlfdXVpZCI6ImNmZjkxMjEwLWE5MGEtNGNjYi04MmI3LWI1MzU2M2E3NzkxOSIsImlzcyI6Im9wZW5rZiIsImV4cCI6MTY5MTIwMTg1NCwibmJmIjoxNjkxMTE1NDU0fQ.vmC5UuofM0CFtqjETDu9ZKDGiCIdGNlpan2qmurJOL4',
     expire_time_seconds: 0,
 };
 
