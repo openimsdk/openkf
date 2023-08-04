@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useMenuStore } from '@/store';
 
+const router = useRouter();
+const menuStore = useMenuStore();
+const menuList = computed(() => menuStore.menu_routes);
 const collapsed = ref(true);
 const iconUrl = ref(
     'https://github.com/OpenIMSDK/OpenKF/assets/47499836/1cccc6f6-6baf-4849-b3f9-5901d683207c',
@@ -10,12 +16,18 @@ const changeCollapsed = () => {
     collapsed.value = !collapsed.value;
     iconUrl.value = collapsed.value
         ? 'https://github.com/OpenIMSDK/OpenKF/assets/47499836/1cccc6f6-6baf-4849-b3f9-5901d683207c'
-        : 'https://github.com/OpenIMSDK/OpenKF/assets/47499836/e4475b49-ccc0-4d1b-a308-b5fd150a594f';
+        : 'https://github.com/OpenIMSDK/OpenKF/assets/47499836/a5384675-325e-478c-8228-2410f2329872';
 };
 
-const changeHandler = active => {
+const changeHandler = (active:string) => {
     console.log('change', active);
 };
+
+
+const goHome = () => {
+  router.push('/home/dashboard');
+};
+
 </script>
 
 <template>
@@ -24,45 +36,16 @@ const changeHandler = active => {
         default-value="dashboard"
         :collapsed="collapsed"
         @change="changeHandler"
+        height="100vh"
     >
         <template #logo>
-            <img :width="collapsed ? 35 : 136" :src="iconUrl" alt="logo" />
+            <img :width="collapsed ? 50 : 200" :src="iconUrl" alt="logo" @click="goHome" />
         </template>
-        <t-menu-item value="dashboard" class="menu-item">
+        <t-menu-item v-for="item in menuList" :key="item.path" :value="item.path" :to="item.path">
             <template #icon>
-                <t-icon name="dashboard" />
+                <t-icon :name="item.icon" />
             </template>
-            Dashboard
-        </t-menu-item>
-        <t-menu-item value="client-session">
-            <template #icon>
-                <t-icon name="chat" />
-            </template>
-            Session
-        </t-menu-item>
-        <t-menu-item value="access-platform">
-            <template #icon>
-                <t-icon name="control-platform" />
-            </template>
-            Platform
-        </t-menu-item>
-        <t-menu-item value="system-monitor">
-            <template #icon>
-                <t-icon name="chart" />
-            </template>
-            Monitor
-        </t-menu-item>
-        <t-menu-item value="system-config">
-            <template #icon>
-                <t-icon name="setting" />
-            </template>
-            Config
-        </t-menu-item>
-        <t-menu-item value="exit">
-            <template #icon>
-                <t-icon name="login" />
-            </template>
-            Exit
+            {{ item.name }}
         </t-menu-item>
         <template #operations>
             <t-button
@@ -77,4 +60,5 @@ const changeHandler = active => {
     </t-menu>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+</style>

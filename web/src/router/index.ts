@@ -34,9 +34,9 @@ const routes = [
         component: () => import('@/views/layouts/index.vue'),
         children: [
             {
-                path: 'setting',
-                name: 'Setting',
-                component: () => import('@/views/setting/index.vue'),
+                path: 'config',
+                name: 'Config',
+                component: () => import('@/views/config/index.vue'),
             },
             {
                 path: 'platform',

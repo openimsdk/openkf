@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { CreateCommunityParam } from '../request/communityModel';
+import { CreateCommunityParam, UpdateCommunityParam } from '../request/communityModel';
 import { GetCommunityInfoResponse } from '../response/communityModel';
 import { request } from '@/utils/request';
 
 const API = {
     CreateCommunity: '/community/create',
     CommunityMe: '/community/me',
+    CommunityUpdate: '/community/update',
 };
 
 // Create community
@@ -40,6 +41,14 @@ export function getMyCommunityInfo() {
 export function getCommunityInfo(data: GetCommunityInfoResponse) {
     return request.get<GetCommunityInfoResponse>({
         url: API.CommunityMe,
+        params: data,
+    });
+}
+
+// Update community info
+export function updateCommunityInfo(data: UpdateCommunityParam) {
+    return request.post<any>({
+        url: API.CommunityUpdate,
         params: data,
     });
 }

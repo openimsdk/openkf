@@ -8,7 +8,7 @@ import { OpenIM } from '@/api/openim';
 import { OpenIMLoginConfig } from '@/constants';
 import { IMLoginParam } from '@/api/request/openimModel';
 import { ref, reactive } from 'vue';
-import { useUserStore } from '@/store';
+import { useUserStore, useMenuStore } from '@/store';
 
 const formData = reactive({ email: '', password: '' });
 const showPsw = ref(false);
@@ -83,6 +83,10 @@ const onSubmit = async (ctx: SubmitContext) => {
                                 // localCache.removeCache('token');
                             }
 
+                            // fetch menu info
+                            const menuStore = useMenuStore();
+                            menuStore.StoreMenu();
+
                             const redirect = route.query.redirect as string;
                             const redirectUrl = redirect
                                 ? decodeURIComponent(redirect)
@@ -92,6 +96,7 @@ const onSubmit = async (ctx: SubmitContext) => {
                         .catch(err => {
                             console.log(err);
                         });
+
                 })
                 .catch(err => {
                     console.log(err);

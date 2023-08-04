@@ -16,12 +16,12 @@ package requestparams
 
 // CreateBotParams register params for bot.
 type CreateBotParams struct {
-	BotAddr     string `json:"bot_addr"     binding:"required"`
-	BotPort     int    `json:"bot_port"     binding:"required"`
-	BotToken    string `json:"bot_token"    binding:"required"`
-	Nickname    string `json:"nickname"     binding:"required"`
-	Avatar      string `json:"avatar"       binding:"required"`
-	Description string `json:"description"  binding:"required"`
+	BotAddr     string  `json:"bot_addr"     binding:"required"`
+	BotPort     int     `json:"bot_port"     binding:"required"`
+	BotToken    string  `json:"bot_token"    binding:"required"`
+	Nickname    string  `json:"nickname"     binding:"required"`
+	Avatar      *string `json:"avatar"`
+	Description *string `json:"description"`
 }
 
 // DeleteBotParams delete bot params.

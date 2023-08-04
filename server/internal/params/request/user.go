@@ -48,11 +48,18 @@ type GetUserInfoParams struct {
 
 // UpdateUserInfoParams update user info params.
 type UpdateUserInfoParams struct {
+	// uuid is used for admin to update user info.
+	UUID *string `json:"uuid"`
+
 	// Email can not be updated is this period.
 	Email       *string `json:"email"`       // Email is optional.
 	Nickname    *string `json:"nickname"`    // Nickname is optional.
 	Description *string `json:"description"` // Description is optional.
 	Avatar      *string `json:"avatar"`      // Avatar is optional.
+
+	// Need to check if the user is admin.
+	IsEnable *bool `json:"is_enable"` // IsEnable is optional.
+	IsAdmin  *bool `json:"is_admin"`  // IsAdmin is optional.
 }
 
 // UpdateUserPasswordParams update user password params.

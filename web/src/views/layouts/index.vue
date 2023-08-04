@@ -4,18 +4,16 @@ import LayoutSideNav from './components/LayoutSideNav.vue';
 </script>
 
 <template>
-    <div class="base">
+    <t-layout class="base">
+        <t-aside><layout-side-nav /></t-aside>
         <t-layout>
-            <t-aside><layout-side-nav /></t-aside>
-            <t-layout>
-                <t-content><layout-content /></t-content>
-            </t-layout>
+            <t-content><layout-content /></t-content>
         </t-layout>
-    </div>
+    </t-layout>
 </template>
 
 <style lang="less" scoped>
 .base {
-    height: 100vh;
+    min-height: 100vh;
 }
 </style>

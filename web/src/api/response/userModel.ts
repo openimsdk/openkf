@@ -15,6 +15,14 @@ export interface GetUserInfoResponse {
     nickname: string;
     avatar: string;
     description: string;
-    is_enabled: boolean;
+    is_enable: boolean;
     is_admin: boolean;
+    created_at: string;
+}
+
+export interface GetUserInfoListResponse {
+    page: number;
+    page_size: number;
+    total: number;
+    list: GetUserInfoResponse[];
 }
