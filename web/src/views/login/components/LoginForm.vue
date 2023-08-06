@@ -9,6 +9,7 @@ import { OpenIMLoginConfig } from '@/constants';
 import { IMLoginParam } from '@/api/request/openimModel';
 import { ref, reactive } from 'vue';
 import { useUserStore, useMenuStore } from '@/store';
+import { localCache } from '@/utils/common/cache';
 
 const formData = reactive({ email: '', password: '' });
 const showPsw = ref(false);
@@ -96,7 +97,6 @@ const onSubmit = async (ctx: SubmitContext) => {
                         .catch(err => {
                             console.log(err);
                         });
-
                 })
                 .catch(err => {
                     console.log(err);
