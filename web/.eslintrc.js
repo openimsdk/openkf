@@ -47,5 +47,6 @@ module.exports = {
         '@typescript-eslint/ban-types': 'off',
         'vue/multi-word-component-names': 'off',
         'vue/comment-directive': 'off',
+        'no-async-promise-executor': 'off',
     },
 };
