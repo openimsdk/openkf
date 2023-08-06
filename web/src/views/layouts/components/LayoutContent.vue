@@ -3,7 +3,7 @@ import { computed, onMounted } from 'vue';
 </script>
 
 <template>
-  <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component }" class="content-container">
     <transition name="fade">
       <keep-alive>
         <component :is="Component" />
@@ -13,6 +13,11 @@ import { computed, onMounted } from 'vue';
 </template>
 
 <style lang="less" scoped>
+.content-container {
+  max-height: 100vh;
+  overflow: auto;
+}
+
 .fade-leave-active,
 .fade-enter-active {
 //   transition: opacity @anim-duration-slow @anim-time-fn-easing;
