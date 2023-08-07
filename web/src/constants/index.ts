@@ -26,3 +26,29 @@ export enum ContentTypeEnum {
     FormURLEncoded = 'application/x-www-form-urlencoded;charset=UTF-8',
     FormData = 'multipart/form-data;charset=UTF-8',
 }
+
+// Platform type
+export enum PlatformType {
+    Slack = 'Slack',
+    Web = 'Web',
+}
+
+// Define support platforms
+export const PLATFORMS = [
+    {
+        order: 1,
+        avatar: 'https://github.com/OpenIMSDK/OpenKF/assets/47499836/73b94766-9968-4b66-b0b6-cc7a6ebfda69',
+        name: PlatformType.Slack,
+        description: 'Slack is a new way to communicate with your customer. It\'s faster, better organized, and more secure than email.',
+        is_enable: true,
+        tags: ['Slack', 'LLM'], 
+    },
+    {
+        order: 2,
+        avatar: 'https://github.com/OpenIMSDK/OpenKF/assets/47499836/13292e53-68df-46f8-948c-1296ba3bf330',
+        name: PlatformType.Web,
+        description: 'Web is a basic way to communicate with your customer. It\'s light and easy to intergrate with your products.',
+        is_enable: false,
+        tags: ['Web', 'AI'],
+    }
+];

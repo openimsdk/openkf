@@ -356,3 +356,5 @@ dist
 # config files, may contain sensitive information
 dist/
 
+# OpenKF dev config
+server/config.yaml

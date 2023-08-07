@@ -117,6 +117,15 @@ func InitRouter() *gin.Engine {
 			command.POST("/callbackOfflinePushCommand", api.OfflinePush)
 			command.POST("/callbackOnlinePushCommand", api.OnlinePush)
 		}
+
+		// Platform callback api
+		platform := apiv1.Group("/platform")
+		{
+			slack := platform.Group("/slack")
+			{
+				slack.GET("/config", api.SlackConfig)
+			}
+		}
 	}
 
 	return r
