@@ -169,9 +169,11 @@ func (svc *UserService) CreateStaff(cid string, user *requestparams.RegisterStaf
 
 // registerUserToOpenIM register user to openim.
 func registerUserToOpenIM(param *request.RegisterUserParams) (bool, error) {
+	// TODO: Add get operationID
+
 	// Default not use tls/ssl
 	host := fmt.Sprintf("http://%s", net.JoinHostPort(config.Config.OpenIM.Ip, fmt.Sprintf("%d", config.Config.OpenIM.ApiPort)))
-	resp, err := user.RegisterUser(param, host)
+	resp, err := user.RegisterUser(param, "registerUserToOpenIM", host)
 	if err != nil {
 		return false, err
 	}
@@ -259,9 +261,11 @@ func (svc *UserService) LoginWithAccount(param *requestparams.LoginParamsWithAcc
 
 // getUserIMToken get user im token.
 func getUserIMToken(param *request.UserTokenParams) (*response.TokenData, error) {
+	// TODO: Add operationID
+
 	// Default not use tls/ssl
 	host := fmt.Sprintf("http://%s", net.JoinHostPort(config.Config.OpenIM.Ip, fmt.Sprintf("%d", config.Config.OpenIM.ApiPort)))
-	resp, err := auth.GetUserToken(param, host)
+	resp, err := auth.GetUserToken(param, "getUserIMToken", host)
 	if err != nil {
 		return &response.TokenData{}, err
 	}
