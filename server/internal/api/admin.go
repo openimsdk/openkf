@@ -37,7 +37,7 @@ import (
 func CreateStaff(c *gin.Context) {
 	uuid, err := utils.GetCommunityUUID(c)
 	if err != nil {
-		response.FailWithCode(common.ERROR, c)
+		response.FailWithAll(common.ERROR, err.Error(), c)
 
 		return
 	}
@@ -53,7 +53,7 @@ func CreateStaff(c *gin.Context) {
 	svc := service.NewUserService(c)
 	_, _, err = svc.CreateStaff(uuid, &params)
 	if err != nil {
-		response.FailWithCode(common.ERROR, c)
+		response.FailWithAll(common.ERROR, err.Error(), c)
 
 		return
 	}

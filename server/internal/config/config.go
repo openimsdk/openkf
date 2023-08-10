@@ -77,6 +77,7 @@ func ConfigInit(configPath string) {
 			Ip:         GetStringOrDefault("openim.ip", "127.0.0.1"),
 			ApiPort:    GetIntOrDefault("openim.api_port", 10002),
 			PlatformID: GetIntOrDefault("openim.platform_id", 5),
+			AdminID:    GetStringOrDefault("openim.admin_id", "openkf_admin"),
 		},
 		Slack: Slack{
 			BotToken:          GetString("slack.bot_token"),
@@ -170,6 +171,7 @@ type OpenIM struct {
 	Ip         string `mapstructure:"ip"`
 	ApiPort    int    `mapstructure:"api_port"`
 	PlatformID int    `mapstructure:"platform_id"`
+	AdminID    string `mapstructure:"admin_id"`
 }
 
 // Slack Bot config.

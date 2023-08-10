@@ -30,7 +30,7 @@ func newSysCommunity(db *gorm.DB, opts ...gen.DOOption) sysCommunity {
 	_sysCommunity.CreatedAt = field.NewTime(tableName, "created_at")
 	_sysCommunity.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysCommunity.DeletedAt = field.NewTime(tableName, "deleted_at")
-	_sysCommunity.UUID = field.NewField(tableName, "uuid")
+	_sysCommunity.UUID = field.NewString(tableName, "uuid")
 	_sysCommunity.Name = field.NewString(tableName, "name")
 	_sysCommunity.Email = field.NewString(tableName, "email")
 	_sysCommunity.Avatar = field.NewString(tableName, "avatar")
@@ -49,7 +49,7 @@ type sysCommunity struct {
 	CreatedAt   field.Time
 	UpdatedAt   field.Time
 	DeletedAt   field.Time
-	UUID        field.Field
+	UUID        field.String
 	Name        field.String
 	Email       field.String
 	Avatar      field.String
@@ -74,7 +74,7 @@ func (s *sysCommunity) updateTableName(table string) *sysCommunity {
 	s.CreatedAt = field.NewTime(table, "created_at")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.DeletedAt = field.NewTime(table, "deleted_at")
-	s.UUID = field.NewField(table, "uuid")
+	s.UUID = field.NewString(table, "uuid")
 	s.Name = field.NewString(table, "name")
 	s.Email = field.NewString(table, "email")
 	s.Avatar = field.NewString(table, "avatar")
