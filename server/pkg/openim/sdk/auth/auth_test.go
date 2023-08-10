@@ -42,7 +42,9 @@ func TestGetUserToken(t *testing.T) {
 			Secret:     data.secret,
 			PlatformID: data.platformID,
 			UserID:     data.userID,
-		}, "http://127.0.0.1:10002")
+		},
+			"123123123123",
+			"http://127.0.0.1:10002")
 		if err != nil {
 			t.Error(err)
 		}

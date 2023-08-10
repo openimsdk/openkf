@@ -20,7 +20,6 @@ import (
 	"net"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gofrs/uuid"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
@@ -73,7 +72,7 @@ func (svc *UserService) CreateAdmin(user *requestparams.RegisterAdminParams) (st
 	}
 
 	// Create admin
-	uuid := utils.GenUUID()
+	uuid := utils.GenUUIDWithoutHyphen()
 	adminParam := user.UserInfo
 	admin := &systemroles.SysUser{
 		UserBase: base.UserBase{
@@ -88,7 +87,7 @@ func (svc *UserService) CreateAdmin(user *requestparams.RegisterAdminParams) (st
 		CommunityId: cid,
 	}
 	if err = svc.SysUserDao.Create(admin); err != nil {
-		return uuid.String(), 0, err
+		return uuid, 0, err
 	}
 
 	u, _ := svc.SysUserDao.FindFirstByUUID(uuid)
@@ -98,7 +97,7 @@ func (svc *UserService) CreateAdmin(user *requestparams.RegisterAdminParams) (st
 		Secret: config.Config.OpenIM.Secret,
 		Users: []request.User{
 			{
-				UserID:   uuid.String(),
+				UserID:   uuid,
 				Nickname: adminParam.Nickname,
 				FaceURL:  "", // Use OpenKF avatar
 			},
@@ -109,23 +108,18 @@ func (svc *UserService) CreateAdmin(user *requestparams.RegisterAdminParams) (st
 		// Assume that the user has been created/deleted successfully
 		_ = svc.SysUserDao.Delete(u)
 
-		return uuid.String(), u.Id, err
+		return uuid, u.Id, err
 	}
 
-	return uuid.String(), u.Id, nil
+	return uuid, u.Id, nil
 }
 
 // CreateStaff create staff user.
 func (svc *UserService) CreateStaff(cid string, user *requestparams.RegisterStaffParams) (string, uint, error) {
 	// Create staff
-	uid := utils.GenUUID()
+	uid := utils.GenUUIDWithoutHyphen()
 
-	// Get community id
-	_uuid, err := uuid.FromString(cid)
-	if err != nil {
-		return "", 0, err
-	}
-	communityInfo, err := svc.SysCommunityDao.FindFirstByUUID(_uuid)
+	communityInfo, err := svc.SysCommunityDao.FindFirstByUUID(cid)
 	if err != nil {
 		return "", 0, err
 	}
@@ -144,7 +138,7 @@ func (svc *UserService) CreateStaff(cid string, user *requestparams.RegisterStaf
 		CommunityId: communityInfo.Id,
 	}
 	if err = svc.SysUserDao.Create(staff); err != nil {
-		return uid.String(), 0, err
+		return uid, 0, err
 	}
 
 	// TODO: Send email to staff
@@ -156,7 +150,7 @@ func (svc *UserService) CreateStaff(cid string, user *requestparams.RegisterStaf
 		Secret: config.Config.OpenIM.Secret,
 		Users: []request.User{
 			{
-				UserID:   uid.String(),
+				UserID:   uid,
 				Nickname: staffParam.Nickname,
 				FaceURL:  "", // Use OpenKF avatar
 			},
@@ -167,10 +161,10 @@ func (svc *UserService) CreateStaff(cid string, user *requestparams.RegisterStaf
 		// Assume that the user has been created/deleted successfully
 		_ = svc.SysUserDao.Delete(u)
 
-		return uid.String(), u.Id, err
+		return uid, u.Id, err
 	}
 
-	return uid.String(), u.Id, nil
+	return uid, u.Id, nil
 }
 
 // registerUserToOpenIM register user to openim.
@@ -195,12 +189,7 @@ func (svc *UserService) DeleteStaff(uid string) error {
 		return common.NewError(common.I_INVALID_PARAM)
 	}
 
-	_uuid, err := uuid.FromString(uid)
-	if err != nil {
-		return err
-	}
-
-	u, err := svc.SysUserDao.FindFirstByUUID(_uuid)
+	u, err := svc.SysUserDao.FindFirstByUUID(uid)
 	if err != nil {
 		return err
 	}
@@ -236,7 +225,7 @@ func (svc *UserService) LoginWithAccount(param *requestparams.LoginParamsWithAcc
 	}
 
 	// Generate KF token
-	kfToken, kfExpireTimeSeconds, err := internal_utils.GenerateJwtToken(u.UUID.String(), c.UUID)
+	kfToken, kfExpireTimeSeconds, err := internal_utils.GenerateJwtToken(u.UUID, c.UUID)
 	if err != nil {
 		return resp, err
 	}
@@ -244,7 +233,7 @@ func (svc *UserService) LoginWithAccount(param *requestparams.LoginParamsWithAcc
 	// Get IM token
 	imParam := &request.UserTokenParams{
 		Secret:     config.Config.OpenIM.Secret,
-		UserID:     u.UUID.String(),
+		UserID:     u.UUID,
 		PlatformID: uint(config.Config.OpenIM.PlatformID),
 	}
 	imResp, err := getUserIMToken(imParam)
@@ -253,7 +242,7 @@ func (svc *UserService) LoginWithAccount(param *requestparams.LoginParamsWithAcc
 	}
 
 	// Fill response data
-	resp.UUID = u.UUID.String()
+	resp.UUID = u.UUID
 	resp.KFToken = &responseparams.TokenResponse{
 		Token:             kfToken,
 		ExpireTimeSeconds: kfExpireTimeSeconds,
@@ -292,17 +281,12 @@ func (svc *UserService) GetUserInfoByUUID(uid string) (*responseparams.UserInfoR
 		return resp, common.NewError(common.I_INVALID_PARAM)
 	}
 
-	_uuid, err := uuid.FromString(uid)
+	u, err := svc.SysUserDao.FindFirstByUUID(uid)
 	if err != nil {
 		return resp, err
 	}
 
-	u, err := svc.SysUserDao.FindFirstByUUID(_uuid)
-	if err != nil {
-		return resp, err
-	}
-
-	resp.UUID = u.UUID.String()
+	resp.UUID = u.UUID
 	resp.Email = u.Email
 	resp.Nickname = u.Nickname
 	resp.Avatar = u.Avatar
@@ -322,12 +306,7 @@ func (svc *UserService) UpdateUserInfo(uid string, params *requestparams.UpdateU
 		return resp, common.NewError(common.I_INVALID_PARAM)
 	}
 
-	_uuid, err := uuid.FromString(uid)
-	if err != nil {
-		return resp, err
-	}
-
-	u, err := svc.SysUserDao.FindFirstByUUID(_uuid)
+	u, err := svc.SysUserDao.FindFirstByUUID(uid)
 	if err != nil {
 		return resp, err
 	}
@@ -360,8 +339,8 @@ func (svc *UserService) UpdateUserInfo(uid string, params *requestparams.UpdateU
 	}
 
 	// Get new info
-	u, _ = svc.SysUserDao.FindFirstByUUID(_uuid)
-	resp.UUID = u.UUID.String()
+	u, _ = svc.SysUserDao.FindFirstByUUID(uid)
+	resp.UUID = u.UUID
 	resp.Email = u.Email
 	resp.Nickname = u.Nickname
 	resp.Avatar = u.Avatar
@@ -379,12 +358,7 @@ func (svc *UserService) UpdateUserPassword(uid string, params *requestparams.Upd
 		return common.NewError(common.I_INVALID_PARAM)
 	}
 
-	_uuid, err := uuid.FromString(uid)
-	if err != nil {
-		return err
-	}
-
-	u, err := svc.SysUserDao.FindFirstByUUID(_uuid)
+	u, err := svc.SysUserDao.FindFirstByUUID(uid)
 	if err != nil {
 		return err
 	}
@@ -423,7 +397,7 @@ func (svc *UserService) GetCommunityUserList(cid string, params *requestparams.L
 	// Fill response data
 	for _, u := range users {
 		userInfos = append(userInfos, &responseparams.UserInfoResponse{
-			UUID:        u.UUID.String(),
+			UUID:        u.UUID,
 			Email:       u.Email,
 			Nickname:    u.Nickname,
 			Avatar:      u.Avatar,

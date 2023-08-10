@@ -65,6 +65,7 @@ openim:
   ip: 127.0.0.1
   api_port: 10002
   platform_id: 5 # web
+  admin_id: openkf_admin # OpenIMServer admin userID
 
 slack:
   bot_token: 

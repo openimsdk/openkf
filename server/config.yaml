@@ -61,10 +61,11 @@ email:
   pool_size: 4
 
 openim:
-  secret: openkf
+  secret: openIM123
   ip: 127.0.0.1
   api_port: 10002
   platform_id: 5 # web
+  admin_id: openIMAdmin
 
 slack:
   bot_token: 

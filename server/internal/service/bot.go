@@ -16,7 +16,6 @@ package service
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/gofrs/uuid"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
@@ -50,14 +49,9 @@ func NewBotService(c *gin.Context) *BotService {
 // CreateBot create bot.
 func (svc *BotService) CreateBot(cid string, params *requestparams.CreateBotParams) (string, uint, error) {
 	// Create bot
-	uid := utils.GenUUID()
+	uid := utils.GenUUIDWithoutHyphen()
 
-	// Get community id
-	_uuid, err := uuid.FromString(cid)
-	if err != nil {
-		return "", 0, err
-	}
-	communityInfo, err := svc.SysCommunityDao.FindFirstByUUID(_uuid)
+	communityInfo, err := svc.SysCommunityDao.FindFirstByUUID(cid)
 	if err != nil {
 		return "", 0, err
 	}
@@ -73,7 +67,7 @@ func (svc *BotService) CreateBot(cid string, params *requestparams.CreateBotPara
 		CommunityId: communityInfo.Id,
 	}
 	if err = svc.SysBotDao.Create(bot); err != nil {
-		return uid.String(), 0, err
+		return uid, 0, err
 	}
 
 	b, _ := svc.SysBotDao.FindFirstByUUID(uid)
@@ -83,7 +77,7 @@ func (svc *BotService) CreateBot(cid string, params *requestparams.CreateBotPara
 		Secret: config.Config.OpenIM.Secret,
 		Users: []request.User{
 			{
-				UserID:   uid.String(),
+				UserID:   uid,
 				Nickname: params.Nickname,
 				FaceURL:  "", // Use OpenKF avatar
 			},
@@ -94,10 +88,10 @@ func (svc *BotService) CreateBot(cid string, params *requestparams.CreateBotPara
 		// Assume that the user has been created/deleted successfully
 		_ = svc.SysBotDao.Delete(b)
 
-		return uid.String(), b.Id, err
+		return uid, b.Id, err
 	}
 
-	return uid.String(), b.Id, nil
+	return uid, b.Id, nil
 }
 
 // GetCommunityBotList get community bot list.
@@ -120,7 +114,7 @@ func (svc *BotService) GetCommunityBotList(cid string, params *requestparams.Lis
 	// Fill response data
 	for _, b := range bots {
 		botInfos = append(botInfos, &responseparams.BotInfoResponse{
-			UUID:        b.UUID.String(),
+			UUID:        b.UUID,
 			BotAddr:     b.BotAddr,
 			BotPort:     b.BotPort,
 			BotToken:    b.BotToken,
@@ -144,12 +138,7 @@ func (svc *BotService) DeleteBot(uid string) error {
 		return common.NewError(common.I_INVALID_PARAM)
 	}
 
-	_uuid, err := uuid.FromString(uid)
-	if err != nil {
-		return err
-	}
-
-	u, err := svc.SysBotDao.FindFirstByUUID(_uuid)
+	u, err := svc.SysBotDao.FindFirstByUUID(uid)
 	if err != nil {
 		return err
 	}
@@ -170,12 +159,7 @@ func (svc *BotService) UpdateBotInfo(params *requestparams.UpdateBotParams) (*re
 		return resp, common.NewError(common.I_INVALID_PARAM)
 	}
 
-	_uuid, err := uuid.FromString(params.UUID)
-	if err != nil {
-		return resp, err
-	}
-
-	b, err := svc.SysBotDao.FindFirstByUUID(_uuid)
+	b, err := svc.SysBotDao.FindFirstByUUID(params.UUID)
 	if err != nil {
 		return resp, err
 	}
@@ -206,8 +190,8 @@ func (svc *BotService) UpdateBotInfo(params *requestparams.UpdateBotParams) (*re
 	}
 
 	// Get new info
-	b, _ = svc.SysBotDao.FindFirstByUUID(_uuid)
-	resp.UUID = b.UUID.String()
+	b, _ = svc.SysBotDao.FindFirstByUUID(params.UUID)
+	resp.UUID = b.UUID
 	resp.BotAddr = b.BotAddr
 	resp.BotPort = b.BotPort
 	resp.BotToken = b.BotToken

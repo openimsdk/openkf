@@ -22,8 +22,8 @@ import (
 
 // Client client.
 type Client interface {
-	GET(operationID string, params interface{}) (map[string]interface{}, error)
-	POST(operationID string, params interface{}) (map[string]interface{}, error)
+	GET(operationID, token string, params interface{}) (map[string]interface{}, error)
+	POST(operationID, token string, params interface{}) (map[string]interface{}, error)
 }
 
 // httpClient http client.
@@ -41,15 +41,16 @@ func NewClient(url string) Client {
 }
 
 // GET get unimplemented.
-func (c *httpClient) GET(operationID string, params interface{}) (map[string]interface{}, error) {
+func (c *httpClient) GET(operationID, token string, params interface{}) (map[string]interface{}, error) {
 	return nil, nil
 }
 
 // POST post.
-func (c *httpClient) POST(operationID string, params interface{}) (map[string]interface{}, error) {
+func (c *httpClient) POST(operationID, token string, params interface{}) (map[string]interface{}, error) {
 	resp, err := c.client.R().
 		SetHeader("Content-Type", "application/json").
 		SetHeader("operationID", operationID).
+		SetHeader("token", token).
 		SetBody(params).
 		Post(c.url)
 	if err != nil {

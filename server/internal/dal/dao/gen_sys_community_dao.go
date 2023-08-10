@@ -18,8 +18,6 @@ import (
 	"context"
 	"time"
 
-	"github.com/gofrs/uuid"
-
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/gen"
@@ -125,14 +123,14 @@ func (d *SysCommunityDao) FindByDeletedAtPage(deletedat time.Time, offset int, l
 }
 
 // FindFirstByUUID get first matched result by uuid.
-func (d *SysCommunityDao) FindFirstByUUID(uuid uuid.UUID) (*systemroles.SysCommunity, error) {
+func (d *SysCommunityDao) FindFirstByUUID(uuid string) (*systemroles.SysCommunity, error) {
 	m := d.query.SysCommunity
 
 	return m.WithContext(d.ctx).Where(m.UUID.Eq(uuid)).First()
 }
 
 // FindByUUIDPage get page by UUID.
-func (d *SysCommunityDao) FindByUUIDPage(uuid uuid.UUID, offset int, limit int) ([]*systemroles.SysCommunity, int64, error) {
+func (d *SysCommunityDao) FindByUUIDPage(uuid string, offset int, limit int) ([]*systemroles.SysCommunity, int64, error) {
 	m := d.query.SysCommunity
 
 	result, count, err := m.WithContext(d.ctx).Where(m.UUID.Eq(uuid)).FindByPage(offset, limit)

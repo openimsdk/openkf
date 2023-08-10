@@ -31,7 +31,7 @@ func newSysBot(db *gorm.DB, opts ...gen.DOOption) sysBot {
 	_sysBot.CreatedAt = field.NewTime(tableName, "created_at")
 	_sysBot.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysBot.DeletedAt = field.NewTime(tableName, "deleted_at")
-	_sysBot.UUID = field.NewField(tableName, "uuid")
+	_sysBot.UUID = field.NewString(tableName, "uuid")
 	_sysBot.BotAddr = field.NewString(tableName, "bot_addr")
 	_sysBot.BotPort = field.NewInt(tableName, "bot_port")
 	_sysBot.BotToken = field.NewString(tableName, "bot_token")
@@ -58,7 +58,7 @@ type sysBot struct {
 	CreatedAt   field.Time
 	UpdatedAt   field.Time
 	DeletedAt   field.Time
-	UUID        field.Field
+	UUID        field.String
 	BotAddr     field.String
 	BotPort     field.Int
 	BotToken    field.String
@@ -87,7 +87,7 @@ func (s *sysBot) updateTableName(table string) *sysBot {
 	s.CreatedAt = field.NewTime(table, "created_at")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.DeletedAt = field.NewTime(table, "deleted_at")
-	s.UUID = field.NewField(table, "uuid")
+	s.UUID = field.NewString(table, "uuid")
 	s.BotAddr = field.NewString(table, "bot_addr")
 	s.BotPort = field.NewInt(table, "bot_port")
 	s.BotToken = field.NewString(table, "bot_token")
