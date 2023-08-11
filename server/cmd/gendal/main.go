@@ -19,6 +19,7 @@ import (
 
 	"gorm.io/gen"
 
+	customerroles "github.com/OpenIMSDK/OpenKF/server/internal/models/customer_roles"
 	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
 )
 
@@ -38,6 +39,8 @@ func main() {
 		systemroles.SysCustomer{},
 		systemroles.SysCommunity{},
 		systemroles.SysBot{},
+
+		customerroles.CustomerSlack{},
 	}
 
 	// Generate basic dao

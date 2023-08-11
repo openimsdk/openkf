@@ -22,6 +22,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks"
+	slackcmd "github.com/OpenIMSDK/OpenKF/server/internal/msg/slack_cmd"
 	"github.com/OpenIMSDK/OpenKF/server/internal/router"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
@@ -42,6 +43,7 @@ func init() {
 	client.InitMinio()
 	// client.InitMail()
 	hooks.InitHooks()
+	slackcmd.InitSlack()
 }
 
 //go:generate go env -w GO111MODULE=on
