@@ -12,9 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package user
+package msg
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/client"
@@ -23,18 +24,18 @@ import (
 )
 
 const (
-	// PATH_USER_REGISTER register user path.
-	PATH_USER_REGISTER = "/user/user_register"
+	// PATH_SEND_MSG admin send message.
+	PATH_SEND_MSG = "/msg/send_msg"
 )
 
-// RegisterUser register user.
-func RegisterUser(param *request.RegisterUserParams, operationID, host string) (*response.BaseResponse, error) {
+// AdminSendMsg admin send message.
+func AdminSendMsg(param *request.MsgInfo, operationID, host, adminToken string) (*response.BaseResponse, error) {
 	// host: http://ip:port
-	url := fmt.Sprintf("%s%s", host, PATH_USER_REGISTER)
+	url := fmt.Sprintf("%s%s", host, PATH_SEND_MSG)
 
 	r := &response.BaseResponse{}
 	client := client.NewClient(url)
-	resp, err := client.POST(operationID, "", param)
+	resp, err := client.POST(operationID, adminToken, param)
 	if err != nil {
 		return r, err
 	}
@@ -42,6 +43,12 @@ func RegisterUser(param *request.RegisterUserParams, operationID, host string) (
 	r.ErrCode = uint(resp["errCode"].(float64))
 	r.ErrMsg = resp["errMsg"].(string)
 	r.ErrDlt = resp["errDlt"].(string)
+
+	if resp["data"] == nil {
+		return r, errors.New("data is nil")
+	}
+
+	r.Data = resp["data"]
 
 	return r, nil
 }

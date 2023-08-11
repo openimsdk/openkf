@@ -49,7 +49,9 @@ func TestRegisterUser(t *testing.T) {
 					FaceURL:  data.faceURL,
 				},
 			},
-		}, "http://127.0.0.1:10002")
+		},
+			"123123123",
+			"http://127.0.0.1:10002")
 		if err != nil {
 			t.Error(err)
 		}

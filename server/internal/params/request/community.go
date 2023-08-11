@@ -18,8 +18,8 @@ package requestparams
 type CommunityParams struct {
 	Name        string  `json:"name"   binding:"required"`
 	Email       string  `json:"email"  binding:"required"`
-	Description *string `json:"description"`               // Description is optional.
-	Avatar      *string `json:"avatar" binding:"required"` // Avatar is optional.
+	Description *string `json:"description"` // Description is optional.
+	Avatar      *string `json:"avatar"`      // Avatar is optional.
 }
 
 // GetCommunityInfoParams community info params.

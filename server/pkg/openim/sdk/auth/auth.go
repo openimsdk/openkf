@@ -28,13 +28,13 @@ const (
 )
 
 // GetUserToken get user token from openim server.
-func GetUserToken(param *request.UserTokenParams, host string) (*response.UserTokenResponse, error) {
+func GetUserToken(param *request.UserTokenParams, operationID, host string) (*response.UserTokenResponse, error) {
 	// host: http://ip:port
 	url := fmt.Sprintf("%s%s", host, PATH_USER_TOKEN)
 
 	r := &response.UserTokenResponse{}
 	client := client.NewClient(url)
-	resp, err := client.POST(PATH_USER_TOKEN, param)
+	resp, err := client.POST(operationID, "", param)
 	if err != nil {
 		return r, err
 	}

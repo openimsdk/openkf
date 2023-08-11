@@ -12,24 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package response
+package constant
 
-// BaseResponse base response.
-type BaseResponse struct {
-	ErrCode uint        `json:"errCode"`
-	ErrMsg  string      `json:"errMsg"`
-	ErrDlt  string      `json:"errDlt"`
-	Data    interface{} `json:"data"`
-}
+// Platform types.
+const (
+	PLATFORMID_IOS        = 1
+	PLATFORMID_ANDROID    = 2
+	PLATFORMID_WINDOWS    = 3
+	PLATFORMID_OSX        = 4
+	PLATFORMID_WEB        = 5
+	PLATFORMID_MINIWEB    = 6
+	PLATFORMID_LINUX      = 7
+	PLATFORMID_ANDROIDPAD = 8
+	PLATFORMID_IPAD       = 9
+)
 
-// UserTokenResponse user token response.
-type UserTokenResponse struct {
-	BaseResponse
-	Data TokenData `json:"data"`
-}
+// Msg types.
+const (
+	CONTENT_TYPE_TEXT  = 101
+	CONTENT_TYPE_IMAGE = 102
+)
 
-// TokenData token data.
-type TokenData struct {
-	Token             string `json:"token"`
-	ExpireTimeSeconds uint   `json:"expireTimeSeconds"`
-}
+// Session types.
+const (
+	SESSION_TYPE_SINGLE_CHAT                = 1
+	SESSION_TYPE_GROUP_CHAT                 = 2
+	SESSION_TYPE_LARGE_GROUP_READ_DIFFUSION = 3
+	SESSION_TYPE_NOTIFY                     = 4
+)
