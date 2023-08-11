@@ -183,7 +183,7 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
       >
         <template #avatar="{ row }">
           <t-avatar v-if="row.avatar === ''">{{ getAvatarString(row.nickname) }}</t-avatar>
-          <t-avatar v-else :alt="getAvatarString(row.nickname)" hide-on-load-failed="true" :image="row.avatar" />
+          <t-avatar v-else :alt="getAvatarString(row.nickname)" :hide-on-load-failed="true" :image="row.avatar" />
         </template>
         <template #op="slotProps">
           <a class="t-button-link" @click="handleClickEdit(slotProps)">Edit</a>

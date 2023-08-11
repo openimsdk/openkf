@@ -7,7 +7,7 @@ import { ContentTypeEnum } from '@/constants';
 import { VAxios } from './axios';
 import type { AxiosTransform, CreateAxiosOptions } from './transform';
 import { formatRequestDate, joinTimestamp, setObjToUrlParams } from './utils';
-import { useUserStore } from '@/store';
+import useUserStore from '@/store/user';
 
 // Default API url
 const host = import.meta.env.VITE_API_URL;

@@ -8,5 +8,7 @@ export { store };
 
 export * from './menu';
 export * from './user';
+export * from './openim_session';
+export * from './openim_message';
 
 export default store;

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import usePermissionStore  from '@/store';
 import type { MenuRoute }  from '@/types/interface'
 import type { MenuInfoResponse } from '@/api/response/menuModel';
+import store from "../index";
 
 const MockMenuInfo: MenuInfoResponse[] = [
     {
@@ -36,7 +37,7 @@ const MockMenuInfo: MenuInfoResponse[] = [
     }
 ]
 
-export const useMenuStore = defineStore('menu', {
+const useStore = defineStore('menu', {
     state: () => ({
         menu_routes: MockMenuInfo,
     }),
@@ -47,3 +48,7 @@ export const useMenuStore = defineStore('menu', {
         }
     }
 });
+
+export default function useMenuStore() {
+  return useStore(store);
+}

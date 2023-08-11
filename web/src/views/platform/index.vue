@@ -31,14 +31,14 @@ const onCancel = () => {
   <div :class="[isDark ? 'dark' : 'light', 'platform-wrapper']">
     <div class="platform-header ">
         <t-row align="middle">
-            <t-col span="10">
+            <t-col :span="10">
                 <h2 class="welcome">Platform</h2>
                 <h1 class="sub-title">
                     Check and use various platform access.
                 </h1>
             </t-col>
         
-            <t-col span="2" align="center">
+            <t-col :span="2" align="center">
                 <!-- TODO: check OpenKF version and update. -->
                 <t-tooltip content="Check OpenKF Version [TODO...]" >
                   <t-button theme="default" variant="outline" @click="checkUpdate">

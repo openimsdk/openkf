@@ -14,7 +14,7 @@
         "echarts": "^5.4.2",
         "less-loader": "^11.1.3",
         "lodash": "^4.17.21",
-        "open-im-sdk-wasm": "^0.1.1",
+        "open-im-sdk-wasm": "^3.1.0",
         "pinia": "^2.1.4",
         "pinia-plugin-persistedstate": "^3.1.0",
         "qs": "^6.11.2",

@@ -44,3 +44,17 @@ export const getNowDiffDays = (date: string): number => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
 }
+
+// Return a time from date
+// if date is today, return time
+// if date is yesterday, return yesterday
+// if date is before yesterday, return date
+export const getTimeFromDate = (timestamp: number | string): string => {
+    const dat  = new Date(timestamp);
+    const diffDays = getNowDiffDays(dat.toString());
+    if (diffDays === 0) {
+        return dat.getHours() + ':' + dat.getMinutes();
+    } else {
+        return dat.getDate() + '/' + (dat.getMonth() + 1) + '/' + dat.getFullYear();
+    }
+}

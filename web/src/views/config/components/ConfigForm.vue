@@ -92,14 +92,14 @@ const updateMyAndCommunityInfo = async () => {
     <div :class="[isDark ? 'dark' : 'light', 'config-form-wrapper']">
         <div class="config-header ">
             <t-row align="middle">
-                <t-col span="11">
+                <t-col :span="11">
                     <h2 class="welcome">Config</h2>
                     <h1 class="sub-title">
                         All configs of your custom service.
                     </h1>
                 </t-col>
             
-                <t-col span="1">
+                <t-col :span="1">
                     <!-- <t-button theme="default" shape="circle" variant="outline" @click="fetchData"><icon name="refresh" /></t-button>  -->
                     <t-tooltip content="Update config info"><t-button theme="default" variant="outline" @click="updateMyAndCommunityInfo">Update</t-button></t-tooltip>
                 </t-col>
@@ -125,7 +125,7 @@ const updateMyAndCommunityInfo = async () => {
             <t-list-item-meta  title="Avatar" description="Your avatar" />
             <template #action>
                 <t-avatar v-if="myInfo.avatar === ''">{{ getAvatarString(myInfo.nickname) }}</t-avatar>
-                <t-avatar v-else :alt="getAvatarString(myInfo.nickname)" hide-on-load-failed="true" :image="myInfo.avatar" />
+                <t-avatar v-else :alt="getAvatarString(myInfo.nickname)" :hide-on-load-failed="true" :image="myInfo.avatar" />
             </template>
         </t-list-item>
         <t-list-item>
@@ -186,7 +186,7 @@ const updateMyAndCommunityInfo = async () => {
         <t-list-item-meta  title="Avatar" description="Community avatar" />
             <template #action>
                 <t-avatar v-if="communityInfo.avatar === ''">{{ getAvatarString(communityInfo.name) }}</t-avatar>
-                <t-avatar v-else :alt="getAvatarString(communityInfo.name)" hide-on-load-failed="true" :image="communityInfo.avatar" />
+                <t-avatar v-else :alt="getAvatarString(communityInfo.name)" :hide-on-load-failed="true" :image="communityInfo.avatar" />
             </template>
         </t-list-item>
         <t-list-item>
