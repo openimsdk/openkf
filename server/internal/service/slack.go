@@ -18,6 +18,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/slack-go/slack"
+
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
@@ -25,10 +27,9 @@ import (
 	responseparams "github.com/OpenIMSDK/OpenKF/server/internal/params/response"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
-	"github.com/slack-go/slack"
 )
 
-// SLACK_PERFIX do not use separator
+// SLACK_PERFIX do not use separator.
 const SLACK_PERFIX = "slack"
 
 // SlackService bot service.
@@ -107,7 +108,7 @@ func (svc *SlackService) CreateCustomer(userId string, profile *slack.UserProfil
 		StatusExpiration:      profile.StatusExpiration,
 		Team:                  profile.Team,
 	}
-	if err := svc.CustomerSlackDao.Create(&customerSlack); err != nil {
+	if err = svc.CustomerSlackDao.Create(&customerSlack); err != nil {
 		return customerSlack.UUID, 0, err
 	}
 

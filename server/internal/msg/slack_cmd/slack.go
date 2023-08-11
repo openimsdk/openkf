@@ -18,20 +18,22 @@ import (
 	"context"
 	"strings"
 
+	"github.com/shomali11/slacker"
+
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/service"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
-	"github.com/shomali11/slacker"
 )
 
+// InitSlack init slack client.
 func InitSlack() {
-	bot_token := config.Config.Slack.BotToken
-	app_token := config.Config.Slack.AppToken
+	botToken := config.Config.Slack.BotToken
+	appToken := config.Config.Slack.AppToken
 	debug := config.Config.App.Debug
 
 	svc := service.NewSlackService(context.Background())
 
-	bot := slacker.NewClient(bot_token, app_token, slacker.WithDebug(debug))
+	bot := slacker.NewClient(botToken, appToken, slacker.WithDebug(debug))
 
 	// receive all @ message
 	bot.Command("<question>", &slacker.CommandDefinition{
@@ -41,6 +43,7 @@ func InitSlack() {
 			senderId, _, err := svc.CreateCustomer(messageEvent.UserID, messageEvent.UserProfile)
 			if err != nil {
 				log.Errorf("Slack", "CreateCustomer failed: %s", err.Error())
+
 				return
 			}
 
@@ -50,15 +53,15 @@ func InitSlack() {
 			question = strings.Join(words[1:], " ")
 
 			_ = senderId
-			w.Reply("senderId", slacker.WithThreadReply(true))
+			_ = question
+			_ = w.Reply("senderId", slacker.WithThreadReply(true))
 		},
 	})
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	err := bot.Listen(ctx)
-	if err != nil {
+	if err := bot.Listen(ctx); err != nil {
 		log.Panicf("Slack Client", "Connection failed: %s", err.Error())
 	}
 }
