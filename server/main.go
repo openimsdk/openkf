@@ -43,7 +43,6 @@ func init() {
 	client.InitMinio()
 	// client.InitMail()
 	hooks.InitHooks()
-	slackcmd.InitSlackListen()
 }
 
 //go:generate go env -w GO111MODULE=on
@@ -59,6 +58,9 @@ func init() {
 // @name Authorization.
 func main() {
 	serverAddress := fmt.Sprintf("%s:%d", config.Config.Server.Ip, config.Config.Server.Port)
+
+	// Add slack server
+	go slackcmd.InitSlackListen()
 
 	r := router.InitRouter()
 	s := server.InitServer(serverAddress, r)
