@@ -58,6 +58,9 @@ func init() {
 func main() {
 	serverAddress := fmt.Sprintf("%s:%d", config.Config.Server.Ip, config.Config.Server.Port)
 
+	// Add slack server
+	go slackcmd.InitSlackListen()
+
 	r := router.InitRouter()
 	s := server.InitServer(serverAddress, r)
 	log.Error("server start error: %v", s.ListenAndServe().Error())

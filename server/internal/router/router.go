@@ -61,6 +61,7 @@ func InitRouter() *gin.Engine {
 		login := apiv1.Group("/login")
 		{
 			login.POST("/account", api.AccountLogin)
+			login.POST("/exit", api.AccountExit)
 			// user.POST("/email", api.GithubRegister)
 			// user.POST("/github", api.GithubRegister)
 			// user.POST("/wechat", api.GithubRegister)

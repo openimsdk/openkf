@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMenuStore } from '@/store';
+import { accountLogout } from '@/api/index/login';
 
 const router = useRouter();
 const menuStore = useMenuStore();
@@ -24,8 +25,9 @@ const changeHandler = (active:string) => {
 };
 
 
-const goHome = () => {
+const goHome = async () => {
   router.push('/home/dashboard');
+  await accountLogout()
 };
 
 </script>

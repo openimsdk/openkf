@@ -62,10 +62,12 @@ func MsgModify(c *gin.Context) {
 
 // UserOnline.
 func UserOnline(c *gin.Context) {
+	// TODO: push user id to queue
 }
 
 // UserOffline.
 func UserOffline(c *gin.Context) {
+	// TODO: remove user id to queue
 }
 
 // OfflinePush.
