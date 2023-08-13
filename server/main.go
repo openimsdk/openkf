@@ -43,7 +43,7 @@ func init() {
 	client.InitMinio()
 	// client.InitMail()
 	hooks.InitHooks()
-	slackcmd.InitSlack()
+	slackcmd.InitSlackListen()
 }
 
 //go:generate go env -w GO111MODULE=on
