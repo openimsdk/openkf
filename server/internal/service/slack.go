@@ -28,6 +28,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
+	customerroles "github.com/OpenIMSDK/OpenKF/server/internal/models/customer_roles"
 	responseparams "github.com/OpenIMSDK/OpenKF/server/internal/params/response"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
