@@ -18,13 +18,16 @@ import (
 	"context"
 	"errors"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	"github.com/shomali11/slacker"
+
+	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 )
 
-// USER_DISPATCH_QUEUE_KEY user dispatch queue key.
-const USER_DISPATCH_QUEUE_KEY = "openkf:user_dispatch_queue"
-const USER_SLACK_MAP_KEY = "openkf:user_slack_map"
+// user dispatch queue key.
+const (
+	USER_DISPATCH_QUEUE_KEY = "openkf:user_dispatch_queue"
+	USER_SLACK_MAP_KEY      = "openkf:user_slack_map"
+)
 
 // UserDispatchService user service.
 type UserDispatchService struct {
@@ -90,7 +93,7 @@ func (s *UserDispatchService) GetSlackMap(customID string) *dao.SlackMap {
 	return s.UserDispatchDao.GetSlackMap(USER_SLACK_MAP_KEY, customID)
 }
 
-// GetStaffID get all staff id.
+// GetSlackIDs get all staff id.
 func (s *UserDispatchService) GetSlackIDs() ([]string, error) {
 	return s.UserDispatchDao.GetSlackIDs(USER_SLACK_MAP_KEY)
 }

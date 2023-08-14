@@ -67,7 +67,6 @@ func BeforeSendSingleMsg(c *gin.Context) {
 		log.Debugf("Msg filter", "Send message to slack: %s", params.RecvID)
 		slackcmd.SendMsg(params)
 	}
-
 }
 
 // AfterSendSingleMsg.

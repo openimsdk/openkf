@@ -37,6 +37,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 )
 
+// SlackService slack service.
 type SlackService struct {
 	Service
 
@@ -152,7 +153,7 @@ func (svc *SlackService) SendMsg(uid, question string, botContext slacker.BotCon
 	sMap := udSvc.GetSlackMap(uid)
 	staffId := sMap.StaffID
 
-	if sMap == nil || sMap.StaffID == "" || sMap.SlackChannelID == "" {
+	if sMap.StaffID == "" || sMap.SlackChannelID == "" {
 		// Get staff id
 		tempStaffId, err := udSvc.GetUser()
 		if err != nil {
@@ -162,8 +163,6 @@ func (svc *SlackService) SendMsg(uid, question string, botContext slacker.BotCon
 		// Store staff, writer to cache redis map
 		err = udSvc.SetSlackMap(uid, tempStaffId, botContext)
 		if err != nil {
-			log.Error("wer", err.Error())
-
 			return errors.Wrapf(err, "set slack map failed")
 		}
 		staffId = tempStaffId
@@ -198,8 +197,11 @@ func (svc *SlackService) SendMsg(uid, question string, botContext slacker.BotCon
 		NotOfflinePush:  false,
 		OfflinePushInfo: &request.OfflinePushInfo{},
 	}
-	res, _ := json.Marshal(msgInfo)
-	log.Error("msgInfo", string(res))
+	res, err := json.Marshal(msgInfo)
+	if err != nil {
+		return errors.Wrapf(err, "marshal msgInfo failed")
+	}
+	log.Debugf("msgInfo", string(res))
 	host := fmt.Sprintf("http://%s", net.JoinHostPort(config.Config.OpenIM.Ip, fmt.Sprintf("%d", config.Config.OpenIM.ApiPort)))
 	resp, err := msg.AdminSendMsg(msgInfo, "sendMsg:"+uid, host, token.Token)
 	if err != nil {
