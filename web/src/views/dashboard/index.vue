@@ -108,7 +108,7 @@ const fetchCommunityData = async () => {
                     </t-button>
                 </template>
                 <t-row class="content" justify="space-between">
-                    <t-col v-for="(item, index) in filteredInfo" :key="index" class="contract" span="3">
+                    <t-col v-for="(item, index) in filteredInfo" :key="index" class="contract" :span="3">
                         <div class="contract-title">
                             {{ toUpperCase(index).replaceAll('_', ' ') }}
                         </div>
@@ -125,7 +125,7 @@ const fetchCommunityData = async () => {
         <t-col :flex="1">
             <t-card class="user-intro" :bordered="false">
                 <t-avatar size="80px" v-if="myInfo.avatar === ''">{{ getAvatarString(myInfo.nickname) }}</t-avatar>
-                <t-avatar size="80px" v-else :alt="getAvatarString(myInfo.nickname)" hide-on-load-failed="true" :image="myInfo.avatar" />
+                <t-avatar size="80px" v-else :alt="getAvatarString(myInfo.nickname)" :hide-on-load-failed="true" :image="myInfo.avatar" />
 
                 <div class="name">{{ myInfo.nickname }}</div>
                 <div class="position">{{ myInfo.description }}</div>
@@ -140,17 +140,17 @@ const fetchCommunityData = async () => {
                     </t-button>
                 </template>
                 <t-row class="content" :gutters="0">
-                    <t-col span="3">
+                    <t-col :span="3">
                         <t-button size="large" theme="default" shape="circle" variant="outline" @click="navToGitHub">
                             <t-icon name="logo-github" />
                         </t-button>
                     </t-col>
-                    <t-col span="3">
+                    <t-col :span="3">
                         <t-button size="large" theme="default" shape="circle" variant="outline" @click="navToDoc">
                             <t-icon name="root-list" />
                         </t-button>
                     </t-col>
-                    <t-col span="3">
+                    <t-col :span="3">
                         <t-button size="large" theme="default" shape="circle" variant="outline" @click="navToSlack">
                             <t-icon name="user-talk" />
                         </t-button>

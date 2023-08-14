@@ -1,3 +1,3 @@
-import { LoginParam } from '@/utils/open-im-sdk-wasm/types/params';
+import { InitAndLoginConfig } from '@/utils/open-im-sdk-wasm/types/params';
 
-export type IMLoginParam = LoginParam;
+export type IMLoginParam = InitAndLoginConfig;

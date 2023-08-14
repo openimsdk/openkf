@@ -121,7 +121,7 @@ const clearMsgContent = () => {
 }
 
 const scrollToBottom = () => {
-  const child = document.querySelector(".session-body") // 需要滚动的元素
+  const child = document.querySelector(".session-body") // Need to scroll to the child element
   nextTick(() => {
     child?.scrollTo({
       top: child.scrollHeight ,

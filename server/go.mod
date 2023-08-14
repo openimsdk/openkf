@@ -5,7 +5,6 @@ go 1.19
 require (
 	github.com/Delta456/box-cli-maker/v2 v2.3.0
 	github.com/antonfisher/nested-logrus-formatter v1.3.1
-	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-resty/resty/v2 v2.7.0
@@ -16,6 +15,7 @@ require (
 	github.com/minio/minio-go/v7 v7.0.57
 	github.com/pkg/errors v0.9.1
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
+	github.com/shomali11/slacker v1.4.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.16.0
 	github.com/swaggo/files v1.0.1
@@ -48,6 +48,7 @@ require (
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gookit/color v1.5.3 // indirect
+	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
@@ -72,8 +73,12 @@ require (
 	github.com/onsi/gomega v1.27.6 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.8 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
+	github.com/robfig/cron v1.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/rs/xid v1.5.0 // indirect
+	github.com/shomali11/commander v0.0.0-20220716022157-b5248c76541a // indirect
+	github.com/shomali11/proper v0.0.0-20180607004733-233a9a872c30 // indirect
+	github.com/slack-go/slack v0.12.1 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect

@@ -8,7 +8,8 @@ import { OpenIM } from '@/api/openim';
 import { OpenIMLoginConfig } from '@/constants';
 import { IMLoginParam } from '@/api/request/openimModel';
 import { ref, reactive } from 'vue';
-import { useUserStore, useMenuStore } from '@/store';
+import useUserStore from '@/store/user';
+import useMenuStore from '@/store/menu';
 import { localCache } from '@/utils/common/cache';
 
 const formData = reactive({ email: '', password: '' });
@@ -61,8 +62,8 @@ const onSubmit = async (ctx: SubmitContext) => {
                         userID: res.uuid,
                         token: res.im_token.token,
                         platformID: OpenIMLoginConfig.PlatformID,
-                        apiAddress: OpenIMLoginConfig.APIAddress,
-                        wsAddress: OpenIMLoginConfig.WSAddress,
+                        apiAddr: OpenIMLoginConfig.APIAddress,
+                        wsAddr: OpenIMLoginConfig.WSAddress,
                     };
 
                     let temp_data = res;

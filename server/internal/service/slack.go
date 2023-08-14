@@ -15,6 +15,7 @@
 package service
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net"
@@ -25,6 +26,7 @@ import (
 	"github.com/slack-go/slack"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
+	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
 	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
 	responseparams "github.com/OpenIMSDK/OpenKF/server/internal/params/response"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
@@ -36,14 +38,17 @@ import (
 
 type SlackService struct {
 	Service
+
+	CustomerSlackDao *dao.CustomerSlackDao
 }
 
-// NewSlackService return new service with gin context.
-func NewSlackService(c *gin.Context) *SlackService {
+// NewSlackService return new service with Background context.
+func NewSlackService(ctx context.Context) *SlackService {
 	return &SlackService{
 		Service: Service{
-			ctx: c,
+			ctx: ctx,
 		},
+		CustomerSlackDao: dao.NewCustomerSlackDao(),
 	}
 }
 

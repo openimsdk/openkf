@@ -24,9 +24,6 @@ import (
 	customerroles "github.com/OpenIMSDK/OpenKF/server/internal/models/customer_roles"
 )
 
-// SLACK_PERFIX do not use separator.
-const SLACK_PERFIX = "SLACK:"
-
 // CustomerSlackDao customerslack dao.
 type CustomerSlackDao struct {
 	Dao

@@ -2,8 +2,9 @@
 import { ref } from 'vue';
 import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useMenuStore } from '@/store';
-import { accountLogout } from '@/api/index/login';
+import useMenuStore from '@/store/menu';
+import { OpenIM } from '@/api/openim';
+import { MessagePlugin } from 'tdesign-vue-next';
 
 const router = useRouter();
 const menuStore = useMenuStore();
@@ -26,8 +27,15 @@ const changeHandler = (active:string) => {
 
 
 const goHome = async () => {
-  router.push('/home/dashboard');
-  await accountLogout()
+    try {
+        await OpenIM.logout();
+    } catch (e) {
+        MessagePlugin.error('IM logout failed!');
+        console.log(e);
+    } finally {
+        MessagePlugin.success('Logout successfully!');
+        router.push('/home/dashboard');
+    }
 };
 
 </script>

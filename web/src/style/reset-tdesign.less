@@ -1,12 +1,51 @@
 // reset for openkf
+.t-textarea__inner {
+  border-radius: var(--td-radius-large);
+  height: var(--td-comp-size-xxxxxl);
+  padding: var(--td-comp-paddingTB-s) var(--td-comp-paddingLR-l);
+  resize: none;
+}
+
 .t-menu__logo {
   min-height: var(--td-comp-size-xxxxxl);
+}
+
+.kf-session-input {
+  .t-input {
+    border-radius: var(--td-radius-large);
+    width: 180px;
+  }
 }
 
 .kf-config-input {
   .t-input {
     border-radius: var(--td-radius-large);
     width: 180px;
+  }
+}
+
+.kf-session-list-card {
+  margin-bottom: var(--td-comp-margin-m);
+  
+  .t-card {
+    border-radius: var(--td-radius-large);
+    background-color: var(--td-font-white-1);
+  }
+
+  .t-card__header {
+    padding: var(--td-comp-paddingTB-xs) var(--td-comp-paddingLR-l);
+    padding-top: var(--td-comp-paddingTB-m);
+    
+    .t-card__title {
+      font-weight: 500;
+    }
+  }
+
+  .t-card__body {
+    padding: var(--td-comp-paddingTB-xs) var(--td-comp-paddingLR-l);
+    padding-bottom: var(--td-comp-paddingTB-m);
+    font-size: var(--td-font-size-body-small);
+    color: var(--td-text-color-secondary);
   }
 }
 
