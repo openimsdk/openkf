@@ -125,6 +125,7 @@ func InitRouter() *gin.Engine {
 			slack := platform.Group("/slack")
 			{
 				slack.GET("/config", api.SlackConfig)
+				slack.POST("/customer", api.GetSlackCustomer)
 			}
 		}
 	}

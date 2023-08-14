@@ -19,6 +19,7 @@ import (
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
+	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
 	"github.com/OpenIMSDK/OpenKF/server/internal/service"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 )
@@ -43,6 +44,36 @@ func SlackConfig(c *gin.Context) {
 	// TODO: Add a table and save config to db.
 	// Now it only read from config file.
 	resp, err := svc.GetSlackConfig()
+	if err != nil {
+		response.FailWithCode(common.KF_RECORD_NOT_FOUND, c)
+
+		return
+	}
+
+	response.SuccessWithData(resp, c)
+}
+
+// GetSlackCustomer
+// @Tags platform
+// @Summary GetSlackCustomer
+// @Description get slack user info
+// @Security  ApiKeyAuth
+// Param data body param.GetUserInfoParams true "GetUserInfoParams"
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/platform/slack/customer [post].
+func GetSlackCustomer(c *gin.Context) {
+	// TODO: Check role.
+
+	param := requestparams.GetUserInfoParams{}
+	err := c.ShouldBindJSON(&param)
+	if err != nil {
+		response.FailWithCode(common.INVALID_PARAMS, c)
+
+		return
+	}
+
+	svc := service.NewSlackService(c)
+	resp, err := svc.GetSlackUser(param.UUID)
 	if err != nil {
 		response.FailWithCode(common.KF_RECORD_NOT_FOUND, c)
 

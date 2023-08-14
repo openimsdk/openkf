@@ -52,6 +52,18 @@ type Cache interface {
 	ZRem(ctx context.Context, key string, members ...interface{}) (int64, error)
 	ZRange(ctx context.Context, key string, start, stop int64) ([]string, error)
 
+	// Map
+	HSet(ctx context.Context, key, field string, value string) error
+	HGet(ctx context.Context, key, field string) (string, error)
+	HGetAll(ctx context.Context, key string) (map[string]string, error)
+	HDel(ctx context.Context, key string, fields ...string) (int64, error)
+	HExists(ctx context.Context, key, field string) (bool, error)
+	HIncrBy(ctx context.Context, key, field string, incr int64) (int64, error)
+	HKeys(ctx context.Context, key string) ([]string, error)
+	HLen(ctx context.Context, key string) (int64, error)
+	HMGet(ctx context.Context, key string, fields ...string) ([]interface{}, error)
+	HMSet(ctx context.Context, key string, values ...interface{}) error
+
 	// tx
 	Pipelined(ctx context.Context, fn func(redis.Pipeliner) error) ([]redis.Cmder, error)
 	Pipline() redis.Pipeliner
@@ -283,3 +295,53 @@ func (c *cache) ZRange(ctx context.Context, key string, start, stop int64) ([]st
 // func (c *cache) TxPipeline(ctx context.Context) redis.Pipeliner {
 // 	return c.client.TxPipeline()
 // }
+
+// HSet hset.
+func (c *cache) HSet(ctx context.Context, key, field string, value string) error {
+	return c.client.HSet(ctx, key, field, value).Err()
+}
+
+// HGet hget.
+func (c *cache) HGet(ctx context.Context, key, field string) (string, error) {
+	return c.client.HGet(ctx, key, field).Result()
+}
+
+// HGetAll hgetall.
+func (c *cache) HGetAll(ctx context.Context, key string) (map[string]string, error) {
+	return c.client.HGetAll(ctx, key).Result()
+}
+
+// HDel hdel.
+func (c *cache) HDel(ctx context.Context, key string, fields ...string) (int64, error) {
+	return c.client.HDel(ctx, key, fields...).Result()
+}
+
+// HExists hexists.
+func (c *cache) HExists(ctx context.Context, key, field string) (bool, error) {
+	return c.client.HExists(ctx, key, field).Result()
+}
+
+// HIncrBy hincrby.
+func (c *cache) HIncrBy(ctx context.Context, key, field string, incr int64) (int64, error) {
+	return c.client.HIncrBy(ctx, key, field, incr).Result()
+}
+
+// HKeys hkeys.
+func (c *cache) HKeys(ctx context.Context, key string) ([]string, error) {
+	return c.client.HKeys(ctx, key).Result()
+}
+
+// HLen hlen.
+func (c *cache) HLen(ctx context.Context, key string) (int64, error) {
+	return c.client.HLen(ctx, key).Result()
+}
+
+// HMGet hmget.
+func (c *cache) HMGet(ctx context.Context, key string, fields ...string) ([]interface{}, error) {
+	return c.client.HMGet(ctx, key, fields...).Result()
+}
+
+// HMSet hmset.
+func (c *cache) HMSet(ctx context.Context, key string, values ...interface{}) error {
+	return c.client.HMSet(ctx, key, values).Err()
+}

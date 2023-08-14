@@ -16,6 +16,7 @@ package dao
 
 import (
 	"context"
+	"encoding/json"
 	"sync"
 	"time"
 
@@ -154,7 +155,7 @@ func (d *UserDispatchDao) RemoveUser(key, value string) (int64, error) {
 func (d *UserDispatchDao) GetUser(key string) (string, error) {
 	// Get latest and set timestamp to now
 	res, err := (*d.cache).ZRange(d.ctx, key, 0, 0)
-	if err != nil || len(res) < 1 {
+	if err != nil || len(res) != 1 {
 		return "", err
 	}
 
@@ -166,4 +167,46 @@ func (d *UserDispatchDao) GetUser(key string) (string, error) {
 	}
 
 	return value, err
+}
+
+// SetSlackMap set staffId and slack channel id.
+func (d *UserDispatchDao) SetSlackMap(key, customID, staffID, slackChannelID string) error {
+	sMap := NewSlackMap(staffID, slackChannelID)
+
+	// JSON encode
+	value, err := json.Marshal(sMap)
+	if err != nil {
+		return errors.Wrapf(err, "Marshal user map: %s , err: %s", key, err.Error())
+	}
+
+	// SetToMap
+	err = (*d.cache).HSet(d.ctx, key, customID, string(value))
+	if err != nil {
+		return errors.Wrapf(err, "SetToMap user map: %s , err: %s", key, err.Error())
+	}
+
+	return nil
+}
+
+// GetSlackMap get staffId and slack channel id.
+func (d *UserDispatchDao) GetSlackMap(key, customID string) *SlackMap {
+	// Get from map
+	value, err := (*d.cache).HGet(d.ctx, key, customID)
+	if err != nil {
+		return &SlackMap{}
+	}
+
+	// JSON decode
+	sMap := &SlackMap{}
+	err = json.Unmarshal([]byte(value), sMap)
+	if err != nil {
+		return &SlackMap{}
+	}
+
+	return sMap
+}
+
+// GetSlackIDs get slack user ids.
+func (d *UserDispatchDao) GetSlackIDs(key string) ([]string, error) {
+	return (*d.cache).HKeys(d.ctx, key)
 }
