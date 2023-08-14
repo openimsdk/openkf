@@ -19,6 +19,7 @@ import (
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
+	customerroles "github.com/OpenIMSDK/OpenKF/server/internal/models/customer_roles"
 	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
@@ -52,6 +53,8 @@ func main() {
 		systemroles.SysCustomer{},
 		systemroles.SysCommunity{},
 		systemroles.SysBot{},
+
+		customerroles.CustomerSlack{},
 	}
 
 	// drop tables if exist.

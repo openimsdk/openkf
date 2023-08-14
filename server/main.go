@@ -22,6 +22,7 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
 	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
 	"github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks"
+	slackcmd "github.com/OpenIMSDK/OpenKF/server/internal/msg/slack_cmd"
 	"github.com/OpenIMSDK/OpenKF/server/internal/router"
 	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
@@ -57,6 +58,9 @@ func init() {
 // @name Authorization.
 func main() {
 	serverAddress := fmt.Sprintf("%s:%d", config.Config.Server.Ip, config.Config.Server.Port)
+
+	// Add slack server
+	go slackcmd.InitSlackListen()
 
 	r := router.InitRouter()
 	s := server.InitServer(serverAddress, r)

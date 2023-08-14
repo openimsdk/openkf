@@ -16,15 +16,17 @@ import (
 )
 
 var (
-	Q            = new(Query)
-	SysBot       *sysBot
-	SysCommunity *sysCommunity
-	SysCustomer  *sysCustomer
-	SysUser      *sysUser
+	Q             = new(Query)
+	CustomerSlack *customerSlack
+	SysBot        *sysBot
+	SysCommunity  *sysCommunity
+	SysCustomer   *sysCustomer
+	SysUser       *sysUser
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
+	CustomerSlack = &Q.CustomerSlack
 	SysBot = &Q.SysBot
 	SysCommunity = &Q.SysCommunity
 	SysCustomer = &Q.SysCustomer
@@ -33,32 +35,35 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
-		db:           db,
-		SysBot:       newSysBot(db, opts...),
-		SysCommunity: newSysCommunity(db, opts...),
-		SysCustomer:  newSysCustomer(db, opts...),
-		SysUser:      newSysUser(db, opts...),
+		db:            db,
+		CustomerSlack: newCustomerSlack(db, opts...),
+		SysBot:        newSysBot(db, opts...),
+		SysCommunity:  newSysCommunity(db, opts...),
+		SysCustomer:   newSysCustomer(db, opts...),
+		SysUser:       newSysUser(db, opts...),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
-	SysBot       sysBot
-	SysCommunity sysCommunity
-	SysCustomer  sysCustomer
-	SysUser      sysUser
+	CustomerSlack customerSlack
+	SysBot        sysBot
+	SysCommunity  sysCommunity
+	SysCustomer   sysCustomer
+	SysUser       sysUser
 }
 
 func (q *Query) Available() bool { return q.db != nil }
 
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
-		db:           db,
-		SysBot:       q.SysBot.clone(db),
-		SysCommunity: q.SysCommunity.clone(db),
-		SysCustomer:  q.SysCustomer.clone(db),
-		SysUser:      q.SysUser.clone(db),
+		db:            db,
+		CustomerSlack: q.CustomerSlack.clone(db),
+		SysBot:        q.SysBot.clone(db),
+		SysCommunity:  q.SysCommunity.clone(db),
+		SysCustomer:   q.SysCustomer.clone(db),
+		SysUser:       q.SysUser.clone(db),
 	}
 }
 
@@ -72,27 +77,30 @@ func (q *Query) WriteDB() *Query {
 
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
-		db:           db,
-		SysBot:       q.SysBot.replaceDB(db),
-		SysCommunity: q.SysCommunity.replaceDB(db),
-		SysCustomer:  q.SysCustomer.replaceDB(db),
-		SysUser:      q.SysUser.replaceDB(db),
+		db:            db,
+		CustomerSlack: q.CustomerSlack.replaceDB(db),
+		SysBot:        q.SysBot.replaceDB(db),
+		SysCommunity:  q.SysCommunity.replaceDB(db),
+		SysCustomer:   q.SysCustomer.replaceDB(db),
+		SysUser:       q.SysUser.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
-	SysBot       ISysBotDo
-	SysCommunity ISysCommunityDo
-	SysCustomer  ISysCustomerDo
-	SysUser      ISysUserDo
+	CustomerSlack ICustomerSlackDo
+	SysBot        ISysBotDo
+	SysCommunity  ISysCommunityDo
+	SysCustomer   ISysCustomerDo
+	SysUser       ISysUserDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
-		SysBot:       q.SysBot.WithContext(ctx),
-		SysCommunity: q.SysCommunity.WithContext(ctx),
-		SysCustomer:  q.SysCustomer.WithContext(ctx),
-		SysUser:      q.SysUser.WithContext(ctx),
+		CustomerSlack: q.CustomerSlack.WithContext(ctx),
+		SysBot:        q.SysBot.WithContext(ctx),
+		SysCommunity:  q.SysCommunity.WithContext(ctx),
+		SysCustomer:   q.SysCustomer.WithContext(ctx),
+		SysUser:       q.SysUser.WithContext(ctx),
 	}
 }
 
