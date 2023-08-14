@@ -215,7 +215,7 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
       >
         <template #avatar="{ row }">
           <t-avatar v-if="row.avatar === ''">{{ getAvatarString(row.nickname) }}</t-avatar>
-          <t-avatar v-else :alt="getAvatarString(row.nickname)" hide-on-load-failed="true" :image="row.avatar" />
+          <t-avatar v-else :alt="getAvatarString(row.nickname)" :hide-on-load-failed="true" :image="row.avatar" />
         </template>
         <template #is_enable="{ row }">
           <t-tag v-if="row.is_enable === true" theme="success" variant="light"> Enabled </t-tag>

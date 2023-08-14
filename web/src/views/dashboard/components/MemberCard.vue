@@ -60,7 +60,7 @@ onMounted(() => {
                 >
                   <template #image>
                     <t-avatar class="kf-list-item-avatar-size" v-if="item.avatar === ''">{{ getAvatarString(item.nickname) }}</t-avatar>
-                    <t-avatar class="kf-list-item-avatar-size" v-else :alt="getAvatarString(item.nickname)" hide-on-load-failed="true" :image="item.avatar" />
+                    <t-avatar class="kf-list-item-avatar-size" v-else :alt="getAvatarString(item.nickname)" :hide-on-load-failed="true" :image="item.avatar" />
                   </template>
                 </t-list-item-meta>
             </t-list-item>

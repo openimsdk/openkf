@@ -100,6 +100,7 @@ const onSubmit = (ctx: SubmitContext) => {
         let data: RegisterAdminParam = {
             code: formData.value.admin.verifyCode,
             community_info: {
+                description: '',
                 avatar: '',
                 name: formData.value.community.name,
                 email: formData.value.community.email,
@@ -122,7 +123,7 @@ const onSubmit = (ctx: SubmitContext) => {
                 const redirect = route.query.redirect as string;
                 const redirectUrl = redirect
                     ? decodeURIComponent(redirect)
-                    : '/dashboard';
+                    : '/home/dashboard';
                 router.push(redirectUrl);
             })
             .catch(err => {
