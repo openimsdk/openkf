@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router';
 import useMenuStore from '@/store/menu';
 import { OpenIM } from '@/api/openim';
 import { MessagePlugin } from 'tdesign-vue-next';
+import { accountLogout } from '@/api/index/login'
 
 const router = useRouter();
 const menuStore = useMenuStore();
@@ -23,19 +24,27 @@ const changeCollapsed = () => {
 
 const changeHandler = (active:string) => {
     console.log('change', active);
+
+    if (active === '/login') {
+        goHome();
+    }
 };
 
 
 const goHome = async () => {
     try {
         await OpenIM.logout();
+        await accountLogout();
     } catch (e) {
         MessagePlugin.error('IM logout failed!');
         console.log(e);
     } finally {
         MessagePlugin.success('Logout successfully!');
-        router.push('/home/dashboard');
     }
+};
+
+const goDashboard = () => {
+    router.push('/home/dashboard');
 };
 
 </script>
@@ -49,7 +58,7 @@ const goHome = async () => {
         height="100vh"
     >
         <template #logo>
-            <img :width="collapsed ? 50 : 200" :src="iconUrl" alt="logo" @click="goHome" />
+            <img :width="collapsed ? 50 : 200" :src="iconUrl" alt="logo" @click="goDashboard" />
         </template>
         <t-menu-item v-for="item in menuList" :key="item.path" :value="item.path" :to="item.path">
             <template #icon>

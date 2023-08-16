@@ -3,6 +3,7 @@ import { ErrorCodes, reactive, ref, watch, nextTick } from 'vue';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { Icon } from 'tdesign-icons-vue-next';
 import { getMyInfo, updateUserInfo } from '@/api/index/user';
+import { getSlackCustomerInfo } from '@/api/index/platform';
 import { getMyCommunityInfo, updateCommunityInfo } from '@/api/index/community';
 import { updateStaffEnableStatus, deleteStaff } from '@/api/index/admin';
 import { UpdateUserInfoParam } from '@/api/request/userModel';
@@ -20,6 +21,7 @@ import { CbEvents } from "@/utils/open-im-sdk-wasm/constant";
 import { WSEvent } from "@/utils/open-im-sdk-wasm/types/entity";
 import useUserStore from '@/store/user';
 import useMessageStore from '@/store/openim_message';
+import { PlatformType } from '@/constants';
 
 const InitUserInfo:GetUserInfoResponse = {
   uuid: '',
@@ -63,12 +65,27 @@ watch(() => messageStore, (newVal, oldVal) => {
 
 const fetchRecvInfo = async () => {
   try {
+    const uuid = getRecvIdFromSessionId(props.session?.conversationID || '')
     const params: GetUserInfoParam = {
-      uuid: getRecvIdFromSessionId(props.session?.conversationID || '')
+      uuid: uuid
     }
 
-    const info = await getUserInfo(params);
-    recvInfo.value = info;
+    if (uuid.includes(PlatformType.Slack)) {
+      // fetch info from slack
+      const info = await getSlackCustomerInfo(params);
+      recvInfo.value.uuid = info.uuid;
+      recvInfo.value.email = info.email;
+      recvInfo.value.nickname = info.nickname;
+      recvInfo.value.avatar = info.avatar;
+      recvInfo.value.description = info.description;
+      recvInfo.value.is_enable = info.is_enable;
+      recvInfo.value.created_at = info.created_at;
+    } else {
+      // fetch info from openkf
+      const info = await getUserInfo(params);
+      recvInfo.value = info;
+    }
+
   } catch (e) {
     console.log(e);
     MessagePlugin.error('Fetch recv info error!');
@@ -104,7 +121,7 @@ const clearMsgContent = () => {
 }
 
 const scrollToBottom = () => {
-  const child = document.querySelector(".session-body") // 需要滚动的元素
+  const child = document.querySelector(".session-body") // Need to scroll to the child element
   nextTick(() => {
     child?.scrollTo({
       top: child.scrollHeight ,

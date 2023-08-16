@@ -30,15 +30,15 @@ func TestGetUserToken(t *testing.T) {
 		userID     string
 	}{
 		{
-			secret:     "openkf",
-			platformID: 1,
+			secret:     "openIM123",
+			platformID: 5,
 			userID:     "openIMAdmin",
 		},
 	}
 
 	// range test case
 	for _, data := range testData {
-		_, err := auth.GetUserToken(&request.UserTokenParams{
+		token, err := auth.GetUserToken(&request.UserTokenParams{
 			Secret:     data.secret,
 			PlatformID: data.platformID,
 			UserID:     data.userID,
@@ -48,5 +48,6 @@ func TestGetUserToken(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
+		t.Error(token)
 	}
 }

@@ -74,13 +74,50 @@ func AccountLogin(c *gin.Context) {
 	svc := service.NewUserService(c)
 	u, err := svc.LoginWithAccount(&params)
 	if err != nil {
-		log.Debug("AdminRegister error", err)
+		log.Debug("Login error", err)
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	// TODO: Add login status to user dispatch
+	dsvc := service.NewUserDispatchService(c.Request.Context())
+	if err = dsvc.AddUser(u.UUID); err != nil {
+		log.Error("Add to online status error", err)
 		response.FailWithCode(common.ERROR, c)
 
 		return
 	}
 
 	response.SuccessWithData(u, c)
+}
+
+// AccountExit
+// @Tags user
+// @Summary AccountExit
+// @Description logout with account
+// @Produce application/json
+// @Security  ApiKeyAuth
+// @Success 200 {object}  response.Response{msg=string} "Success"
+// @Router /api/v1/login/account [post].
+func AccountExit(c *gin.Context) {
+	uuid, err := utils.GetUserUUID(c)
+	if err != nil {
+		response.FailWithCode(common.UNAUTHORIZED, c)
+
+		return
+	}
+
+	svc := service.NewUserDispatchService(c)
+	err = svc.DeleteUser(uuid)
+	if err != nil {
+		log.Error("Delete user from online status error", err)
+		response.FailWithCode(common.ERROR, c)
+
+		return
+	}
+
+	response.Success(c)
 }
 
 // GetUserInfo

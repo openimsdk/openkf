@@ -44,6 +44,7 @@ func (h *JWT) Patterns() []string {
 		"/api/v1/community/*",
 		"/api/v1/admin/*",
 		"/api/v1/platform/*",
+		"/api/v1/login/exit", // temp, will remove to OpenIM Callback
 	}
 }
 

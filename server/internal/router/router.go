@@ -61,6 +61,7 @@ func InitRouter() *gin.Engine {
 		login := apiv1.Group("/login")
 		{
 			login.POST("/account", api.AccountLogin)
+			login.POST("/exit", api.AccountExit)
 			// user.POST("/email", api.GithubRegister)
 			// user.POST("/github", api.GithubRegister)
 			// user.POST("/wechat", api.GithubRegister)
@@ -124,6 +125,7 @@ func InitRouter() *gin.Engine {
 			slack := platform.Group("/slack")
 			{
 				slack.GET("/config", api.SlackConfig)
+				slack.POST("/customer", api.GetSlackCustomer)
 			}
 		}
 	}

@@ -277,6 +277,19 @@ func getUserIMToken(param *request.UserTokenParams) (*response.TokenData, error)
 	return &resp.Data, nil
 }
 
+// GetAdminToken get admin token.
+func (svc *UserService) GetAdminToken() (*response.TokenData, error) {
+	params := &request.UserTokenParams{
+		Secret:     config.Config.OpenIM.Secret,
+		PlatformID: uint(config.Config.OpenIM.PlatformID),
+		UserID:     config.Config.OpenIM.AdminID,
+	}
+
+	// TODO: Get cache from redis
+
+	return getUserIMToken(params)
+}
+
 // GetUserInfoByUUID get user info by uuid.
 func (svc *UserService) GetUserInfoByUUID(uid string) (*responseparams.UserInfoResponse, error) {
 	resp := &responseparams.UserInfoResponse{}

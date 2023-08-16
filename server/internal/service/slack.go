@@ -16,8 +16,13 @@ package service
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"net"
 
+	"github.com/gin-gonic/gin"
+	"github.com/pkg/errors"
+	"github.com/shomali11/slacker"
 	"github.com/slack-go/slack"
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/config"
@@ -25,14 +30,14 @@ import (
 	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
 	customerroles "github.com/OpenIMSDK/OpenKF/server/internal/models/customer_roles"
 	responseparams "github.com/OpenIMSDK/OpenKF/server/internal/params/response"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/constant"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/msg"
 	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
 )
 
-// SLACK_PERFIX do not use separator.
-const SLACK_PERFIX = "slack"
-
-// SlackService bot service.
+// SlackService slack service.
 type SlackService struct {
 	Service
 
@@ -77,7 +82,7 @@ func (svc *SlackService) CreateCustomer(userId string, profile *slack.UserProfil
 
 	customerSlack := customerroles.CustomerSlack{
 		UserBase: base.UserBase{
-			// UUID:        fmt.Sprintf("%s%s", SLACK_PERFIX, userId),
+			// UUID: fmt.Sprintf("%s%s", dao.SLACK_PERFIX, userId),
 			UUID:        userId,
 			Email:       profile.Email,
 			Nickname:    profile.FirstName,
@@ -133,4 +138,76 @@ func (svc *SlackService) CreateCustomer(userId string, profile *slack.UserProfil
 	}
 
 	return userId, s.Id, nil
+}
+
+// GetSlackUser get slack user.
+func (svc *SlackService) GetSlackUser(userId string) (*customerroles.CustomerSlack, error) {
+	return svc.CustomerSlackDao.FindFirstByUUID(userId)
+}
+
+// SendMsg send message to openkf.
+func (svc *SlackService) SendMsg(uid, question string, botContext slacker.BotContext) error {
+	udSvc := NewUserDispatchService(svc.ctx)
+
+	// Get default staff id
+	sMap := udSvc.GetSlackMap(uid)
+	staffId := sMap.StaffID
+
+	if sMap.StaffID == "" || sMap.SlackChannelID == "" {
+		// Get staff id
+		tempStaffId, err := udSvc.GetUser()
+		if err != nil {
+			return err
+		}
+
+		// Store staff, writer to cache redis map
+		err = udSvc.SetSlackMap(uid, tempStaffId, botContext)
+		if err != nil {
+			return errors.Wrapf(err, "set slack map failed")
+		}
+		staffId = tempStaffId
+	}
+
+	// Get OpenIM admin token
+	uSvc := NewUserService(&gin.Context{}) // TODO: Change context to same
+	token, err := uSvc.GetAdminToken()
+	if err != nil {
+		return errors.Wrapf(err, "get admin token failed")
+	}
+
+	// Get custom info
+	customer, err := svc.CustomerSlackDao.FindFirstByUUID(uid)
+	if err != nil {
+		return errors.Wrapf(err, "find customer failed")
+	}
+
+	msgInfo := &request.MsgInfo{
+		SendID:           uid,
+		RecvID:           staffId,
+		GroupID:          "",
+		SenderNickname:   customer.Nickname,
+		SenderFaceURL:    customer.Avatar,
+		SenderPlatformID: constant.PLATFORMID_WEB,
+		Content: &request.TextContent{
+			Text: fmt.Sprintf("{\"content\":\"%s\"}", question),
+		},
+		ContentType:     constant.CONTENT_TYPE_TEXT,
+		SessionType:     constant.SESSION_TYPE_SINGLE_CHAT,
+		IsOnlineOnly:    false,
+		NotOfflinePush:  false,
+		OfflinePushInfo: &request.OfflinePushInfo{},
+	}
+	res, err := json.Marshal(msgInfo)
+	if err != nil {
+		return errors.Wrapf(err, "marshal msgInfo failed")
+	}
+	log.Debugf("msgInfo", string(res))
+	host := fmt.Sprintf("http://%s", net.JoinHostPort(config.Config.OpenIM.Ip, fmt.Sprintf("%d", config.Config.OpenIM.ApiPort)))
+	resp, err := msg.AdminSendMsg(msgInfo, "sendMsg:"+uid, host, token.Token)
+	if err != nil {
+		return errors.Wrapf(err, "send msg failed")
+	}
+	log.Debugf("AdminSendMsg", "Resp: %+v", resp)
+
+	return nil
 }

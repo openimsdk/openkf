@@ -25,6 +25,7 @@ const API = {
     RegisterAdmin: '/register/admin',
     RegisterStaff: '/register/staff',
     AccountLogin: '/login/account',
+    AccountExit: '/login/exit',
 };
 
 // Send email verification code
@@ -58,5 +59,12 @@ export function accountLogin(data: AccountLoginParam) {
     return request.post<UserLoginResponse>({
         url: API.AccountLogin,
         data,
+    });
+}
+
+// User logout
+export function accountLogout() {
+    return request.post<any>({
+        url: API.AccountExit,
     });
 }

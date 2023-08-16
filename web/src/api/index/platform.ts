@@ -13,15 +13,26 @@
 // limitations under the License.
 
 import { request } from '@/utils/request';
-import { GetSlackConfigResponse } from '@/api/response/platformModel';
+import { GetSlackConfigResponse, GetSlackCustomerResponse } from '@/api/response/platformModel';
+import { GetUserInfoParam } from '@/api/request/userModel';
+
 
 const API = {
     SlackConfig: '/platform/slack/config',
+    SlackCustomer: '/platform/slack/customer',
 };
 
 // get slack info
 export function getSlackConfig() {
     return request.get<GetSlackConfigResponse>({
         url: API.SlackConfig,
+    });
+}
+
+// get slack customer info
+export function getSlackCustomerInfo(data: GetUserInfoParam) {
+    return request.post<GetSlackCustomerResponse>({
+        url: API.SlackCustomer,
+        params: data,
     });
 }

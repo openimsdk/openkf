@@ -45,7 +45,7 @@ func AdminSendMsg(param *request.MsgInfo, operationID, host, adminToken string) 
 	r.ErrDlt = resp["errDlt"].(string)
 
 	if resp["data"] == nil {
-		return r, errors.New("data is nil")
+		return r, errors.New("data is nil: " + r.ErrMsg)
 	}
 
 	r.Data = resp["data"]

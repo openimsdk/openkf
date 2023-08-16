@@ -29,8 +29,8 @@ export enum ContentTypeEnum {
 
 // Platform type
 export enum PlatformType {
-    Slack = 'Slack',
-    Web = 'Web',
+    Slack = 'SLACK',
+    Web = 'WEB',
 }
 
 // Define support platforms

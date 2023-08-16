@@ -22,7 +22,10 @@ import (
 
 	"github.com/OpenIMSDK/OpenKF/server/internal/common"
 	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
+	slackcmd "github.com/OpenIMSDK/OpenKF/server/internal/msg/slack_cmd"
 	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
+	"github.com/OpenIMSDK/OpenKF/server/internal/service"
+	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
 )
 
 // OpenIMCallback
@@ -50,6 +53,20 @@ func OpenIMCallback(c *gin.Context) {
 
 // BeforeSendSingleMsg.
 func BeforeSendSingleMsg(c *gin.Context) {
+	// Msg filter
+	params := &requestparams.MsgAbstract{}
+	err := c.ShouldBindJSON(params)
+	if err != nil {
+		// Do not check
+		return
+	}
+
+	// Send message to slack user
+	ssvc := service.NewUserDispatchService(c)
+	if check := ssvc.SlackUserFilter(params.RecvID); check {
+		log.Debugf("Msg filter", "Send message to slack: %s", params.RecvID)
+		slackcmd.SendMsg(params)
+	}
 }
 
 // AfterSendSingleMsg.
@@ -62,10 +79,12 @@ func MsgModify(c *gin.Context) {
 
 // UserOnline.
 func UserOnline(c *gin.Context) {
+	// TODO: push user id to queue
 }
 
 // UserOffline.
 func UserOffline(c *gin.Context) {
+	// TODO: remove user id to queue
 }
 
 // OfflinePush.
