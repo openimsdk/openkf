@@ -12,20 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-app:
-  version: 0.1.0-dev
-  host: 0.0.0.0
-  port: 10011
-  debug: true
-  log_file: logs/
-  doc: data/
+import utils.config as config
+import utils.log as log
+from utils import banner
+import constants.constants as constants
 
-inference:
-  device: cuda
+logger = None
 
-# These can be modified in api
-model:
-  history: 0
-  temperature: 0.01
-  top_k: 5
-  top_p: 0.9
+
+def main():
+    kf_config = config.KBConfig("config.yaml")
+    global logger
+    log.KFLog.init_logger(
+        kf_config.get_app_log_path(), constants.LOG_LEVEL_DEBUG
+        if kf_config.get_app_debug() else constants.LOG_LEVEL_INFO)
+    logger = log.KFLog.get_logger()
+    banner.kf_banner(kf_config.get_app_version(), kf_config.get_app_debug(),
+                     kf_config.get_app_log_path())
+
+
+if __name__ == "__main__":
+    main()

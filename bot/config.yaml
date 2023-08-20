@@ -12,5 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if __name__ == "__main__":
-    pass
+app:
+  version: 0.1.0-dev
+  host: 0.0.0.0
+  port: 10011
+  debug: true
+  log_path: log2s/
+  doc: data/
+
+inference:
+  device: cuda
+
+# These can be modified in api
+model:
+  history: 0
+  temperature: 0.01
+  top_k: 5
+  top_p: 0.9
