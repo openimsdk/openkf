@@ -174,7 +174,7 @@ class FastChatApiRunner(mp.Process):
         self.prev_event = prev_event
         self.curr_event = curr_event
         self.host = host
-        self.port = port + 2
+        self.port = port
         self.log_path = log_path
         self.controller_addr = controller_addr
         self.api_keys = api_keys
