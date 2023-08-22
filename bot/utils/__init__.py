@@ -13,5 +13,7 @@
 # limitations under the License.
 
 __all__ = [
-    "kf_banner",
+    "banner",
+    "config",
+    "log"
 ]

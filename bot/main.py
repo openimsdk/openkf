@@ -21,6 +21,7 @@ logger = None
 
 
 def main():
+    # Init system
     kf_config = config.KBConfig("config.yaml")
     global logger
     log.KFLog.init_logger(

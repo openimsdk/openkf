@@ -12,9 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
+import os 
+
 import yaml
 from colorama import Fore
 
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 class KBConfig:
     '''
@@ -27,6 +31,9 @@ class KBConfig:
         with open(file, encoding="utf-8") as fp:
             self._config = yaml.safe_load(fp.read())
 
+    ###############################
+    # OpenKF bot config
+    ###############################
     def get_app_version(self) -> str:
         return self._config['app']['version']
 
@@ -45,6 +52,9 @@ class KBConfig:
     def get_app_doc(self) -> str:
         return self._config['app']['doc']
 
+    ###############################
+    # LLM langchain config
+    ###############################
     def get_inference_device(self) -> str:
         return self._config['inference']['device']
 
@@ -59,3 +69,45 @@ class KBConfig:
 
     def get_model_top_p(self) -> str:
         return self._config['model']['top_p']
+    
+    ###############################
+    # LLM fastchat config
+    ###############################
+    def get_fastchat_models_model_path(self) -> str:
+        return str(self._config['fastchat']['models']['model_path'])
+    
+    def get_fastchat_models_llm_model_name(self) -> str:
+        return str(self._config['fastchat']['models']['llm_model_name'])
+    
+    def get_fastchat_models_embedding_model_name(self) -> str:
+        return str(self._config['fastchat']['models']['embedding_model_name'])
+    
+    def get_fastchat_controller_host(self) -> str:
+        return str(self._config['fastchat']['controller']['host'])
+    
+    def get_fastchat_controller_port(self) -> str:
+        return str(self._config['fastchat']['controller']['port'])
+    
+    def get_fastchat_model_worker_host(self) -> str:
+        return str(self._config['fastchat']['model_worker']['host'])
+    
+    def get_fastchat_model_worker_port(self) -> str:
+        return str(self._config['fastchat']['model_worker']['port'])
+    
+    def get_fastchat_model_worker_device(self) -> str:
+        return str(self._config['fastchat']['model_worker']['device'])
+    
+    def get_fastchat_model_worker_limit_worker_concurrency(self) -> str:
+        return str(self._config['fastchat']['model_worker']['limit_worker_concurrency'])
+    
+    def get_fastchat_model_worker_num_gpus(self) -> str:
+        return str(self._config['fastchat']['model_worker']['num_gpus'])
+   
+    def get_fastchat_model_worker_max_gpu_memory(self) -> str:
+        return str(self._config['fastchat']['model_worker']['max_gpu_memory'])
+    
+    def get_fastchat_openai_api_server_host(self) -> str:
+        return str(self._config['fastchat']['openai_api_server']['host'])
+    
+    def get_fastchat_openai_api_server_port(self) -> str:
+        return str(self._config['fastchat']['openai_api_server']['port'])

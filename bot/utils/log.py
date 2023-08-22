@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 import os
 import datetime
 
 from loguru import logger
 import constants.constants as constants
 
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 class KFLog:
     log_path = datetime.datetime.now().strftime("logs/%Y-%m-%d.log")

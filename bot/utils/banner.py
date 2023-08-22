@@ -12,6 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
+import os 
+
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+
 def kf_banner(version: str, debug: bool, log_path: str) -> None:
     print(f'''
 --------------------------------------------------------------------------------------------------------------------
