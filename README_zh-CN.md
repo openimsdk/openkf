@@ -36,13 +36,26 @@
 
 ## 📺 系统预览
 
-- 登录注册
-
-![登录注册](assets/images/login_page.png)
-
-- 系统配置
-
-![系统配置](assets/images/config_page.png)
+<details open> 
+    <summary>登录注册</summary>
+    <img src="assets/images/login_page.png" />
+</details>
+<details> 
+    <summary>系统配置</summary>
+    <img src="assets/images/config_page.png" />
+</details>
+<details> 
+    <summary>工作台监控</summary>
+    <img src="assets/images/dashboard_page.png" />
+</details>
+<details> 
+    <summary>平台对接</summary>
+    <img src="assets/images/platform_page.png" />
+</details>
+<details> 
+    <summary>客服会话</summary>
+    <img src="assets/images/session_page.png" />
+</details>
 
 ## 🛫 快速开始 
 

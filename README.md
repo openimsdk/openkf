@@ -36,13 +36,26 @@
 
 ## 📺 System Preview
 
-- Login 
-
-![Login Page](assets/images/login_page.png)
-
-- Config
-
-![Config Page](assets/images/config_page.png)
+<details open> 
+    <summary>Login Page</summary>
+    <img src="assets/images/login_page.png" />
+</details>
+<details> 
+    <summary>Config Page</summary>
+    <img src="assets/images/config_page.png" />
+</details>
+<details> 
+    <summary>Dashboard Page</summary>
+    <img src="assets/images/dashboard_page.png" />
+</details>
+<details> 
+    <summary>Platform Page</summary>
+    <img src="assets/images/platform_page.png" />
+</details>
+<details> 
+    <summary>Session Page</summary>
+    <img src="assets/images/session_page.png" />
+</details>
 
 ## 🛫 Quick start 
 
