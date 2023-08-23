@@ -12,3 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+# log level
+LOG_LEVEL_INFO = "INFO"
+LOG_LEVEL_DEBUG = "DEBUG"

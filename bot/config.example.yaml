@@ -12,13 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+###############################
+# OpenKF bot config
+###############################
 app:
   version: 0.1.0-dev
   host: 0.0.0.0
   port: 10011
   debug: true
-  log_file: logs/
+  log_path: logs/
   doc: data/
+
+###############################
+# LLM langchain config
+###############################
 
 inference:
   device: cuda
@@ -29,3 +36,26 @@ model:
   temperature: 0.01
   top_k: 5
   top_p: 0.9
+
+###############################
+# LLM fastchat config
+###############################
+fastchat:
+  models:
+    model_path: lmsys/vicuna-7b-v1.3
+    llm_model_name: gpt-3.5-turbo
+    embedding_model_name: text-embedding-ada-002
+  controller:
+    host: 0.0.0.0
+    port: 20001
+  model_worker:
+    host: 0.0.0.0
+    port: 20002
+    limit_worker_concurrency: 5
+    device: cuda
+    num_gpus: 1
+    max_gpu_memory: 20GiB
+
+  openai_api_server:
+    host: 0.0.0.0
+    port: 8888
