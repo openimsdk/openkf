@@ -172,7 +172,7 @@ Catalog standardization design structure:
 
 We want anyone to get involved in our community, we offer gifts and rewards, and we welcome you to join us every Thursday night.
 
-Our conference is in the [OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg) 🎯 `openkf` pipeline, then you can search the openkf pipeline to join
+Our conference is in the [OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-22720d66b-o_FvKxMTGXtcnnnHiMqe9Q) 🎯 `openkf` pipeline, then you can search the openkf pipeline to join
 
 We take notes of each [biweekly meeting](https://github.com/orgs/OpenIMSDK/discussions/categories/meeting) in [GitHub discussions](https://github.com/OpenIMSDK/OpenKF/discussions/categories/meeting), and our minutes are written in [Google Docs](https://docs.google.com/document/d/1nx8MDpuG74NASx081JcCpxPgDITNTpIIos0DS6Vr9GU/edit?usp=sharing).
 
@@ -183,7 +183,7 @@ OpenIMSDK Our goal is to build a top-level open source community. We have a set 
 
 If you'd like to contribute to this OpenKF repository, please read our [contributor documentation](https://github.com/OpenIMSDK/OpenKF/blob/main/CONTRIBUTING.md).
 
-Before you start, please make sure your changes are in demand. The best for that is to create a [new discussion](https://github.com/OpenIMSDK/OpenKF/discussions/new/choose) OR [Slack Communication](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg), or if you find an issue, [report it](https://github.com/OpenIMSDK/OpenKF/issues/new/choose) first.
+Before you start, please make sure your changes are in demand. The best for that is to create a [new discussion](https://github.com/OpenIMSDK/OpenKF/discussions/new/choose) OR [Slack Communication](https://join.slack.com/t/openimsdk/shared_invite/zt-22720d66b-o_FvKxMTGXtcnnnHiMqe9Q), or if you find an issue, [report it](https://github.com/OpenIMSDK/OpenKF/issues/new/choose) first.
 
 
 ## 🚨 License
