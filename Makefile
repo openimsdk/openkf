@@ -115,7 +115,7 @@ SPACE +=
 # ==============================================================================
 # Build definition
 
-GO_SUPPORTED_VERSIONS ?= 1.18|1.19|1.20
+GO_SUPPORTED_VERSIONS ?= 1.18|1.19|1.20|1.21
 GO_LDFLAGS += -X $(VERSION_PACKAGE).GitVersion=$(VERSION) \
 	-X $(VERSION_PACKAGE).GitCommit=$(GIT_COMMIT) \
 	-X $(VERSION_PACKAGE).GitTreeState=$(GIT_TREE_STATE) \
@@ -250,6 +250,12 @@ vet:
 .PHONY: generate
 generate:
 	@cd $(SERVER_DIR) && $(GO) generate ./... 
+
+## githook: Copy githook scripts when execute makefile
+.PHONY: githook
+githook:
+	@echo "===========> Copy githook scripts when execute makefile"
+	@./scripts/init-githooks.sh
 
 ## lint: Run go lint against code.
 # go1.19+ 
