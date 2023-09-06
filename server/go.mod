@@ -17,6 +17,7 @@ require (
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/shomali11/slacker v1.4.1
 	github.com/sirupsen/logrus v1.9.3
+	github.com/slack-go/slack v0.12.1
 	github.com/spf13/viper v1.16.0
 	github.com/swaggo/files v1.0.1
 	github.com/swaggo/gin-swagger v1.6.0
@@ -78,7 +79,6 @@ require (
 	github.com/rs/xid v1.5.0 // indirect
 	github.com/shomali11/commander v0.0.0-20220716022157-b5248c76541a // indirect
 	github.com/shomali11/proper v0.0.0-20180607004733-233a9a872c30 // indirect
-	github.com/slack-go/slack v0.12.1 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect

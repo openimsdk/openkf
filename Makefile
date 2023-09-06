@@ -102,8 +102,8 @@ XARGS := xargs -r
 
 # ==============================================================================
 # TODO: License selection
-# LICENSE_TEMPLATE ?= $(ROOT_DIR)/scripts/LICENSE/license_templates.txt	# MIT License
-LICENSE_TEMPLATE ?= $(ROOT_DIR)/scripts/LICENSE/LICENSE_TEMPLATES  # Apache License
+# LICENSE_TEMPLATE ?= $(ROOT_DIR)/scripts/template/license_templates.txt	# MIT License
+LICENSE_TEMPLATE ?= $(ROOT_DIR)/scripts/template/LICENSE_TEMPLATES  # Apache License
 
 # COMMA: Concatenate multiple strings to form a list of strings
 COMMA := ,
@@ -115,7 +115,7 @@ SPACE +=
 # ==============================================================================
 # Build definition
 
-GO_SUPPORTED_VERSIONS ?= 1.18|1.19|1.20
+GO_SUPPORTED_VERSIONS ?= 1.18|1.19|1.20|1.21
 GO_LDFLAGS += -X $(VERSION_PACKAGE).GitVersion=$(VERSION) \
 	-X $(VERSION_PACKAGE).GitCommit=$(GIT_COMMIT) \
 	-X $(VERSION_PACKAGE).GitTreeState=$(GIT_TREE_STATE) \
@@ -250,6 +250,12 @@ vet:
 .PHONY: generate
 generate:
 	@cd $(SERVER_DIR) && $(GO) generate ./... 
+
+## githook: Copy githook scripts when execute makefile
+.PHONY: githook
+githook:
+	@echo "===========> Copy githook scripts when execute makefile"
+	@./scripts/init-githooks.sh
 
 ## lint: Run go lint against code.
 # go1.19+ 
