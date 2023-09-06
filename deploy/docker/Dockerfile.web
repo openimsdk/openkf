@@ -18,7 +18,8 @@ FROM node:18 AS builder
 WORKDIR /openkf-web
 
 COPY /web .
-RUN npm install \
+RUN npm set registry http://registry.npm.taobao.org/ \ 
+    && npm install --registry=http://registry.npm.taobao.org \
     && chmod +x scripts/setup.sh && ./scripts/setup.sh \
     && npm run build
 
