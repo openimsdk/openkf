@@ -1,3 +1,49 @@
-# name: OpenIM e2e Test
-# test/e2e/...
-# go rod : https://github.com/go-rod/rod
+# Copyright © 2023 OpenIM. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: e2e
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+  schedule:
+    # run e2e test every 4 hours
+    - cron: 0 */4 * * *
+
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
+    steps:
+
+      - name: Set up Go 1.21
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.21
+        id: go
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - name: Create e2e test
+        run: |
+          echo "...test e2e"
