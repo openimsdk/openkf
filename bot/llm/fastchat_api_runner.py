@@ -233,7 +233,7 @@ def main():
 
     # Start process
     cr = FastChatControllerRunner(
-        None, mr_event, kf_config.get_fastchat_controller_host(),
+        None, cr_event, kf_config.get_fastchat_controller_host(),
         int(kf_config.get_fastchat_controller_port()),
         kf_config.get_app_log_path(), "shortest_queue")
     cr.start()
