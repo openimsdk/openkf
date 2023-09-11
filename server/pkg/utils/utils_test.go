@@ -11,7 +11,7 @@ func TestGenUUID(t *testing.T) {
 		want string
 	}{
 		{
-			name: "测试-GenUUID",
+			name: "test-GenUUID",
 			want: "",
 		},
 	}
@@ -30,7 +30,7 @@ func TestGenUUIDWithoutHyphen(t *testing.T) {
 		want string
 	}{
 		{
-			name: "测试-GenUUIDWithoutHyphen",
+			name: "test-GenUUIDWithoutHyphen",
 			want: "",
 		},
 	}
@@ -54,7 +54,7 @@ func Test_encodeCanonical(t *testing.T) {
 		args args
 	}{
 		{
-			name: "测试-encodeCanonical",
+			name: "test-encodeCanonical",
 			args: args{
 				dst: buf[:],
 				u:   uuid.Must(uuid.NewV4()),
@@ -78,7 +78,7 @@ func Test_toString(t *testing.T) {
 		want string
 	}{
 		{
-			name: "测试-toString",
+			name: "test-toString",
 			args: args{
 				u: uuid.Must(uuid.NewV4()),
 			},
@@ -105,7 +105,7 @@ func TestComparePassword(t *testing.T) {
 		want bool
 	}{
 		{
-			name: "测试-ComparePassword",
+			name: "test-ComparePassword",
 			args: args{
 				password:          "123456",
 				encryptedPassword: "fa9ffa9a6017dee3be4e4063d108b69b54c4c8b3e9465a65b8d3191481655141",
@@ -132,7 +132,7 @@ func TestEncryptPassword(t *testing.T) {
 		want string
 	}{
 		{
-			name: "测试-EncryptPassword",
+			name: "test-EncryptPassword",
 			args: args{
 				password: "123456",
 			},
@@ -158,7 +158,7 @@ func TestIntToString(t *testing.T) {
 		want string
 	}{
 		{
-			name: "测试-IntToString",
+			name: "test-IntToString",
 			args: args{
 				i: 1,
 			},
@@ -184,7 +184,7 @@ func TestIsValidEmail(t *testing.T) {
 		want bool
 	}{
 		{
-			name: "测试-IsValidEmail",
+			name: "test-IsValidEmail",
 			args: args{
 				email: "123@qq.com",
 			},
@@ -210,7 +210,7 @@ func TestStringToInt(t *testing.T) {
 		want int
 	}{
 		{
-			name: "测试-StringToInt",
+			name: "test-StringToInt",
 			args: args{
 				i: "1",
 			},
