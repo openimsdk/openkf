@@ -11,7 +11,7 @@ func TestInitLogger(t *testing.T) {
 	tests := []struct {
 		name string
 	}{
-		{name: "测试-InitLogger"},
+		{name: "test-InitLogger"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -19,15 +19,15 @@ func TestInitLogger(t *testing.T) {
 			log.InitLogger()
 			config.Config.App.Debug = true
 			log.InitLogger()
-			t.Run("测试-GetLogger", GetLogger)
-			t.Run("测试-Debug", Debug)
-			t.Run("测试-DebugFormat", DebugFormat)
-			t.Run("测试-Info", Info)
-			t.Run("测试-InfoFormat", InfoFormat)
-			t.Run("测试-Error", Error)
-			t.Run("测试-ErrorFormat", ErrorFormat)
-			t.Run("测试-Panic", Panic)
-			t.Run("测试-PanicFormat", PanicFormat)
+			t.Run("test-GetLogger", GetLogger)
+			t.Run("test-Debug", Debug)
+			t.Run("test-DebugFormat", DebugFormat)
+			t.Run("test-Info", Info)
+			t.Run("test-InfoFormat", InfoFormat)
+			t.Run("test-Error", Error)
+			t.Run("test-ErrorFormat", ErrorFormat)
+			t.Run("test-Panic", Panic)
+			t.Run("test-PanicFormat", PanicFormat)
 		})
 	}
 }
@@ -37,7 +37,7 @@ func GetLogger(t *testing.T) {
 		want *logrus.Logger
 	}{
 		{
-			name: "测试-GetLogger",
+			name: "test-GetLogger",
 			want: nil,
 		},
 	}
@@ -60,21 +60,21 @@ func Debug(t *testing.T) {
 		args args
 	}{
 		{
-			name: "测试-Debug-1",
+			name: "test-Debug-1",
 			args: args{
 				Operation: "test-debug-1",
 				args:      []interface{}{},
 			},
 		},
 		{
-			name: "测试-Debug-2",
+			name: "test-Debug-2",
 			args: args{
 				Operation: "test-debug-2",
 				args:      []interface{}{"arg2-1", "arg2-2"},
 			},
 		},
 		{
-			name: "测试-Debug-3",
+			name: "test-Debug-3",
 			args: args{
 				Operation: "test-debug-3",
 				args:      []interface{}{"arg3", 3},
@@ -100,7 +100,7 @@ func DebugFormat(t *testing.T) {
 	}{
 
 		{
-			name: "测试-DebugFormat-1",
+			name: "test-DebugFormat-1",
 			args: args{
 				Operation: "test-DebugFormat-1",
 				format:    "",
@@ -108,7 +108,7 @@ func DebugFormat(t *testing.T) {
 			},
 		},
 		{
-			name: "测试-DebugFormat-2",
+			name: "test-DebugFormat-2",
 			args: args{
 				Operation: "test-DebugFormat-2",
 				format:    "%+v,%+v",
@@ -116,7 +116,7 @@ func DebugFormat(t *testing.T) {
 			},
 		},
 		{
-			name: "测试-DebugFormat-3",
+			name: "test-DebugFormat-3",
 			args: args{
 				Operation: "test-DebugFormat-3",
 				format:    "%+v,%+v",
@@ -142,21 +142,21 @@ func Error(t *testing.T) {
 	}{
 
 		{
-			name: "测试-Error-1",
+			name: "test-Error-1",
 			args: args{
 				Operation: "test-Error-1",
 				args:      []interface{}{},
 			},
 		},
 		{
-			name: "测试-Error-2",
+			name: "test-Error-2",
 			args: args{
 				Operation: "test-Error-2",
 				args:      []interface{}{"arg2-1", "arg2-2"},
 			},
 		},
 		{
-			name: "测试-Error-3",
+			name: "test-Error-3",
 			args: args{
 				Operation: "test-Error-3",
 				args:      []interface{}{"arg3", 3},
@@ -182,7 +182,7 @@ func ErrorFormat(t *testing.T) {
 	}{
 
 		{
-			name: "测试-ErrorFormat-1",
+			name: "test-ErrorFormat-1",
 			args: args{
 				Operation: "test-ErrorFormat-1",
 				format:    "",
@@ -190,7 +190,7 @@ func ErrorFormat(t *testing.T) {
 			},
 		},
 		{
-			name: "测试-ErrorFormat-2",
+			name: "test-ErrorFormat-2",
 			args: args{
 				Operation: "test-ErrorFormat-2",
 				format:    "%+v,%+v",
@@ -198,7 +198,7 @@ func ErrorFormat(t *testing.T) {
 			},
 		},
 		{
-			name: "测试-ErrorFormat-3",
+			name: "test-ErrorFormat-3",
 			args: args{
 				Operation: "test-ErrorFormat-3",
 				format:    "%+v,%+v",
@@ -224,21 +224,21 @@ func Info(t *testing.T) {
 	}{
 
 		{
-			name: "测试-Info-1",
+			name: "test-Info-1",
 			args: args{
 				Operation: "test-Info-1",
 				args:      []interface{}{},
 			},
 		},
 		{
-			name: "测试-Info-2",
+			name: "test-Info-2",
 			args: args{
 				Operation: "test-Info-2",
 				args:      []interface{}{"arg2-1", "arg2-2"},
 			},
 		},
 		{
-			name: "测试-Info-3",
+			name: "test-Info-3",
 			args: args{
 				Operation: "test-Info-3",
 				args:      []interface{}{"arg3", 3},
@@ -264,7 +264,7 @@ func InfoFormat(t *testing.T) {
 	}{
 
 		{
-			name: "测试-InfoFormat-1",
+			name: "test-InfoFormat-1",
 			args: args{
 				Operation: "test-InfoFormat-1",
 				format:    "",
@@ -272,7 +272,7 @@ func InfoFormat(t *testing.T) {
 			},
 		},
 		{
-			name: "测试-InfoFormat-2",
+			name: "test-InfoFormat-2",
 			args: args{
 				Operation: "test-InfoFormat-2",
 				format:    "%+v,%+v",
@@ -280,7 +280,7 @@ func InfoFormat(t *testing.T) {
 			},
 		},
 		{
-			name: "测试-InfoFormat-3",
+			name: "test-InfoFormat-3",
 			args: args{
 				Operation: "test-InfoFormat-3",
 				format:    "%+v,%+v",
@@ -306,21 +306,21 @@ func Panic(t *testing.T) {
 	}{
 
 		{
-			name: "测试-Panic-1",
+			name: "test-Panic-1",
 			args: args{
 				Operation: "test-Panic-1",
 				args:      []interface{}{},
 			},
 		},
 		{
-			name: "测试-Panic-2",
+			name: "test-Panic-2",
 			args: args{
 				Operation: "test-Panic-2",
 				args:      []interface{}{"arg2-1", "arg2-2"},
 			},
 		},
 		{
-			name: "测试-Panic-3",
+			name: "test-Panic-3",
 			args: args{
 				Operation: "test-Panic-3",
 				args:      []interface{}{"arg3", 3},
@@ -354,7 +354,7 @@ func PanicFormat(t *testing.T) {
 	}{
 
 		{
-			name: "测试-PanicFormat-1",
+			name: "test-PanicFormat-1",
 			args: args{
 				Operation: "test-PanicFormat-1",
 				format:    "",
@@ -362,7 +362,7 @@ func PanicFormat(t *testing.T) {
 			},
 		},
 		{
-			name: "测试-PanicFormat-2",
+			name: "test-PanicFormat-2",
 			args: args{
 				Operation: "test-PanicFormat-2",
 				format:    "%+v,%+v",
@@ -370,7 +370,7 @@ func PanicFormat(t *testing.T) {
 			},
 		},
 		{
-			name: "测试-PanicFormat-3",
+			name: "test-PanicFormat-3",
 			args: args{
 				Operation: "test-PanicFormat-3",
 				format:    "%+v,%+v",
