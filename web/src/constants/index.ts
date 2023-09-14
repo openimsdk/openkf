@@ -37,7 +37,7 @@ export enum PlatformType {
 export const PLATFORMS = [
     {
         order: 1,
-        avatar: 'https://github.com/OpenIMSDK/OpenKF/assets/47499836/73b94766-9968-4b66-b0b6-cc7a6ebfda69',
+        avatar: 'https://github.com/openimsdk/openkf/assets/47499836/73b94766-9968-4b66-b0b6-cc7a6ebfda69',
         name: PlatformType.Slack,
         description: 'Slack is a new way to communicate with your customer. It\'s faster, better organized, and more secure than email.',
         is_enable: true,
@@ -45,7 +45,7 @@ export const PLATFORMS = [
     },
     {
         order: 2,
-        avatar: 'https://github.com/OpenIMSDK/OpenKF/assets/47499836/13292e53-68df-46f8-948c-1296ba3bf330',
+        avatar: 'https://github.com/openimsdk/openkf/assets/47499836/13292e53-68df-46f8-948c-1296ba3bf330',
         name: PlatformType.Web,
         description: 'Web is a basic way to communicate with your customer. It\'s light and easy to intergrate with your products.',
         is_enable: false,

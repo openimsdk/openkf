@@ -1,10 +1,11 @@
 package test
 
 import (
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
-	"github.com/sirupsen/logrus"
 	"testing"
+
+	"github.com/openimsdk/openkf/server/internal/config"
+	"github.com/openimsdk/openkf/server/pkg/log"
+	"github.com/sirupsen/logrus"
 )
 
 func TestInitLogger(t *testing.T) {

@@ -22,8 +22,8 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
+	"github.com/openimsdk/openkf/server/internal/config"
+	"github.com/openimsdk/openkf/server/pkg/log"
 )
 
 var d *gorm.DB

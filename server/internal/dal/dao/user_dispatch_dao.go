@@ -23,9 +23,9 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/pkg/errors"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/gen"
+	"github.com/openimsdk/openkf/server/internal/conn/db"
+	"github.com/openimsdk/openkf/server/internal/dal/cache"
+	"github.com/openimsdk/openkf/server/internal/dal/gen"
 )
 
 // UserDispatchDao user dispatch dao.

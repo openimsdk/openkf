@@ -14,7 +14,7 @@
 
 package customerroles
 
-import "github.com/OpenIMSDK/OpenKF/server/internal/models/base"
+import "github.com/openimsdk/openkf/server/internal/models/base"
 
 // CustomerSlack customer from slack model.
 type CustomerSlack struct {

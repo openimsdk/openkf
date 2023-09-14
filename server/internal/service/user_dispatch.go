@@ -20,7 +20,7 @@ import (
 
 	"github.com/shomali11/slacker"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
+	"github.com/openimsdk/openkf/server/internal/dal/dao"
 )
 
 // user dispatch queue key.

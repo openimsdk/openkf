@@ -17,11 +17,11 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/common"
-	"github.com/OpenIMSDK/OpenKF/server/internal/common/response"
-	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
-	"github.com/OpenIMSDK/OpenKF/server/internal/service"
-	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
+	"github.com/openimsdk/openkf/server/internal/common"
+	"github.com/openimsdk/openkf/server/internal/common/response"
+	requestparams "github.com/openimsdk/openkf/server/internal/params/request"
+	"github.com/openimsdk/openkf/server/internal/service"
+	"github.com/openimsdk/openkf/server/internal/utils"
 )
 
 // SlackConfig

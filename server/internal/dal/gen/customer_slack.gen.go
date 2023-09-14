@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	customerroles "github.com/OpenIMSDK/OpenKF/server/internal/models/customer_roles"
+	customerroles "github.com/openimsdk/openkf/server/internal/models/customer_roles"
 )
 
 func newCustomerSlack(db *gorm.DB, opts ...gen.DOOption) customerSlack {

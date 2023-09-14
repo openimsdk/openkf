@@ -19,8 +19,8 @@ import (
 
 	"gorm.io/gen"
 
-	customerroles "github.com/OpenIMSDK/OpenKF/server/internal/models/customer_roles"
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
+	customerroles "github.com/openimsdk/openkf/server/internal/models/customer_roles"
+	systemroles "github.com/openimsdk/openkf/server/internal/models/system_roles"
 )
 
 func main() {

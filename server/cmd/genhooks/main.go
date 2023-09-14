@@ -18,7 +18,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/OpenIMSDK/OpenKF/server/cmd/genhooks/pkg"
+	"github.com/openimsdk/openkf/server/cmd/genhooks/pkg"
 )
 
 func main() {

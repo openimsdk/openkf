@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/constant"
+	"github.com/openimsdk/openkf/server/pkg/openim/param/request"
+	"github.com/openimsdk/openkf/server/pkg/openim/sdk/constant"
 )
 
 // TestAdminSendMsg test admin send msg function

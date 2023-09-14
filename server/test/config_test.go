@@ -1,9 +1,10 @@
 package test
 
 import (
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
 	"reflect"
 	"testing"
+
+	"github.com/openimsdk/openkf/server/internal/config"
 )
 
 func TestGetBool(t *testing.T) {

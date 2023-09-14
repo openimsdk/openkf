@@ -19,7 +19,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
+	"github.com/openimsdk/openkf/server/pkg/log"
 )
 
 // Mapping for store url pattern and hook.

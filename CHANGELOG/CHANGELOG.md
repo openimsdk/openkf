@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-+ [https://github.com/OpenIMSDK/OpenKF/releases](https://github.com/OpenIMSDK/OpenKF/releases)
++ [https://github.com/openimsdk/openkf/releases](https://github.com/openimsdk/openkf/releases)
 
 ## command
 

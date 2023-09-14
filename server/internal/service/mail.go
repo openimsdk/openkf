@@ -19,12 +19,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/common"
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
-	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
-	pkgutils "github.com/OpenIMSDK/OpenKF/server/pkg/utils"
+	"github.com/openimsdk/openkf/server/internal/common"
+	"github.com/openimsdk/openkf/server/internal/conn/client"
+	"github.com/openimsdk/openkf/server/internal/conn/db"
+	"github.com/openimsdk/openkf/server/internal/dal/cache"
+	"github.com/openimsdk/openkf/server/internal/utils"
+	pkgutils "github.com/openimsdk/openkf/server/pkg/utils"
 )
 
 // MailService mail service.

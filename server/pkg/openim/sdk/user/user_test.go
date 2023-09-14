@@ -17,8 +17,8 @@ package user_test
 import (
 	"testing"
 
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/user"
+	"github.com/openimsdk/openkf/server/pkg/openim/param/request"
+	"github.com/openimsdk/openkf/server/pkg/openim/sdk/user"
 )
 
 // TestGetUserToken test get user token function

@@ -25,7 +25,7 @@ import (
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
+	"github.com/openimsdk/openkf/server/internal/config"
 )
 
 var _logger *logrus.Logger

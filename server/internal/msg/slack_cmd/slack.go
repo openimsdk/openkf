@@ -22,10 +22,10 @@ import (
 
 	"github.com/shomali11/slacker"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
-	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
-	"github.com/OpenIMSDK/OpenKF/server/internal/service"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
+	"github.com/openimsdk/openkf/server/internal/conn/client"
+	requestparams "github.com/openimsdk/openkf/server/internal/params/request"
+	"github.com/openimsdk/openkf/server/internal/service"
+	"github.com/openimsdk/openkf/server/pkg/log"
 )
 
 // SLACK_PERFIX do not use separator.

@@ -8,11 +8,11 @@
 <h3>
 
 <p align=center>
-<a href="https://goreportcard.com/report/github.com/OpenIMSDK/OpenKF"><img src="https://goreportcard.com/badge/github.com/OpenIMSDK/OpenKF" alt="A+"></a>
-<a href="https://github.com/OpenIMSDK/OpenKF/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+issue%22"><img src="https://img.shields.io/github/issues/OpenIMSDK/OpenKF/good%20first%20issue?logo=%22github%22" alt="good first"></a>
-<a href="https://github.com/OpenIMSDK/OpenKF"><img src="https://img.shields.io/github/stars/OpenIMSDK/OpenKF.svg?style=flat&logo=github&colorB=deeppink&label=stars"></a>
+<a href="https://goreportcard.com/report/github.com/openimsdk/openkf"><img src="https://goreportcard.com/badge/github.com/openimsdk/openkf" alt="A+"></a>
+<a href="https://github.com/openimsdk/openkf/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+issue%22"><img src="https://img.shields.io/github/issues/OpenIMSDK/OpenKF/good%20first%20issue?logo=%22github%22" alt="good first"></a>
+<a href="https://github.com/openimsdk/openkf"><img src="https://img.shields.io/github/stars/OpenIMSDK/OpenKF.svg?style=flat&logo=github&colorB=deeppink&label=stars"></a>
 <a href="https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg"><img src="https://img.shields.io/badge/Slack-100%2B-blueviolet?logo=slack&amp;logoColor=white"></a>
-<a href="https://github.com/OpenIMSDK/OpenKF/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-green"></a>
+<a href="https://github.com/openimsdk/openkf/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-green"></a>
 <a href="https://golang.org/"><img src="https://img.shields.io/badge/Language-Go-blue.svg"></a>
 </p>
 
@@ -29,7 +29,7 @@
 
 ## 🧩 特性介绍
 
-1. [OpenKF](https://github.com/OpenIMSDK/OpenKF) 是一个基于 [OpenIM](https://github.com/OpenIMSDK) 的开源客服系统。
+1. [OpenKF](https://github.com/openimsdk/openkf) 是一个基于 [OpenIM](https://github.com/OpenIMSDK) 的开源客服系统。
 2. 支持 LLM（本地知识库）客服。
 3. 支持多渠道客服，并且易于与第三方系统集成。
 4. 易于部署和二次开发。
@@ -64,7 +64,7 @@
 ### 📦 安装
 
 ```bash
-git clone https://github.com/OpenIMSDK/OpenKF openkf && export openkf=$(pwd)/openkf && cd $openkf && make
+git clone https://github.com/openimsdk/openkf openkf && export openkf=$(pwd)/openkf && cd $openkf && make
 ```
 
 ### 🚀 运行
@@ -173,22 +173,22 @@ bashCopy code.
 
 我们的会议在[OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg)🎯 `openkf` 管道，然后你可以搜索 openkf 管道加入。
 
-我们在 [GitHub 讨论](https://github.com/OpenIMSDK/OpenKF/discussions/categories/meeting)中记录每次[双周会议](https://github.com/orgs/OpenIMSDK/discussions/categories/meeting)的内容，会议记录我们使用 [Google Docs](https://docs.google.com/document/d/1nx8MDpuG74NASx081JcCpxPgDITNTpIIos0DS6Vr9GU/edit?usp=sharing)编写。
+我们在 [GitHub 讨论](https://github.com/openimsdk/openkf/discussions/categories/meeting)中记录每次[双周会议](https://github.com/orgs/OpenIMSDK/discussions/categories/meeting)的内容，会议记录我们使用 [Google Docs](https://docs.google.com/document/d/1nx8MDpuG74NASx081JcCpxPgDITNTpIIos0DS6Vr9GU/edit?usp=sharing)编写。
 
 ## 🤼‍ 贡献与开发
 
 OpenIMSDK 的目标是构建一个顶级的开源社区。我们有一套标准，在[社区仓库](https://github.com/OpenIMSDK/community)中。
 
-如果你想为 OpenKF 仓库做出贡献，请阅读我们的[贡献者文档](https://github.com/OpenIMSDK/OpenKF/blob/main/CONTRIBUTING.md)。
+如果你想为 OpenKF 仓库做出贡献，请阅读我们的[贡献者文档](https://github.com/openimsdk/openkf/blob/main/CONTRIBUTING.md)。
 
-开始前，请确保你的更改是需要的。最好的方式是创建一个[新的讨论](https://github.com/OpenIMSDK/OpenKF/discussions/new/choose)或者[Slack 交流](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg)，或者如果你发现了问题，先[报告它](https://github.com/OpenIMSDK/OpenKF/issues/new/choose)。
+开始前，请确保你的更改是需要的。最好的方式是创建一个[新的讨论](https://github.com/openimsdk/openkf/discussions/new/choose)或者[Slack 交流](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg)，或者如果你发现了问题，先[报告它](https://github.com/openimsdk/openkf/issues/new/choose)。
 
 ## 🚨 许可证
 
-OpenKF 根据 Apache 2.0 许可证授权。请查看[LICENSE](https://github.com/OpenIMSDK/OpenKF/tree/main/LICENSE)获取完整的许可证文本。
+OpenKF 根据 Apache 2.0 许可证授权。请查看[LICENSE](https://github.com/openimsdk/openkf/tree/main/LICENSE)获取完整的许可证文本。
 
-此存储库中显示的 OpenKF 标志，包括其变体和动态版本，在 [OpenKF](https://github.com/OpenIMSDK/openkf)下的 [assets/logo](./assets/logo/) 和 [assets/logo-gif](./assets/logo-gif/) 目录下，受版权法保护。
+此存储库中显示的 OpenKF 标志，包括其变体和动态版本，在 [OpenKF](https://github.com/openimsdk/openkf)下的 [assets/logo](./assets/logo/) 和 [assets/logo-gif](./assets/logo-gif/) 目录下，受版权法保护。
 
 ## 🔮 感谢我们的贡献者！
 
-<a href="https://github.com/OpenIMSDK/OpenKF/graphs/contributors">   <img src="https://contrib.rocks/image?repo=OpenIMSDK/OpenKF" /> </a>
+<a href="https://github.com/openimsdk/openkf/graphs/contributors">   <img src="https://contrib.rocks/image?repo=OpenIMSDK/OpenKF" /> </a>

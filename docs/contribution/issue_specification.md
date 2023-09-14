@@ -1,6 +1,6 @@
 # Issue Specification
 
-Before reporting bugs, we highly recommend utilizing the [GitHub Issues](https://github.com/openIMSDK/openKF/issues) page. Please ensure to search for similar questions on the [issue board](https://github.com/OpenIMSDK/OpenKF/issues) as your query might have already been addressed or is currently being resolved. For new questions, kindly submit them through the [question assistant](https://github.com/OpenIMSDK/OpenKF/issues/new/choose).
+Before reporting bugs, we highly recommend utilizing the [GitHub Issues](https://github.com/openimsdk/openkf/issues) page. Please ensure to search for similar questions on the [issue board](https://github.com/openimsdk/openkf/issues) as your query might have already been addressed or is currently being resolved. For new questions, kindly submit them through the [question assistant](https://github.com/openimsdk/openkf/issues/new/choose).
 
 When reporting bugs, include the necessary code to reproduce the problem and provide step-by-step instructions. For new feature suggestions, clearly describe the desired changes and expected behavior.
 
@@ -9,7 +9,7 @@ When reporting bugs, include the necessary code to reproduce the problem and pro
 ### Working on Pull Requests
 
 - Committers should re-run unit tests on their code and document the test results. If necessary, conduct smoke tests.
-- It is essential for committers to adhere to the [code covenant](https://github.com/OpenIMSDK/OpenKF/blob/main/CONTRIBUTING.md) regarding code formatting.
+- It is essential for committers to adhere to the [code covenant](https://github.com/openimsdk/openkf/blob/main/CONTRIBUTING.md) regarding code formatting.
 
 ### Working on Issue Management
 

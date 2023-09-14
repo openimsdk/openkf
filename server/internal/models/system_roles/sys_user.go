@@ -15,7 +15,7 @@
 package systemroles
 
 import (
-	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
+	"github.com/openimsdk/openkf/server/internal/models/base"
 )
 
 // SysUser system user model.

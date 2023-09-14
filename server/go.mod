@@ -1,4 +1,4 @@
-module github.com/OpenIMSDK/OpenKF/server
+module github.com/openimsdk/openkf/server
 
 go 1.19
 

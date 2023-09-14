@@ -18,9 +18,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/client"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/response"
+	"github.com/openimsdk/openkf/server/pkg/openim/client"
+	"github.com/openimsdk/openkf/server/pkg/openim/param/request"
+	"github.com/openimsdk/openkf/server/pkg/openim/param/response"
 )
 
 const (
