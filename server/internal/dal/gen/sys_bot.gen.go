@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
+	systemroles "github.com/openimsdk/openkf/server/internal/models/system_roles"
 )
 
 func newSysBot(db *gorm.DB, opts ...gen.DOOption) sysBot {

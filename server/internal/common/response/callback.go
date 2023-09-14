@@ -19,7 +19,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/common"
+	"github.com/openimsdk/openkf/server/internal/common"
 )
 
 // CommonCallbackResp Common callback response.

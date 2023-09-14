@@ -40,10 +40,10 @@ package dao
 import (
 	"context"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/gen"
-	{{.NormPkgName}} "github.com/OpenIMSDK/OpenKF/server/internal/models/{{.PkgName}}"
+	"github.com/openimsdk/openkf/server/internal/conn/db"
+	"github.com/openimsdk/openkf/server/internal/dal/cache"
+	"github.com/openimsdk/openkf/server/internal/dal/gen"
+	{{.NormPkgName}} "github.com/openimsdk/openkf/server/internal/models/{{.PkgName}}"
 )
 
 // {{.ModelName}}Dao {{.NormModelName}} dao.

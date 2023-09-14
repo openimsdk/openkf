@@ -20,7 +20,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
+	"github.com/openimsdk/openkf/server/pkg/utils"
 )
 
 type filelineHook struct{}

@@ -19,7 +19,7 @@ import (
 
 	"github.com/Delta456/box-cli-maker/v2"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
+	"github.com/openimsdk/openkf/server/internal/config"
 )
 
 func OpenKFBanner() {
@@ -37,7 +37,7 @@ APP Mode:
 - Debug: %v
 - Log file: %s
 
-Github repo: https://github.com/OpenIMSDK/OpenKF. 
+Github repo: https://github.com/openimsdk/openkf. 
 Official website: https://www.openim.online/en
 OpenKF Slack: https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg (OpenKF clannels)
 🎉🎉 Welcome to your contribution :)

@@ -19,13 +19,13 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 
 	// swagger docs.
-	_ "github.com/OpenIMSDK/OpenKF/server/docs"
+	_ "github.com/openimsdk/openkf/server/docs"
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/api"
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
-	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
+	"github.com/openimsdk/openkf/server/internal/api"
+	"github.com/openimsdk/openkf/server/internal/config"
+	urltrie "github.com/openimsdk/openkf/server/internal/middleware/hooks/url_trie"
 )
 
 // InitRouter init router.

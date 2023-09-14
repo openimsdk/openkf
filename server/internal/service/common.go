@@ -19,8 +19,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
-	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
+	"github.com/openimsdk/openkf/server/internal/conn/client"
+	"github.com/openimsdk/openkf/server/internal/utils"
 )
 
 // CommonService community service.

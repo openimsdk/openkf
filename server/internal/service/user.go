@@ -21,19 +21,19 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/common"
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/dao"
-	"github.com/OpenIMSDK/OpenKF/server/internal/models/base"
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
-	requestparams "github.com/OpenIMSDK/OpenKF/server/internal/params/request"
-	responseparams "github.com/OpenIMSDK/OpenKF/server/internal/params/response"
-	internal_utils "github.com/OpenIMSDK/OpenKF/server/internal/utils"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/request"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/param/response"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/auth"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/openim/sdk/user"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/utils"
+	"github.com/openimsdk/openkf/server/internal/common"
+	"github.com/openimsdk/openkf/server/internal/config"
+	"github.com/openimsdk/openkf/server/internal/dal/dao"
+	"github.com/openimsdk/openkf/server/internal/models/base"
+	systemroles "github.com/openimsdk/openkf/server/internal/models/system_roles"
+	requestparams "github.com/openimsdk/openkf/server/internal/params/request"
+	responseparams "github.com/openimsdk/openkf/server/internal/params/response"
+	internal_utils "github.com/openimsdk/openkf/server/internal/utils"
+	"github.com/openimsdk/openkf/server/pkg/openim/param/request"
+	"github.com/openimsdk/openkf/server/pkg/openim/param/response"
+	"github.com/openimsdk/openkf/server/pkg/openim/sdk/auth"
+	"github.com/openimsdk/openkf/server/pkg/openim/sdk/user"
+	"github.com/openimsdk/openkf/server/pkg/utils"
 )
 
 // UserService user service.

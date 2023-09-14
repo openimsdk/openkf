@@ -20,7 +20,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
+	urltrie "github.com/openimsdk/openkf/server/internal/middleware/hooks/url_trie"
 )
 
 var _ urltrie.Hook = (*CORS)(nil)

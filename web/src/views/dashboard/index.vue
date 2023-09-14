@@ -10,7 +10,7 @@ import MemberCard from './components/MemberCard.vue';
 import StatisticCard from './components/StatisticCard.vue';
 
 const navToGitHub = () => {
-    window.open('https://github.com/OpenIMSDK/OpenKF')
+    window.open('https://github.com/openimsdk/openkf')
 }
 const navToDoc = () => {
     window.open('https://openkf.nsddd.top/')
@@ -98,7 +98,7 @@ const fetchCommunityData = async () => {
                         Good {{ getTimeOfDay() }}, it's your {{ getNowDiffDays(myInfo.created_at) }} days to join {{ communityInfo.name }} community...
                     </span>
                 </div>
-                <img src="https://github.com/OpenIMSDK/OpenKF/assets/47499836/a5384675-325e-478c-8228-2410f2329872" class="logo" />
+                <img src="https://github.com/openimsdk/openkf/assets/47499836/a5384675-325e-478c-8228-2410f2329872" class="logo" />
             </div>
 
             <t-card class="user-info-list" title="Account Info" :bordered="false">

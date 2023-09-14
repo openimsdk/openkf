@@ -8,11 +8,11 @@
 <h3>
 
 <p align=center>
-<a href="https://goreportcard.com/report/github.com/OpenIMSDK/OpenKF"><img src="https://goreportcard.com/badge/github.com/OpenIMSDK/OpenKF" alt="A+"></a>
-<a href="https://github.com/OpenIMSDK/OpenKF/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+issue%22"><img src="https://img.shields.io/github/issues/OpenIMSDK/OpenKF/good%20first%20issue?logo=%22github%22" alt="good first"></a>
-<a href="https://github.com/OpenIMSDK/OpenKF"><img src="https://img.shields.io/github/stars/OpenIMSDK/OpenKF.svg?style=flat&logo=github&colorB=deeppink&label=stars"></a>
+<a href="https://goreportcard.com/report/github.com/openimsdk/openkf"><img src="https://goreportcard.com/badge/github.com/openimsdk/openkf" alt="A+"></a>
+<a href="https://github.com/openimsdk/openkf/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+issue%22"><img src="https://img.shields.io/github/issues/OpenIMSDK/OpenKF/good%20first%20issue?logo=%22github%22" alt="good first"></a>
+<a href="https://github.com/openimsdk/openkf"><img src="https://img.shields.io/github/stars/OpenIMSDK/OpenKF.svg?style=flat&logo=github&colorB=deeppink&label=stars"></a>
 <a href="https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg"><img src="https://img.shields.io/badge/Slack-100%2B-blueviolet?logo=slack&amp;logoColor=white"></a>
-<a href="https://github.com/OpenIMSDK/OpenKF/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-green"></a>
+<a href="https://github.com/openimsdk/openkf/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-green"></a>
 <a href="https://golang.org/"><img src="https://img.shields.io/badge/Language-Go-blue.svg"></a>
 </p>
 
@@ -29,7 +29,7 @@
 
 ## 🧩 Awesome features
 
-1. [OpenKF](https://github.com/OpenIMSDK/OpenKF) is an opensource customer service system based on [OpenIM](https://github.com/OpenIMSDK).
+1. [OpenKF](https://github.com/openimsdk/openkf) is an opensource customer service system based on [OpenIM](https://github.com/OpenIMSDK).
 2. Support LLM(Local Knowledgebase) customer service.
 3. Support multi-channel customer service, and easy to integrate with third-party systems.
 4. Easy to deploy and secondary development.
@@ -64,7 +64,7 @@
 ### 📦 Installation
 
 ```bash
-git clone https://github.com/OpenIMSDK/OpenKF openkf && export openkf=$(pwd)/openkf && cd $openkf && make
+git clone https://github.com/openimsdk/openkf openkf && export openkf=$(pwd)/openkf && cd $openkf && make
 ```
 
 ### 🚀 Run
@@ -174,27 +174,27 @@ We want anyone to get involved in our community, we offer gifts and rewards, and
 
 Our conference is in the [OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-22720d66b-o_FvKxMTGXtcnnnHiMqe9Q) 🎯 `openkf` pipeline, then you can search the openkf pipeline to join
 
-We take notes of each [biweekly meeting](https://github.com/orgs/OpenIMSDK/discussions/categories/meeting) in [GitHub discussions](https://github.com/OpenIMSDK/OpenKF/discussions/categories/meeting), and our minutes are written in [Google Docs](https://docs.google.com/document/d/1nx8MDpuG74NASx081JcCpxPgDITNTpIIos0DS6Vr9GU/edit?usp=sharing).
+We take notes of each [biweekly meeting](https://github.com/orgs/OpenIMSDK/discussions/categories/meeting) in [GitHub discussions](https://github.com/openimsdk/openkf/discussions/categories/meeting), and our minutes are written in [Google Docs](https://docs.google.com/document/d/1nx8MDpuG74NASx081JcCpxPgDITNTpIIos0DS6Vr9GU/edit?usp=sharing).
 
 
 ## 🤼‍ Contributing & Development
 
 OpenIMSDK Our goal is to build a top-level open source community. We have a set of standards, in the [Community repository](https://github.com/OpenIMSDK/community).
 
-If you'd like to contribute to this OpenKF repository, please read our [contributor documentation](https://github.com/OpenIMSDK/OpenKF/blob/main/CONTRIBUTING.md).
+If you'd like to contribute to this OpenKF repository, please read our [contributor documentation](https://github.com/openimsdk/openkf/blob/main/CONTRIBUTING.md).
 
-Before you start, please make sure your changes are in demand. The best for that is to create a [new discussion](https://github.com/OpenIMSDK/OpenKF/discussions/new/choose) OR [Slack Communication](https://join.slack.com/t/openimsdk/shared_invite/zt-22720d66b-o_FvKxMTGXtcnnnHiMqe9Q), or if you find an issue, [report it](https://github.com/OpenIMSDK/OpenKF/issues/new/choose) first.
+Before you start, please make sure your changes are in demand. The best for that is to create a [new discussion](https://github.com/openimsdk/openkf/discussions/new/choose) OR [Slack Communication](https://join.slack.com/t/openimsdk/shared_invite/zt-22720d66b-o_FvKxMTGXtcnnnHiMqe9Q), or if you find an issue, [report it](https://github.com/openimsdk/openkf/issues/new/choose) first.
 
 
 ## 🚨 License
 
-OpenKF is licensed under the Apache 2.0 license. See [LICENSE](https://github.com/OpenIMSDK/OpenKF/tree/main/LICENSE) for the full license text.
+OpenKF is licensed under the Apache 2.0 license. See [LICENSE](https://github.com/openimsdk/openkf/tree/main/LICENSE) for the full license text.
 
-The OpenKF logo, including its variations and animated versions, displayed in this repository [OpenKF](https://github.com/OpenIMSDK/openkf) under the [assets/logo](./assets/logo) and [assets/logo-gif](assets/logo-gif) directories, are protected by copyright laws.
+The OpenKF logo, including its variations and animated versions, displayed in this repository [OpenKF](https://github.com/openimsdk/openkf) under the [assets/logo](./assets/logo) and [assets/logo-gif](assets/logo-gif) directories, are protected by copyright laws.
 
 
 ## 🔮 Thanks to our contributors!
 
-<a href="https://github.com/OpenIMSDK/OpenKF/graphs/contributors">
+<a href="https://github.com/openimsdk/openkf/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=OpenIMSDK/OpenKF" />
 </a>

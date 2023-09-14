@@ -18,10 +18,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/gen"
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
+	"github.com/openimsdk/openkf/server/internal/conn/db"
+	"github.com/openimsdk/openkf/server/internal/dal/cache"
+	"github.com/openimsdk/openkf/server/internal/dal/gen"
+	systemroles "github.com/openimsdk/openkf/server/internal/models/system_roles"
 )
 
 // SysUserDao sysuser dao.

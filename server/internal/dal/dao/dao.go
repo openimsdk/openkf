@@ -17,8 +17,8 @@ package dao
 import (
 	"context"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/gen"
+	"github.com/openimsdk/openkf/server/internal/dal/cache"
+	"github.com/openimsdk/openkf/server/internal/dal/gen"
 )
 
 // Dao dao top level.

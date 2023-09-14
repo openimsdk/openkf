@@ -19,8 +19,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
+	urltrie "github.com/openimsdk/openkf/server/internal/middleware/hooks/url_trie"
+	"github.com/openimsdk/openkf/server/pkg/log"
 )
 
 var _ urltrie.Hook = (*MailHook)(nil)

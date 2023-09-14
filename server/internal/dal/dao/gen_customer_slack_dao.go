@@ -18,10 +18,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/cache"
-	"github.com/OpenIMSDK/OpenKF/server/internal/dal/gen"
-	customerroles "github.com/OpenIMSDK/OpenKF/server/internal/models/customer_roles"
+	"github.com/openimsdk/openkf/server/internal/conn/db"
+	"github.com/openimsdk/openkf/server/internal/dal/cache"
+	"github.com/openimsdk/openkf/server/internal/dal/gen"
+	customerroles "github.com/openimsdk/openkf/server/internal/models/customer_roles"
 )
 
 // CustomerSlackDao customerslack dao.

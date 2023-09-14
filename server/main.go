@@ -18,15 +18,15 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/client"
-	"github.com/OpenIMSDK/OpenKF/server/internal/conn/db"
-	"github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks"
-	slackcmd "github.com/OpenIMSDK/OpenKF/server/internal/msg/slack_cmd"
-	"github.com/OpenIMSDK/OpenKF/server/internal/router"
-	"github.com/OpenIMSDK/OpenKF/server/internal/utils"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/log"
-	"github.com/OpenIMSDK/OpenKF/server/pkg/server"
+	"github.com/openimsdk/openkf/server/internal/config"
+	"github.com/openimsdk/openkf/server/internal/conn/client"
+	"github.com/openimsdk/openkf/server/internal/conn/db"
+	"github.com/openimsdk/openkf/server/internal/middleware/hooks"
+	slackcmd "github.com/openimsdk/openkf/server/internal/msg/slack_cmd"
+	"github.com/openimsdk/openkf/server/internal/router"
+	"github.com/openimsdk/openkf/server/internal/utils"
+	"github.com/openimsdk/openkf/server/pkg/log"
+	"github.com/openimsdk/openkf/server/pkg/server"
 )
 
 func init() {

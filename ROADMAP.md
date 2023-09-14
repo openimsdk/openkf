@@ -1,6 +1,6 @@
 # 2023 Basic Roadmap
 
-This roadmap is made for OpenKF basic feature. For more information, you can see this [RFC](https://github.com/OpenIMSDK/OpenKF/issues/4).
+This roadmap is made for OpenKF basic feature. For more information, you can see this [RFC](https://github.com/openimsdk/openkf/issues/4).
 
 ### Release Base Docker Images.
 

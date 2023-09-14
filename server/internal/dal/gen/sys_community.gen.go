@@ -7,7 +7,7 @@ package gen
 import (
 	"context"
 
-	systemroles "github.com/OpenIMSDK/OpenKF/server/internal/models/system_roles"
+	systemroles "github.com/openimsdk/openkf/server/internal/models/system_roles"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"

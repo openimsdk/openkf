@@ -5,7 +5,7 @@
 ###################################=> common commands <=#############################################
 # ========================== Capture Environment ===============================
 # get the repo root and output path
-ROOT_PACKAGE=github.com/OpenIMSDK/OpenKF
+ROOT_PACKAGE=github.com/openimsdk/openkf
 OUT_DIR=$(REPO_ROOT)/_output
 # ==============================================================================
 
@@ -159,7 +159,7 @@ ifeq ($(strip $(BINS)),)
 endif
 
 
-EXCLUDE_TESTS=github.com/OpenIMSDK/OpenKF/test
+EXCLUDE_TESTS=github.com/openimsdk/openkf/test
 
 # ==============================================================================
 # Build

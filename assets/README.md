@@ -30,7 +30,7 @@ assets/
 
 ## Copyright Notice:
 
-The OpenKF logo, including its variations and animated versions, displayed in this repository [OpenKF](https://github.com/OpenIMSDK/openkf) under the `/assets/logo` and `/assets/logo-gif` directories, are protected by copyright laws.
+The OpenKF logo, including its variations and animated versions, displayed in this repository [OpenKF](https://github.com/openimsdk/openkf) under the `/assets/logo` and `/assets/logo-gif` directories, are protected by copyright laws.
 
 The logo design is credited to @Xx(席欣).
 

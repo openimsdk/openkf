@@ -12,14 +12,14 @@ const menuStore = useMenuStore();
 const menuList = computed(() => menuStore.menu_routes);
 const collapsed = ref(true);
 const iconUrl = ref(
-    'https://github.com/OpenIMSDK/OpenKF/assets/47499836/1cccc6f6-6baf-4849-b3f9-5901d683207c',
+    'https://github.com/openimsdk/openkf/assets/47499836/1cccc6f6-6baf-4849-b3f9-5901d683207c',
 );
 
 const changeCollapsed = () => {
     collapsed.value = !collapsed.value;
     iconUrl.value = collapsed.value
-        ? 'https://github.com/OpenIMSDK/OpenKF/assets/47499836/1cccc6f6-6baf-4849-b3f9-5901d683207c'
-        : 'https://github.com/OpenIMSDK/OpenKF/assets/47499836/a5384675-325e-478c-8228-2410f2329872';
+        ? 'https://github.com/openimsdk/openkf/assets/47499836/1cccc6f6-6baf-4849-b3f9-5901d683207c'
+        : 'https://github.com/openimsdk/openkf/assets/47499836/a5384675-325e-478c-8228-2410f2329872';
 };
 
 const changeHandler = (active:string) => {

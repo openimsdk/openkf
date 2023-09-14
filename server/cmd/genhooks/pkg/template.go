@@ -40,7 +40,7 @@ package hooks
 import (
 	"fmt"
 
-	urltrie "github.com/OpenIMSDK/OpenKF/server/internal/middleware/hooks/url_trie"
+	urltrie "github.com/openimsdk/openkf/server/internal/middleware/hooks/url_trie"
 	"github.com/gin-gonic/gin"
 )
 

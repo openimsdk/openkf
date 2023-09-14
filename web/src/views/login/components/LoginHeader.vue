@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import OpenKFLogo from '@/assets/openkf-logo.svg?component';
 
 const navToGitHub = () => {
-    window.open('https://github.com/OpenIMSDK/OpenKF');
+    window.open('https://github.com/openimsdk/openkf');
 };
 
 const navToDoc = () => {

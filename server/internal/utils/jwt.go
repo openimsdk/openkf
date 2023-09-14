@@ -19,7 +19,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 
-	"github.com/OpenIMSDK/OpenKF/server/internal/config"
+	"github.com/openimsdk/openkf/server/internal/config"
 )
 
 type JwtClaims struct {
