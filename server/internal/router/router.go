@@ -96,6 +96,7 @@ func InitRouter() *gin.Engine {
 			user.POST("/userlist", api.GetCommunityUserList)
 			user.POST("/update-password", api.UpdatePassword)
 			user.POST("/update", api.UpdateInfo)
+			user.POST("/statistics", api.GetUserStatistics)
 		}
 
 		community := apiv1.Group("/community")

@@ -38,3 +38,9 @@ type UserInfoResponse struct {
 	IsAdmin     bool   `json:"is_admin"`
 	CreatedAt   string `json:"created_at"`
 }
+
+// UserStatisticItem user statistic item.
+type UserStatisticItem struct {
+	Data      interface{} `json:"data"`
+	Timestamp int64       `json:"timestamp"`
+}

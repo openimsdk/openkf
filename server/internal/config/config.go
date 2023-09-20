@@ -64,6 +64,13 @@ func ConfigInit(configPath string) {
 			AppBucket:       GetString("minio.app_bucket"),
 			Location:        GetString("minio.location"),
 		},
+		InfluxDB: InfluxDB{
+			Ip:     GetString("influxdb.ip"),
+			Port:   GetInt("influxdb.port"),
+			Token:  GetString("influxdb.token"),
+			Org:    GetString("influxdb.org"),
+			Bucket: GetString("influxdb.bucket"),
+		},
 		Email: Email{
 			Host:     GetString("email.host"),
 			Port:     GetInt("email.port"),
@@ -92,15 +99,16 @@ func ConfigInit(configPath string) {
 }
 
 type config struct {
-	App    App
-	JWT    JWT
-	Server Server
-	Mysql  Mysql
-	Redis  Redis
-	Minio  Minio
-	Email  Email
-	OpenIM OpenIM
-	Slack  Slack
+	App      App
+	JWT      JWT
+	Server   Server
+	Mysql    Mysql
+	Redis    Redis
+	Minio    Minio
+	InfluxDB InfluxDB
+	Email    Email
+	OpenIM   OpenIM
+	Slack    Slack
 }
 
 // App config.
@@ -153,6 +161,15 @@ type Minio struct {
 	Bucket          string `mapstructure:"bucket"`
 	AppBucket       string `mapstructure:"app_bucket"`
 	Location        string `mapstructure:"location"`
+}
+
+// InfluxDB config.
+type InfluxDB struct {
+	Ip     string `mapstructure:"ip"`
+	Port   int    `mapstructure:"port"`
+	Token  string `mapstructure:"token"`
+	Org    string `mapstructure:"org"`
+	Bucket string `mapstructure:"bucket"`
 }
 
 // Email config.

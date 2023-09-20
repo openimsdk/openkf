@@ -33,7 +33,9 @@ const changeHandler = (active:string) => {
 
 const goHome = async () => {
     try {
-        await OpenIM.logout();
+        const status = await OpenIM.logout();
+        console.log("OpenIM Logout", status);
+
         await accountLogout();
     } catch (e) {
         MessagePlugin.error('IM logout failed!');

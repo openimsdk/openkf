@@ -72,3 +72,19 @@ type UpdateUserPasswordParams struct {
 type DeleteUserParams struct {
 	UUID string `json:"uuid" binding:"required"`
 }
+
+type UsersStatisticsType string
+
+const (
+	USER_STATISTICS_ONLINE_TIME    UsersStatisticsType = "online_time"
+	USER_STATISTICS_MESSAGE_COUNT  UsersStatisticsType = "message_count"
+	USER_STATISTICS_MESSAGE_LENGTH UsersStatisticsType = "message_length"
+)
+
+// GetUsersStatisticsParams get users statistics params.
+type GetUsersStatisticsParams struct {
+	// online_time, message_count, message_length
+	Type           string `json:"type" binding:"required"`
+	StartTimestamp int64  `json:"start_timestamp" binding:"required"`
+	EndTimestamp   int64  `json:"end_timestamp" binding:"required"`
+}

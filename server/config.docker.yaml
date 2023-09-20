@@ -52,6 +52,13 @@ minio:
   app_bucket: openkf
   location: us-east-1
 
+influxdb:
+  ip: 177.8.0.6
+  port: 8086
+  token: admin1234
+  org: openkf
+  bucket: openkf
+
 email:
   host: # smtp address
   port: 25

@@ -71,20 +71,63 @@ func BeforeSendSingleMsg(c *gin.Context) {
 
 // AfterSendSingleMsg.
 func AfterSendSingleMsg(c *gin.Context) {
-}
+	log.Infof("UserOnline", "UserOnline")
+	params := &requestparams.MsgAbstract{}
+	err := c.ShouldBindJSON(params)
+	if err != nil {
+		// Do not check
+		return
+	}
 
-// MsgModify.
-func MsgModify(c *gin.Context) {
+	// Save to influxdb
+	svc := service.NewIMCallbackService(c)
+	if err := svc.AfterSendSingleMsgCallback(params.SendID, params.Content); err != nil {
+		log.Errorf("AfterSendSingleMsg", "Write to influx db error: %s", err.Error())
+
+		return
+	}
 }
 
 // UserOnline.
 func UserOnline(c *gin.Context) {
-	// TODO: push user id to queue
+	log.Infof("UserOnline", "UserOnline")
+	params := &requestparams.CallbackUserOnlineReq{}
+	err := c.ShouldBindJSON(params)
+	if err != nil {
+		// Do not check
+		return
+	}
+
+	// Save to influxdb
+	svc := service.NewIMCallbackService(c)
+	if err := svc.UserOnlineCallback(params.UserID); err != nil {
+		log.Errorf("UserOnline", "Write to influx db error: %s", err.Error())
+
+		return
+	}
 }
 
 // UserOffline.
 func UserOffline(c *gin.Context) {
-	// TODO: remove user id to queue
+	log.Infof("UserOffline", "UserOffline")
+	params := &requestparams.CallbackUserOfflineReq{}
+	err := c.ShouldBindJSON(params)
+	if err != nil {
+		// Do not check
+		return
+	}
+
+	// Save to influxdb
+	svc := service.NewIMCallbackService(c)
+	if err := svc.UserOfflineCallback(params.UserID); err != nil {
+		log.Errorf("UserOffline", "Write to influx db error: %s", err.Error())
+
+		return
+	}
+}
+
+// MsgModify.
+func MsgModify(c *gin.Context) {
 }
 
 // OfflinePush.
