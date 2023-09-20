@@ -73,8 +73,10 @@ type DeleteUserParams struct {
 	UUID string `json:"uuid" binding:"required"`
 }
 
+// UsersStatisticsType user statistics type.
 type UsersStatisticsType string
 
+// Used for UsersStatisticsType.
 const (
 	USER_STATISTICS_ONLINE_TIME    UsersStatisticsType = "online_time"
 	USER_STATISTICS_MESSAGE_COUNT  UsersStatisticsType = "message_count"
