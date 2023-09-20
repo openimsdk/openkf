@@ -61,7 +61,7 @@ func InitMinio() {
 		if err = minioClient.MakeBucket(
 			context.Background(),
 			_bucket,
-			minio.MakeBucketOptions{Region: location, ObjectLocking: true},
+			minio.MakeBucketOptions{Region: location},
 		); err != nil {
 			log.Panicf("Minio", err.Error(), " Open failed ", endpoint)
 		}

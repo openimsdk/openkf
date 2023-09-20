@@ -22,27 +22,6 @@ networks:
         - subnet: '177.8.0.0/16'
         
 services:
-  server:
-    image: openkf-server:latest
-    container_name: openkf-server
-    hostname: openkf-server
-    restart: always
-    ports:
-      - '10010:10010'
-    depends_on:
-      - mysql
-      - redis
-      - minio
-    volumes:
-      - openkf_logs:/openkf-server/logs
-    working_dir: /openkf-server
-    links:
-      - mysql
-      - redis
-      - minio
-    networks:
-      openkf-network:
-        ipv4_address: 177.8.0.2
 
   mysql:
     image: mysql:5.7
@@ -93,11 +72,29 @@ services:
       - MINIO_ROOT_USER=test123123
       - MINIO_ROOT_PASSWORD=test123123
       - MINIO_BUCKET=openkf
-      - MINIO_SERVER_URL=http://127.0.0.1:9100
+      - MINIO_SERVER_URL=http://127.0.0.1:9000
     command: minio server /data --console-address ':9090'
     networks:
       openkf-network:
         ipv4_address: 177.8.0.5
+  
+  influxdb:
+    image: influxdb:2.7.1
+    container_name: openkf-influxdb
+    ports:
+      - "8186:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=admin1234
+      - DOCKER_INFLUXDB_INIT_ORG=openkf
+      - DOCKER_INFLUXDB_INIT_BUCKET=openkf
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=admin1234
+    networks:
+      openkf-network:
+        ipv4_address: 177.8.0.6
 
 volumes:
   openkf_logs:
@@ -105,3 +102,4 @@ volumes:
   redis_data:
   minio_data:
   minio_config:
+  influxdb_data:
