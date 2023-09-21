@@ -27,19 +27,19 @@ import (
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 )
 
-// UserMeasurement user measurement
+// UserMeasurement user measurement.
 type UserMeasurement string
 
-// measurements
+// measurements.
 const (
 	USER_ACTION_MEASUREMENT  UserMeasurement = "user_action"
 	USER_MESSAGE_MEASUREMENT UserMeasurement = "user_message"
 )
 
-// UserAction user action
+// UserAction user action.
 type UserAction string
 
-// tags
+// tags.
 const (
 	USER_UUID           UserAction = "uuid"
 	USER_ONLINE_ACTION  UserAction = "online"
@@ -72,15 +72,18 @@ func NewUserStatisticDao() *UserStatisticDao {
 	}
 }
 
+// UserData user data.
 type UserData struct {
 	Data int64 `json:"data"`
 }
 
+// UserTags user tags.
 type UserTags struct {
 	UUID   string `json:"uuid"`
 	Action string `json:"action"`
 }
 
+// TimeItem time item.
 type TimeItem struct {
 	Value int64 `json:"value"`
 	Time  int64 `json:"time"`
@@ -104,12 +107,12 @@ func (d *UserStatisticDao) WriteMeasurementWithUserActionData(uid string, measur
 		return err
 	}
 	// Flatten map with one depth
-	userFields_flattened := utils.FlattenMap(userFields, ".")
+	userFieldsFlattened := utils.FlattenMap(userFields, ".")
 
 	userPoint := influxdb2.NewPoint(
 		string(measurement),
 		userTags,
-		userFields_flattened,
+		userFieldsFlattened,
 		now, // set timezone
 	)
 

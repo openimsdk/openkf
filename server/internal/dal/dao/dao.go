@@ -45,7 +45,7 @@ func (d *Dao) GetCache() *cache.Cache {
 	return d.cache
 }
 
-// GetInflux get influxdb client.
+// GetInfluxClient get influxdb client.
 func (d *Dao) GetInfluxClient() *db.InfluxDB {
 	return d.influxClient
 }

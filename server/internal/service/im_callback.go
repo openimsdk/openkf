@@ -18,6 +18,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+
 	"github.com/openimsdk/openkf/server/internal/dal/dao"
 	"github.com/openimsdk/openkf/server/pkg/log"
 )
@@ -39,7 +40,7 @@ func NewIMCallbackService(c *gin.Context) *IMCallbackService {
 	}
 }
 
-// UserOnlineCallback user online callback
+// UserOnlineCallback user online callback.
 func (svc *IMCallbackService) UserOnlineCallback(uid string) error {
 	if err := svc.UserStatisticDao.WriteMeasurementWithUserActionData(
 		uid,
@@ -55,7 +56,7 @@ func (svc *IMCallbackService) UserOnlineCallback(uid string) error {
 	return nil
 }
 
-// UserOfflineCallback user offline callback
+// UserOfflineCallback user offline callback.
 func (svc *IMCallbackService) UserOfflineCallback(uid string) error {
 	if err := svc.UserStatisticDao.WriteMeasurementWithUserActionData(
 		uid,
@@ -71,7 +72,7 @@ func (svc *IMCallbackService) UserOfflineCallback(uid string) error {
 	return nil
 }
 
-// AfterSendSingleMsgCallback after send msg callback
+// AfterSendSingleMsgCallback after send msg callback.
 func (svc *IMCallbackService) AfterSendSingleMsgCallback(uid string, msg string) error {
 	if err := svc.UserStatisticDao.WriteMeasurementWithUserActionData(
 		uid,

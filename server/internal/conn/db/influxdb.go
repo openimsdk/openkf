@@ -16,13 +16,16 @@ package db
 
 import (
 	"fmt"
+	"net"
 
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 	"github.com/influxdata/influxdb-client-go/v2/api"
+
 	"github.com/openimsdk/openkf/server/internal/config"
 	"github.com/openimsdk/openkf/server/pkg/log"
 )
 
+// InfluxDB influxdb client.
 type InfluxDB struct {
 	// for query
 	Org    string
@@ -36,9 +39,9 @@ var influxcient *InfluxDB
 
 // InitInfluxDB init influxdb connection.
 func InitInfluxDB() {
-	severURL := fmt.Sprintf("http://%s:%d",
+	severURL := net.JoinHostPort(
 		config.Config.InfluxDB.Ip,
-		config.Config.InfluxDB.Port,
+		fmt.Sprintf("%d", config.Config.InfluxDB.Port),
 	)
 
 	influxDBClient := influxdb2.NewClient(severURL, config.Config.InfluxDB.Token)
@@ -74,7 +77,8 @@ func (i *InfluxDB) GetQueryAPI() api.QueryAPI {
 
 // BuildQuery build query string.
 func (i *InfluxDB) BuildQuery(bucket, measurement, field, aggPeriod, aggFn, actionStr, uuid string,
-	startTime, endTime int64) string {
+	startTime, endTime int64,
+) string {
 	return fmt.Sprintf(`
 		from(bucket: "%s")
 		|> range(start: %d, stop: %d)
@@ -89,7 +93,8 @@ func (i *InfluxDB) BuildQuery(bucket, measurement, field, aggPeriod, aggFn, acti
 
 // BuildQueryWithPage build query string with page.
 func (i *InfluxDB) BuildQueryWithPage(bucket, period, measurement, uuid string,
-	pagesize, page int) string {
+	pagesize, page int,
+) string {
 	// use group to get the all data
 	return fmt.Sprintf(`
 		from(bucket: "%s")

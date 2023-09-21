@@ -82,7 +82,6 @@ func (svc *UserStatistic) ReadUserOnlineTimePerDay(uid string, startTime, endTim
 
 	// merge online and offline time items (diff)
 	for i := 0; i < len(offlineTimeItems); i++ {
-
 		// Check is the same day
 		onlineTime := time.Unix(onlineTimeItems[i].Time, 0)
 		offlineTime := time.Unix(offlineTimeItems[i].Time, 0)

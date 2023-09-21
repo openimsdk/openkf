@@ -29,6 +29,8 @@ import (
 )
 
 // InitRouter init router.
+//
+//nolint:funlen
 func InitRouter() *gin.Engine {
 	if config.GetString("app.debug") == "true" {
 		gin.SetMode(gin.DebugMode)
