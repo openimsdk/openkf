@@ -271,67 +271,163 @@ func (m *MockRedisClient) Watch(ctx context.Context, fn func(*redis.Tx) error, k
 	return nil
 }
 
-// ZAdd zset add.
+// ZAdd simulates the ZADD command.
 func (m *MockRedisClient) ZAdd(ctx context.Context, key string, members ...*redis.Z) *redis.IntCmd {
-	return redis.NewIntResult(0, nil)
+	count := 0
+	if _, exists := m.data[key]; !exists {
+		m.data[key] = ""
+	}
+	for _, member := range members {
+		m.data[key] = member.Member.(string)
+		count++
+	}
+
+	return redis.NewIntResult(int64(count), nil)
 }
 
-// ZRem zset remove.
+// ZRem simulates the ZREM command.
 func (m *MockRedisClient) ZRem(ctx context.Context, key string, members ...interface{}) *redis.IntCmd {
-	return redis.NewIntResult(0, nil)
+	count := 0
+	if _, exists := m.data[key]; exists {
+		for _, member := range members {
+			if m.data[key] == member.(string) {
+				delete(m.data, key)
+				count++
+
+				break
+			}
+		}
+	}
+
+	return redis.NewIntResult(int64(count), nil)
 }
 
-// ZRange zset range.
+// ZRange simulates the ZRANGE command.
 func (m *MockRedisClient) ZRange(ctx context.Context, key string, start, stop int64) *redis.StringSliceCmd {
-	return redis.NewStringSliceCmd(ctx, 0, 0)
+	var members []string
+	if _, exists := m.data[key]; exists {
+		members = append(members, m.data[key])
+	}
+
+	return redis.NewStringSliceResult(members, nil)
 }
 
-// HSet hset.
+// HSet simulates the HSET command.
 func (m *MockRedisClient) HSet(ctx context.Context, key string, values ...interface{}) *redis.IntCmd {
-	return redis.NewIntCmd(ctx, key, values)
+	count := 0
+	if _, exists := m.data[key]; !exists {
+		m.data[key] = ""
+	}
+	for i := 0; i < len(values); i += 2 {
+		field := values[i].(string)
+		value := values[i+1].(string)
+		m.data[key+":"+field] = value
+		count++
+	}
+
+	return redis.NewIntResult(int64(count), nil)
 }
 
-// HGet hget.
+// HGet simulates the HGET command.
 func (m *MockRedisClient) HGet(ctx context.Context, key, field string) *redis.StringCmd {
-	return redis.NewStringResult(string(redis.Nil), nil)
+	if value, exists := m.data[key+":"+field]; exists {
+		return redis.NewStringResult(value, nil)
+	}
+
+	return redis.NewStringResult("", redis.Nil)
 }
 
-// HGetAll hgetall.
+// HGetAll simulates the HGETALL command.
 func (m *MockRedisClient) HGetAll(ctx context.Context, key string) *redis.StringStringMapCmd {
-	return redis.NewStringStringMapCmd(ctx, nil)
+	result := make(map[string]string)
+	for k, v := range m.data {
+		if strings.HasPrefix(k, key+":") {
+			field := strings.TrimPrefix(k, key+":")
+			result[field] = v
+		}
+	}
+
+	return redis.NewStringStringMapResult(result, nil)
 }
 
-// HDel hdel.
+// HDel simulates the HDEL command.
 func (m *MockRedisClient) HDel(ctx context.Context, key string, fields ...string) *redis.IntCmd {
-	return redis.NewIntResult(0, nil)
+	count := 0
+	for _, field := range fields {
+		if _, exists := m.data[key+":"+field]; exists {
+			delete(m.data, key+":"+field)
+			count++
+		}
+	}
+
+	return redis.NewIntResult(int64(count), nil)
 }
 
-// HExists hexists.
+// HExists simulates the HEXISTS command.
 func (m *MockRedisClient) HExists(ctx context.Context, key, field string) *redis.BoolCmd {
-	return redis.NewBoolCmd(ctx, false)
+	_, exists := m.data[key+":"+field]
+
+	return redis.NewBoolResult(exists, nil)
 }
 
-// HIncrBy hincrby.
+// HIncrBy simulates the HINCRBY command.
 func (m *MockRedisClient) HIncrBy(ctx context.Context, key, field string, incr int64) *redis.IntCmd {
+	if _, exists := m.data[key+":"+field]; exists {
+		value, _ := strconv.ParseInt(m.data[key+":"+field], 10, 64)
+		value += incr
+		m.data[key+":"+field] = strconv.FormatInt(value, 10)
+
+		return redis.NewIntResult(value, nil)
+	}
+
 	return redis.NewIntResult(0, nil)
 }
 
-// HKeys hkeys.
+// HKeys simulates the HKEYS command.
 func (m *MockRedisClient) HKeys(ctx context.Context, key string) *redis.StringSliceCmd {
-	return redis.NewStringSliceCmd(ctx, nil)
+	var fields []string
+	for k := range m.data {
+		if strings.HasPrefix(k, key+":") {
+			fields = append(fields, strings.TrimPrefix(k, key+":"))
+		}
+	}
+
+	return redis.NewStringSliceResult(fields, nil)
 }
 
-// HLen hlen.
+// HLen simulates the HLEN command.
 func (m *MockRedisClient) HLen(ctx context.Context, key string) *redis.IntCmd {
-	return redis.NewIntResult(0, nil)
+	count := 0
+	for k := range m.data {
+		if strings.HasPrefix(k, key+":") {
+			count++
+		}
+	}
+
+	return redis.NewIntResult(int64(count), nil)
 }
 
-// HMGet hmget.
+// HMGet simulates the HMGET command.
 func (m *MockRedisClient) HMGet(ctx context.Context, key string, fields ...string) *redis.SliceCmd {
-	return redis.NewSliceCmd(ctx, nil)
+	var values []interface{}
+	for _, field := range fields {
+		if value, exists := m.data[key+":"+field]; exists {
+			values = append(values, value)
+		} else {
+			values = append(values, nil)
+		}
+	}
+
+	return redis.NewSliceResult(values, nil)
 }
 
-// HMSet hmset.
+// HMSet simulates the HMSET command.
 func (m *MockRedisClient) HMSet(ctx context.Context, key string, values ...interface{}) *redis.BoolCmd {
-	return redis.NewBoolCmd(ctx, nil)
+	for i := 0; i < len(values); i += 2 {
+		field := values[i].(string)
+		value := values[i+1].(string)
+		m.data[key+":"+field] = value
+	}
+
+	return redis.NewBoolResult(true, nil)
 }
