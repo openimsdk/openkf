@@ -33,6 +33,13 @@ export enum PlatformType {
     Web = 'WEB',
 }
 
+// Define user statistics type
+enum USER_STATISTICS_TYPE {
+    USER_STATISTICS_ONLINE_TIME = "online_time",
+    USER_STATISTICS_MESSAGE_COUNT = "message_count",
+    USER_STATISTICS_MESSAGE_LENGTH = "message_length",
+}
+
 // Define support platforms
 export const PLATFORMS = [
     {

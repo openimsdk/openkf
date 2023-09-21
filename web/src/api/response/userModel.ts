@@ -26,3 +26,8 @@ export interface GetUserInfoListResponse {
     total: number;
     list: GetUserInfoResponse[];
 }
+
+export interface GetUserStatisticsResponse {
+    data: number;
+    timestamp: number;
+}
