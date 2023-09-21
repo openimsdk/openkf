@@ -49,8 +49,8 @@ func (svc *UserStatistic) ReadUserOnlineTimePerDay(uid string, startTime, endTim
 
 	// get online time sum
 	onlineTimeItems, err := svc.UserStatisticDao.ReadMeasurementWithUserAction(
-		dao.USER_ACTION_MEASUREMENT,
-		dao.USER_ONLINE_ACTION,
+		dao.UserActionMeasurement,
+		dao.UserOnlineAction,
 		uid,
 		startTime,
 		endTime,
@@ -62,8 +62,8 @@ func (svc *UserStatistic) ReadUserOnlineTimePerDay(uid string, startTime, endTim
 	}
 
 	offlineTimeItems, err := svc.UserStatisticDao.ReadMeasurementWithUserAction(
-		dao.USER_ACTION_MEASUREMENT,
-		dao.USER_OFFLINE_ACTION,
+		dao.UserActionMeasurement,
+		dao.UserOfflineAction,
 		uid,
 		startTime,
 		endTime,
@@ -93,7 +93,7 @@ func (svc *UserStatistic) ReadUserOnlineTimePerDay(uid string, startTime, endTim
 		}
 
 		// Skip today
-		if offlineTimeItems[i].Value-onlineTimeItems[i].Value >= 24*60*60 {
+		if offlineTimeItems[i].Time-onlineTimeItems[i].Time >= 24*60*60 {
 			continue
 		}
 
@@ -108,12 +108,12 @@ func (svc *UserStatistic) ReadUserOnlineTimePerDay(uid string, startTime, endTim
 
 // ReadUserSendMsgCountPerDay read user send message count per day.
 func (svc *UserStatistic) ReadUserSendMsgCountPerDay(uid string, startTime, endTime int64) ([]*responseparams.UserStatisticItem, error) {
-	return svc.readUserSendMsgXXXPerDay(uid, startTime, endTime, dao.USER_SEND_MSG_COUNT)
+	return svc.readUserSendMsgXXXPerDay(uid, startTime, endTime, dao.UserSendMsgCount)
 }
 
 // ReadUserSendMsgLenPerDay read user send message length per day.
 func (svc *UserStatistic) ReadUserSendMsgLenPerDay(uid string, startTime, endTime int64) ([]*responseparams.UserStatisticItem, error) {
-	return svc.readUserSendMsgXXXPerDay(uid, startTime, endTime, dao.USER_SEND_MSG_LEN)
+	return svc.readUserSendMsgXXXPerDay(uid, startTime, endTime, dao.UserSendMsgLen)
 }
 
 // readUserSendMsgXXXPerDay read user send message xxx metrics per day.
@@ -126,7 +126,7 @@ func (svc *UserStatistic) readUserSendMsgXXXPerDay(uid string, startTime, endTim
 
 	// get online time sum
 	sendMsgCountTimeItems, err := svc.UserStatisticDao.ReadMeasurementWithUserAction(
-		dao.USER_MESSAGE_MEASUREMENT,
+		dao.UserMessageMeasurement,
 		action,
 		uid,
 		startTime,

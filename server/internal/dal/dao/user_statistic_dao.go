@@ -32,8 +32,8 @@ type UserMeasurement string
 
 // measurements.
 const (
-	USER_ACTION_MEASUREMENT  UserMeasurement = "user_action"
-	USER_MESSAGE_MEASUREMENT UserMeasurement = "user_message"
+	UserActionMeasurement  UserMeasurement = "user_action"
+	UserMessageMeasurement UserMeasurement = "user_message"
 )
 
 // UserAction user action.
@@ -41,13 +41,13 @@ type UserAction string
 
 // tags.
 const (
-	USER_UUID           UserAction = "uuid"
-	USER_ONLINE_ACTION  UserAction = "online"
-	USER_OFFLINE_ACTION UserAction = "offline"
-	USER_SEND_MSG_COUNT UserAction = "send_count"
-	USER_RECV_MSG_COUNT UserAction = "recv_count"
-	USER_SEND_MSG_LEN   UserAction = "send_len"
-	USER_RECV_MSG_LEN   UserAction = "recv_len"
+	UserUUID          UserAction = "uuid"
+	UserOnlineAction  UserAction = "online"
+	UserOfflineAction UserAction = "offline"
+	UserSendMsgCount  UserAction = "send_count"
+	UserRecvMsgCount  UserAction = "recv_count"
+	UserSendMsgLen    UserAction = "send_len"
+	UserRecvMsgLen    UserAction = "recv_len"
 )
 
 // UserStatisticDao user statistic dao.

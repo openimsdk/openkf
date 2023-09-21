@@ -44,8 +44,8 @@ func NewIMCallbackService(c *gin.Context) *IMCallbackService {
 func (svc *IMCallbackService) UserOnlineCallback(uid string) error {
 	if err := svc.UserStatisticDao.WriteMeasurementWithUserActionData(
 		uid,
-		dao.USER_ACTION_MEASUREMENT,
-		dao.USER_ONLINE_ACTION,
+		dao.UserActionMeasurement,
+		dao.UserOnlineAction,
 		time.Now().Unix(),
 	); err != nil {
 		log.Errorf("UserOnlineCallback", "Write to influx db error: %s", err.Error())
@@ -60,8 +60,8 @@ func (svc *IMCallbackService) UserOnlineCallback(uid string) error {
 func (svc *IMCallbackService) UserOfflineCallback(uid string) error {
 	if err := svc.UserStatisticDao.WriteMeasurementWithUserActionData(
 		uid,
-		dao.USER_ACTION_MEASUREMENT,
-		dao.USER_OFFLINE_ACTION,
+		dao.UserActionMeasurement,
+		dao.UserOfflineAction,
 		time.Now().Unix(),
 	); err != nil {
 		log.Errorf("UserOnlineCallback", "Write to influx db error: %s", err.Error())
@@ -76,8 +76,8 @@ func (svc *IMCallbackService) UserOfflineCallback(uid string) error {
 func (svc *IMCallbackService) AfterSendSingleMsgCallback(uid string, msg string) error {
 	if err := svc.UserStatisticDao.WriteMeasurementWithUserActionData(
 		uid,
-		dao.USER_MESSAGE_MEASUREMENT,
-		dao.USER_SEND_MSG_LEN,
+		dao.UserMessageMeasurement,
+		dao.UserSendMsgLen,
 		int64(len(msg)), // TODO: Check true length of the message
 	); err != nil {
 		log.Errorf("UserOnlineCallback", "Write to influx db error: %s", err.Error())
@@ -87,8 +87,8 @@ func (svc *IMCallbackService) AfterSendSingleMsgCallback(uid string, msg string)
 
 	if err := svc.UserStatisticDao.WriteMeasurementWithUserActionData(
 		uid,
-		dao.USER_MESSAGE_MEASUREMENT,
-		dao.USER_SEND_MSG_COUNT,
+		dao.UserMessageMeasurement,
+		dao.UserSendMsgCount,
 		1,
 	); err != nil {
 		log.Errorf("UserOnlineCallback", "Write to influx db error: %s", err.Error())
