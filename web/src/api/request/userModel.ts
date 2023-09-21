@@ -46,3 +46,9 @@ export interface UpdateUserInfoParam {
     nickname: string;
     description: string;
 }
+
+export interface GetUserStatisticsParam {
+    type: string;
+    start_timestamp: number;
+    end_timestamp: number;
+}
