@@ -20,6 +20,8 @@ import (
 
 	"github.com/go-redis/redis/v8"
 	"github.com/pkg/errors"
+
+	"github.com/openimsdk/openkf/server/internal/conn/db"
 )
 
 var _ Cache = new(cache)
@@ -75,13 +77,13 @@ type Cache interface {
 
 // cache cache dao representative.
 type cache struct {
-	client *redis.Client
+	client *db.RealRedisClient
 }
 
 // Use return cache db.
-func Use(client *redis.Client) Cache {
+func Use(client db.RedisClient) Cache {
 	return &cache{
-		client: client,
+		client: client.(*db.RealRedisClient),
 	}
 }
 
