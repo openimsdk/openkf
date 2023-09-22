@@ -17,15 +17,17 @@ package dao
 import (
 	"context"
 
+	"github.com/openimsdk/openkf/server/internal/conn/db"
 	"github.com/openimsdk/openkf/server/internal/dal/cache"
 	"github.com/openimsdk/openkf/server/internal/dal/gen"
 )
 
 // Dao dao top level.
 type Dao struct {
-	ctx   context.Context
-	query *gen.Query
-	cache *cache.Cache
+	ctx          context.Context
+	query        *gen.Query
+	cache        *cache.Cache
+	influxClient *db.InfluxDB
 }
 
 // GetQuery get query.
@@ -41,4 +43,9 @@ func (d *Dao) GetCtx() context.Context {
 // GetCache get cache.
 func (d *Dao) GetCache() *cache.Cache {
 	return d.cache
+}
+
+// GetInfluxClient get influxdb client.
+func (d *Dao) GetInfluxClient() *db.InfluxDB {
+	return d.influxClient
 }
