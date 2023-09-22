@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, nextTick, computed, onMounted } from 'vue';
+import { ref, nextTick, computed, watch, onMounted } from 'vue';
 import { getUserStatistics } from '@/api/index/statistics';
 import { GetUserStatisticsResponse } from '@/api/response/userModel';
 import { LAST_7_DAYS } from '@/constants/date';
@@ -12,11 +12,11 @@ import { GetUserStatisticsParam } from '@/api/request/userModel';
 
 const dataLoading = ref(false);
 
-const chartData = ref<GetUserStatisticsResponse[]>([]);
 
 echarts.use([GridComponent, TooltipComponent, LineChart, CanvasRenderer, LegendComponent]);
 let lineContainer: HTMLElement;
 let lineChart: echarts.ECharts;
+const chartData = ref<GetUserStatisticsResponse[]>([]);
 
 const updateContainer = () => {
     lineChart?.resize({
@@ -26,19 +26,19 @@ const updateContainer = () => {
 };
 
 onMounted(() => {
-    fetchData();
-
     // Support auto scale
     window.addEventListener('resize', updateContainer, false);
     nextTick(() => {
-        initChart('onlineTimeContainer');
+        initChart(tabValue.value as string);
     });
+
+    fetchData();
 });
 
 const initChart = (chartId: string) => {
     lineContainer = document.getElementById(chartId)!;
     lineChart = echarts.init(lineContainer);
-    lineChart.setOption(fetchOption());
+    // lineChart.setOption({});
 };
 
 const onLineChange = (value: DateRangeValue) => {
@@ -46,17 +46,19 @@ const onLineChange = (value: DateRangeValue) => {
     endTime.value = value[1] as string
 
     fetchData();
-    console.log("onLineChange", value)
-
-    lineChart.setOption(fetchOption());
 };
 
-const fetchOption = () => {
-    return {
+watch(chartData, () => {
+    updateOption();
+})
+
+const updateOption = () => {
+    console.log("length", chartData.value.length)
+    const chartOptions =  {
         grid: {
             top: '5%',
-            right: '10px',
-            left: '30px',
+            right: '40px',
+            left: '60px',
             bottom: '60px',
         },
         legend: {
@@ -70,7 +72,7 @@ const fetchOption = () => {
         },
         xAxis: {
             type: 'category',
-            data: chartData.value.forEach((item) => {
+            data: chartData.value.map((item) => {
                 const date = new Date(item.timestamp * 1000)
                 const year = date.getFullYear();
                 const month = date.getMonth() + 1;
@@ -89,7 +91,7 @@ const fetchOption = () => {
         },
         series: [
             {
-                data: chartData.value.forEach((item) => {
+                data: chartData.value.map((item) => {
                     return item.data
                 }),
                 type: 'line',
@@ -97,6 +99,21 @@ const fetchOption = () => {
             }
         ]
     };
+
+    lineChart.setOption(chartOptions);
+
+    if (chartData.value.length > 0) {
+        lineChart.hideLoading()
+    } else {
+        lineChart.showLoading({
+            text: 'No data available!',
+            showSpinner: false,
+            textColor: 'black',
+            maskColor: 'rgba(255, 255, 255, 1)',
+            fontSize: '26px',
+            fontWeight: 'bold'
+        })
+    }
 }
 
 const fetchData = async () => {
@@ -109,17 +126,21 @@ const fetchData = async () => {
         }
 
         const res = await getUserStatistics(params);
+        console.log("params", params)
+        console.log("res", res)
 
         // Set to chartData
-        res.forEach((item) => {
-            chartData.value = []
+        chartData.value = []
+        for (let i = 0; i < res.length; i++) {
             chartData.value.push({
-                data: item.data,
-                timestamp: item.timestamp,
+                data: res[i].data,
+                timestamp: res[i].timestamp,
             })
-        })
+        }
 
         console.log("chartData", chartData.value)
+        // Update Options data
+        updateOption();
     } catch (e) {
         console.log(e);
     } finally {
@@ -131,8 +152,11 @@ const startTime = ref(LAST_7_DAYS[0])
 const endTime = ref(LAST_7_DAYS[1])
 const tabValue = ref<TabValue>('online_time');
 const handlerTabsChange = (value: TabValue) => {
-    console.log(value)
-    initChart(value.toString())
+    console.log(value.toString())
+    // initChart('online_time')
+    nextTick(() => {
+        initChart(tabValue.value as string);
+    });
 
     // fetch data
     fetchData();
@@ -148,7 +172,7 @@ const handlerTabsChange = (value: TabValue) => {
                         <t-date-range-picker class="card-date-picker-container" :default-value="[startTime, endTime]"
                             theme="primary" mode="date" @change="onLineChange" />
                     </template>
-                    <div id="onlineTimeContainer" style="width: 100%; height: 328px" />
+                    <div id="online_time" style="width: 100%; height: 328px" />
                 </t-card>
             </t-tab-panel>
             <t-tab-panel value="message_count" label="Message Count">
@@ -157,7 +181,7 @@ const handlerTabsChange = (value: TabValue) => {
                         <t-date-range-picker class="card-date-picker-container" :default-value="[startTime, endTime]"
                             theme="primary" mode="date" @change="onLineChange" />
                     </template>
-                    <div id="messageCountContainer" style="width: 100%; height: 328px" />
+                    <div id="message_count" style="width: 100%; height: 328px" />
                 </t-card>
             </t-tab-panel>
             <t-tab-panel value="message_length" label="Message Length">
@@ -166,7 +190,7 @@ const handlerTabsChange = (value: TabValue) => {
                         <t-date-range-picker class="card-date-picker-container" :default-value="[startTime, endTime]"
                             theme="primary" mode="date" @change="onLineChange" />
                     </template>
-                    <div id="messageLengthContainer" style="width: 100%; height: 328px" />
+                    <div id="message_length" style="width: 100%; height: 328px" />
                 </t-card>
             </t-tab-panel>
         </t-tabs>
