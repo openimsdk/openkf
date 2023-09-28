@@ -20,8 +20,11 @@ app:
   host: 0.0.0.0
   port: 10011
   debug: true
+  file_dir: /tmp
   log_path: logs/
   doc: data/
+  token: openkf
+  openai_api_key: EMPTY
 
 ###############################
 # LLM langchain config
@@ -30,7 +33,7 @@ app:
 inference:
   device: cuda
 
-# These can be modified in api
+# TODO:These can be modified in api
 model:
   history: 0
   temperature: 0.01
@@ -42,8 +45,8 @@ model:
 ###############################
 fastchat:
   models:
-    model_path: THUDM/chatglm-6b
-    llm_model_name: chatglm-6b
+    model_path: lmsys/vicuna-7b-v1.3
+    llm_model_name: gpt-3.5-turbo
     embedding_model_name: text-embedding-ada-002
   controller:
     host: 127.0.0.1
@@ -58,3 +61,12 @@ fastchat:
   openai_api_server:
     host: 0.0.0.0
     port: 8888
+
+###############################
+# Milvus config
+###############################
+milvus:
+  host: 127.0.0.1
+  port: 19530
+  top_k: 5
+  score_threshold: 0.5
