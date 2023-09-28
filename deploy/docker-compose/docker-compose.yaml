@@ -22,7 +22,6 @@ networks:
         - subnet: '177.8.0.0/16'
         
 services:
-
   mysql:
     image: mysql:5.7
     container_name: openkf-mysql
@@ -40,7 +39,7 @@ services:
       # - MYSQL_MAX_OPEN_CONNS=100
       # - MYSQL_MAX_IDLE_CONNS=20
     volumes:
-      - mysql_data_57:/var/lib/mysql
+      - mysql_data_573:/var/lib/mysql
     networks:
       openkf-network:
         ipv4_address: 177.8.0.3
@@ -96,10 +95,66 @@ services:
       openkf-network:
         ipv4_address: 177.8.0.6
 
+  # For milvus db
+  milvus-etcd:
+    container_name: openkf-milvus-etcd
+    image: quay.io/coreos/etcd:v3.5.0
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - milvus-etcd:/etcd
+    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    networks:
+      openkf-network:
+        ipv4_address: 177.8.0.7
+
+  milvus-minio:
+    container_name: openkf-milvus-minio
+    image: minio/minio:RELEASE.2022-03-17T06-34-49Z
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    volumes:
+      - milvus-minio:/minio_data
+    command: minio server /minio_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      openkf-network:
+        ipv4_address: 177.8.0.8
+
+  milvus-standalone:
+    container_name: openkf-milvus-standalone
+    image: milvusdb/milvus:v2.1.4
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: milvus-etcd:2379
+      MINIO_ADDRESS: milvus-minio:9000
+    volumes:
+      - milvus-standalone:/var/lib/milvus
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    depends_on:
+      - "milvus-etcd"
+      - "milvus-minio"
+    networks:
+      openkf-network:
+        ipv4_address: 177.8.0.9
+
 volumes:
   openkf_logs:
-  mysql_data_57:
+  mysql_data_573:
   redis_data:
   minio_data:
   minio_config:
   influxdb_data:
+  milvus-etcd:
+  milvus-minio:
+  milvus-standalone:
