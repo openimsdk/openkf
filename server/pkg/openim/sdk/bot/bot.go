@@ -23,14 +23,14 @@ import (
 )
 
 const (
-	// PATH_BOT_ASK ask with bot.
-	PATH_BOT_ASK = "/api/v1/ask"
+	// pathBotTask ask with bot.
+	pathBotTask = "/api/v1/ask"
 )
 
 // AskBot ask bot.
 func AskBot(param *request.BotQuery, operationID, host string) (*response.BotQueryResponse, error) {
 	// host: http://ip:port
-	url := fmt.Sprintf("%s%s", host, PATH_BOT_ASK)
+	url := fmt.Sprintf("%s%s", host, pathBotTask)
 
 	r := &response.BotQueryResponse{}
 	client := client.NewClient(url)
@@ -39,13 +39,40 @@ func AskBot(param *request.BotQuery, operationID, host string) (*response.BotQue
 		return r, err
 	}
 
-	r.Code = uint(resp["code"].(float64))
-	r.Msg = resp["msg"].(string)
-	if data, ok := resp["data"]; ok {
-		data := data.(map[string]interface{})
-		r.Data.Context = data["context"].(string)
-		r.Data.Question = data["question"].(string)
-		r.Data.Text = data["text"].(string)
+	code, ok := resp["code"].(float64)
+	if !ok {
+		return r, fmt.Errorf("code is not float64")
+	}
+	r.Code = uint(code)
+
+	r.Msg, ok = resp["msg"].(string)
+	if !ok {
+		return r, fmt.Errorf("msg is not string")
+	}
+
+	data, ok := resp["data"]
+	if !ok {
+		return r, fmt.Errorf("data is not exist")
+	}
+
+	newData, ok := data.(map[string]interface{})
+	if !ok {
+		return r, fmt.Errorf("data is not map[string]interface{}")
+	}
+
+	r.Data.Context, ok = newData["context"].(string)
+	if !ok {
+		return r, fmt.Errorf("context is not string")
+	}
+
+	r.Data.Question, ok = newData["question"].(string)
+	if !ok {
+		return r, fmt.Errorf("question is not string")
+	}
+
+	r.Data.Text, ok = newData["text"].(string)
+	if !ok {
+		return r, fmt.Errorf("text is not string")
 	}
 
 	return r, nil
