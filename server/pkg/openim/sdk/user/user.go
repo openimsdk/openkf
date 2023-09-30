@@ -23,14 +23,14 @@ import (
 )
 
 const (
-	// PATH_USER_REGISTER register user path.
-	PATH_USER_REGISTER = "/user/user_register"
+	// pathUserRegister register user path.
+	pathUserRegister = "/user/user_register"
 )
 
 // RegisterUser register user.
 func RegisterUser(param *request.RegisterUserParams, operationID, host string) (*response.BaseResponse, error) {
 	// host: http://ip:port
-	url := fmt.Sprintf("%s%s", host, PATH_USER_REGISTER)
+	url := fmt.Sprintf("%s%s", host, pathUserRegister)
 
 	r := &response.BaseResponse{}
 	client := client.NewClient(url)
@@ -39,9 +39,21 @@ func RegisterUser(param *request.RegisterUserParams, operationID, host string) (
 		return r, err
 	}
 
-	r.ErrCode = uint(resp["errCode"].(float64))
-	r.ErrMsg = resp["errMsg"].(string)
-	r.ErrDlt = resp["errDlt"].(string)
+	code, ok := resp["errCode"].(float64)
+	if !ok {
+		return r, fmt.Errorf("code is not float64")
+	}
+	r.ErrCode = uint(code)
+
+	r.ErrMsg, ok = resp["errMsg"].(string)
+	if !ok {
+		return r, fmt.Errorf("msg is not string")
+	}
+
+	r.ErrDlt, ok = resp["errDlt"].(string)
+	if !ok {
+		return r, fmt.Errorf("msg is not string")
+	}
 
 	return r, nil
 }
