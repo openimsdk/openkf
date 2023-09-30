@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package user
+package bot
 
 import (
 	"fmt"
@@ -23,36 +23,56 @@ import (
 )
 
 const (
-	// pathUserRegister register user path.
-	pathUserRegister = "/user/user_register"
+	// pathBotTask ask with bot.
+	pathBotTask = "/api/v1/ask"
 )
 
-// RegisterUser register user.
-func RegisterUser(param *request.RegisterUserParams, operationID, host string) (*response.BaseResponse, error) {
+// AskBot ask bot.
+func AskBot(param *request.BotQuery, operationID, host string) (*response.BotQueryResponse, error) {
 	// host: http://ip:port
-	url := fmt.Sprintf("%s%s", host, pathUserRegister)
+	url := fmt.Sprintf("%s%s", host, pathBotTask)
 
-	r := &response.BaseResponse{}
+	r := &response.BotQueryResponse{}
 	client := client.NewClient(url)
 	resp, err := client.POST(operationID, "", param)
 	if err != nil {
 		return r, err
 	}
 
-	code, ok := resp["errCode"].(float64)
+	code, ok := resp["code"].(float64)
 	if !ok {
 		return r, fmt.Errorf("code is not float64")
 	}
-	r.ErrCode = uint(code)
+	r.Code = uint(code)
 
-	r.ErrMsg, ok = resp["errMsg"].(string)
+	r.Msg, ok = resp["msg"].(string)
 	if !ok {
 		return r, fmt.Errorf("msg is not string")
 	}
 
-	r.ErrDlt, ok = resp["errDlt"].(string)
+	data, ok := resp["data"]
 	if !ok {
-		return r, fmt.Errorf("msg is not string")
+		return r, fmt.Errorf("data is not exist")
+	}
+
+	newData, ok := data.(map[string]interface{})
+	if !ok {
+		return r, fmt.Errorf("data is not map[string]interface{}")
+	}
+
+	r.Data.Context, ok = newData["context"].(string)
+	if !ok {
+		return r, fmt.Errorf("context is not string")
+	}
+
+	r.Data.Question, ok = newData["question"].(string)
+	if !ok {
+		return r, fmt.Errorf("question is not string")
+	}
+
+	r.Data.Text, ok = newData["text"].(string)
+	if !ok {
+		return r, fmt.Errorf("text is not string")
 	}
 
 	return r, nil

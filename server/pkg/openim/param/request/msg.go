@@ -32,7 +32,7 @@ type MsgInfo struct {
 
 // TextContent text content.
 type TextContent struct {
-	Text string `json:"text"`
+	Text string `json:"content"`
 }
 
 // OfflinePushInfo offline push info.

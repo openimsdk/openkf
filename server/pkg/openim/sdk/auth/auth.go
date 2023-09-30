@@ -23,14 +23,14 @@ import (
 )
 
 const (
-	// PATH_USER_TOKEN get user token path.
-	PATH_USER_TOKEN = "/auth/user_token"
+	// pathUserToken get user token path.
+	pathUserToken = "/auth/user_token"
 )
 
 // GetUserToken get user token from openim server.
 func GetUserToken(param *request.UserTokenParams, operationID, host string) (*response.UserTokenResponse, error) {
 	// host: http://ip:port
-	url := fmt.Sprintf("%s%s", host, PATH_USER_TOKEN)
+	url := fmt.Sprintf("%s%s", host, pathUserToken)
 
 	r := &response.UserTokenResponse{}
 	client := client.NewClient(url)
@@ -39,13 +39,39 @@ func GetUserToken(param *request.UserTokenParams, operationID, host string) (*re
 		return r, err
 	}
 
-	r.ErrCode = uint(resp["errCode"].(float64))
-	r.ErrMsg = resp["errMsg"].(string)
-	r.ErrDlt = resp["errDlt"].(string)
+	code, ok := resp["errCode"].(float64)
+	if !ok {
+		return r, fmt.Errorf("code is not float64")
+	}
+	r.ErrCode = uint(code)
+
+	r.ErrMsg, ok = resp["errMsg"].(string)
+	if !ok {
+		return r, fmt.Errorf("msg is not string")
+	}
+
+	r.ErrDlt, ok = resp["errDlt"].(string)
+	if !ok {
+		return r, fmt.Errorf("msg is not string")
+	}
+
 	if data, ok := resp["data"]; ok {
-		data := data.(map[string]interface{})
-		r.Data.Token = data["token"].(string)
-		r.Data.ExpireTimeSeconds = uint(data["expireTimeSeconds"].(float64))
+		data, ok := data.(map[string]interface{})
+		if !ok {
+			return r, fmt.Errorf("data is not map[string]interface{}")
+		}
+
+		r.Data.Token, ok = data["token"].(string)
+		if !ok {
+			return r, fmt.Errorf("token is not string")
+		}
+
+		expireTimeSeconds, ok := data["expireTimeSeconds"].(float64)
+		if !ok {
+			return r, fmt.Errorf("expireTimeSeconds is not float64")
+		}
+
+		r.Data.ExpireTimeSeconds = uint(expireTimeSeconds)
 	}
 
 	return r, nil

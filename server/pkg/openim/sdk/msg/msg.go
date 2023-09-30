@@ -24,14 +24,14 @@ import (
 )
 
 const (
-	// PATH_SEND_MSG admin send message.
-	PATH_SEND_MSG = "/msg/send_msg"
+	// pathSendMsg admin send message.
+	pathSendMsg = "/msg/send_msg"
 )
 
 // AdminSendMsg admin send message.
 func AdminSendMsg(param *request.MsgInfo, operationID, host, adminToken string) (*response.BaseResponse, error) {
 	// host: http://ip:port
-	url := fmt.Sprintf("%s%s", host, PATH_SEND_MSG)
+	url := fmt.Sprintf("%s%s", host, pathSendMsg)
 
 	r := &response.BaseResponse{}
 	client := client.NewClient(url)
@@ -40,9 +40,21 @@ func AdminSendMsg(param *request.MsgInfo, operationID, host, adminToken string) 
 		return r, err
 	}
 
-	r.ErrCode = uint(resp["errCode"].(float64))
-	r.ErrMsg = resp["errMsg"].(string)
-	r.ErrDlt = resp["errDlt"].(string)
+	code, ok := resp["errCode"].(float64)
+	if !ok {
+		return r, fmt.Errorf("code is not float64")
+	}
+	r.ErrCode = uint(code)
+
+	r.ErrMsg, ok = resp["errMsg"].(string)
+	if !ok {
+		return r, fmt.Errorf("msg is not string")
+	}
+
+	r.ErrDlt, ok = resp["errDlt"].(string)
+	if !ok {
+		return r, fmt.Errorf("msg is not string")
+	}
 
 	if resp["data"] == nil {
 		return r, errors.New("data is nil: " + r.ErrMsg)
