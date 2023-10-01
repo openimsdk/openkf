@@ -45,12 +45,21 @@ class KBConfig:
 
     def get_app_debug(self) -> str:
         return self._config['app']['debug']
+    
+    def get_app_file_dir(self) -> str:
+        return self._config['app']['file_dir']
 
     def get_app_log_path(self) -> str:
         return self._config['app']['log_path']
 
     def get_app_doc(self) -> str:
         return self._config['app']['doc']
+    
+    def get_app_token(self) -> str:
+        return self._config['app']['token']
+    
+    def get_openai_api_key(self) -> str:
+        return self._config['app']['openai_api_key']
 
     ###############################
     # LLM langchain config
@@ -111,3 +120,18 @@ class KBConfig:
     
     def get_fastchat_openai_api_server_port(self) -> str:
         return str(self._config['fastchat']['openai_api_server']['port'])
+    
+    ###############################
+    # Milvus config
+    ###############################
+    def get_milvus_host(self) -> str:
+        return self._config['milvus']['host']
+    
+    def get_milvus_port(self) -> str:
+        return self._config['milvus']['port']
+    
+    def get_milvus_top_k(self) -> str:
+        return self._config['milvus']['top_k']
+    
+    def get_milvus_score_threshold(self) -> str:
+        return self._config['milvus']['score_threshold']
