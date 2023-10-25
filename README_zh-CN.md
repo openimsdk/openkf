@@ -71,15 +71,14 @@ git clone https://github.com/openimsdk/openkf openkf && export openkf=$(pwd)/ope
 
 > **注意**： 我们需要先运行后端服务器
 
-```
-bashCopy code
+```bash
 make build
 ```
 
 > 打开另一个终端并运行以下命令
 
-```
-bashCopy code# make dev
+```bash
+# make dev
 cd web
 npm run dev
 ```
@@ -88,8 +87,8 @@ npm run dev
 
 善用 Makefile，它可以确保你的项目的质量。
 
-```
-bashCopy codeUsage: make <TARGETS> ...
+```bash
+Usage: make <TARGETS> ...
 
 Targets:
   all                          Build all the necessary targets. 🏗️
@@ -117,8 +116,7 @@ Targets:
 
 > **注意**： 我们强烈推荐你在提交代码之前运行 `make all`。🚀
 
-```
-bashCopy code
+```bash
 make all
 ```
 
@@ -134,8 +132,8 @@ make all
 
 目录标准化设计结构：
 
-```
-bashCopy code.
+```bash
+.
 ├── assets
 │   └── images
 ├── build
