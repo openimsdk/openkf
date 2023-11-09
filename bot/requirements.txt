@@ -13,4 +13,5 @@ pymilvus==2.3.0
 colorama==0.4.6
 SentencePiece==0.1.99
 protobuf==4.24.3
+
 python-multipart==0.0.6
