@@ -22,6 +22,30 @@ networks:
         - subnet: '177.8.0.0/16'
         
 services:
+  bot:
+    build:
+      dockerfile: Dockerfile.bot
+    ports:
+      - "10011:10011"
+    networks:
+      openkf-network:
+        ipv4_address: 177.8.0.10
+  server:
+    build:
+      dockerfile: Dockerfile.server
+    ports:
+      - "10010:10010"
+    networks:
+      openkf-network:
+        ipv4_address: 177.8.0.11
+  web:
+    build:
+      dockerfile: Dockerfile.web
+    ports:
+      - "8080:8080"
+    networks:
+      openkf-network:
+        ipv4_address: 177.8.0.12
   mysql:
     image: mysql:5.7
     container_name: openkf-mysql
