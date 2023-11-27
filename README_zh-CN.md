@@ -181,6 +181,13 @@ OpenIMSDK 的目标是构建一个顶级的开源社区。我们有一套标准�
 
 开始前，请确保你的更改是需要的。最好的方式是创建一个[新的讨论](https://github.com/openimsdk/openkf/discussions/new/choose)或者[Slack 交流](https://join.slack.com/t/openimsdk/shared_invite/zt-1tmoj26uf-_FDy3dowVHBiGvLk9e5Xkg)，或者如果你发现了问题，先[报告它](https://github.com/openimsdk/openkf/issues/new/choose)。
 
+**微信群：**
+
+> 如果链接失效了，可以 [提一个 issue 说明](https://github.com/openimsdk/openkf/issues/new/choose)
+
+![024ef07a8c5e56d914a677bb54cf587](http://sm.nsddd.top/sm202311271344480.jpg)
+
+
 ## 🚨 许可证
 
 OpenKF 根据 Apache 2.0 许可证授权。请查看[LICENSE](https://github.com/openimsdk/openkf/tree/main/LICENSE)获取完整的许可证文本。
