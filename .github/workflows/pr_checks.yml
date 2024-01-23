@@ -1,0 +1,51 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Run lint
+        run: make lint
+
+      - name: Run unit tests
+        run: make test
+
+      - name: Calculate code coverage
+        run: make cover
+
+      - name: DCO compliance check
+        run: make dco-check
+
+      - name: Build and package
+        run: make build
+
+      - name: Publish artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: ./build
+
+      - name: Deploy to staging
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        run: make deploy-staging
+
+      - name: Deploy to production
+        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+        run: make deploy-production
