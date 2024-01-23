@@ -1,0 +1,36 @@
+name: Repository Automation
+
+on:
+  issues:
+    types:
+      - opened
+      - edited
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  repository_automation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Run repository automation tasks
+        run: make repository-automation
+
+      - name: Publish repository automation report
+        uses: actions/upload-artifact@v2
+        with:
+          name: repository-automation-report
+          path: repository_automation_report.txt
