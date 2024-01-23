@@ -1,0 +1,26 @@
+name: PR Checks Workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pr_checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: DCO Compliance Check
+        run: |
+          # Add script to check DCO compliance
+
+      - name: Run Tests
+        run: |
+          # Add commands to run x86_64 test batteries
+
+      - name: Code Coverage
+        run: |
+          # Add commands to measure code coverage
