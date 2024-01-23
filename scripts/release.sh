@@ -27,7 +27,7 @@ OPENIM_RELEASE_RUN_TESTS=${OPENIM_RELEASE_RUN_TESTS-y}   # Set the OPENIM_RELEAS
 
 openim::golang::setup_env           # Set up the Golang environment
 openim::build::verify_prereqs       # Verify prerequisites for building
-openim::release::verify_prereqs     # Verify prerequisites for releasing
+openim::release::verify_prereqs\n\n[[ ! "${OPENIM_RELEASE_RUN_TESTS}" == "y" ]] || openim::release::run_tests     # Verify prerequisites for releasing
 
 # Build the image
 #openim::build::build_image
