@@ -186,8 +186,9 @@ If you'd like to contribute to this OpenKF repository, please read our [contribu
 Before you start, please make sure your changes are in demand. The best for that is to create a [new discussion](https://github.com/openimsdk/openkf/discussions/new/choose) OR [Slack Communication](https://join.slack.com/t/openimsdk/shared_invite/zt-22720d66b-o_FvKxMTGXtcnnnHiMqe9Q), or if you find an issue, [report it](https://github.com/openimsdk/openkf/issues/new/choose) first.
 
 **📱 Join Our WeChat Developer Group 🛠️**
-<p>Add as a friend and include the note <code>openkf</code> to receive an invitation to our <strong>'openkf'</strong> developers' group chat. The image below has been resized for optimal display on GitHub README.</p>
-<p><img src="http://sm.nsddd.top/0d6775b78a7bd57e0d8b45cd695bf0df.png" alt="WeChat Group" style="max-width:60%;height:auto;"></p>
+<p>Add as a friend and include the note <code>openkf</code> to receive an invitation to our <strong>' openkf '</strong> developers' group chat.</p>
+<p><img src="http://sm.nsddd.top/0d6775b78a7bd57e0d8b45cd695bf0df.png" alt="WeChat Group" style="max-width:30%;height:auto;"></p>
+
 
 ## 🚨 License
 
