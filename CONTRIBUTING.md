@@ -49,15 +49,15 @@ The [Makefile](./Makefile) is for every developer, even if you don't know how to
 
 Every action to make project OpenKF better is encouraged. On GitHub, every improvement for OpenKF could be via a [PR](https://github.com/openimsdk/openkf/pulls) (short for pull request).
 
-+ If you find a typo, try to fix it!
-+ If you find a bug, try to fix it!
-+ If you find some redundant codes, try to remove them!
-+ If you find some test cases missing, try to add them!
-+ If you could enhance a feature, please **DO NOT** hesitate!
-+ If you find code implicit, try to add comments to make it clear!
-+ If you find code ugly, try to refactor that!
++ If you find a typo, try to fix it! Example: Fix a typo in the README.md file.
++ If you find a bug, try to fix it! Example: Address the null pointer exception in the Server.java file.
++ If you find some redundant codes, try to remove them! Example: Remove duplicate method in the Utils.java file.
++ If you find some test cases missing, try to add them! Example: Add test cases for the DateUtils.java file.
++ If you could enhance a feature, please **DO NOT** hesitate! Example: Enhance the user authentication feature to support two-factor authentication.
++ If you find code implicit, try to add comments to make it clear! Example: Add comments to clarify the purpose of the build() method in the UserBuilder.java file.
++ If you find code ugly, try to refactor that! Example: Refactor the complex logic in the PricingCalculator.java file for better readability.
 + If you can help to improve documents, it could not be better!
-+ If you find document incorrect, just do it and fix that!
++ If you find document incorrect, just do it and fix that! Example: Correct the misleading information in the installation guide.
 + ...
 
 #### Where should I start?
