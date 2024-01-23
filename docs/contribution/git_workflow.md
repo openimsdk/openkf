@@ -13,7 +13,6 @@ This document is an overview of OpenKF git workflow. It includes conventions, ti
     - [Pushing changes](#pushing-changes)
 
 ## Branching model
-
 OpenKF project uses the [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow) as its branching model, where most of the changes come from repositories forks instead of branches within the same one.
 
 ### Branch naming conventions
@@ -28,7 +27,6 @@ release-2.4.0                            \---------------. (OpenKF 2.40)
 
 
 ### Backport policy
-
 All new work happens on the main branch, which means that for most cases, one should branch out from there and create the pull request against it. If the change involves adding a feature or patching OpenKF, the maintainers will backport it into the supported release branches.
 
 ## Git operations
@@ -63,7 +61,38 @@ git remote set-url --push upstream no_push
 ## Confirm that your remotes make sense:
 git remote -v
 ```
+## Git operations
 
+There are everyday tasks related to git that every contributor needs to perform, and this section elaborates on them.
+
+### Setting up
+
+Creating a OpenKF fork, cloning it, and setting its upstream remote can be summarized on:
+
+1. Visit <https://github.com/openimsdk/openkf>
+2. Click the `Fork` button (top right) to establish a cloud-based fork
+3. Clone fork to local storage
+4. Add to your fork OpenKF remote as upstream
+
+Once cloned, in code it would look this way:
+
+```sh
+## Clone fork to local storage
+export user="your github profile name"
+git clone https://github.com/$user/OpenKF.git
+# or: git clone git@github.com:$user/OpenKF.git
+
+## Add OpenKF as upstream to your fork
+cd OpenKF 
+git remote add upstream https://github.com/openimsdk/openkf.git
+# or: git remote add upstream git@github.com:OpenIMSDK/OpenKF.git
+
+## Ensure to never push to upstream directly
+git remote set-url --push upstream no_push
+
+## Confirm that your remotes make sense:
+git remote -v
+```
 ### Branching out
 
 Every time one wants to work on a new OpenKF feature, we do:
