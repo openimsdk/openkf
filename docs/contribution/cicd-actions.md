@@ -1,27 +1,31 @@
-# Continuous Integration and Automation
+### Troubleshooting GitHub Actions Failures
 
-Every change on the OpenKF repository, either made through a pull request or direct push, triggers the continuous integration pipelines defined within the same repository. Needless to say, all the OpenKF contributions can be merged until all the checks pass (AKA having green builds).
+If you encounter failures in GitHub Actions, you can follow these steps to debug and fix common issues:
 
-- [Continuous Integration and Automation](#continuous-integration-and-automation)
-  - [CI Platforms](#ci-platforms)
-    - [GitHub Actions](#github-actions)
-  - [Running locally](#running-locally)
+1. Check the error logs: When a GitHub Actions run fails, it provides error logs that can help identify the cause of the failure. Look for any error messages or stack traces in the logs.
 
-## CI Platforms
+2. Review the workflow file: The GitHub Actions are defined as YAML files under the `.github/workflows` directory. Make sure to review the workflow file associated with the failed run. Check if there are any syntax errors or misconfigurations in the file.
 
-Currently, there are two different platforms involved in running the CI processes:
+3. Verify dependencies and versions: GitHub Actions may rely on specific dependencies or versions. Ensure that all the required dependencies are correctly specified in the workflow file and that the versions are compatible.
 
-- GitHub actions
-- Drone pipelines on CNCF infrastructure
+4. Check environment variables: GitHub Actions often use environment variables to configure the workflow. Verify that the required environment variables are set correctly and have the expected values.
 
-### GitHub Actions
+5. Test locally: To debug the issue further, you can try running the workflow locally. Follow the instructions in the workflow file to set up the necessary environment and execute the workflow steps on your local machine. This can help identify any environment-specific issues.
 
-All the existing GitHub Actions are defined as YAML files under the `.github/workflows` directory. These can be grouped into:
+6. Consult the GitHub Actions documentation: GitHub provides extensive documentation on using and troubleshooting GitHub Actions. Refer to the official documentation for guidance on specific issues or error messages.
 
-- **PR Checks**. These actions run all the required validations upon PR creation and update. Covering the DCO compliance check, `x86_64` test batteries (unit, integration, smoke), and code coverage.
-- **Repository automation**. Currently, it only covers issues and epic grooming.
+By following these steps, you should be able to troubleshoot and fix common issues that can cause GitHub Actions failures.
 
-Everything runs on GitHub's provided runners; thus, the tests are limited to run in `x86_64` architectures.
+## Running locally
+
+A contributor should verify their changes locally to speed up the pull request process. Fortunately, all the CI steps can be on local environments, except for the publishing ones, through either of the following methods:
+
+**User Makefile:**
+```bash
+root@PS2023EVRHNCXG:~/workspaces/OpenKF/Open-IM-Server# make help 😊
+
+Usage: make <TARGETS> <OPTIONS> ...
+```
 
 
 ## Running locally
@@ -33,7 +37,6 @@ A contributor should verify their changes locally to speed up the pull request p
 root@PS2023EVRHNCXG:~/workspaces/OpenKF/Open-IM-Server# make help 😊
 
 Usage: make <TARGETS> <OPTIONS> ...
-
 Targets:
 
 all                          Run tidy, gen, add-copyright, format, lint, cover, build 🚀
