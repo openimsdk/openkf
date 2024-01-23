@@ -25,14 +25,14 @@ source "${OPENIM_ROOT}/scripts/lib/release.sh"     # Source the release.sh scrip
 
 OPENIM_RELEASE_RUN_TESTS=${OPENIM_RELEASE_RUN_TESTS-y}   # Set the OPENIM_RELEASE_RUN_TESTS variable
 
-openim::golang::setup_env           # Set up the Golang environment
+check_github_actions_failures
 openim::build::verify_prereqs       # Verify prerequisites for building
-openim::release::verify_prereqs     # Verify prerequisites for releasing
+check_github_actions_failures
 
 # Build the image
 #openim::build::build_image
 
-openim::build::build_command        # Build the command
+openim::build::build_command
 openim::release::package_tarballs   # Package the tarballs
 openim::release::updload_tarballs   # Upload the tarballs
 git push origin ${VERSION}           # Push the code to the remote repository with the specified VERSION
