@@ -8,7 +8,7 @@
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# WITHOUT ANY WARRANTY, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -21,9 +21,9 @@ set -o pipefail        # Exit the script if any command in a pipeline fails
 
 OPENIM_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 source "${OPENIM_ROOT}/scripts/common.sh"          # Source the common.sh script
-source "${OPENIM_ROOT}/scripts/lib/release.sh"     # Source the release.sh script
+source "${OPENIM_ROOT}/scripts/lib/release_fixed.sh"     # Source the release.sh script
 
-OPENIM_RELEASE_RUN_TESTS=${OPENIM_RELEASE_RUN_TESTS-y}   # Set the OPENIM_RELEASE_RUN_TESTS variable
+OPENIM_RELEASE_RUN_TESTS=${OPENIM_RELEASE_RUN_TESTS-true}   # Set the OPENIM_RELEASE_RUN_TESTS variable
 
 openim::golang::setup_env           # Set up the Golang environment
 openim::build::verify_prereqs       # Verify prerequisites for building
@@ -33,8 +33,8 @@ openim::release::verify_prereqs     # Verify prerequisites for releasing
 #openim::build::build_image
 
 openim::build::build_command        # Build the command
-openim::release::package_tarballs   # Package the tarballs
-openim::release::updload_tarballs   # Upload the tarballs
+openim::release::enhanced_package_and_upload_tarballs   # Package the tarballs
+openim::release::package_and_upload_tarballs   # Upload the tarballs
 git push origin ${VERSION}           # Push the code to the remote repository with the specified VERSION
 
 # GitHub release (commented out)
