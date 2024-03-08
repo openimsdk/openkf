@@ -15,11 +15,17 @@
 package config
 
 import (
+	"flag"
 	"fmt"
 	"log"
+	"os"
+	"path/filepath"
+	"runtime"
 
 	"github.com/spf13/viper"
 )
+
+var configPath string
 
 func initViper(configPath string) {
 	fmt.Printf("[OpenKF] Load config from %s ... ", configPath)
@@ -30,6 +36,35 @@ func initViper(configPath string) {
 	}
 
 	fmt.Println("Load ok")
+}
+
+func InitializeConfig() {
+	flagConfigPath := flag.String("c", "server/config.yaml", "config file path")
+	flag.Parse()
+
+	envConfigPath := os.Getenv("OPENKF_CONFIG")
+
+	if *flagConfigPath != "" {
+		configPath = *flagConfigPath
+	} else if envConfigPath != "" {
+		configPath = envConfigPath
+	} else {
+		configPath = findDefaultConfigPath()
+	}
+	ConfigInit(configPath)
+}
+
+func findDefaultConfigPath() string {
+	_, currentFilePath, _, _ := runtime.Caller(0)
+	basePath := filepath.Dir(currentFilePath)
+	configFilePath := filepath.Join(basePath, "config.yaml")
+
+	if _, err := os.Stat(configFilePath); os.IsNotExist(err) {
+		upperPath := filepath.Dir(basePath)
+		configFilePath = filepath.Join(upperPath, "config.yaml")
+	}
+
+	return configFilePath
 }
 
 // GetInterface get interface config.
