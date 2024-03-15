@@ -13,11 +13,11 @@
 # limitations under the License.
 
 # Build stage
-FROM golang:1.20 as builder
+FROM golang:1.21 as builder
 
 WORKDIR /openkf-server
 
-COPY /server .
+COPY . .
 
 RUN go env -w GO111MODULE=on \
     && go env -w CGO_ENABLED=0 \
