@@ -1,0 +1,13 @@
+name: Go Typecheck Workflow Test
+
+on: [push, pull_request]
+
+jobs:
+  go-language-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Go Code Language typecheck
+        uses: kubecub/typecheck@main
