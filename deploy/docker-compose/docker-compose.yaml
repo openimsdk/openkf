@@ -23,35 +23,57 @@ networks:
         
 services:
   bot:
-    build:
-      dockerfile: Dockerfile.bot
+    image: ghcr.io/openimsdk/openkf-bot:latest
+    container_name: openkf-bot
+    hostname: openkf-bot
+    profiles:
+      - dev
+      - test
+      - prod
     ports:
       - "10011:10011"
     networks:
       openkf-network:
         ipv4_address: 177.8.0.10
+
   server:
-    build:
-      dockerfile: Dockerfile.server
+    image: ghcr.io/openimsdk/openkf-server:latest
+    container_name: openkf-server
+    hostname: openkf-server
+    profiles:
+      - dev
+      - test
+      - prod
     ports:
       - "10010:10010"
     networks:
       openkf-network:
         ipv4_address: 177.8.0.11
+
   web:
-    build:
-      dockerfile: Dockerfile.web
+    image: ghcr.io/openimsdk/openkf-web:latest
+    container_name: openkf-web
+    hostname: openkf-web
+    profiles:
+      - dev
+      - test
+      - prod
     ports:
       - "8080:8080"
     networks:
       openkf-network:
         ipv4_address: 177.8.0.12
+
   mysql:
-    image: mysql:5.7
+    image: mariadb:10.6
     container_name: openkf-mysql
     hostname: openkf-mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
+    profiles:
+      - dev
+      - test
+      - prod
     ports:
       - "3406:3306"
     environment:
@@ -64,6 +86,7 @@ services:
       # - MYSQL_MAX_IDLE_CONNS=20
     volumes:
       - mysql_data_573:/var/lib/mysql
+      - /etc/localtime:/etc/localtime
     networks:
       openkf-network:
         ipv4_address: 177.8.0.3
@@ -74,8 +97,17 @@ services:
     hostname: openkf-redis
     command: redis-server --requirepass openkf
     restart: always
+    profiles:
+      - dev
+      - test
+      - prod
     ports:
       - '6479:6379'
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
     volumes:
       - redis_data:/data
     networks:
@@ -91,6 +123,11 @@ services:
     volumes:
       - minio_data:/data
       - minio_config:/root/.minio
+    restart: always
+    profiles:
+      - dev
+      - test
+      - prod
     environment:
       - MINIO_ROOT_USER=test123123
       - MINIO_ROOT_PASSWORD=test123123
@@ -100,7 +137,7 @@ services:
     networks:
       openkf-network:
         ipv4_address: 177.8.0.5
-  
+
   influxdb:
     image: influxdb:2.7.1
     container_name: openkf-influxdb
@@ -108,6 +145,11 @@ services:
       - "8186:8086"
     volumes:
       - influxdb_data:/var/lib/influxdb
+    restart: always
+    profiles:
+      - dev
+      - test
+      - prod
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=admin
@@ -130,6 +172,11 @@ services:
       - ETCD_SNAPSHOT_COUNT=50000
     volumes:
       - milvus-etcd:/etcd
+    restart: always
+    profiles:
+      - dev
+      - test
+      - prod
     command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
     networks:
       openkf-network:
@@ -144,6 +191,11 @@ services:
     volumes:
       - milvus-minio:/minio_data
     command: minio server /minio_data
+    restart: always
+    profiles:
+      - dev
+      - test
+      - prod
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -162,6 +214,11 @@ services:
       MINIO_ADDRESS: milvus-minio:9000
     volumes:
       - milvus-standalone:/var/lib/milvus
+    restart: always
+    profiles:
+      - dev
+      - test
+      - prod
     ports:
       - "19530:19530"
       - "9091:9091"
