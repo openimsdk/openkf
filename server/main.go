@@ -15,7 +15,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 
 	"github.com/openimsdk/openkf/server/internal/config"
@@ -30,12 +29,7 @@ import (
 )
 
 func init() {
-	// arg
-	configPath := flag.String("c", "./config.yaml", "config file path")
-	flag.Parse()
-
-	// init
-	config.ConfigInit(*configPath)
+	config.InitializeConfig()
 	utils.OpenKFBanner()
 	log.InitLogger()
 	db.InitMysqlDB()

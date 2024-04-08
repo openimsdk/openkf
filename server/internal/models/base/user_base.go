@@ -17,7 +17,6 @@ package base
 // UserBase user base model.
 type UserBase struct {
 	Model
-
 	UUID        string `json:"uuid"     gorm:"index;type:varchar(36);not null;comment:UUID"`
 	Email       string `json:"email"    gorm:"type:varchar(255);not null;unique;comment:Email"`
 	Nickname    string `json:"nickname" gorm:"type:varchar(20);not null;comment:Nickname"`

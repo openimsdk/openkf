@@ -47,6 +47,12 @@ TMP_DIR := $(OUTPUT_DIR)/tmp
 $(shell mkdir -p $(TMP_DIR))
 endif
 
+ifeq ($(origin LOG_DIR),undefined)
+LOG_DIR := $(OUTPUT_DIR)/logs
+$(shell mkdir -p $(LOG_DIR))
+endif
+
+# VERSION_PACKAGE: The package where the version information is stored.
 ifeq ($(origin VERSION), undefined)
 VERSION := $(shell git describe --tags --always --match="v*" --dirty | sed 's/-/./g')	#v2.3.3.631.g00abdc9b.dirty
 endif
@@ -63,6 +69,7 @@ IMG ?= openim/openkf:test
 
 BUILDFILE = "./main.go"
 BUILDAPP = "$(OUTPUT_DIR)/"
+PID_FILE := openkf.pid
 
 # Define the directory you want to copyright
 CODE_DIRS := $(ROOT_DIR)/.github $(ROOT_DIR)/server $(ROOT_DIR)/scripts $(ROOT_DIR)/build $(ROOT_DIR)/web $(ROOT_DIR)/kf_plugins
@@ -246,6 +253,44 @@ fmt:
 vet:
 	@cd $(SERVER_DIR) && $(GO) vet ./... 
 
+APP_NAME := openkf
+## start: Start the OpenKF service
+.PHONY: start
+start: stop
+	@if [ ! -f $(BIN_DIR)/platforms/openkf ]; then \
+		echo "$(BIN_DIR)/platforms/openkf does not exist. Building $(APP_NAME)..."; \
+		make build; \
+	fi
+	@if [ -s $(PID_FILE) ] && kill -0 `cat $(PID_FILE)` > /dev/null 2>&1; then \
+		echo "$(APP_NAME) is already running, stopping..."; \
+		make stop; \
+	fi
+	@echo "Starting $(APP_NAME)..."
+	@nohup $(BIN_DIR)/platforms/openkf > $(LOG_DIR)/$(APP_NAME).log 2>&1 & echo $$! > $(PID_FILE)
+	@echo "$(APP_NAME) started at `date`"
+	@echo "Process name: $(APP_NAME), PID: `cat $(PID_FILE)`"
+	@echo "Logs are being written to $(LOG_DIR)/$(APP_NAME).log"
+
+## check: Check the OpenKF service
+.PHONY: check
+check:
+	@if [ -s $(PID_FILE) ] && kill -0 `cat $(PID_FILE)` > /dev/null 2>&1; then \
+		echo "$(APP_NAME) is running"; \
+		echo "Start time: `ps -p \`cat $(PID_FILE)\` -o lstart=`"; \
+		echo "Process name: $(APP_NAME), PID: `cat $(PID_FILE)`"; \
+	else \
+		echo "$(APP_NAME) is not running"; \
+	fi
+
+## stop: Stop the OpenKF service
+.PHONY: stop
+stop:
+	@if [ -s $(PID_FILE) ] && kill -0 `cat $(PID_FILE)` > /dev/null 2>&1; then \
+		kill `cat $(PID_FILE)` && echo "Stopped openkf" && rm -f $(PID_FILE); \
+	else \
+		echo "openkf was not running"; \
+	fi
+
 ## generate: Run go generate against code and docs. 
 .PHONY: generate
 generate:
@@ -351,8 +396,8 @@ release.ensure-tag: tools.verify.gsemver
 ## clean: Clean all builds.
 .PHONY: clean
 clean:
-	@echo "===========> Cleaning all builds TMP_DIR($(TMP_DIR)) AND BIN_DIR($(BIN_DIR))"
-	@-rm -vrf $(TMP_DIR) $(BIN_DIR)
+	@echo "===========> Cleaning all builds TMP_DIR($(TMP_DIR)) AND BIN_DIR($(BIN_DIR)) AND LOG_DIR($(LOG_DIR))..."
+	@-rm -vrf $(TMP_DIR) $(BIN_DIR) $(LOG_DIR)
 	@echo "===========> End clean..."
 
 ## help: Show this help info.
