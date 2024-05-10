@@ -183,7 +183,7 @@ OpenIMSDK Our goal is to build a top-level open source community. We have a set 
 
 If you'd like to contribute to this OpenKF repository, please read our [contributor documentation](https://github.com/openimsdk/openkf/blob/main/CONTRIBUTING.md).
 
-Before you start, please make sure your changes are in demand. The best for that is to create a [new discussion](https://github.com/openimsdk/openkf/discussions/new/choose) OR [Slack Communication](https://join.slack.com/t/openimsdk/shared_invite/zt-22720d66b-o_FvKxMTGXtcnnnHiMqe9Q), or if you find an issue, [report it](https://github.com/openimsdk/openkf/issues/new/choose) first.
+Before you start, please make sure your changes are in demand. The best for that is to create a [new discussion](https://github.com/openimsdk/openkf/discussions/new/choose) OR [Slack Communication](https://join.slack.com/t/openimsdk/shared_invite/zt-2iefvsdtj-IUyxd9EObUbwPl2Rp5w_~A), or if you find an issue, [report it](https://github.com/openimsdk/openkf/issues/new/choose) first.
 
 **📱 Join Our WeChat Developer Group 🛠️**
 <p>Add as a friend and include the note <code>openkf</code> to receive an invitation to our <strong>' openkf '</strong> developers' group chat.</p>
