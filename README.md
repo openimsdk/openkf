@@ -172,7 +172,7 @@ Catalog standardization design structure:
 
 We want anyone to get involved in our community, we offer gifts and rewards, and we welcome you to join us every Thursday night.
 
-Our conference is in the [OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-22720d66b-o_FvKxMTGXtcnnnHiMqe9Q) 🎯 `openkf` pipeline, then you can search the openkf pipeline to join
+Our conference is in the [OpenIM Slack](https://join.slack.com/t/openimsdk/shared_invite/zt-2iefvsdtj-IUyxd9EObUbwPl2Rp5w_~A) 🎯 `openkf` pipeline, then you can search the openkf pipeline to join
 
 We take notes of each [biweekly meeting](https://github.com/orgs/OpenIMSDK/discussions/categories/meeting) in [GitHub discussions](https://github.com/openimsdk/openkf/discussions/categories/meeting), and our minutes are written in [Google Docs](https://docs.google.com/document/d/1nx8MDpuG74NASx081JcCpxPgDITNTpIIos0DS6Vr9GU/edit?usp=sharing).
 
