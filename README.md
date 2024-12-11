@@ -1,3 +1,5 @@
+ ⚠️ deprecated
+
 <p align="center">
     <a href="https://openkf.github.io/website" target="_blank">
         <img src="assets/logo-gif/openkf-logo.gif" width="60%" height="30%"/>
